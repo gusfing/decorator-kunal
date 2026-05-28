@@ -1,5 +1,5 @@
 import { useGSAP } from "@gsap/react";
-import gsap, { SplitText } from "gsap/all";
+import gsap from "gsap";
 import { useMediaQuery } from "react-responsive";
 // If the constants file still has the old names:
 import { chooseLinesSM as activitiesLinesSM } from "../constants/welcome"; import './activities.css';

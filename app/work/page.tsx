@@ -412,7 +412,7 @@ export default function Work() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", filter: "brightness(0) invert(1)", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                   <span className="footer-logo-text" style={{ display: "none" }}>Decor Lab</span>
                 </div>
                 <p className="footer-desc">

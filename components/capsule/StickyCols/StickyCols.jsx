@@ -1,8 +1,9 @@
-import gsap, { ScrollTrigger, SplitText } from "gsap/all";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-const colimg1 = "/assets/capsule/cap1-square.jpg";;
-const colimg2 = "/assets/capsule/cap2-square.jpg";;
-const colimg3 = "/assets/capsule/cap3-square.jpg";;
+const colimg1 = "/assets/capsule/cap1-square.jpg";
+const colimg2 = "/assets/capsule/cap2-square.jpg";
+const colimg3 = "/assets/capsule/cap3-square.jpg";
 import { useState } from "react";
 
 const StickyCols = () => {
@@ -10,19 +11,7 @@ const StickyCols = () => {
     const [reveal, setReveal] = useState(false);
 
     useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger, SplitText);
-
-        // 1️⃣ Split text lines once DOM ready
-        const textElements = document.querySelectorAll(".col-3 h1, .col-3 p");
-        textElements.forEach((element) => {
-            const split = new SplitText(element, { type: "lines", linesClass: "line" });
-            split.lines.forEach((line) => {
-                line.innerHTML = `<span>${line.textContent}</span>`;
-            });
-        });
-
-        // Refresh ScrollTrigger after split
-        ScrollTrigger.refresh();
+        gsap.registerPlugin(ScrollTrigger);
 
         // 2️⃣ Initial state
         gsap.set(".col-3 .col-content-wrapper .line span", { yPercent: 0 });
@@ -115,43 +104,39 @@ const StickyCols = () => {
                 </div>
                 <div className="col col-3">
                     <div className="col-content-wrapper">
-                        <h1 className="text-2xl font-bold leading-auto">Enjoy the view
-                            <br />
-                            through—the wide
-                            <br />
-                            panoramic glass
-                            <br />
-                            window
+                        <h1 className="text-2xl font-bold leading-auto">
+                            <div className="line block overflow-hidden"><span className="block">Enjoy the view</span></div>
+                            <div className="line block overflow-hidden"><span className="block">through—the wide</span></div>
+                            <div className="line block overflow-hidden"><span className="block">panoramic glass</span></div>
+                            <div className="line block overflow-hidden"><span className="block">window</span></div>
                         </h1>
                         <div className={`col-content-para flex items-center gap-4 justify-between ${reveal ? "ml-0" : "ml-6"}`}>
                             <div className="flex items-center gap-0 justify-center">
                                 <h3 className="border-1 px-3 py-1 rounded-full text-[#aaa091]">{(reveal) ? "3" : "2"}</h3>
                                 <h3 className="border-1 px-3 py-1 rounded-full text-[#524e4b]">3</h3>
                             </div>
-                            <p className="text-[12px] font-medium"> Get closer to the desert nature than ever before
-                                <br />
-                                and admire this unique, breathtaking landscape.
-                            </p>
+                            <div className="text-[12px] font-medium">
+                                <div className="line block overflow-hidden"><span className="block">Get closer to the desert nature than ever before</span></div>
+                                <div className="line block overflow-hidden"><span className="block">and admire this unique, breathtaking landscape.</span></div>
+                            </div>
                         </div>
                     </div>
                     <div className="col-content-wrapper-2">
-                        <h1 className="text-2xl font-bold leading-auto">Enjoy the view
-                            <br />
-                            through—the wide
-                            <br />
-                            panoramic glass
-                            <br />
-                            window
+                        <h1 className="text-2xl font-bold leading-auto">
+                            <div className="line block overflow-hidden"><span className="block">Enjoy the view</span></div>
+                            <div className="line block overflow-hidden"><span className="block">through—the wide</span></div>
+                            <div className="line block overflow-hidden"><span className="block">panoramic glass</span></div>
+                            <div className="line block overflow-hidden"><span className="block">window</span></div>
                         </h1>
                         <div className="col-content-para flex items-center gap-4 justify-between">
                             <div className="flex items-center gap-0 justify-center">
                                 {/* <h3 className="border-1 px-3 py-1 rounded-full text-[#aaa091]">3</h3>
                                 <h3 className="border-1 px-3 py-1 rounded-full text-[#524e4b]">3</h3> */}
                             </div>
-                            <p className={`text-[12px] font-medium  ${!reveal ? "mr-0" : "mr-6"}`}> Get closer to the desert nature than ever before
-                                <br />
-                                and admire this unique, breathtaking landscape.
-                            </p>
+                            <div className={`text-[12px] font-medium  ${!reveal ? "mr-0" : "mr-6"}`}>
+                                <div className="line block overflow-hidden"><span className="block">Get closer to the desert nature than ever before</span></div>
+                                <div className="line block overflow-hidden"><span className="block">and admire this unique, breathtaking landscape.</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>

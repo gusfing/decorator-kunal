@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { MagicText } from "@/components/ui/magic-text";
+import Gallery from "../components/capsule/Gallery/Gallery";
+import Feedback from "../components/urbanland/Feedback";
+import FooterBanner from "../components/urbanland/FooterBanner";
 
 // Register GSAP plugins
 gsap.registerPlugin(CustomEase, ScrollTrigger);
@@ -301,71 +304,87 @@ export default function Home() {
     // Split text selector helpers
     const chars = gsap.utils.toArray<HTMLElement>("#preloader-title-link .char");
     const lines = gsap.utils.toArray<HTMLElement>(".preloader-copy p .line");
-    const heroLines = gsap.utils.toArray<HTMLElement>(".hero-title .line");
+    const heroLines = gsap.utils.toArray<HTMLElement>(".hero-brand-title");
     const preloaderImages = gsap.utils.toArray<HTMLElement>(".preloader-images .img");
     const preloaderImagesInner = gsap.utils.toArray<HTMLElement>(".preloader-images .img img");
 
     // Initialize offsets
-    chars.forEach((char, i) => {
-      gsap.set(char, { yPercent: i % 2 === 0 ? -100 : 100 });
-    });
-    gsap.set(lines, { yPercent: 100 });
-    gsap.set(heroLines, { yPercent: 100 });
+    if (chars.length > 0) {
+      chars.forEach((char, i) => {
+        gsap.set(char, { yPercent: i % 2 === 0 ? -100 : 100 });
+      });
+    }
+    if (lines.length > 0) {
+      gsap.set(lines, { yPercent: 100 });
+    }
+    if (heroLines.length > 0) {
+      gsap.set(heroLines, { yPercent: 100 });
+    }
 
     const tl = gsap.timeline({ delay: 0.25 });
 
     // Progress Bar loading phase
-    tl.to(".progress-bar", {
-      scaleX: 1,
-      duration: 3,
-      ease: "power3.inOut",
-    })
-      .set(".progress-bar", { transformOrigin: "right" })
-      .to(".progress-bar", {
-        scaleX: 0,
-        duration: 0.8,
-        ease: "power3.in",
-      });
+    if (document.querySelector(".progress-bar")) {
+      tl.to(".progress-bar", {
+        scaleX: 1,
+        duration: 3,
+        ease: "power3.inOut",
+      })
+        .set(".progress-bar", { transformOrigin: "right" })
+        .to(".progress-bar", {
+          scaleX: 0,
+          duration: 0.8,
+          ease: "power3.in",
+        });
+    }
 
     // Image polygon reveals
-    preloaderImages.forEach((img, i) => {
-      tl.to(
-        img,
-        {
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          duration: 0.8,
-          ease: "hop",
-          delay: i * 0.55,
-        },
-        "-=3.8"
-      );
-    });
+    if (preloaderImages.length > 0) {
+      preloaderImages.forEach((img, i) => {
+        tl.to(
+          img,
+          {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            duration: 0.8,
+            ease: "hop",
+            delay: i * 0.55,
+          },
+          "-=3.8"
+        );
+      });
+    }
 
-    preloaderImagesInner.forEach((img, i) => {
-      tl.to(
-        img,
-        {
-          scale: 1,
-          duration: 1.2,
-          ease: "hop",
-          delay: i * 0.55,
-        },
-        "-=4.0"
-      );
-    });
+    if (preloaderImagesInner.length > 0) {
+      preloaderImagesInner.forEach((img, i) => {
+        tl.to(
+          img,
+          {
+            scale: 1,
+            duration: 1.2,
+            ease: "hop",
+            delay: i * 0.55,
+          },
+          "-=4.0"
+        );
+      });
+    }
 
     // Preloader copy reveals
-    tl.to(
-      lines,
-      {
-        yPercent: 0,
-        duration: 1.5,
-        ease: "hop",
-        stagger: 0.08,
-      },
-      "-=4.2"
-    )
-      .to(
+    if (lines.length > 0) {
+      tl.to(
+        lines,
+        {
+          yPercent: 0,
+          duration: 1.5,
+          ease: "hop",
+          stagger: 0.08,
+        },
+        "-=4.2"
+      );
+    }
+    
+    if (chars.length > 0) {
+      tl.to(
         chars,
         {
           yPercent: 0,
@@ -374,8 +393,11 @@ export default function Home() {
           stagger: 0.02,
         },
         "-=3.8"
-      )
-      .to(
+      );
+    }
+    
+    if (document.querySelector(".preloader-images")) {
+      tl.to(
         ".preloader-images",
         {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
@@ -383,8 +405,11 @@ export default function Home() {
           ease: "hop",
         },
         "-=1.2"
-      )
-      .to(
+      );
+    }
+    
+    if (lines.length > 0) {
+      tl.to(
         lines,
         {
           y: "-125%",
@@ -394,81 +419,87 @@ export default function Home() {
         },
         "-=1.5"
       );
+    }
 
     // Characters meeting stagger logo merger
-    tl.to(
-      chars,
-      {
-        yPercent: (index) => {
-          if (index === 0 || index === chars.length - 1) return 0;
-          return index % 2 === 0 ? 100 : -100;
-        },
-        duration: 0.8,
-        ease: "hop",
-        stagger: 0.02,
-        delay: 0.3,
-        onStart: () => {
-          const initialChar = chars[0];
-          const lastChar = chars[chars.length - 1];
-
-          if (initialChar && lastChar) {
-            const initialCharMask = initialChar.parentElement;
-            const lastCharMask = lastChar.parentElement;
-
-            if (initialCharMask) initialCharMask.style.overflow = "visible";
-            if (lastCharMask) lastCharMask.style.overflow = "visible";
-
-            const viewportWidth = window.innerWidth;
-            const centerX = viewportWidth / 2;
-            const initialCharRect = initialChar.getBoundingClientRect();
-            const lastCharRect = lastChar.getBoundingClientRect();
-
-            // Animate initial 'E' and last 'e' to merge in the center and fade to white
-            gsap.to([initialChar, lastChar], {
-              duration: 0.8,
-              ease: "hop",
-              delay: 0.3,
-              color: "#ffffff",
-              x: (i) => {
-                if (i === 0) {
-                  return centerX - initialCharRect.left - initialCharRect.width;
-                } else {
-                  return centerX - lastCharRect.left;
-                }
-              },
-              onComplete: () => {
-                // Apply difference blend overlay
-                gsap.set(headerContainer, { mixBlendMode: "difference" });
-
-                // Travel and scale merged letters up to Nav Logo position
-                gsap.to(headerContainer, {
-                  y: "2.5rem",
-                  scale: 0.28,
-                  duration: 1.2,
-                  ease: "hop",
-                  onComplete: () => {
-                    // Preloader ends! Reveal main page structure
-                    setIsPreloaded(true);
-                    setShowPreloader(false);
-                  },
-                });
-              },
-            });
-          }
-        },
-      },
-      "-=2.0"
-    )
-      .to(
-        preloader,
+    if (chars.length > 0) {
+      tl.to(
+        chars,
         {
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-          duration: 1.5,
+          yPercent: (index) => {
+            if (index === 0 || index === chars.length - 1) return 0;
+            return index % 2 === 0 ? 100 : -100;
+          },
+          duration: 0.8,
           ease: "hop",
+          stagger: 0.02,
+          delay: 0.3,
+          onStart: () => {
+            const initialChar = chars[0];
+            const lastChar = chars[chars.length - 1];
+
+            if (initialChar && lastChar) {
+              const initialCharMask = initialChar.parentElement;
+              const lastCharMask = lastChar.parentElement;
+
+              if (initialCharMask) initialCharMask.style.overflow = "visible";
+              if (lastCharMask) lastCharMask.style.overflow = "visible";
+
+              const viewportWidth = window.innerWidth;
+              const centerX = viewportWidth / 2;
+              const initialCharRect = initialChar.getBoundingClientRect();
+              const lastCharRect = lastChar.getBoundingClientRect();
+
+              // Animate initial 'E' and last 'e' to merge in the center and fade to white
+              gsap.to([initialChar, lastChar], {
+                duration: 0.8,
+                ease: "hop",
+                delay: 0.3,
+                color: "#ffffff",
+                x: (i) => {
+                  if (i === 0) {
+                    return centerX - initialCharRect.left - initialCharRect.width;
+                  } else {
+                    return centerX - lastCharRect.left;
+                  }
+                },
+                onComplete: () => {
+                  // Apply difference blend overlay
+                  gsap.set(headerContainer, { mixBlendMode: "difference" });
+
+                  // Travel and scale merged letters up to Nav Logo position
+                  gsap.to(headerContainer, {
+                    y: "2.5rem",
+                    scale: 0.28,
+                    duration: 1.2,
+                    ease: "hop",
+                    onComplete: () => {
+                      // Preloader ends! Reveal main page structure
+                      setIsPreloaded(true);
+                      setShowPreloader(false);
+                    },
+                  });
+                },
+              });
+            }
+          },
         },
-        "-=0.4"
-      )
-      .to(
+        "-=2.0"
+      );
+    }
+
+    tl.to(
+      preloader,
+      {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        duration: 1.5,
+        ease: "hop",
+      },
+      "-=0.4"
+    );
+
+    if (heroLines.length > 0) {
+      tl.to(
         heroLines,
         {
           yPercent: 0,
@@ -478,6 +509,7 @@ export default function Home() {
         },
         "-=0.6"
       );
+    }
   }, []);
 
   // Horizontal scroll catalogues timeline pinning using ScrollTrigger
@@ -541,97 +573,116 @@ export default function Home() {
       gsap.set(scrollTrack, { x: 0 });
     });
 
-    // Process section scroll-triggered stagger reveal
-    gsap.fromTo(
-      "#process .serif-headline",
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: "#process",
-          start: "top 80%",
-        },
-      }
-    );
-
-    gsap.fromTo(
-      "#process .step-card-new",
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: "#process .editorial-steps-grid",
-          start: "top 85%",
-        },
-      }
-    );
-
-    // Collection section scroll-triggered stagger reveal
-    gsap.fromTo(
-      "#collection .gallery-text-col > *",
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: "#collection",
-          start: "top 80%",
-        },
-      }
-    );
-
-    // Stagger reveal on the gallery images
-    const collectionImgs = gsap.utils.toArray<HTMLElement>("#collection .reveal-gallery-img");
-    collectionImgs.forEach((img) => {
-      gsap.fromTo(
-        img,
-        { opacity: 0, y: 60, scale: 0.96 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: img,
-            start: "top 85%",
-          },
-        }
-      );
-    });
-
-    // Parallax scroll on images
-    collectionImgs.forEach((img) => {
-      const innerImg = img.querySelector("img");
-      if (innerImg) {
+    mm.add("(min-width: 0px)", () => {
+      // Process section scroll-triggered stagger reveal
+      if (document.querySelector("#process .serif-headline")) {
         gsap.fromTo(
-          innerImg,
-          { yPercent: -8 },
+          "#process .serif-headline",
+          { opacity: 0, y: 40 },
           {
-            yPercent: 8,
-            ease: "none",
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power4.out",
             scrollTrigger: {
-              trigger: img,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
+              trigger: "#process",
+              start: "top 80%",
             },
           }
         );
       }
+
+      if (document.querySelector("#process .step-card-new")) {
+        gsap.fromTo(
+          "#process .step-card-new",
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: "#process .editorial-steps-grid",
+              start: "top 85%",
+            },
+          }
+        );
+      }
+
+      // Collection section scroll-triggered stagger reveal
+      if (document.querySelector("#collection .gallery-text-col > *")) {
+        gsap.fromTo(
+          "#collection .gallery-text-col > *",
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: "#collection",
+              start: "top 80%",
+            },
+          }
+        );
+      }
+
+      // Stagger reveal on the gallery images
+      const collectionImgs = gsap.utils.toArray<HTMLElement>("#collection .reveal-gallery-img");
+      if (collectionImgs.length > 0) {
+        collectionImgs.forEach((img) => {
+          gsap.fromTo(
+            img,
+            { opacity: 0, y: 60, scale: 0.96 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 1.2,
+              ease: "power4.out",
+              scrollTrigger: {
+                trigger: img,
+                start: "top 85%",
+              },
+            }
+          );
+        });
+
+        // Parallax scroll on images
+        collectionImgs.forEach((img) => {
+          const innerImg = img.querySelector("img");
+          if (innerImg) {
+            gsap.fromTo(
+              innerImg,
+              { yPercent: -8 },
+              {
+                yPercent: 8,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: img,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: true,
+                },
+              }
+            );
+          }
+        });
+      }
     });
 
     return () => mm.revert();
+  }, [isPreloaded]);
+
+  // Pinned ScrollTrigger layout settlement refresh
+  useEffect(() => {
+    if (!isPreloaded) return;
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 450);
+    return () => clearTimeout(timer);
   }, [isPreloaded]);
 
   // Handle logo top scroll reset
@@ -988,6 +1039,9 @@ export default function Home() {
                     We work hand in hand with clients and collaborators. Commercial or residential, simply reach out to get a conversation going. No project is too complex or too simple.
                   </p>
                 </div>
+                <div className="step-card-preview-frame">
+                  <img src="/assets/projects/santhalia_site/image_5.jpg" alt="Contact Us Preview" />
+                </div>
               </div>
 
               <div className="step-card-new">
@@ -997,6 +1051,9 @@ export default function Home() {
                   <p className="step-card-desc">
                     We evaluate your spatial needs, translating your vision into functional plans. We inspect the site to align layout, lighting, materials, and execution logistics from the very start.
                   </p>
+                </div>
+                <div className="step-card-preview-frame">
+                  <img src="/assets/projects/site_01/image_2.jpg" alt="Consultation Preview" />
                 </div>
               </div>
 
@@ -1008,6 +1065,9 @@ export default function Home() {
                     We finalize material specs, lighting designs, and custom joinery. Photorealistic 3D renders help visualize the space, ensuring complete confidence before execution starts.
                   </p>
                 </div>
+                <div className="step-card-preview-frame">
+                  <img src="/assets/projects/site_02/image_2.jpg" alt="Design Render Preview" />
+                </div>
               </div>
 
               <div className="step-card-new">
@@ -1017,6 +1077,9 @@ export default function Home() {
                   <p className="step-card-desc">
                     Our team of 275+ professionals manages complete end-to-end site execution. From structural modifications to custom curation, we deliver a seamless, hassle-free transition.
                   </p>
+                </div>
+                <div className="step-card-preview-frame">
+                  <img src="/assets/projects/site_01/image_1.jpg" alt="Execution Preview" />
                 </div>
               </div>
             </div>
@@ -1035,13 +1098,14 @@ export default function Home() {
                 <p className="step-desc" style={{ fontSize: "1.05rem" }}>
                   Step inside our curated spaces where art, material honesty, and light merge to redefine modern luxury living and working environments.
                 </p>
-                <a href="#work" className="pill-btn-editorial">View Showcase</a>
+                <a href="#showcase" className="pill-btn-editorial">View Showcase</a>
                 
                 {/* Secondary offset image in text column */}
                 <div className="gallery-image-wrapper gallery-image-small reveal-gallery-img" style={{ marginTop: "4rem" }}>
                   <img src="/assets/projects/photos_set1/image_3.jpg" alt="Tactile studies in linen pillows" />
                   <div className="gallery-caption">
                     <span>Linen & Cushion Textures</span>
+                    <div className="arrow-circle" />
                   </div>
                 </div>
               </div>
@@ -1050,6 +1114,7 @@ export default function Home() {
                 <img src="/assets/projects/photos_set1/image_2.jpg" alt="Curved lounge interior concepts" />
                 <div className="gallery-caption">
                   <span>Signature Residential Lounge / Kolkata</span>
+                  <div className="arrow-circle" />
                 </div>
               </div>
             </div>
@@ -1060,6 +1125,7 @@ export default function Home() {
                 <img src="/assets/projects/photos_set1/image_4.jpg" alt="Stark concrete and curved lines" />
                 <div className="gallery-caption">
                   <span>Abstract Dining Modules</span>
+                  <div className="arrow-circle" />
                 </div>
               </div>
 
@@ -1067,6 +1133,7 @@ export default function Home() {
                 <img src="/assets/projects/photos_set2/image_2.jpg" alt="Oak platform bed sunlit" />
                 <div className="gallery-caption">
                   <span>Shadows & Light</span>
+                  <div className="arrow-circle" />
                 </div>
               </div>
             </div>
@@ -1076,7 +1143,7 @@ export default function Home() {
         {/* ====================================================
          * SECTION 2D: RECENT COLLABS (Human NYC showcase)
          * ==================================================== */}
-        <section className="editorial-section" style={{ backgroundColor: "#f2f2f0" }}>
+        <section className="editorial-section cashmere-bg">
           <div className="editorial-container">
             <div className="collabs-grid">
               <div className="collab-left">
@@ -1085,10 +1152,10 @@ export default function Home() {
                   RECENT COLLABS<br />
                   <span className="serif-subtitle" style={{ fontSize: "3rem", display: "block", marginTop: "1rem" }}>Häfele Curation</span>
                 </h2>
-                <p className="step-desc" style={{ fontSize: "1.05rem" }}>
+                <p className="step-desc drop-cap" style={{ fontSize: "1.05rem" }}>
                   Collaborating with international pioneers to bring smart hardware, premium fittings, and material innovations into our interior architectures. Seamlessly matching top-tier technology with handcrafted wooden elements.
                 </p>
-                <a href="#work" className="pill-btn-editorial">Explore Curation</a>
+                <a href="#showcase" className="pill-btn-editorial">Explore Curation</a>
               </div>
 
               <div className="collab-right">
@@ -1096,6 +1163,7 @@ export default function Home() {
                   <img src="/assets/projects/photos_set2/image_3.jpg" alt="White geometric spheres art gallery install" />
                   <div className="gallery-caption">
                     <span>Decor Lab x Häfele Star Awards Curation</span>
+                    <div className="arrow-circle" />
                   </div>
                 </div>
 
@@ -1104,12 +1172,14 @@ export default function Home() {
                     <img src="/assets/projects/photos_set2/image_4.jpg" alt="Concrete study and shadow" />
                     <div className="gallery-caption">
                       <span>Detail & Texture Studies</span>
+                      <div className="arrow-circle" />
                     </div>
                   </div>
                   <div className="gallery-image-wrapper gallery-image-medium" style={{ height: "280px" }}>
                     <img src="/assets/projects/site_02/image_1.jpg" alt="Inflatable dome yellow view" />
                     <div className="gallery-caption">
                       <span>Fluid Forms / Ongoing Curation</span>
+                      <div className="arrow-circle" />
                     </div>
                   </div>
                 </div>
@@ -1128,6 +1198,7 @@ export default function Home() {
                 <img src="/assets/projects/site_01/image_1.jpg" alt="Ribbed walking canopy interior" />
                 <div className="gallery-caption">
                   <span>Decor Lab Featured Cover / Elle Decor</span>
+                  <div className="arrow-circle" />
                 </div>
               </div>
 
@@ -1142,7 +1213,7 @@ export default function Home() {
                   "Decor Lab blends heritage, organic curves, and 'functionality first' planning to create habitable sculptures that redefine contemporary Indian spaces."
                 </blockquote>
 
-                <p className="step-desc" style={{ fontSize: "1rem" }}>
+                <p className="step-desc drop-cap" style={{ fontSize: "1rem" }}>
                   A detailed feature highlighting our Kolkata-based design studio, celebrating three decades of design excellence, luxury residential portfolios, and our cutting-edge outlook on fluid architecture.
                 </p>
                 
@@ -1151,6 +1222,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <Gallery isPreloaded={isPreloaded} />
 
         {/* ====================================================
          * SECTION 2F: PROJECTS SHOWCASE (Tabs & Gallery)
@@ -1210,13 +1283,12 @@ export default function Home() {
         {/* ====================================================
          * SECTION 3: WORK PORTFOLIO (Horizontal Scroll Catalogue)
          * ==================================================== */}
+        {/*
         <section ref={scrollWrapperRef} id="work" className="portfolio-horizontal-wrapper">
-          {/* Massive Parallax Background Outline Text */}
           <div ref={runningTextRef} className="portfolio-running-text">
             DESIGN . ARCHITECTURE . CURATION . DECORLAB
           </div>
 
-          {/* Left intro column */}
           <div className="portfolio-intro-panel">
             <h4 className="studio-subtitle" style={{ textAlign: "left" }}>
               PORTFOLIO
@@ -1228,7 +1300,6 @@ export default function Home() {
               Explore our landmark residential, commercial, and conceptual design projects delivered across Kolkata and other metropolitan hubs in India.
             </p>
 
-            {/* Pill shaped category tags */}
             <div className="portfolio-filter-pills">
               {["All Projects", "Residential", "Corporate", "Conceptual"].map((cat) => (
                 <span
@@ -1242,9 +1313,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Pinned Horizontal Scroll Track */}
           <div ref={scrollTrackRef} className="portfolio-scroll-track" id="portfolio-track">
-            {/* Santhalia Card */}
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
                 <img src="/assets/projects/santhalia_site/image_1.jpg" alt="Santhalia Residence Kolkata" />
@@ -1264,7 +1333,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Corporate Card */}
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
                 <img src="/assets/projects/site_01/image_1.jpg" alt="Corporate Headquarters Workspace" />
@@ -1284,7 +1352,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Fluid Pavilion Card */}
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
                 <img src="/assets/projects/site_02/image_1.jpg" alt="Fluid Architecture Concept" />
@@ -1304,7 +1371,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Minimalist Lounge Card */}
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
                 <img src="/assets/projects/photos_set1/image_1.jpg" alt="Aesthetic Lounge Design" />
@@ -1325,6 +1391,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        */}
 
         {/* ====================================================
          * SECTION 4: CAPABILITIES & ENGINEERING
@@ -1340,10 +1407,13 @@ export default function Home() {
 
             <div className="capabilities-grid">
               {/* Functionality First */}
-              <div className="cap-card">
-                <div className="cap-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.5 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+              <div className="cap-card cap-card-functionality">
+                <span className="cap-num">01</span>
+                <div className="cap-divider" />
+                <div className="cap-icon cap-icon-compass">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                    <circle cx="12" cy="5" r="2" />
+                    <path d="M12 7L6 21M12 7l6 14M9 14h6" />
                   </svg>
                 </div>
                 <h3 className="cap-name">Functionality First</h3>
@@ -1353,10 +1423,17 @@ export default function Home() {
               </div>
 
               {/* Material Innovation */}
-              <div className="cap-card">
-                <div className="cap-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2c-1.1 0-2 .9-2 2v8.28c-.88.91-1 2.22-.3 3.22.7 1 1.9 1.5 3.3.99 1-.5 1.5-1.7 1-2.99V4c0-1.1-.9-2-2-2zm0 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+              <div className="cap-card cap-card-materials">
+                <span className="cap-num">02</span>
+                <div className="cap-divider" />
+                <div className="cap-icon cap-icon-materials">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                    {/* Layered Slabs */}
+                    <path d="M3 16l9 4.5 9-4.5-9-4.5z" />
+                    <g>
+                      <path d="M3 11l9 4.5 9-4.5-9-4.5z" opacity="0.75" />
+                    </g>
+                    <path d="M3 6l9 4.5 9-4.5-9-4.5z" opacity="0.4" strokeDasharray="2 2" />
                   </svg>
                 </div>
                 <h3 className="cap-name">Material Innovation</h3>
@@ -1366,10 +1443,15 @@ export default function Home() {
               </div>
 
               {/* Fluid Architecture */}
-              <div className="cap-card">
-                <div className="cap-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7zm9 7H3v-5h18v5zm0-7h-7V5h7v7z" />
+              <div className="cap-card cap-card-fluid">
+                <span className="cap-num">03</span>
+                <div className="cap-divider" />
+                <div className="cap-icon cap-icon-fluid">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                    {/* Parametric Wave Curves */}
+                    <path d="M2 17c5-5 10 5 15-5 5-5 5 5 5 5" />
+                    <path d="M2 12c5-5 10 5 15-5 5-5 5 5 5 5" opacity="0.7" />
+                    <path d="M2 7c5-5 10 5 15-5 5-5 5 5 5 5" opacity="0.4" />
                   </svg>
                 </div>
                 <h3 className="cap-name">Fluid Architecture</h3>
@@ -1483,6 +1565,7 @@ export default function Home() {
         {/* ====================================================
          * SECTION 6: NEWSLETTER SUBSCRIPTION
          * ==================================================== */}
+        {/*
         <section className="section-newsletter">
           <div className="news-box">
             <h3 className="news-title">Stay Inspired</h3>
@@ -1509,16 +1592,20 @@ export default function Home() {
             )}
           </div>
         </section>
+        */}
+
+        <Feedback />
+        <FooterBanner isPreloaded={isPreloaded} />
 
         {/* ====================================================
          * SECTION 7: STUDIO DETAILED FOOTER
          * ==================================================== */}
-        <footer id="contact" className="section-footer">
+        <footer id="contact-footer" className="section-footer">
           <div className="footer-container">
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", filter: "brightness(0) invert(1)", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                   <span className="footer-logo-text" style={{ display: "none" }}>Decor Lab</span>
                 </div>
                 <p className="footer-desc">

@@ -146,7 +146,7 @@ export default function Contact() {
          * CONTACT SECTION
          * ==================================================== */}
         <section id="contact-info" className="section-studio" style={{ padding: "4rem 2.5rem 6rem" }}>
-          <div className="studio-container" style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+          <div className="studio-container" style={{ display: "flex", flexDirection: "column", gap: "3rem", maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
             
             {/* Header Block */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -157,7 +157,7 @@ export default function Contact() {
             </div>
 
             {/* Content Split Grid */}
-            <div className="contact-grid-container" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "4rem", textAlign: "left" }}>
+            <div className="contact-grid-container" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", textAlign: "left" }}>
               
               {/* Left Column: Studio Information & Mock Map */}
               <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
@@ -171,7 +171,7 @@ export default function Contact() {
                 </div>
 
                 {/* Quick Info Cards */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div className="founder-card" style={{ padding: "1.5rem", border: "1px solid rgba(42, 41, 40, 0.08)" }}>
                     <span className="founder-title" style={{ fontSize: "0.75rem", letterSpacing: "2px" }}>INQUIRIES</span>
                     <p style={{ marginTop: "0.75rem", fontWeight: 500, fontSize: "1rem" }}>
@@ -275,14 +275,16 @@ export default function Contact() {
               </div>
 
               {/* Right Column: Contact Inquiry Form */}
-              <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
                 <div className="glass" style={{ 
-                  padding: "3rem", 
+                  padding: "2.5rem", 
                   borderRadius: "24px", 
                   border: "1px solid rgba(42, 41, 40, 0.08)",
                   background: "rgba(255, 255, 255, 0.35)",
                   backdropFilter: "blur(20px)",
-                  boxShadow: "0 20px 40px rgba(0, 0, 0, 0.02)"
+                  boxShadow: "0 20px 40px rgba(0, 0, 0, 0.02)",
+                  boxSizing: "border-box",
+                  width: "100%"
                 }}>
                   
                   {!submitted ? (
@@ -497,7 +499,7 @@ export default function Contact() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", filter: "brightness(0) invert(1)", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                   <span className="footer-logo-text" style={{ display: "none" }}>Decor Lab</span>
                 </div>
                 <p className="footer-desc">
@@ -564,10 +566,26 @@ export default function Contact() {
           50% { transform: scale(1.1); opacity: 0.8; }
           100% { transform: scale(1); opacity: 1; }
         }
-        @media (max-width: 900px) {
+        /* Ensure form elements don't overflow */
+        .contact-grid-container input,
+        .contact-grid-container select,
+        .contact-grid-container textarea {
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .contact-grid-container .founder-card {
+          padding: 1.5rem;
+          border-radius: 16px;
+        }
+        @media (max-width: 1024px) {
           .contact-grid-container {
             grid-template-columns: 1fr !important;
-            gap: 3rem !important;
+            gap: 2.5rem !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .contact-grid-container .glass {
+            padding: 1.5rem !important;
           }
         }
       `}</style>

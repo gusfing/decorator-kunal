@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import GSAPRouteCleaner from "@/components/GSAPRouteCleaner";
 
 export const metadata: Metadata = {
   title: "Decor Lab | Architecture & Interior Design Studio",
@@ -22,7 +23,10 @@ export default function RootLayout({
           href="/assets/Decorlab-favicon.png"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <GSAPRouteCleaner />
+        {children}
+      </body>
     </html>
   );
 }
