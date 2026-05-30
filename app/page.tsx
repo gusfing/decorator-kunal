@@ -10,8 +10,10 @@ import Gallery from "../components/capsule/Gallery/Gallery";
 import Feedback from "../components/urbanland/Feedback";
 import FooterBanner from "../components/urbanland/FooterBanner";
 
-// Register GSAP plugins
-gsap.registerPlugin(CustomEase, ScrollTrigger);
+// Register GSAP plugins client-side only (Next.js SSR safe)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(CustomEase, ScrollTrigger);
+}
 
 // Custom type definitions
 interface NubeSpec {
@@ -37,6 +39,15 @@ export default function Home() {
   // Preloader / Entrance state
   const [showPreloader, setShowPreloader] = useState(true);
   const [isPreloaded, setIsPreloaded] = useState(false);
+
+  // Bulletproof fallback: force hide preloader and reveal site after 3.8s in case any animation is interrupted, skipped, or cached
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsPreloaded(true);
+      setShowPreloader(false);
+    }, 3800);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Hero state
   const [activeSlide, setActiveSlide] = useState(1); // Set to default Nube interior tunnel slide
