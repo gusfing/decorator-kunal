@@ -648,7 +648,7 @@ export default function Home() {
         );
       }
 
-      const aboutTexts = document.querySelectorAll(".about-title-wrapper, .about-right-headline, .about-right-body");
+      const aboutTexts = document.querySelectorAll(".about-title-wrapper, .about-right-body");
       if (aboutTexts.length > 0) {
         gsap.fromTo(aboutTexts,
           { y: 30, opacity: 0 },
@@ -666,6 +666,25 @@ export default function Home() {
             }
           }
         );
+      }
+
+      const clipLines = gsap.utils.toArray<HTMLElement>(".clip-text-about");
+      if (clipLines.length > 0) {
+        const tlAbout = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#info",
+            start: "top 80%",
+            end: "bottom 40%",
+            scrub: true,
+          }
+        });
+
+        tlAbout.to(clipLines, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          ease: "none",
+          stagger: 0.15,
+          duration: 1,
+        });
       }
 
       const aboutStats = document.querySelectorAll(".about-stat-item");
@@ -1468,7 +1487,18 @@ export default function Home() {
             <div className="about-right-col">
               <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
                 <h2 className="about-right-headline">
-                  Thoughtful spaces, we craft environments that bring comfort to your life.
+                  <span className="text-muted-about">
+                    Thoughtful spaces, we craft
+                    <span className="clip-text-about">Thoughtful spaces, we craft</span>
+                  </span>
+                  <span className="text-muted-about">
+                    environments that bring
+                    <span className="clip-text-about">environments that bring</span>
+                  </span>
+                  <span className="text-muted-about">
+                    comfort to your life.
+                    <span className="clip-text-about">comfort to your life.</span>
+                  </span>
                 </h2>
                 <p className="about-right-body">
                   Decor Lab is a premier architecture and interior design powerhouse established in 1993. Guided by Mr. Raja Sinha and chief architect Ar. Rajdip Sinha, the firm has delivered exceptional residential, commercial, and conceptual design sanctuaries across India. We believe in functionality first—blending material innovation and parametric design to craft fluid, timeless environments.
