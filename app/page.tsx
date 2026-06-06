@@ -393,7 +393,7 @@ export default function Home() {
         "-=4.2"
       );
     }
-    
+
     if (chars.length > 0) {
       tl.to(
         chars,
@@ -406,7 +406,7 @@ export default function Home() {
         "-=3.8"
       );
     }
-    
+
     if (document.querySelector(".preloader-images")) {
       tl.to(
         ".preloader-images",
@@ -418,7 +418,7 @@ export default function Home() {
         "-=1.2"
       );
     }
-    
+
     if (lines.length > 0) {
       tl.to(
         lines,
@@ -523,6 +523,89 @@ export default function Home() {
     }
   }, []);
 
+  // Fanning cards and about section animations
+  useGSAP(() => {
+    if (!isPreloaded) return;
+
+    // 1. Fanning Cards Animation (Spread in Hero, Stack in About Us)
+    const aboutCards = gsap.utils.toArray<HTMLElement>(".card-cross-section");
+    if (aboutCards.length > 0) {
+      const isMobile = window.innerWidth < 768;
+      
+      // Responsive sizing logic
+      const startWidth = isMobile ? "20vw" : "13vw";
+      const startHeight = isMobile ? "26vw" : "17vw";
+      const spreadFactor = isMobile ? 0.095 : 0.065; // Tighter spread on desktop, wider on mobile
+      const getSpread = () => window.innerWidth * spreadFactor;
+      const stackedWidth = isMobile ? "90vw" : "35vw";
+      const stackedHeight = isMobile ? "60vw" : "22vw";
+      const stackedRadius = isMobile ? "4vw" : "1.5vw";
+      const rotateFactor = isMobile ? 3.5 : 2.5;
+
+      // INITIAL STATE: Fanned out perfectly in the Hero section (native y-position preserved)
+      aboutCards.forEach((card, index) => {
+        const offset = index - 4; // -4, -3, -2, -1, 0, 1, 2, 3, 4
+        gsap.set(card, {
+          x: offset * getSpread(),
+          rotation: offset * rotateFactor,
+          scale: 1.0,
+          opacity: 1,
+          width: startWidth,
+          height: startHeight,
+          display: "block" 
+        });
+      });
+
+      // SCROLL ANIMATION: Drop down into About Us, STACK into one image, and morph into a WIDE landscape!
+      const aboutTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#section-about",
+          start: "top 90%", // Trigger when about section enters the bottom of the viewport
+          end: "top 20%",   // Animation finishes when about section reaches 20% from top
+          scrub: 1,
+        }
+      });
+
+      aboutCards.forEach((card) => {
+        aboutTl.to(card, {
+          y: 0, // Animate DOWN to their natural container position in the About section
+          x: 0, // Stack them perfectly on top of each other!
+          rotation: 0, // Straighten them out
+          width: stackedWidth, 
+          height: stackedHeight, 
+          borderRadius: stackedRadius, 
+          ease: "power2.out",
+        }, 0);
+      });
+
+      // PINNING: Pin the About section so the user can watch the stack happen cleanly
+      ScrollTrigger.create({
+        trigger: "#section-about",
+        start: "top 20%",
+        end: "+=150%",
+        pin: true,
+        anticipatePin: 1
+      });
+    }
+
+    // 2. About Us Section (#info)
+    if (document.querySelector(".about-left-image img")) {
+      gsap.fromTo(".about-left-image img",
+        { scale: 1.15, opacity: 0.8 },
+        {
+          scale: 1,
+          opacity: 1,
+          scrollTrigger: {
+            trigger: "#info",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        }
+      );
+    }
+  }, [isPreloaded]);
+
   // Horizontal scroll catalogues timeline pinning using ScrollTrigger
   useGSAP(() => {
     if (!isPreloaded) return;
@@ -565,80 +648,6 @@ export default function Home() {
             ease: "none",
           },
           0
-        );
-      }
-
-      // 1. Hero scroll animations (parallax & fade out)
-      if (document.querySelector(".hero-brand-title")) {
-        gsap.to(".hero-brand-title", {
-          yPercent: -60,
-          opacity: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".hero-section",
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          }
-        });
-      }
-
-      if (document.querySelector(".scroll-indicator")) {
-        gsap.to(".scroll-indicator", {
-          opacity: 0,
-          y: 20,
-          scrollTrigger: {
-            trigger: ".hero-section",
-            start: "10% top",
-            end: "40% top",
-            scrub: true,
-          }
-        });
-      }
-
-      if (document.querySelector(".hero-cards-container")) {
-        gsap.to(".hero-cards-container", {
-          y: 120,
-          opacity: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".hero-section",
-            start: "top top",
-            end: "80% top",
-            scrub: true,
-          }
-        });
-      }
-
-      if (document.querySelector(".slideshow-container")) {
-        gsap.to(".slideshow-container", {
-          yPercent: 15,
-          scale: 1.05,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".hero-section",
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          }
-        });
-      }
-
-      // 2. About Us Section (#info)
-      if (document.querySelector(".about-left-image img")) {
-        gsap.fromTo(".about-left-image img",
-          { scale: 1.15, opacity: 0.8 },
-          {
-            scale: 1.0,
-            opacity: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: "#info",
-              start: "top 80%",
-              end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
-            }
-          }
         );
       }
 
@@ -1346,183 +1355,48 @@ export default function Home() {
         {/* ====================================================
          * SECTION 1: HERO VIEW (Slideshow, vignettes & title)
          * ==================================================== */}
-        <section className="hero-section" id="hero">
-          {/* Viewport Slideshow */}
-          <div className={`slideshow-container ${dofBlur ? "dof-blur" : ""}`} id="bg-slideshow">
-            <div
-              className={`bg-slide ${activeSlide === 0 ? "active" : ""}`}
-              style={{ backgroundImage: "url('/assets/projects/santhalia_site/image_1.jpg')" }}
-            ></div>
-            <div
-              className={`bg-slide ${activeSlide === 1 ? "active" : ""}`}
-              style={{ backgroundImage: "url('/assets/projects/site_01/image_1.jpg')" }}
-            ></div>
-            <div
-              className={`bg-slide ${activeSlide === 2 ? "active" : ""}`}
-              style={{ backgroundImage: "url('/assets/projects/site_02/image_1.jpg')" }}
-            ></div>
-            <div
-              className={`bg-slide ${activeSlide === 3 ? "active" : ""}`}
-              style={{ backgroundImage: "url('/assets/projects/photos_set1/image_1.jpg')" }}
-            ></div>
-          </div>
-
-          {/* Vignette Overlay */}
-          <div className="overlay-vignette"></div>
-
-          {/* Depth Blur Switcher */}
-          <div
-            className="dof-toggle glass glass-interactive"
-            id="dof-toggle"
-            role="button"
-            aria-label="Toggle Background Softness"
-            tabIndex={0}
-            title="Toggle background softness"
-            onClick={() => setDofBlur(!dofBlur)}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ opacity: dofBlur ? "1" : "0.7" }}
-            >
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-13h2v4h-2zm0 6h2v4h-2z" />
-            </svg>
-          </div>
-
-          {/* Centered Brand Title in Reinette Style */}
-          <div className="hero-brand-container">
-            <h1 className="hero-brand-title">DECOR LAB</h1>
-          </div>
-
-          {/* Pulsing Scroll Pointer */}
-          <div className={`scroll-indicator ${isScrolled ? "hide" : ""}`} id="scroll-ind">
-            <span>Scroll</span>
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-            </svg>
-          </div>
-
-          {/* Fanned-out overlapping project cards matching the video */}
-          <div className="hero-cards-outer">
-            <div className="hero-cards-container">
-              <div
-                className={`hero-fanned-card ${activeSlide === 0 ? "active" : ""}`}
-                role="button"
-                aria-label="View Project 1"
-                tabIndex={0}
-                onClick={() => setActiveSlide(0)}
-              >
-                <img src="/assets/projects/santhalia_site/image_1.jpg" alt="Santhalia Residence Preview" />
+        <section id="section-hero" className="section hero" style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(/assets/decor_01.png)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+          <div className="w-layout-blockcontainer container w-container">
+            <div className="wrapper-hero">
+              <div className="wrapper-heading-hero">
+                <div className="text-heading-hero" style={{ fontFamily: '"Playfair Display", "Times New Roman", Times, serif', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.5)', position: 'relative', zIndex: 50 }}>
+                  DECOR LAB
+                </div>
+                <a data-w-id="66aeaa42-d8c6-e18c-6215-71bab4d1eaa7" href="#contact" className="inner-button-universall w-inline-block">
+                  <div className="text-button">
+                    <div className="inner-text-button-home">Get started</div>
+                    <div className="inner-text-button-home absolute">Get started</div>
+                  </div>
+                </a>
               </div>
-              <div
-                className={`hero-fanned-card ${activeSlide === 1 ? "active" : ""}`}
-                role="button"
-                aria-label="View Project 2"
-                tabIndex={0}
-                onClick={() => setActiveSlide(1)}
-              >
-                <img src="/assets/projects/site_01/image_1.jpg" alt="Corporate HQ Preview" />
-              </div>
-              <div
-                className={`hero-fanned-card ${activeSlide === 2 ? "active" : ""}`}
-                role="button"
-                aria-label="View Project 3"
-                tabIndex={0}
-                onClick={() => setActiveSlide(2)}
-              >
-                <img src="/assets/projects/site_02/image_1.jpg" alt="Fluid Pavilion Preview" />
-              </div>
-              <div
-                className={`hero-fanned-card ${activeSlide === 3 ? "active" : ""}`}
-                role="button"
-                aria-label="View Project 4"
-                tabIndex={0}
-                onClick={() => setActiveSlide(3)}
-              >
-                <img src="/assets/projects/photos_set1/image_1.jpg" alt="Aesthetic Lounge Preview" />
-              </div>
-              <div
-                className={`hero-fanned-card ${activeSlide === 0 ? "active" : ""}`}
-                role="button"
-                aria-label="View Project 5"
-                tabIndex={0}
-                onClick={() => setActiveSlide(0)}
-              >
-                <img src="/assets/projects/santhalia_site/image_2.jpg" alt="Residential Detail Preview" />
+              <div className="main-content-hero">
+                <div className="wrapper-copyright-symbol">
+                  <div className="inner-copyright-symbol">
+                    <img src="https://cdn.prod.website-files.com/6933d4dce1575ce638974488/69378133522096b67d005ca0_icons8-copyright-48.png" loading="lazy" alt="Copyright" className="icon-image-symbol" />
+                  </div>
+                  <div className="text-tagline-hero-mini" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                    Architecture<br />& Interior Design
+                  </div>
+                </div>
+                <div className="wrapper-link-content">
+                  <a href="https://www.linkedin.com/" target="_blank" className="wrapper-image-icon w-inline-block">
+                    <img src="https://cdn.prod.website-files.com/6933d4dce1575ce638974488/69378079c6c6232f46c72889_icons8-linkedin-100%20(1).png" loading="lazy" alt="Linkedin logo" className="image-icon" />
+                  </a>
+                  <a href="https://www.tumblr.com/" target="_blank" className="wrapper-image-icon w-inline-block">
+                    <img src="https://cdn.prod.website-files.com/6933d4dce1575ce638974488/6937807b8c346c6872524d5d_icons8-tumblr-100.png" loading="lazy" alt="Tumblr logo" className="image-icon" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </section>
+
+        <section id="section-about" className="section about" style={{ position: 'relative', top: 'auto', minHeight: '100vh' }}><div className="w-layout-blockcontainer container about w-container"><div className="wrapper-about"><div className="inner-about-wrapp"><div className="wrapper-heading-about"><div className="inner-heading-about _1"><div className="text-heading-about">Thoughtful spaces, we </div></div><div className="inner-heading-about _2"><div className="text-heading-about">build <em>homes</em> that bring </div></div><div className="inner-heading-about _3"><div className="text-heading-about">comfort to <em>your live</em> </div></div></div><div className="wrapper-tag-section about"><div className="wrapper-tagline-about"><div className="text-tagline-section about">About us</div></div><div data-w-id="21ec498a-da00-b0a0-20cb-51467f79dc0b" className="wrapper-circle"><div className="circle-section"></div></div></div></div><div className="outer-descriptions-about"><div className="wrapper-descriptions-about"><p className="paragraph-about">Focused on crafting exceptional living through careful planning and trusted property options.</p></div></div><div className="area-resize"><div className="area"><div className="absolute-card in-about"><div className="card-cross-section _0"><img src="/assets/projects/site_01/image_1.jpg" loading="lazy" alt="Modern interior design" className="image-path" /></div><div className="card-cross-section _1"><img src="/assets/projects/site_02/image_2.jpg" loading="lazy" alt="Contemporary architecture" className="image-path" /></div><div className="card-cross-section _2"><img src="/assets/projects/santhalia_site/image_3.jpg" loading="lazy" alt="Abstract modern architectural artwork" className="image-path" /></div><div className="card-cross-section _3"><img src="/assets/projects/photos_set1/image_4.jpg" loading="lazy" alt="Modern curved architecture" className="image-path" /></div><div className="card-cross-section _4"><img src="/assets/projects/photos_set2/image_5.jpg" loading="lazy" alt="Luxury house interior" className="image-path" /></div><div className="card-cross-section _5"><img src="/assets/projects/site_01/image_6.jpg" loading="lazy" alt="Minimalist modern house" className="image-path" /></div><div className="card-cross-section _6"><img src="/assets/projects/site_02/image_1.jpg" loading="lazy" alt="Modern wooden house" className="image-path" /></div><div className="card-cross-section _7"><img src="/assets/projects/santhalia_site/image_4.jpg" loading="lazy" alt="Modern architecture" className="image-path" /></div><div className="card-cross-section _8"><img src="/assets/projects/photos_set1/image_1.jpg" loading="lazy" alt="Beautiful landscape" className="image-path" /></div></div></div></div></div></div></section>
 
         {/* ====================================================
          * SECTION 2: REDESIGNED ABOUT US SECTION (Reinette Style)
          * ==================================================== */}
-        <section id="info" className="section-about-dark">
-          <div className="about-grid-container">
-            
-            {/* Left Column: Title, Image, Stats */}
-            <div className="about-left-col">
-              <div className="about-title-wrapper">
-                <span className="about-title-dot"></span>
-                <span className="founder-title" style={{ fontSize: "0.85rem", letterSpacing: "2.5px", margin: 0, color: "var(--text-light)" }}>
-                  ABOUT US
-                </span>
-              </div>
 
-              <div className="about-left-image">
-                <img src="/assets/projects/site_01/image_2.jpg" alt="Decor Lab Office Consultation" />
-              </div>
-
-              {/* Statistics Grid */}
-              <div className="about-stats-grid">
-                <div className="about-stat-item">
-                  <span className="about-stat-num" data-target="32" data-suffix="+">0+</span>
-                  <span className="about-stat-label">Years Legacy</span>
-                </div>
-                <div className="about-stat-item">
-                  <span className="about-stat-num" data-target="1.3" data-suffix="k+" data-decimals="1">0.0k+</span>
-                  <span className="about-stat-label">Sites Completed</span>
-                </div>
-                <div className="about-stat-item">
-                  <span className="about-stat-num" data-target="15" data-suffix="+">0+</span>
-                  <span className="about-stat-label">Awards Won</span>
-                </div>
-                <div className="about-stat-item">
-                  <span className="about-stat-num" data-target="275" data-suffix="+">0+</span>
-                  <span className="about-stat-label">Professionals</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Narrative & Showcase Image */}
-            <div className="about-right-col">
-              <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-                <h2 className="about-right-headline">
-                  <span className="text-muted-about">
-                    Thoughtful spaces, we craft
-                    <span className="clip-text-about">Thoughtful spaces, we craft</span>
-                  </span>
-                  <span className="text-muted-about">
-                    environments that bring
-                    <span className="clip-text-about">environments that bring</span>
-                  </span>
-                  <span className="text-muted-about">
-                    comfort to your life.
-                    <span className="clip-text-about">comfort to your life.</span>
-                  </span>
-                </h2>
-                <p className="about-right-body">
-                  Decor Lab is a premier architecture and interior design powerhouse established in 1993. Guided by Mr. Raja Sinha and chief architect Ar. Rajdip Sinha, the firm has delivered exceptional residential, commercial, and conceptual design sanctuaries across India. We believe in functionality first—blending material innovation and parametric design to craft fluid, timeless environments.
-                </p>
-              </div>
-
-              <div className="about-right-image">
-                <img src="/assets/projects/site_02/image_2.jpg" alt="Bespoke Spatial Design Showcase" />
-              </div>
-            </div>
-
-          </div>
-        </section>
 
         {/* ====================================================
          * SECTION 2B: PROCESS (Creating with us is easy)
@@ -1530,7 +1404,7 @@ export default function Home() {
         <section id="process" className="editorial-section">
           <div className="editorial-container">
             <h2 className="serif-headline">Creating with us is easy.</h2>
-            
+
             <div className="editorial-steps-grid">
               <div className="step-card-new">
                 <div className="step-card-num">01</div>
@@ -1600,7 +1474,7 @@ export default function Home() {
                   Step inside our curated spaces where art, material honesty, and light merge to redefine modern luxury living and working environments.
                 </p>
                 <a href="#showcase" className="pill-btn-editorial">View Showcase</a>
-                
+
                 {/* Secondary offset image in text column */}
                 <div className="gallery-image-wrapper gallery-image-small reveal-gallery-img" style={{ marginTop: "4rem" }}>
                   <img src="/assets/projects/photos_set1/image_3.jpg" alt="Tactile studies in linen pillows" />
@@ -1709,7 +1583,7 @@ export default function Home() {
                   AS SEEN IN...<br />
                   <span className="serif-subtitle" style={{ fontSize: "3rem", display: "block", marginTop: "1rem" }}>Elle Decor</span>
                 </h2>
-                
+
                 <blockquote className="press-quote">
                   "Decor Lab blends heritage, organic curves, and 'functionality first' planning to create habitable sculptures that redefine contemporary Indian spaces."
                 </blockquote>
@@ -1717,7 +1591,7 @@ export default function Home() {
                 <p className="step-desc drop-cap" style={{ fontSize: "1rem" }}>
                   A detailed feature highlighting our Kolkata-based design studio, celebrating three decades of design excellence, luxury residential portfolios, and our cutting-edge outlook on fluid architecture.
                 </p>
-                
+
                 <a href="#info" className="pill-btn-editorial">Read Full Feature</a>
               </div>
             </div>
@@ -2389,11 +2263,11 @@ export default function Home() {
                 >
                   View on Instagram
                 </a>
+              </div>
             </div>
           </div>
-        </div>
-      </>
-    )}
+        </>
+      )}
 
       {/* ====================================================
        * PORTFOLIO PROJECT GALLERY LIGHTBOX MODAL

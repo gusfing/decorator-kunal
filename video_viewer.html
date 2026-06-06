@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Viewer</title>
+</head>
+<body style="margin: 0; background: black; color: white;">
+    <video id="myVideo" width="100%" controls>
+        <source src="Reinette - Webflow HTML website template - Google Chrome 2026-05-31 01-56-39.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <script>
+        window.videoReady = false;
+        const video = document.getElementById('myVideo');
+        video.addEventListener('loadeddata', () => {
+            window.videoReady = true;
+        });
+        
+        window.seekTo = function(seconds) {
+            video.currentTime = seconds;
+        };
+    </script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 import "./globals.css";
+import "./webflow.css";
 import type { Metadata } from "next";
+import SmoothScrolling from "@/components/SmoothScrolling";
 import GSAPRouteCleaner from "@/components/GSAPRouteCleaner";
 
 export const metadata: Metadata = {

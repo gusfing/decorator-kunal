@@ -47,7 +47,7 @@ const FooterBanner = ({ isPreloaded = true }) => {
                         trigger: fbConRef.current,
                         start: "top 85%",
                         end: "bottom 15%",
-                        toggleActions: "play reverse play reverse",
+                        once: true,
                     }
                 }
             );

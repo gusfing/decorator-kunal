@@ -1,240 +1,146 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-const Hero = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const progressRef = useRef(null);
-  const heroSectionRef = useRef(null);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-  const slides = [
-    {
-      image: "/assets/urbanland/Wicker_Furniture.jpeg",
-      title: "Wicker Furniture",
-      subtext: "Crafted outdoor seating with refined design and lasting finish."
-    },
-    {
-      image: "/assets/urbanland/Planters_Box.jpeg",
-      title: "Planter Boxes",
-      subtext: "Architectural forms designed for modern landscapes."
-    },
-    {
-      image: "/assets/urbanland/Dustbins.jpeg",
-      title: "Dustbins",
-      subtext: "Outdoor waste management solutions in modern materials and finishes."
-    },
-    {
-      image: "/assets/urbanland/Car_Shelter.jpeg",
-      title: "Car Shelters",
-      subtext: "Engineered parking structures for organized outdoor spaces."
-    },
-    {
-      image: "/assets/urbanland/Canteen_Tables.jpeg",
-      title: "Canteen Tables",
-      subtext: "Heavy-duty dining solutions for institutional and commercial spaces."
-    },
-    {
-      image: "/assets/urbanland/Bus_Shelters.jpeg",
-      title: "Bus Shelters",
-      subtext: "Public transport infrastructure built for urban environments."
-    },
-    {
-      image: "/assets/urbanland/Bench.jpeg",
-      title: "Benches",
-      subtext: "Outdoor seating systems designed for public and private spaces."
-    },
-    {
-      image: "/assets/urbanland/Bench_Planter.jpeg",
-      title: "Bench Planters",
-      subtext: "Integrated seating and landscape elements for modern spaces."
-    }
+const Hero = () => {
+  const containerRef = useRef(null);
+
+  const images = [
+    "/assets/urbanland/Bench.jpeg",
+    "/assets/urbanland/Planters_Box.jpeg",
+    "/assets/urbanland/Car_Shelter.jpeg",
+    "/assets/urbanland/Wicker_Furniture.jpeg",
+    "/assets/urbanland/Dustbins.jpeg",
+    "/assets/urbanland/Bus_Shelters.jpeg",
+    "/assets/urbanland/Bench_Planter.jpeg"
   ];
 
-  // Scroll parallax effect for slider background images
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 769px)", () => {
-      gsap.to(".hero-slide-bg", {
-        yPercent: 8,
-        ease: "none",
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: heroSectionRef.current,
+          trigger: containerRef.current,
           start: "top top",
-          end: "bottom top",
-          scrub: true,
+          end: "+=300%",
+          scrub: 1,
+          pin: true,
         }
       });
+
+      // Animate text splitting
+      tl.to(".hero-text-left", { xPercent: -120, opacity: 0, ease: "power2.inOut" }, 0);
+      tl.to(".hero-text-right", { xPercent: 120, opacity: 0, ease: "power2.inOut" }, 0);
+
+      // Cards fanning out
+      const cards = gsap.utils.toArray(".hero-card");
+      const centerIndex = 3;
+
+      cards.forEach((card, index) => {
+        const offset = index - centerIndex;
+        tl.to(card, {
+          xPercent: offset * 110,
+          yPercent: Math.abs(offset) * 12,
+          rotation: offset * 3,
+          scale: 1,
+          ease: "power2.inOut",
+        }, 0);
+      });
+
+      // Side text reveal
+      tl.fromTo(".side-text-left", 
+        { x: -50, opacity: 0 },
+        { x: 0, opacity: 1, ease: "power2.out" }, 
+        0.2
+      );
+      
+      tl.fromTo(".side-text-right", 
+        { x: 50, opacity: 0 },
+        { x: 0, opacity: 1, ease: "power2.out" }, 
+        0.2
+      );
+    });
+
+    mm.add("(max-width: 768px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=200%",
+          scrub: 1,
+          pin: true,
+        }
+      });
+
+      tl.to(".hero-text-left", { xPercent: -80, opacity: 0, ease: "power2.inOut" }, 0);
+      tl.to(".hero-text-right", { xPercent: 80, opacity: 0, ease: "power2.inOut" }, 0);
+
+      const cards = gsap.utils.toArray(".hero-card");
+      const centerIndex = 3;
+
+      cards.forEach((card, index) => {
+        const offset = index - centerIndex;
+        tl.to(card, {
+          xPercent: offset * 45,
+          yPercent: Math.abs(offset) * 8,
+          rotation: offset * 4,
+          scale: 1,
+          ease: "power2.inOut",
+        }, 0);
+      });
+
+      tl.fromTo(".side-text-left", { y: 20, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.2);
+      tl.fromTo(".side-text-right", { y: -20, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.2);
     });
 
     return () => mm.revert();
-  }, { scope: heroSectionRef });
-
-  // Handle active slide transitions
-  useEffect(() => {
-    // Kill ALL existing tweens before creating new ones to prevent stacking
-    gsap.killTweensOf(".slide-title");
-    gsap.killTweensOf(".slide-desc");
-    slides.forEach((_, idx) => {
-      gsap.killTweensOf(`.slide-bg-${idx}`);
-    });
-
-    // Background cross-fade and zoom (Ken Burns effect)
-    slides.forEach((_, idx) => {
-      const bg = document.querySelector(`.slide-bg-${idx}`);
-      if (bg) {
-        if (idx === activeIndex) {
-          gsap.fromTo(bg,
-            { scale: 1.15, opacity: 0 },
-            { 
-              scale: 1.1, 
-              opacity: 1, 
-              duration: 1.4, 
-              ease: "power3.out",
-              zIndex: 1 
-            }
-          );
-        } else {
-          gsap.to(bg, { 
-            opacity: 0, 
-            duration: 1.2, 
-            ease: "power3.out",
-            zIndex: 0 
-          });
-        }
-      }
-    });
-
-    // Stagger slide title and description animations
-    gsap.fromTo(".slide-title", 
-      { yPercent: 100, opacity: 0 },
-      { yPercent: 0, opacity: 1, duration: 0.8, ease: "power4.out" }
-    );
-    gsap.fromTo(".slide-desc", 
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, delay: 0.12, ease: "power3.out" }
-    );
-
-    // Slide autoplay progress bar
-    gsap.killTweensOf(progressRef.current);
-    gsap.fromTo(progressRef.current,
-      { width: "0%" },
-      { 
-        width: "100%", 
-        duration: 5.5, 
-        ease: "none",
-        onComplete: () => {
-          handleNext();
-        }
-      }
-    );
-
-    return () => {
-      gsap.killTweensOf(progressRef.current);
-      gsap.killTweensOf(".slide-title");
-      gsap.killTweensOf(".slide-desc");
-      slides.forEach((_, idx) => {
-        gsap.killTweensOf(`.slide-bg-${idx}`);
-      });
-    };
-  }, [activeIndex]);
-
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % slides.length);
-  };
-
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+  }, { scope: containerRef });
 
   return (
-    <section ref={heroSectionRef} id="hero" className="hero-section w-full md:h-dvh h-[100vh] relative">
-      <div className="relative w-full h-full overflow-hidden bg-[#1A1A1A]">
-        
-        {/* Background Images */}
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`hero-slide-bg slide-bg-${index} absolute -top-[10%] -bottom-[10%] inset-x-0 bg-no-repeat bg-cover bg-center pointer-events-none`}
-            style={{
-              backgroundImage: `url(${slide.image})`,
-              opacity: index === 0 ? 1 : 0,
-            }}
-          />
-        ))}
-
-        {/* Ambient Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/55 z-10 pointer-events-none" />
-
-        {/* Dynamic Text and UI Controls Overlay */}
-        <div className="relative z-20 w-full h-full flex flex-col justify-between p-6 sm:p-10 md:p-14 font-sans select-none">
-          
-          {/* Top Row Spacer */}
-          <div className="w-full h-12 pt-2" />
-
-          {/* Bottom Row: Product Info & Control Actions */}
-          <div className="w-full flex flex-col gap-6 md:gap-8">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-5 w-full">
-              
-              {/* Product Text Details */}
-              <div className="max-w-2xl flex flex-col gap-2 md:gap-4 overflow-hidden">
-                <div className="h-auto overflow-hidden py-1">
-                  <h1 
-                    className="slide-title text-[#f4efe7] text-[clamp(32px,8.5vw,48px)] sm:text-5xl md:text-[4rem] font-bold tracking-wider leading-none"
-                    style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.35)' }}
-                  >
-                    {slides[activeIndex].title}
-                  </h1>
-                </div>
-                <div className="max-w-lg overflow-hidden">
-                  <p 
-                    className="slide-desc text-white/90 text-xs sm:text-sm font-medium tracking-wide leading-relaxed max-w-sm"
-                    style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}
-                  >
-                    {slides[activeIndex].subtext}
-                  </p>
-                </div>
-              </div>
-
-              {/* Slider Navigation & Counter */}
-              <div className="flex items-center gap-6 z-30">
-                <div className="text-white/50 text-xs sm:text-sm font-semibold tracking-widest font-mono select-none">
-                  <span className="text-[#f4efe7] text-base md:text-lg font-bold">{String(activeIndex + 1).padStart(2, '0')}</span> / {String(slides.length).padStart(2, '0')}
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <button 
-                    onClick={handlePrev}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white bg-white/5 hover:bg-white/10 backdrop-blur-md cursor-pointer transition-colors duration-300 active:scale-95"
-                  >
-                    &larr;
-                  </button>
-                  <button 
-                    onClick={handleNext}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white bg-white/5 hover:bg-white/10 backdrop-blur-md cursor-pointer transition-colors duration-300 active:scale-95"
-                  >
-                    &rarr;
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Visual Slide Autoplay Progress Line */}
-            <div className="w-full h-[2px] bg-white/15 rounded-full overflow-hidden">
-              <div 
-                ref={progressRef}
-                className="h-full bg-[#2C5F2E] w-0"
-              />
-            </div>
-
-          </div>
-
-        </div>
-
+    <section ref={containerRef} className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center text-white">
+      
+      {/* Big Center Text */}
+      <div className="absolute z-20 flex w-full justify-center text-[12vw] font-bold tracking-tighter mix-blend-difference pointer-events-none whitespace-nowrap uppercase">
+        <span className="hero-text-left inline-block">URBAN/</span>
+        <span className="hero-text-right inline-block">LAND</span>
       </div>
+
+      {/* Cards Stack */}
+      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
+        {images.map((src, index) => (
+          <div 
+            key={index}
+            className="hero-card absolute w-[160px] h-[220px] sm:w-[220px] sm:h-[300px] md:w-[280px] md:h-[380px] lg:w-[320px] lg:h-[450px] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-4 border-white/10 origin-bottom"
+            style={{ 
+              zIndex: 10 - Math.abs(index - 3),
+              scale: 0.85
+            }}
+          >
+            <img src={src} alt="Urbanland Furniture" className="w-full h-full object-cover" />
+          </div>
+        ))}
+      </div>
+
+      {/* Side Text - Left */}
+      <div className="side-text-left absolute left-[5%] bottom-[12%] md:bottom-[15%] z-30 max-w-[200px] md:max-w-[250px] opacity-0 pointer-events-none">
+        <h2 className="text-lg md:text-3xl font-semibold mb-2">Premium Quality</h2>
+        <p className="text-xs md:text-sm text-white/70">Crafted outdoor seating with refined design and lasting finish.</p>
+      </div>
+
+      {/* Side Text - Right */}
+      <div className="side-text-right absolute right-[5%] top-[12%] md:top-[15%] text-right z-30 max-w-[200px] md:max-w-[250px] opacity-0 pointer-events-none">
+        <h2 className="text-lg md:text-3xl font-semibold mb-2">Modern Spaces</h2>
+        <p className="text-xs md:text-sm text-white/70">Architectural forms designed for modern landscapes across India.</p>
+      </div>
+
     </section>
   );
 };
