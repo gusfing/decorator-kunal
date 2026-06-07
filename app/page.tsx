@@ -541,12 +541,15 @@ export default function Home() {
       const stackedHeight = isMobile ? "60vw" : "22vw";
       const stackedRadius = isMobile ? "4vw" : "1.5vw";
       const rotateFactor = isMobile ? 3.5 : 2.5;
+      // Pull cards UP from About section into Hero section (matches original Webflow translateY)
+      const heroYOffset = isMobile ? "-105vw" : "-79.7vw";
 
-      // INITIAL STATE: Fanned out perfectly in the Hero section (native y-position preserved)
+      // INITIAL STATE: Fanned out perfectly in the Hero section
       aboutCards.forEach((card, index) => {
         const offset = index - 4; // -4, -3, -2, -1, 0, 1, 2, 3, 4
         gsap.set(card, {
           x: offset * getSpread(),
+          y: heroYOffset, // Pull cards UP into the Hero section
           rotation: offset * rotateFactor,
           scale: 1.0,
           opacity: 1,
