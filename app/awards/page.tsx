@@ -2,10 +2,81 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { MagicText } from "@/components/ui/magic-text";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Awards() {
   const [currentTheme, setCurrentTheme] = useState("light");
   const navIndicatorRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // 1. Text paragraph reveal (blur -> sharp)
+    const textEls = gsap.utils.toArray<HTMLElement>("#awards-content p, .studio-container p");
+    textEls.forEach((el) => {
+      gsap.fromTo(el,
+        { filter: "blur(10px)", opacity: 0, y: 15 },
+        {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    });
+
+    // 2. Serif headlines (word-by-word blur revelation)
+    const serifHeadlines = gsap.utils.toArray<HTMLElement>(".serif-headline");
+    serifHeadlines.forEach((headline) => {
+      const text = headline.textContent || "";
+      const words = text.split(" ");
+      headline.innerHTML = words.map((w) =>
+        `<span class="blur-word">${w}</span>`
+      ).join(" ");
+      const wordEls = headline.querySelectorAll(".blur-word");
+      ScrollTrigger.create({
+        trigger: headline,
+        start: "top 85%",
+        onEnter: () => {
+          wordEls.forEach((w, i) => {
+            setTimeout(() => w.classList.add("revealed"), i * 80);
+          });
+        },
+      });
+    });
+
+    // 3. Staggered fade up for award and press cards
+    const cards = gsap.utils.toArray<HTMLElement>(".founder-card");
+    cards.forEach((card, idx) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 30, filter: "blur(3px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+          delay: (idx % 2) * 0.1,
+        }
+      );
+    });
+
+  });
 
   useEffect(() => {
     const handleScroll = () => {

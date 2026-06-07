@@ -1778,62 +1778,6 @@ export default function Home() {
   }, [isPreloaded]);
 
 
-  // Custom cursor (Reinette style)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const cursor = document.createElement("div");
-    cursor.className = "custom-cursor";
-    document.body.appendChild(cursor);
-
-    let mouseX = 0, mouseY = 0;
-    let curX = 0, curY = 0;
-    let rafId: number;
-
-    const lerp = (a: number, b: number, n: number) => a + (b - a) * n;
-
-    const onMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-
-    const animate = () => {
-      curX = lerp(curX, mouseX, 0.12);
-      curY = lerp(curY, mouseY, 0.12);
-      cursor.style.left = `${curX}px`;
-      cursor.style.top = `${curY}px`;
-      rafId = requestAnimationFrame(animate);
-    };
-
-    const onMouseEnterHoverable = () => cursor.classList.add("cursor-hover");
-    const onMouseLeaveHoverable = () => cursor.classList.remove("cursor-hover");
-    const onMouseLeave = () => cursor.classList.add("cursor-hidden");
-    const onMouseEnter = () => cursor.classList.remove("cursor-hidden");
-
-    window.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseleave", onMouseLeave);
-    document.addEventListener("mouseenter", onMouseEnter);
-    rafId = requestAnimationFrame(animate);
-
-    // Add hover listeners to interactive elements
-    const hoverEls = document.querySelectorAll("a, button, .inner-button-universall, .instagram-card, .reveal-gallery-img, .step-card-new, .project-card, .wrapper-image-icon");
-    hoverEls.forEach(el => {
-      el.addEventListener("mouseenter", onMouseEnterHoverable);
-      el.addEventListener("mouseleave", onMouseLeaveHoverable);
-    });
-
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseleave", onMouseLeave);
-      document.removeEventListener("mouseenter", onMouseEnter);
-      cancelAnimationFrame(rafId);
-      hoverEls.forEach(el => {
-        el.removeEventListener("mouseenter", onMouseEnterHoverable);
-        el.removeEventListener("mouseleave", onMouseLeaveHoverable);
-      });
-      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
-    };
-  }, [isPreloaded]);
-
   // Pinned ScrollTrigger layout settlement refresh
   useEffect(() => {
     if (!isPreloaded) return;
