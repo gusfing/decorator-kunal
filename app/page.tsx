@@ -1197,6 +1197,420 @@ export default function Home() {
     return () => mm.revert();
   }, [isPreloaded]);
 
+  // ============================================================
+  // REINETTE-STYLE ANIMATION SUITE
+  // ============================================================
+  useGSAP(() => {
+    if (!isPreloaded) return;
+
+    CustomEase.create("hop", "0.9, 0, 0.1, 1");
+    const premEase = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+    // ─── 1. HERO: Clip-path heading line reveals ───────────────
+    const heroLineWraps = gsap.utils.toArray<HTMLElement>(".reveal-line-wrap");
+    if (heroLineWraps.length > 0) {
+      const heroInnerLines = gsap.utils.toArray<HTMLElement>(".reveal-line-wrap .reveal-line");
+      gsap.fromTo(heroInnerLines,
+        { y: "110%" },
+        {
+          y: "0%",
+          duration: 1.1,
+          ease: "power4.out",
+          stagger: 0.09,
+          delay: 0.2,
+        }
+      );
+    }
+
+    // Hero button + social icons fade-up on load
+    const heroExtras = gsap.utils.toArray<HTMLElement>(".wrapper-image-icon, .inner-button-universall");
+    if (heroExtras.length > 0) {
+      gsap.fromTo(heroExtras,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", stagger: 0.08, delay: 0.6 }
+      );
+    }
+
+    // ─── 2. ABOUT SECTION: Heading line clip-path reveal ──────
+    const aboutHeadingLines = gsap.utils.toArray<HTMLElement>(".text-heading-about");
+    if (aboutHeadingLines.length > 0) {
+      gsap.fromTo(aboutHeadingLines,
+        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          stagger: 0.18,
+          scrollTrigger: {
+            trigger: "#section-about",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // About tagline fade from left
+    const aboutTagline = document.querySelector(".wrapper-tag-section.about");
+    if (aboutTagline) {
+      gsap.fromTo(aboutTagline,
+        { x: -30, opacity: 0 },
+        {
+          x: 0, opacity: 1, duration: 0.9, ease: "power3.out",
+          scrollTrigger: {
+            trigger: "#section-about",
+            start: "top 75%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // About paragraph word-stagger fade
+    const aboutPara = document.querySelector(".paragraph-about");
+    if (aboutPara) {
+      gsap.fromTo(aboutPara,
+        { y: 25, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1.0, ease: "power3.out",
+          scrollTrigger: {
+            trigger: "#section-about",
+            start: "top 70%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // ─── 3. PROCESS STEPS: Heading clip-path + step slide-in ──
+    const processHeadline = document.querySelector("#process .serif-headline");
+    if (processHeadline) {
+      gsap.fromTo(processHeadline,
+        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: "#process",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Each step slides in from left with stagger
+    const stepCards = gsap.utils.toArray<HTMLElement>("#process .step-card-new");
+    if (stepCards.length > 0) {
+      gsap.fromTo(stepCards,
+        { x: -50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.95,
+          ease: "power3.out",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: "#process .editorial-steps-grid",
+            start: "top 82%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Step line expand (Reinette signature)
+    const stepLines = gsap.utils.toArray<HTMLElement>(".step-line-animate");
+    if (stepLines.length > 0) {
+      stepLines.forEach((line) => {
+        ScrollTrigger.create({
+          trigger: line,
+          start: "top 88%",
+          onEnter: () => line.classList.add("line-revealed"),
+          onLeaveBack: () => line.classList.remove("line-revealed"),
+        });
+      });
+    }
+
+    // ─── 4. COLLECTION SECTION: Gallery text clip-path ────────
+    const collectionHeadline = document.querySelector("#collection .serif-headline");
+    if (collectionHeadline) {
+      gsap.fromTo(collectionHeadline,
+        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: "#collection",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // ─── 5. PROJECTS: 3D perspective card entrance ────────────
+    const projectCards = gsap.utils.toArray<HTMLElement>(".showcase-card, .project-card");
+    if (projectCards.length > 0) {
+      gsap.fromTo(projectCards,
+        { y: 60, rotateX: 12, transformOrigin: "top center", opacity: 0 },
+        {
+          y: 0,
+          rotateX: 0,
+          opacity: 1,
+          duration: 1.0,
+          ease: "power3.out",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: "#showcase",
+            start: "top 82%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Showcase heading clip-path
+    const showcaseHeadlines = gsap.utils.toArray<HTMLElement>("#showcase .showcase-header > *");
+    if (showcaseHeadlines.length > 0) {
+      gsap.fromTo(showcaseHeadlines,
+        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.1,
+          ease: "power4.out",
+          stagger: 0.14,
+          scrollTrigger: {
+            trigger: "#showcase",
+            start: "top 85%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // ─── 6. INSTAGRAM: Alternating direction stagger ──────────
+    const instaCards = gsap.utils.toArray<HTMLElement>("#instagram .instagram-card");
+    if (instaCards.length > 0) {
+      instaCards.forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: i % 2 === 0 ? 60 : -60, opacity: 0, rotateY: i % 2 === 0 ? 4 : -4 },
+          {
+            y: 0,
+            opacity: 1,
+            rotateY: 0,
+            duration: 1.0,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: "#instagram .instagram-grid",
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+            delay: i * 0.08,
+          }
+        );
+      });
+
+      // Parallax inner image scroll
+      instaCards.forEach((card) => {
+        const img = card.querySelector("img");
+        if (img) {
+          gsap.fromTo(img,
+            { yPercent: -6 },
+            {
+              yPercent: 6,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              }
+            }
+          );
+        }
+      });
+    }
+
+    // ─── 7. TESTIMONIALS: Perspective slide in ────────────────
+    const testimonialCards = gsap.utils.toArray<HTMLElement>(".testimonial-card, #feedback .feedback-card");
+    if (testimonialCards.length > 0) {
+      testimonialCards.forEach((card, i) => {
+        gsap.fromTo(card,
+          { x: i % 2 === 0 ? -40 : 40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1.0,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: "#feedback",
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+            delay: i * 0.1,
+          }
+        );
+      });
+    }
+
+    // ─── 8. FOOTER: Scale-from-center brand reveal ────────────
+    const footerBrand = document.querySelector("#contact-footer .footer-brand, footer .footer-logo");
+    if (footerBrand) {
+      gsap.fromTo(footerBrand,
+        { scale: 0.85, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: "#contact-footer",
+            start: "top 90%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Footer links stagger
+    const footerLinks = gsap.utils.toArray<HTMLElement>("#contact-footer h4, #contact-footer li, #contact-footer .footer-bottom > *");
+    if (footerLinks.length > 0) {
+      gsap.fromTo(footerLinks,
+        { y: 15, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.04,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: "#contact-footer",
+            start: "top 88%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Capabilities section clip-path headings
+    const capHeadlines = gsap.utils.toArray<HTMLElement>(".section-capabilities .capabilities-header > *");
+    if (capHeadlines.length > 0) {
+      gsap.fromTo(capHeadlines,
+        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.1,
+          ease: "power4.out",
+          stagger: 0.14,
+          scrollTrigger: {
+            trigger: ".section-capabilities",
+            start: "top 82%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Cap cards: 3D perspective entrance
+    const capCards = gsap.utils.toArray<HTMLElement>(".section-capabilities .cap-card");
+    if (capCards.length > 0) {
+      gsap.fromTo(capCards,
+        { y: 50, rotateX: 8, transformOrigin: "top center", opacity: 0 },
+        {
+          y: 0,
+          rotateX: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".section-capabilities .capabilities-grid",
+            start: "top 82%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Press section clip-path
+    const pressHeadline = document.querySelector(".press-grid .press-right h2, .press-grid .press-right h3");
+    if (pressHeadline) {
+      gsap.fromTo(pressHeadline,
+        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.0,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: ".press-grid",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+  }, [isPreloaded]);
+
+  // Custom cursor (Reinette style)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const cursor = document.createElement("div");
+    cursor.className = "custom-cursor";
+    document.body.appendChild(cursor);
+
+    let mouseX = 0, mouseY = 0;
+    let curX = 0, curY = 0;
+    let rafId: number;
+
+    const lerp = (a: number, b: number, n: number) => a + (b - a) * n;
+
+    const onMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    const animate = () => {
+      curX = lerp(curX, mouseX, 0.12);
+      curY = lerp(curY, mouseY, 0.12);
+      cursor.style.left = `${curX}px`;
+      cursor.style.top = `${curY}px`;
+      rafId = requestAnimationFrame(animate);
+    };
+
+    const onMouseEnterHoverable = () => cursor.classList.add("cursor-hover");
+    const onMouseLeaveHoverable = () => cursor.classList.remove("cursor-hover");
+    const onMouseLeave = () => cursor.classList.add("cursor-hidden");
+    const onMouseEnter = () => cursor.classList.remove("cursor-hidden");
+
+    window.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseenter", onMouseEnter);
+    rafId = requestAnimationFrame(animate);
+
+    // Add hover listeners to interactive elements
+    const hoverEls = document.querySelectorAll("a, button, .inner-button-universall, .instagram-card, .reveal-gallery-img, .step-card-new, .project-card, .wrapper-image-icon");
+    hoverEls.forEach(el => {
+      el.addEventListener("mouseenter", onMouseEnterHoverable);
+      el.addEventListener("mouseleave", onMouseLeaveHoverable);
+    });
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseenter", onMouseEnter);
+      cancelAnimationFrame(rafId);
+      hoverEls.forEach(el => {
+        el.removeEventListener("mouseenter", onMouseEnterHoverable);
+        el.removeEventListener("mouseleave", onMouseLeaveHoverable);
+      });
+      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+    };
+  }, [isPreloaded]);
+
   // Pinned ScrollTrigger layout settlement refresh
   useEffect(() => {
     if (!isPreloaded) return;
@@ -1205,6 +1619,7 @@ export default function Home() {
     }, 450);
     return () => clearTimeout(timer);
   }, [isPreloaded]);
+
 
   // Handle logo top scroll reset
   const handleLogoClick = () => {
@@ -1381,8 +1796,10 @@ export default function Home() {
           <div className="w-layout-blockcontainer container w-container">
             <div className="wrapper-hero">
               <div className="wrapper-heading-hero">
-                <div className="text-heading-hero" style={{ fontFamily: '"Playfair Display", "Times New Roman", Times, serif', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.5)', position: 'relative', zIndex: 50 }}>
-                  DECOR LAB
+                <div className="reveal-line-wrap">
+                  <div className="text-heading-hero reveal-line" style={{ fontFamily: '"Playfair Display", "Times New Roman", Times, serif', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.5)', position: 'relative', zIndex: 50 }}>
+                    DECOR LAB
+                  </div>
                 </div>
                 <a data-w-id="66aeaa42-d8c6-e18c-6215-71bab4d1eaa7" href="#contact" className="inner-button-universall w-inline-block">
                   <div className="text-button">
@@ -1391,6 +1808,7 @@ export default function Home() {
                   </div>
                 </a>
               </div>
+
               <div className="main-content-hero">
                 <div className="wrapper-copyright-symbol">
                   <div className="inner-copyright-symbol">
@@ -1428,6 +1846,7 @@ export default function Home() {
             <h2 className="serif-headline">Creating with us is easy.</h2>
 
             <div className="editorial-steps-grid">
+              <div className="step-line-animate"></div>
               <div className="step-card-new">
                 <div className="step-card-num">01</div>
                 <div className="step-card-content">
@@ -1441,6 +1860,7 @@ export default function Home() {
                 </div>
               </div>
 
+              <div className="step-line-animate"></div>
               <div className="step-card-new">
                 <div className="step-card-num">02</div>
                 <div className="step-card-content">
@@ -1454,6 +1874,7 @@ export default function Home() {
                 </div>
               </div>
 
+              <div className="step-line-animate"></div>
               <div className="step-card-new">
                 <div className="step-card-num">03</div>
                 <div className="step-card-content">
@@ -1467,6 +1888,7 @@ export default function Home() {
                 </div>
               </div>
 
+              <div className="step-line-animate"></div>
               <div className="step-card-new">
                 <div className="step-card-num">04</div>
                 <div className="step-card-content">
@@ -1479,6 +1901,7 @@ export default function Home() {
                   <img src="/assets/projects/site_01/image_1.jpg" alt="Execution Preview" />
                 </div>
               </div>
+              <div className="step-line-animate"></div>
             </div>
           </div>
         </section>
@@ -1995,9 +2418,23 @@ export default function Home() {
         <FooterBanner isPreloaded={isPreloaded} />
 
         {/* ====================================================
+         * MARQUEE STRIP — Reinette-style CTA Band
+         * ==================================================== */}
+        <div className="footer-marquee-section" style={{ background: '#0b0b0a' }}>
+          <div className="marquee-strip">
+            <div className="marquee-track">
+              {[...Array(8)].map((_, i) => (
+                <span key={i} className="marquee-item">Architecture &amp; Interior Design</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ====================================================
          * SECTION 7: STUDIO DETAILED FOOTER
          * ==================================================== */}
         <footer id="contact-footer" className="section-footer">
+
           <div className="footer-container">
             <div className="footer-top">
               <div className="footer-brand">

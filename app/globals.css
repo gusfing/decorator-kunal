@@ -3590,3 +3590,217 @@ body {
 .card-cross-section {
   overflow: hidden;
 }
+
+/* ====================================================
+ * REINETTE-STYLE ANIMATIONS
+ * ==================================================== */
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              opacity 0.3s ease;
+  mix-blend-mode: difference;
+}
+.custom-cursor.cursor-hover {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+.custom-cursor.cursor-hidden {
+  opacity: 0;
+}
+
+/* Clip-path Line Reveal */
+.reveal-line-wrap {
+  display: block;
+  overflow: hidden;
+}
+.reveal-line {
+  display: block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* Marquee Strip */
+.marquee-strip {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+.marquee-track {
+  display: inline-flex;
+  gap: 3rem;
+  animation: marqueeScroll 18s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+.marquee-item {
+  font-family: var(--font-serif), serif;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+.marquee-item::after {
+  content: '\2736';
+  font-size: 0.65em;
+  opacity: 0.5;
+}
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Global Button Hover */
+.inner-button-universall,
+.pill-btn-editorial {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.inner-button-universall:hover,
+.pill-btn-editorial:hover {
+  transform: scale(1.04) translateY(-2px) !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25) !important;
+}
+
+/* Nav Link Hover Underline */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  right: 50%;
+  height: 1px;
+  background: rgba(255,255,255,0.6);
+  transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after {
+  left: 16px;
+  right: 16px;
+}
+.nav-header.light-theme .nav-link::after {
+  background: rgba(42,41,40,0.5);
+}
+
+/* Card Hover Effects */
+.reveal-gallery-img,
+.instagram-card {
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-gallery-img:hover,
+.instagram-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+}
+.reveal-gallery-img img,
+.instagram-card img {
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.reveal-gallery-img:hover img,
+.instagram-card:hover img {
+  transform: scale(1.06) !important;
+}
+
+/* Step Card Hover */
+.step-card-new {
+  transition: background 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.step-card-new:hover {
+  background: rgba(255,255,255,0.04);
+  transform: translateX(6px);
+}
+.step-card-new:hover .step-card-num {
+  color: rgba(255,255,255,0.9);
+  transform: scale(1.08);
+}
+
+/* Step Line Expand (Reinette Signature) */
+.step-line-animate {
+  position: relative;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.step-line-animate::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: rgba(255,255,255,0.35);
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.step-line-animate.line-revealed::after {
+  width: 100%;
+}
+
+/* About Section Heading Overflow Hidden */
+.text-heading-about {
+  display: block;
+  overflow: hidden;
+}
+
+/* Circle Section Dot Pulse */
+.circle-section {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+  animation: circlePulse 2s infinite;
+}
+@keyframes circlePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+/* Footer Marquee Band */
+.footer-marquee-section {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 1.25rem 0;
+  overflow: hidden;
+}
+
+/* Social Icon Hover Spin */
+.wrapper-image-icon {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+.wrapper-image-icon:hover {
+  transform: rotate(12deg) scale(1.15);
+  opacity: 0.8;
+}
+
+/* Fanning Card Image Zoom on Hover */
+.card-cross-section img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-cross-section:hover img {
+  transform: scale(1.06);
+}
