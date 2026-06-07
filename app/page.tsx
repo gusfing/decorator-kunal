@@ -39,6 +39,14 @@ export default function Home() {
   // Preloader / Entrance state
   const [showPreloader, setShowPreloader] = useState(true);
   const [isPreloaded, setIsPreloaded] = useState(false);
+  const [activeProcessStep, setActiveProcessStep] = useState(0);
+
+  const scrollToProcessStep = (index: number) => {
+    const el = document.getElementById(`process-step-${index}`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
 
   // Bulletproof fallback: force hide preloader and reveal site after 3.8s in case any animation is interrupted, skipped, or cached
   useEffect(() => {
@@ -48,6 +56,20 @@ export default function Home() {
     }, 3800);
     return () => clearTimeout(timer);
   }, []);
+
+  // Physically remove preloader DOM nodes when loading transitions to finished
+  useEffect(() => {
+    if (!showPreloader) {
+      const preloaderNode = document.querySelector(".preloader");
+      const preloaderHeaderNode = document.getElementById("preloader-header-container");
+      if (preloaderNode) {
+        preloaderNode.remove();
+      }
+      if (preloaderHeaderNode) {
+        preloaderHeaderNode.remove();
+      }
+    }
+  }, [showPreloader]);
 
   // Hero state
   const [activeSlide, setActiveSlide] = useState(1); // Set to default Nube interior tunnel slide
@@ -251,8 +273,18 @@ export default function Home() {
       setIsScrolled(scrollPos > window.innerHeight * 0.1);
 
       // Section tracking for nav links & dark/light theme switching
-      const sections = ["hero", "info", "work", "instagram", "contact"];
-      let active = "hero";
+      const sections = [
+        "section-hero",
+        "section-about",
+        "process",
+        "collection",
+        "collabs",
+        "press",
+        "showcase",
+        "instagram",
+        "contact-footer"
+      ];
+      let active = "section-hero";
 
       sections.forEach((id) => {
         const el = document.getElementById(id);
@@ -268,7 +300,14 @@ export default function Home() {
       setActiveSection(active);
 
       // Map light background sections to light theme
-      if (active === "work" || active === "contact") {
+      if (
+        active === "process" ||
+        active === "collection" ||
+        active === "collabs" ||
+        active === "press" ||
+        active === "showcase" ||
+        active === "instagram"
+      ) {
         setCurrentTheme("light");
       } else {
         setCurrentTheme("dark");
@@ -304,222 +343,228 @@ export default function Home() {
 
   // Entrance timelines with GSAP
   useGSAP(() => {
-    // Custom ease curve mapping vanilla bezier
-    CustomEase.create("hop", "0.9, 0, 0.1, 1");
+    try {
+      // Custom ease curve mapping vanilla bezier
+      CustomEase.create("hop", "0.9, 0, 0.1, 1");
 
-    const preloader = preloaderRef.current;
-    const headerContainer = preloaderHeaderRef.current;
+      const preloader = preloaderRef.current;
+      const headerContainer = preloaderHeaderRef.current;
 
-    if (!preloader || !headerContainer) return;
+      if (!preloader || !headerContainer) return;
 
-    // Split text selector helpers
-    const chars = gsap.utils.toArray<HTMLElement>("#preloader-title-link .char");
-    const lines = gsap.utils.toArray<HTMLElement>(".preloader-copy p .line");
-    const heroLines = gsap.utils.toArray<HTMLElement>(".hero-brand-title");
-    const preloaderImages = gsap.utils.toArray<HTMLElement>(".preloader-images .img");
-    const preloaderImagesInner = gsap.utils.toArray<HTMLElement>(".preloader-images .img img");
+      // Split text selector helpers
+      const chars = gsap.utils.toArray<HTMLElement>("#preloader-title-link .char");
+      const lines = gsap.utils.toArray<HTMLElement>(".preloader-copy p .line");
+      const heroLines = gsap.utils.toArray<HTMLElement>(".hero-brand-title");
+      const preloaderImages = gsap.utils.toArray<HTMLElement>(".preloader-images .img");
+      const preloaderImagesInner = gsap.utils.toArray<HTMLElement>(".preloader-images .img img");
 
-    // Initialize offsets
-    if (chars.length > 0) {
-      chars.forEach((char, i) => {
-        gsap.set(char, { yPercent: i % 2 === 0 ? -100 : 100 });
-      });
-    }
-    if (lines.length > 0) {
-      gsap.set(lines, { yPercent: 100 });
-    }
-    if (heroLines.length > 0) {
-      gsap.set(heroLines, { yPercent: 100 });
-    }
-
-    const tl = gsap.timeline({ delay: 0.25 });
-
-    // Progress Bar loading phase
-    if (document.querySelector(".progress-bar")) {
-      tl.to(".progress-bar", {
-        scaleX: 1,
-        duration: 3,
-        ease: "power3.inOut",
-      })
-        .set(".progress-bar", { transformOrigin: "right" })
-        .to(".progress-bar", {
-          scaleX: 0,
-          duration: 0.8,
-          ease: "power3.in",
+      // Initialize offsets
+      if (chars.length > 0) {
+        chars.forEach((char, i) => {
+          gsap.set(char, { yPercent: i % 2 === 0 ? -100 : 100 });
         });
-    }
+      }
+      if (lines.length > 0) {
+        gsap.set(lines, { yPercent: 100 });
+      }
+      if (heroLines.length > 0) {
+        gsap.set(heroLines, { yPercent: 100 });
+      }
 
-    // Image polygon reveals
-    if (preloaderImages.length > 0) {
-      preloaderImages.forEach((img, i) => {
+      const tl = gsap.timeline({ delay: 0.25 });
+
+      // Progress Bar loading phase
+      if (document.querySelector(".progress-bar")) {
+        tl.to(".progress-bar", {
+          scaleX: 1,
+          duration: 3,
+          ease: "power3.inOut",
+        })
+          .set(".progress-bar", { transformOrigin: "right" })
+          .to(".progress-bar", {
+            scaleX: 0,
+            duration: 0.8,
+            ease: "power3.in",
+          });
+      }
+
+      // Image polygon reveals
+      if (preloaderImages.length > 0) {
+        preloaderImages.forEach((img, i) => {
+          tl.to(
+            img,
+            {
+              clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+              duration: 0.8,
+              ease: "hop",
+              delay: i * 0.55,
+            },
+            "-=3.8"
+          );
+        });
+      }
+
+      if (preloaderImagesInner.length > 0) {
+        preloaderImagesInner.forEach((img, i) => {
+          tl.to(
+            img,
+            {
+              scale: 1,
+              duration: 1.2,
+              ease: "hop",
+              delay: i * 0.55,
+            },
+            "-=4.0"
+          );
+        });
+      }
+
+      // Preloader copy reveals
+      if (lines.length > 0) {
         tl.to(
-          img,
+          lines,
           {
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            yPercent: 0,
+            duration: 1.5,
+            ease: "hop",
+            stagger: 0.08,
+          },
+          "-=4.2"
+        );
+      }
+
+      if (chars.length > 0) {
+        tl.to(
+          chars,
+          {
+            yPercent: 0,
             duration: 0.8,
             ease: "hop",
-            delay: i * 0.55,
+            stagger: 0.02,
           },
           "-=3.8"
         );
-      });
-    }
+      }
 
-    if (preloaderImagesInner.length > 0) {
-      preloaderImagesInner.forEach((img, i) => {
+      if (document.querySelector(".preloader-images")) {
         tl.to(
-          img,
+          ".preloader-images",
           {
-            scale: 1,
-            duration: 1.2,
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+            duration: 0.8,
             ease: "hop",
-            delay: i * 0.55,
           },
-          "-=4.0"
+          "-=1.2"
         );
-      });
-    }
+      }
 
-    // Preloader copy reveals
-    if (lines.length > 0) {
-      tl.to(
-        lines,
-        {
-          yPercent: 0,
-          duration: 1.5,
-          ease: "hop",
-          stagger: 0.08,
-        },
-        "-=4.2"
-      );
-    }
+      if (lines.length > 0) {
+        tl.to(
+          lines,
+          {
+            y: "-125%",
+            duration: 1.5,
+            ease: "hop",
+            stagger: 0.08,
+          },
+          "-=1.5"
+        );
+      }
 
-    if (chars.length > 0) {
-      tl.to(
-        chars,
-        {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "hop",
-          stagger: 0.02,
-        },
-        "-=3.8"
-      );
-    }
+      // Characters meeting stagger logo merger
+      if (chars.length > 0) {
+        tl.to(
+          chars,
+          {
+            yPercent: (index) => {
+              if (index === 0 || index === chars.length - 1) return 0;
+              return index % 2 === 0 ? 100 : -100;
+            },
+            duration: 0.8,
+            ease: "hop",
+            stagger: 0.02,
+            delay: 0.3,
+            onStart: () => {
+              const initialChar = chars[0];
+              const lastChar = chars[chars.length - 1];
 
-    if (document.querySelector(".preloader-images")) {
+              if (initialChar && lastChar) {
+                const initialCharMask = initialChar.parentElement;
+                const lastCharMask = lastChar.parentElement;
+
+                if (initialCharMask) initialCharMask.style.overflow = "visible";
+                if (lastCharMask) lastCharMask.style.overflow = "visible";
+
+                const viewportWidth = window.innerWidth;
+                const centerX = viewportWidth / 2;
+                const initialCharRect = initialChar.getBoundingClientRect();
+                const lastCharRect = lastChar.getBoundingClientRect();
+
+                // Animate initial 'D' and last 'b' to merge in the center and fade to white
+                gsap.to([initialChar, lastChar], {
+                  duration: 0.8,
+                  ease: "hop",
+                  delay: 0.3,
+                  color: "#ffffff",
+                  x: (i) => {
+                    if (i === 0) {
+                      return centerX - initialCharRect.left - initialCharRect.width;
+                    } else {
+                      return centerX - lastCharRect.left;
+                    }
+                  },
+                  onComplete: () => {
+                    // Apply difference blend overlay
+                    gsap.set(headerContainer, { mixBlendMode: "difference" });
+
+                    // Travel and scale merged letters up to Nav Logo position
+                    gsap.to(headerContainer, {
+                      y: "2.5rem",
+                      scale: 0.28,
+                      duration: 1.2,
+                      ease: "hop",
+                      onComplete: () => {
+                        // Preloader ends! Reveal main page structure
+                        setIsPreloaded(true);
+                        setShowPreloader(false);
+                      },
+                    });
+                  },
+                });
+              }
+            },
+          },
+          "-=2.0"
+        );
+      }
+
       tl.to(
-        ".preloader-images",
+        preloader,
         {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-          duration: 0.8,
-          ease: "hop",
-        },
-        "-=1.2"
-      );
-    }
-
-    if (lines.length > 0) {
-      tl.to(
-        lines,
-        {
-          y: "-125%",
           duration: 1.5,
           ease: "hop",
-          stagger: 0.08,
         },
-        "-=1.5"
+        "-=0.4"
       );
-    }
 
-    // Characters meeting stagger logo merger
-    if (chars.length > 0) {
-      tl.to(
-        chars,
-        {
-          yPercent: (index) => {
-            if (index === 0 || index === chars.length - 1) return 0;
-            return index % 2 === 0 ? 100 : -100;
+      if (heroLines.length > 0) {
+        tl.to(
+          heroLines,
+          {
+            yPercent: 0,
+            duration: 0.8,
+            ease: "power4.out",
+            stagger: 0.08,
           },
-          duration: 0.8,
-          ease: "hop",
-          stagger: 0.02,
-          delay: 0.3,
-          onStart: () => {
-            const initialChar = chars[0];
-            const lastChar = chars[chars.length - 1];
-
-            if (initialChar && lastChar) {
-              const initialCharMask = initialChar.parentElement;
-              const lastCharMask = lastChar.parentElement;
-
-              if (initialCharMask) initialCharMask.style.overflow = "visible";
-              if (lastCharMask) lastCharMask.style.overflow = "visible";
-
-              const viewportWidth = window.innerWidth;
-              const centerX = viewportWidth / 2;
-              const initialCharRect = initialChar.getBoundingClientRect();
-              const lastCharRect = lastChar.getBoundingClientRect();
-
-              // Animate initial 'E' and last 'e' to merge in the center and fade to white
-              gsap.to([initialChar, lastChar], {
-                duration: 0.8,
-                ease: "hop",
-                delay: 0.3,
-                color: "#ffffff",
-                x: (i) => {
-                  if (i === 0) {
-                    return centerX - initialCharRect.left - initialCharRect.width;
-                  } else {
-                    return centerX - lastCharRect.left;
-                  }
-                },
-                onComplete: () => {
-                  // Apply difference blend overlay
-                  gsap.set(headerContainer, { mixBlendMode: "difference" });
-
-                  // Travel and scale merged letters up to Nav Logo position
-                  gsap.to(headerContainer, {
-                    y: "2.5rem",
-                    scale: 0.28,
-                    duration: 1.2,
-                    ease: "hop",
-                    onComplete: () => {
-                      // Preloader ends! Reveal main page structure
-                      setIsPreloaded(true);
-                      setShowPreloader(false);
-                    },
-                  });
-                },
-              });
-            }
-          },
-        },
-        "-=2.0"
-      );
-    }
-
-    tl.to(
-      preloader,
-      {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-        duration: 1.5,
-        ease: "hop",
-      },
-      "-=0.4"
-    );
-
-    if (heroLines.length > 0) {
-      tl.to(
-        heroLines,
-        {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "power4.out",
-          stagger: 0.08,
-        },
-        "-=0.6"
-      );
+          "-=0.6"
+        );
+      }
+    } catch (error) {
+      console.error("Error running preloader timeline:", error);
+      setIsPreloaded(true);
+      setShowPreloader(false);
     }
   }, []);
 
@@ -774,8 +819,8 @@ export default function Home() {
       }
 
       // 3. Process Section (#process)
-      if (document.querySelector("#process .serif-headline")) {
-        gsap.fromTo("#process .serif-headline",
+      if (document.querySelector("#process .process-sidebar")) {
+        gsap.fromTo("#process .process-sidebar",
           { y: 30, opacity: 0 },
           {
             y: 0,
@@ -792,8 +837,8 @@ export default function Home() {
         );
       }
 
-      if (document.querySelector("#process .step-card-new")) {
-        gsap.fromTo("#process .step-card-new",
+      if (document.querySelector("#process .process-step-item")) {
+        gsap.fromTo("#process .process-step-item",
           { y: 55, opacity: 0 },
           {
             y: 0,
@@ -802,7 +847,7 @@ export default function Home() {
             stagger: 0.12,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: "#process .editorial-steps-grid",
+              trigger: "#process .process-steps-list",
               start: "top 85%",
               end: "bottom 15%",
               toggleActions: "play reverse play reverse",
@@ -1282,15 +1327,16 @@ export default function Home() {
       );
     }
 
-    // ─── 3. PROCESS STEPS: Heading clip-path + step slide-in ──
-    const processHeadline = document.querySelector("#process .serif-headline");
-    if (processHeadline) {
-      gsap.fromTo(processHeadline,
-        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+    // ─── 3. PROCESS STEPS: Split layout animations ──
+    const processSidebar = document.querySelector("#process .process-sidebar");
+    if (processSidebar) {
+      gsap.fromTo(processSidebar,
+        { x: -30, opacity: 0 },
         {
-          clipPath: "inset(0 0% 0 0)",
-          duration: 1.1,
-          ease: "power4.out",
+          x: 0,
+          opacity: 1,
+          duration: 1.0,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: "#process",
             start: "top 80%",
@@ -1300,35 +1346,37 @@ export default function Home() {
       );
     }
 
-    // Each step slides in from left with stagger
-    const stepCards = gsap.utils.toArray<HTMLElement>("#process .step-card-new");
-    if (stepCards.length > 0) {
-      gsap.fromTo(stepCards,
-        { x: -50, opacity: 0 },
+    // Each step slides in from right/bottom
+    const redesignedStepCards = gsap.utils.toArray<HTMLElement>("#process .process-step-item");
+    if (redesignedStepCards.length > 0) {
+      gsap.fromTo(redesignedStepCards,
+        { y: 60, opacity: 0, scale: 0.98 },
         {
-          x: 0,
+          y: 0,
           opacity: 1,
-          duration: 0.95,
-          ease: "power3.out",
+          scale: 1,
+          duration: 1.0,
+          ease: "power4.out",
           stagger: 0.15,
           scrollTrigger: {
-            trigger: "#process .editorial-steps-grid",
-            start: "top 82%",
+            trigger: "#process .process-steps-list",
+            start: "top 80%",
             toggleActions: "play none none none",
           }
         }
       );
-    }
 
-    // Step line expand (Reinette signature)
-    const stepLines = gsap.utils.toArray<HTMLElement>(".step-line-animate");
-    if (stepLines.length > 0) {
-      stepLines.forEach((line) => {
+      // Sync sidebar indicators with scroll position of steps
+      redesignedStepCards.forEach((item, index) => {
         ScrollTrigger.create({
-          trigger: line,
-          start: "top 88%",
-          onEnter: () => line.classList.add("line-revealed"),
-          onLeaveBack: () => line.classList.remove("line-revealed"),
+          trigger: item,
+          start: "top 60%",
+          end: "bottom 40%",
+          onToggle: (self) => {
+            if (self.isActive) {
+              setActiveProcessStep(index);
+            }
+          },
         });
       });
     }
@@ -1781,10 +1829,16 @@ export default function Home() {
   // Pinned ScrollTrigger layout settlement refresh
   useEffect(() => {
     if (!isPreloaded) return;
-    const timer = setTimeout(() => {
+    const timer1 = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 450);
-    return () => clearTimeout(timer);
+    }, 500);
+    const timer2 = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 1200);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   }, [isPreloaded]);
 
 
@@ -2010,65 +2064,80 @@ export default function Home() {
          * ==================================================== */}
         <section id="process" className="editorial-section">
           <div className="editorial-container">
-            <h2 className="serif-headline">Creating with us is easy.</h2>
-
-            <div className="editorial-steps-grid">
-              <div className="step-line-animate"></div>
-              <div className="step-card-new">
-                <div className="step-card-num">01</div>
-                <div className="step-card-content">
-                  <h4 className="step-card-title">CONTACT US</h4>
-                  <p className="step-card-desc">
-                    We work hand in hand with clients and collaborators. Commercial or residential, simply reach out to get a conversation going. No project is too complex or too simple.
-                  </p>
+            <div className="process-grid-container">
+              {/* Sticky Sidebar on Left */}
+              <div className="process-sidebar">
+                <div>
+                  <h4 className="studio-subtitle" style={{ textAlign: "left" }}>02 / METHODOLOGY</h4>
+                  <h2 className="serif-headline" style={{ textAlign: "left", marginTop: "1rem", lineHeight: "1.1" }}>
+                    Creating with us<br />is easy.
+                  </h2>
                 </div>
-                <div className="step-card-preview-frame">
-                  <img src="/assets/projects/santhalia_site/image_5.jpg" alt="Contact Us Preview" />
-                </div>
-              </div>
-
-              <div className="step-line-animate"></div>
-              <div className="step-card-new">
-                <div className="step-card-num">02</div>
-                <div className="step-card-content">
-                  <h4 className="step-card-title">CONSULTATION</h4>
-                  <p className="step-card-desc">
-                    We evaluate your spatial needs, translating your vision into functional plans. We inspect the site to align layout, lighting, materials, and execution logistics from the very start.
-                  </p>
-                </div>
-                <div className="step-card-preview-frame">
-                  <img src="/assets/projects/site_01/image_2.jpg" alt="Consultation Preview" />
+                <div className="process-indicator-wrap">
+                  {[
+                    "Contact Us",
+                    "Consultation",
+                    "Design & Visualization",
+                    "On-Site Execution"
+                  ].map((step, idx) => (
+                    <div
+                      key={step}
+                      className={`process-indicator-step ${activeProcessStep === idx ? "active" : ""}`}
+                      onClick={() => scrollToProcessStep(idx)}
+                    >
+                      <span className="process-indicator-bullet">{idx + 1} . </span>
+                      {step}
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="step-line-animate"></div>
-              <div className="step-card-new">
-                <div className="step-card-num">03</div>
-                <div className="step-card-content">
-                  <h4 className="step-card-title">DESIGN & VISUALIZATION</h4>
-                  <p className="step-card-desc">
-                    We finalize material specs, lighting designs, and custom joinery. Photorealistic 3D renders help visualize the space, ensuring complete confidence before execution starts.
-                  </p>
-                </div>
-                <div className="step-card-preview-frame">
-                  <img src="/assets/projects/site_02/image_2.jpg" alt="Design Render Preview" />
-                </div>
+              {/* Stacking Steps List on Right */}
+              <div className="process-steps-list">
+                {[
+                  {
+                    num: "01",
+                    title: "CONTACT US",
+                    desc: "We work hand in hand with clients and collaborators. Commercial or residential, simply reach out to get a conversation going. No project is too complex or too simple.",
+                    img: "/assets/projects/santhalia_site/image_5.jpg"
+                  },
+                  {
+                    num: "02",
+                    title: "CONSULTATION",
+                    desc: "We evaluate your spatial needs, translating your vision into functional plans. We inspect the site to align layout, lighting, materials, and execution logistics from the very start.",
+                    img: "/assets/projects/site_01/image_2.jpg"
+                  },
+                  {
+                    num: "03",
+                    title: "DESIGN & VISUALIZATION",
+                    desc: "We finalize material specs, lighting designs, and custom joinery. Photorealistic 3D renders help visualize the space, ensuring complete confidence before execution starts.",
+                    img: "/assets/projects/site_02/image_2.jpg"
+                  },
+                  {
+                    num: "04",
+                    title: "ON-SITE EXECUTION",
+                    desc: "Our team of 275+ professionals manages complete end-to-end site execution. From structural modifications to custom curation, we deliver a seamless, hassle-free transition.",
+                    img: "/assets/projects/site_01/image_1.jpg"
+                  }
+                ].map((step, idx) => (
+                  <div
+                    key={step.num}
+                    id={`process-step-${idx}`}
+                    className="process-step-item"
+                  >
+                    <div className="process-step-num">{step.num}</div>
+                    <div className="process-step-body">
+                      <div className="process-step-info">
+                        <h4 className="process-step-title">{step.title}</h4>
+                        <p className="process-step-desc">{step.desc}</p>
+                      </div>
+                      <div className="process-step-media">
+                        <img src={step.img} alt={`${step.title} Preview`} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-
-              <div className="step-line-animate"></div>
-              <div className="step-card-new">
-                <div className="step-card-num">04</div>
-                <div className="step-card-content">
-                  <h4 className="step-card-title">ON-SITE EXECUTION</h4>
-                  <p className="step-card-desc">
-                    Our team of 275+ professionals manages complete end-to-end site execution. From structural modifications to custom curation, we deliver a seamless, hassle-free transition.
-                  </p>
-                </div>
-                <div className="step-card-preview-frame">
-                  <img src="/assets/projects/site_01/image_1.jpg" alt="Execution Preview" />
-                </div>
-              </div>
-              <div className="step-line-animate"></div>
             </div>
           </div>
         </section>
@@ -2130,7 +2199,7 @@ export default function Home() {
         {/* ====================================================
          * SECTION 2D: RECENT COLLABS (Human NYC showcase)
          * ==================================================== */}
-        <section className="editorial-section cashmere-bg">
+        <section id="collabs" className="editorial-section cashmere-bg">
           <div className="editorial-container">
             <div className="collabs-grid">
               <div className="collab-left">
@@ -2178,7 +2247,7 @@ export default function Home() {
         {/* ====================================================
          * SECTION 2E: PRESS & PUBLICATION (Elle Decor highlight)
          * ==================================================== */}
-        <section className="editorial-section">
+        <section id="press" className="editorial-section">
           <div className="editorial-container">
             <div className="press-grid">
               <div className="gallery-image-wrapper press-left">

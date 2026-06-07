@@ -38,12 +38,15 @@ export default function GSAPRouteCleaner() {
       smoothTouch: false,
     } as any);
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // Synchronize ScrollTrigger with Lenis scroll updates
+    lenis.on("scroll", ScrollTrigger.update);
 
-    const rafId = requestAnimationFrame(raf);
+    // Sync Lenis RAF with GSAP's ticker
+    const tick = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
 
     // ─── INITIALIZE GLOBAL CUSTOM CURSOR ───
     // Create cursor DOM element if it doesn't exist yet
@@ -111,8 +114,8 @@ export default function GSAPRouteCleaner() {
 
     // ─── CLEANUP ───
     return () => {
-      cancelAnimationFrame(rafId);
       cancelAnimationFrame(cursorRafId);
+      gsap.ticker.remove(tick);
       lenis.destroy();
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseover", onMouseOver);
