@@ -541,21 +541,25 @@ export default function Home() {
       const stackedHeight = isMobile ? "60vw" : "22vw";
       const stackedRadius = isMobile ? "4vw" : "1.5vw";
       const rotateFactor = isMobile ? 3.5 : 2.5;
-      // Pull cards UP from About section into Hero section (matches original Webflow translateY)
-      const heroYOffset = isMobile ? "-105vw" : "-79.7vw";
 
-      // INITIAL STATE: Fanned out perfectly in the Hero section
-      aboutCards.forEach((card, index) => {
-        const offset = index - 4; // -4, -3, -2, -1, 0, 1, 2, 3, 4
+      // Dynamic Y-offset calculation to center the cards in the hero section viewport on load
+      const getHeroYOffset = () => {
+        const cardContainer = document.querySelector(".absolute-card.in-about");
+        if (cardContainer) {
+          const containerRect = cardContainer.getBoundingClientRect();
+          const containerCenterY = containerRect.top + window.scrollY + containerRect.height / 2;
+          const viewportCenterY = window.innerHeight / 2;
+          return viewportCenterY - containerCenterY;
+        }
+        // Fallback to CSS values if container is not ready
+        return isMobile ? -window.innerWidth * 1.05 : -window.innerWidth * 0.797;
+      };
+
+      // Set initial layout properties that don't need dynamic ScrollTrigger updates
+      aboutCards.forEach((card) => {
         gsap.set(card, {
-          x: offset * getSpread(),
-          y: heroYOffset, // Pull cards UP into the Hero section
-          rotation: offset * rotateFactor,
-          scale: 1.0,
+          display: "block",
           opacity: 1,
-          width: startWidth,
-          height: startHeight,
-          display: "block" 
         });
       });
 
@@ -566,19 +570,32 @@ export default function Home() {
           start: "top 90%", // Trigger when about section enters the bottom of the viewport
           end: "top 20%",   // Animation finishes when about section reaches 20% from top
           scrub: 1,
+          invalidateOnRefresh: true, // Recalculate dynamic values on resize & zoom change!
         }
       });
 
-      aboutCards.forEach((card) => {
-        aboutTl.to(card, {
-          y: 0, // Animate DOWN to their natural container position in the About section
-          x: 0, // Stack them perfectly on top of each other!
-          rotation: 0, // Straighten them out
-          width: stackedWidth, 
-          height: stackedHeight, 
-          borderRadius: stackedRadius, 
-          ease: "power2.out",
-        }, 0);
+      aboutCards.forEach((card, index) => {
+        const offset = index - 4; // -4, -3, -2, -1, 0, 1, 2, 3, 4
+        aboutTl.fromTo(card,
+          {
+            x: () => offset * getSpread(),
+            y: () => getHeroYOffset(),
+            rotation: () => offset * rotateFactor,
+            width: () => startWidth,
+            height: () => startHeight,
+            borderRadius: "1vw",
+          },
+          {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            width: () => stackedWidth,
+            height: () => stackedHeight,
+            borderRadius: () => stackedRadius,
+            ease: "power2.out",
+          },
+          0
+        );
       });
 
       // PINNING: Pin the About section so the user can watch the stack happen cleanly
