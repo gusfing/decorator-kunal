@@ -549,10 +549,12 @@ export default function Home() {
           const containerRect = cardContainer.getBoundingClientRect();
           const containerCenterY = containerRect.top + window.scrollY + containerRect.height / 2;
           const viewportCenterY = window.innerHeight / 2;
-          return viewportCenterY - containerCenterY;
+          // Shift desktop down by 70px, mobile down by 40px to create space between cards and DECOR LAB title
+          const verticalShift = isMobile ? 40 : 70;
+          return (viewportCenterY - containerCenterY) + verticalShift;
         }
         // Fallback to CSS values if container is not ready
-        return isMobile ? -window.innerWidth * 1.05 : -window.innerWidth * 0.797;
+        return isMobile ? (-window.innerWidth * 1.05 + 40) : (-window.innerWidth * 0.797 + 70);
       };
 
       // Set initial layout properties that don't need dynamic ScrollTrigger updates
