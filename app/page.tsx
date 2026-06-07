@@ -1553,7 +1553,230 @@ export default function Home() {
       );
     }
 
+    // ─── BLUR TEXT ANIMATIONS ─────────────────────────────────
+    // All section descriptions/paragraphs: blur → sharp on scroll
+    const blurTargets = gsap.utils.toArray<HTMLElement>(
+      ".step-card-desc, .step-desc, .footer-desc, .showcase-project-desc, " +
+      ".about-right-body, .descriptions-service, .descriptions-team, " +
+      ".insta-bio, .collab-left p, .press-right p"
+    );
+    blurTargets.forEach((el) => {
+      gsap.fromTo(el,
+        { filter: "blur(10px)", opacity: 0, y: 15 },
+        {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    });
+
+    // Serif headlines: blur-word stagger (word-by-word blur in)
+    const serifHeadlines = gsap.utils.toArray<HTMLElement>(".serif-headline");
+    serifHeadlines.forEach((headline) => {
+      // Skip if already has clip-path animation
+      if (headline.style.clipPath) return;
+      const text = headline.textContent || "";
+      const words = text.split(" ");
+      headline.innerHTML = words.map((w) =>
+        `<span class="blur-word">${w}</span>`
+      ).join(" ");
+      const wordEls = headline.querySelectorAll(".blur-word");
+      ScrollTrigger.create({
+        trigger: headline,
+        start: "top 85%",
+        onEnter: () => {
+          wordEls.forEach((w, i) => {
+            setTimeout(() => w.classList.add("revealed"), i * 80);
+          });
+        },
+      });
+    });
+
+    // About section heading blur text overlay
+    const aboutHeadings = gsap.utils.toArray<HTMLElement>(".text-heading-about");
+    aboutHeadings.forEach((heading) => {
+      gsap.fromTo(heading,
+        { filter: "blur(8px)" },
+        {
+          filter: "blur(0px)",
+          duration: 1.4,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: heading,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    });
+
+    // Hero tagline and copyright text blur-in
+    const heroTextEls = gsap.utils.toArray<HTMLElement>(".text-tagline-hero-mini, .wrapper-copyright-symbol");
+    heroTextEls.forEach((el) => {
+      gsap.fromTo(el,
+        { filter: "blur(8px)", opacity: 0 },
+        {
+          filter: "blur(0px)",
+          opacity: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          delay: 0.8,
+        }
+      );
+    });
+
+    // ─── ENHANCED IMAGE ANIMATIONS ───────────────────────────
+    // Step card preview images: scale-up + blur reveal on scroll
+    const stepPreviews = gsap.utils.toArray<HTMLElement>(".step-card-preview-frame");
+    stepPreviews.forEach((frame) => {
+      const img = frame.querySelector("img");
+      if (img) {
+        gsap.fromTo(img,
+          { scale: 1.3, filter: "blur(6px)" },
+          {
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 1.4,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: frame,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            }
+          }
+        );
+      }
+    });
+
+    // Showcase gallery items: curtain reveal (clip-path)
+    const galleryItems = gsap.utils.toArray<HTMLElement>(".showcase-gallery-item");
+    galleryItems.forEach((item, i) => {
+      gsap.fromTo(item,
+        { clipPath: i % 2 === 0 ? "inset(0 100% 0 0)" : "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+          delay: (i % 3) * 0.12,
+        }
+      );
+    });
+
+    // Gallery images (collection section): staggered scale + blur reveal
+    const collectionImgsEnhanced = gsap.utils.toArray<HTMLElement>("#collection .reveal-gallery-img");
+    collectionImgsEnhanced.forEach((wrapper, i) => {
+      const img = wrapper.querySelector("img");
+      if (img) {
+        gsap.fromTo(img,
+          { scale: 1.2, filter: "blur(5px)" },
+          {
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 1.5,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: wrapper,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+            delay: i * 0.1,
+          }
+        );
+      }
+    });
+
+    // About section images: 3D perspective tilt on scroll
+    const aboutImages = gsap.utils.toArray<HTMLElement>(".about-left-image, .about-right-image");
+    aboutImages.forEach((imgWrap) => {
+      gsap.fromTo(imgWrap,
+        { rotateY: 5, rotateX: 3, transformOrigin: "center center", scale: 0.95, opacity: 0 },
+        {
+          rotateY: 0,
+          rotateX: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 1.3,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: imgWrap,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    });
+
+    // Collab section images: staggered curtain from bottom
+    const collabImages = gsap.utils.toArray<HTMLElement>(".collab-right .gallery-image-wrapper");
+    collabImages.forEach((item, i) => {
+      gsap.fromTo(item,
+        { clipPath: "inset(100% 0 0 0)", opacity: 1 },
+        {
+          clipPath: "inset(0 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+          delay: i * 0.15,
+        }
+      );
+    });
+
+    // Press left image: scale + blur uncover
+    const pressImg = document.querySelector(".press-left img, .press-grid .press-left img");
+    if (pressImg) {
+      gsap.fromTo(pressImg,
+        { scale: 1.15, filter: "blur(5px)" },
+        {
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.5,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".press-grid",
+            start: "top 85%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }
+
+    // Fanning cards images: scrub-linked subtle scale
+    const fanningCards = gsap.utils.toArray<HTMLElement>(".card-cross-section img");
+    fanningCards.forEach((img) => {
+      gsap.fromTo(img,
+        { scale: 1.15 },
+        {
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#section-about",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        }
+      );
+    });
+
   }, [isPreloaded]);
+
 
   // Custom cursor (Reinette style)
   useEffect(() => {
