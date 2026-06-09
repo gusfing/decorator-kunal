@@ -5,6 +5,7 @@ import { MagicText } from "@/components/ui/magic-text";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { splitTextIntoWords } from "@/lib/domUtils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -38,11 +39,7 @@ export default function About() {
     // 2. Serif headlines (word-by-word blur revelation)
     const serifHeadlines = gsap.utils.toArray<HTMLElement>(".serif-headline");
     serifHeadlines.forEach((headline) => {
-      const text = headline.textContent || "";
-      const words = text.split(" ");
-      headline.innerHTML = words.map((w) =>
-        `<span class="blur-word">${w}</span>`
-      ).join(" ");
+      splitTextIntoWords(headline);
       const wordEls = headline.querySelectorAll(".blur-word");
       ScrollTrigger.create({
         trigger: headline,

@@ -6,6 +6,7 @@ import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { MagicText } from "@/components/ui/magic-text";
+import { splitTextIntoWords } from "@/lib/domUtils";
 import Gallery from "../components/capsule/Gallery/Gallery";
 import Feedback from "../components/urbanland/Feedback";
 import FooterBanner from "../components/urbanland/FooterBanner";
@@ -857,8 +858,8 @@ export default function Home() {
       }
 
       // 4. Curated Spaces Section (#collection)
-      if (document.querySelector("#collection .gallery-text-col > *")) {
-        gsap.fromTo("#collection .gallery-text-col > *",
+      if (document.querySelector("#collection .gallery-text-col > *:not(.serif-headline):not(p)")) {
+        gsap.fromTo("#collection .gallery-text-col > *:not(.serif-headline):not(p)",
           { y: 30, opacity: 0 },
           {
             y: 0,
@@ -919,7 +920,7 @@ export default function Home() {
       }
 
       // 5. Recent Collabs Section (.cashmere-bg)
-      const collabLeftTexts = document.querySelectorAll(".cashmere-bg .collab-left > *");
+      const collabLeftTexts = document.querySelectorAll(".cashmere-bg .collab-left > *:not(.serif-headline):not(p)");
       if (collabLeftTexts.length > 0) {
         gsap.fromTo(collabLeftTexts,
           { y: 30, opacity: 0 },
@@ -981,7 +982,7 @@ export default function Home() {
         );
       }
 
-      const pressRightTexts = document.querySelectorAll(".press-grid .press-right > *");
+      const pressRightTexts = document.querySelectorAll(".press-grid .press-right > *:not(.serif-headline):not(p)");
       if (pressRightTexts.length > 0) {
         gsap.fromTo(pressRightTexts,
           { y: 30, opacity: 0 },
@@ -1183,9 +1184,9 @@ export default function Home() {
       const mobileTriggers = [
         { trigger: "#info", targets: ".about-title-wrapper, .about-right-headline, .about-right-body, .about-left-image img, .about-right-image img, .about-stat-item" },
         { trigger: "#process", targets: "#process .serif-headline, #process .step-card-new" },
-        { trigger: "#collection", targets: "#collection .gallery-text-col > *, #collection .reveal-gallery-img" },
-        { trigger: ".cashmere-bg", targets: ".cashmere-bg .collab-left > *, .cashmere-bg .collab-right .gallery-image-wrapper" },
-        { trigger: ".press-grid", targets: ".press-grid .press-left, .press-grid .press-right > *" },
+        { trigger: "#collection", targets: "#collection .gallery-text-col > *:not(.serif-headline):not(p), #collection .reveal-gallery-img" },
+        { trigger: ".cashmere-bg", targets: ".cashmere-bg .collab-left > *:not(.serif-headline):not(p), .cashmere-bg .collab-right .gallery-image-wrapper" },
+        { trigger: ".press-grid", targets: ".press-grid .press-left, .press-grid .press-right > *:not(.serif-headline):not(p)" },
         { trigger: "#showcase", targets: "#showcase .showcase-header > *, #showcase .showcase-tabs, #showcase .showcase-content-grid" },
         { trigger: ".section-capabilities", targets: ".section-capabilities .capabilities-header > *, .section-capabilities .cap-card" },
         { trigger: "#instagram", targets: "#instagram .instagram-header > *, #instagram .instagram-card" },
@@ -1631,11 +1632,7 @@ export default function Home() {
     serifHeadlines.forEach((headline) => {
       // Skip if already has clip-path animation
       if (headline.style.clipPath) return;
-      const text = headline.textContent || "";
-      const words = text.split(" ");
-      headline.innerHTML = words.map((w) =>
-        `<span class="blur-word">${w}</span>`
-      ).join(" ");
+      splitTextIntoWords(headline);
       const wordEls = headline.querySelectorAll(".blur-word");
       ScrollTrigger.create({
         trigger: headline,

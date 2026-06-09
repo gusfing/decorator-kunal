@@ -32,10 +32,11 @@ export default function GSAPRouteCleaner() {
 
     // ─── INITIALIZE LENIS SMOOTH SCROLL ───
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.5,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       smoothTouch: false,
+      wheelMultiplier: 1.1,
     } as any);
 
     // Synchronize ScrollTrigger with Lenis scroll updates
