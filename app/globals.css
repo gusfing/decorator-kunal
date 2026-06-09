@@ -2269,8 +2269,27 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   margin-top: 3rem;
-  border-left: 2px solid rgba(197, 168, 128, 0.15);
   padding-left: 1.5rem;
+  position: relative;
+}
+
+.process-indicator-track-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(197, 168, 128, 0.15);
+}
+
+.process-indicator-track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  background: #c5a880;
+  transition: height 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 0 10px rgba(197, 168, 128, 0.55);
 }
 
 .process-indicator-step {
@@ -2362,20 +2381,32 @@ body {
   line-height: 0.75;
   color: transparent;
   -webkit-text-stroke: 1px rgba(26, 25, 23, 0.2);
-  transition: var(--transition-fast);
+  transition: color 0.4s, -webkit-text-stroke-color 0.4s, text-shadow 0.4s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   user-select: none;
+  display: inline-block;
 }
 
 .process-step-item:hover .process-step-num {
   color: #c5a880;
   -webkit-text-stroke-color: #c5a880;
   text-shadow: 0 4px 20px rgba(197, 168, 128, 0.2);
+  transform: translateY(-4px);
 }
 
 .process-step-body {
   display: flex;
   flex-direction: column;
   gap: 2.2rem;
+}
+
+@media (min-width: 901px) {
+  .process-step-body {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    width: 100%;
+  }
 }
 
 .process-step-info {
@@ -2391,11 +2422,12 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: #1a1917;
-  transition: color 0.4s;
+  transition: color 0.4s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .process-step-item:hover .process-step-title {
   color: #c5a880;
+  transform: translateX(6px);
 }
 
 .process-step-desc {
@@ -2404,11 +2436,12 @@ body {
   line-height: 1.8;
   color: #55514e;
   opacity: 0.85;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .process-step-item:hover .process-step-desc {
   opacity: 1;
+  transform: translateX(4px);
 }
 
 /* Beautiful Aspect Ratio Media Frame inside Card */
@@ -2420,6 +2453,12 @@ body {
   position: relative;
   box-shadow: 0 10px 30px rgba(42, 41, 40, 0.03);
   border: 1px solid rgba(197, 168, 128, 0.1);
+}
+
+@media (min-width: 901px) {
+  .process-step-media {
+    height: 320px;
+  }
 }
 
 .process-step-media img {

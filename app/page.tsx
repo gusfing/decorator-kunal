@@ -2071,6 +2071,13 @@ export default function Home() {
                   </h2>
                 </div>
                 <div className="process-indicator-wrap">
+                  <div className="process-indicator-track-bg" />
+                  <div
+                    className="process-indicator-track-fill"
+                    style={{
+                      height: `${(activeProcessStep / 3) * 100}%`
+                    }}
+                  />
                   {[
                     "Contact Us",
                     "Consultation",
