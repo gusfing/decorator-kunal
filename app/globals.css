@@ -47,7 +47,7 @@
 
 html {
   scroll-behavior: auto !important;
-  overflow-x: hidden;
+  overflow-x: visible;
   position: relative;
 }
 
@@ -57,7 +57,7 @@ body {
   color: var(--text-dark);
   min-height: 100vh;
   width: 100vw;
-  overflow-x: hidden;
+  overflow-x: visible;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -2248,6 +2248,10 @@ body {
 }
 
 /* Redesigned Premium Split Layout Process Flow */
+#process.editorial-section {
+  overflow: visible;
+}
+
 .process-grid-container {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -2257,6 +2261,7 @@ body {
 }
 
 .process-sidebar {
+  position: -webkit-sticky;
   position: sticky;
   top: 10rem;
   display: flex;
