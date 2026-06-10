@@ -141,7 +141,7 @@ export default function About() {
           href="/"
           style={{ width: "auto", padding: "0 16px", borderRadius: "9999px", textDecoration: "none" }}
         >
-          <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="nav-logo-img" />
+          <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="nav-logo-img" />
         </a>
 
         <nav
@@ -300,7 +300,7 @@ export default function About() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-01-trans.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                   <span className="footer-logo-text" style={{ display: "none" }}>Decor Lab</span>
                 </div>
                 <p className="footer-desc">
