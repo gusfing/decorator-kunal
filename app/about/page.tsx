@@ -30,7 +30,8 @@ export default function About() {
           scrollTrigger: {
             trigger: el,
             start: "top 90%",
-            toggleActions: "play none none none",
+            end: "bottom 10%",
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -44,11 +45,23 @@ export default function About() {
       ScrollTrigger.create({
         trigger: headline,
         start: "top 85%",
+        end: "bottom 15%",
         onEnter: () => {
           wordEls.forEach((w, i) => {
             setTimeout(() => w.classList.add("revealed"), i * 80);
           });
         },
+        onLeave: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
+        },
+        onEnterBack: () => {
+          wordEls.forEach((w, i) => {
+            setTimeout(() => w.classList.add("revealed"), i * 80);
+          });
+        },
+        onLeaveBack: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
+        }
       });
     });
 
@@ -65,7 +78,8 @@ export default function About() {
           scrollTrigger: {
             trigger: card,
             start: "top 88%",
-            toggleActions: "play none none none",
+            end: "bottom 12%",
+            toggleActions: "play reverse play reverse",
           }
         }
       );

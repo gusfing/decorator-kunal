@@ -52,7 +52,8 @@ export default function Work() {
           scrollTrigger: {
             trigger: el,
             start: "top 90%",
-            toggleActions: "play none none none",
+            end: "bottom 10%",
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -66,11 +67,23 @@ export default function Work() {
       ScrollTrigger.create({
         trigger: headline,
         start: "top 85%",
+        end: "bottom 15%",
         onEnter: () => {
           wordEls.forEach((w, i) => {
             setTimeout(() => w.classList.add("revealed"), i * 80);
           });
         },
+        onLeave: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
+        },
+        onEnterBack: () => {
+          wordEls.forEach((w, i) => {
+            setTimeout(() => w.classList.add("revealed"), i * 80);
+          });
+        },
+        onLeaveBack: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
+        }
       });
     });
 
@@ -88,7 +101,8 @@ export default function Work() {
           scrollTrigger: {
             trigger: panel,
             start: "top 88%",
-            toggleActions: "play none none none",
+            end: "bottom 12%",
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -109,7 +123,8 @@ export default function Work() {
             scrollTrigger: {
               trigger: wrapper,
               start: "top 90%",
-              toggleActions: "play none none none",
+              end: "bottom 10%",
+              toggleActions: "play reverse play reverse",
             },
             delay: (idx % 3) * 0.12,
           }

@@ -30,7 +30,8 @@ export default function Contact() {
           scrollTrigger: {
             trigger: el,
             start: "top 90%",
-            toggleActions: "play none none none",
+            end: "bottom 10%",
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -44,11 +45,23 @@ export default function Contact() {
       ScrollTrigger.create({
         trigger: headline,
         start: "top 85%",
+        end: "bottom 15%",
         onEnter: () => {
           wordEls.forEach((w, i) => {
             setTimeout(() => w.classList.add("revealed"), i * 80);
           });
         },
+        onLeave: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
+        },
+        onEnterBack: () => {
+          wordEls.forEach((w, i) => {
+            setTimeout(() => w.classList.add("revealed"), i * 80);
+          });
+        },
+        onLeaveBack: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
+        }
       });
     });
 
@@ -66,7 +79,8 @@ export default function Contact() {
           scrollTrigger: {
             trigger: card,
             start: "top 90%",
-            toggleActions: "play none none none",
+            end: "bottom 10%",
+            toggleActions: "play reverse play reverse",
           },
           delay: idx * 0.1,
         }
@@ -87,7 +101,8 @@ export default function Contact() {
           scrollTrigger: {
             trigger: mapContainer,
             start: "top 90%",
-            toggleActions: "play none none none",
+            end: "bottom 10%",
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -106,7 +121,8 @@ export default function Contact() {
           scrollTrigger: {
             trigger: formPanel,
             start: "top 88%",
-            toggleActions: "play none none none",
+            end: "bottom 12%",
+            toggleActions: "play reverse play reverse",
           }
         }
       );
