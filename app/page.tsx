@@ -2049,7 +2049,83 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="section-about" className="section about" style={{ position: 'relative', top: 'auto', minHeight: '100vh' }}><div className="w-layout-blockcontainer container about w-container"><div className="wrapper-about"><div className="inner-about-wrapp"><div className="wrapper-heading-about"><div className="inner-heading-about _1"><div className="text-heading-about">Thoughtful spaces, we </div></div><div className="inner-heading-about _2"><div className="text-heading-about">build <em>homes</em> that bring </div></div><div className="inner-heading-about _3"><div className="text-heading-about">comfort to <em>your live</em> </div></div></div><div className="wrapper-tag-section about"><div className="wrapper-tagline-about"><div className="text-tagline-section about">About us</div></div><div data-w-id="21ec498a-da00-b0a0-20cb-51467f79dc0b" className="wrapper-circle"><div className="circle-section"></div></div></div></div><div className="outer-descriptions-about"><div className="wrapper-descriptions-about"><p className="paragraph-about">Focused on crafting exceptional living through careful planning and trusted property options.</p></div></div><div className="area-resize"><div className="area"><div className="absolute-card in-about"><div className="card-cross-section _0"><img src="/assets/projects/site_01/image_1.jpg" loading="lazy" alt="Modern interior design" className="image-path" /></div><div className="card-cross-section _1"><img src="/assets/projects/site_02/image_2.jpg" loading="lazy" alt="Contemporary architecture" className="image-path" /></div><div className="card-cross-section _2"><img src="/assets/projects/santhalia_site/image_3.jpg" loading="lazy" alt="Abstract modern architectural artwork" className="image-path" /></div><div className="card-cross-section _3"><img src="/assets/projects/photos_set1/image_4.jpg" loading="lazy" alt="Modern curved architecture" className="image-path" /></div><div className="card-cross-section _4"><img src="/assets/projects/photos_set2/image_5.jpg" loading="lazy" alt="Luxury house interior" className="image-path" /></div><div className="card-cross-section _5"><img src="/assets/projects/site_01/image_6.jpg" loading="lazy" alt="Minimalist modern house" className="image-path" /></div><div className="card-cross-section _6"><img src="/assets/projects/site_02/image_1.jpg" loading="lazy" alt="Modern wooden house" className="image-path" /></div><div className="card-cross-section _7"><img src="/assets/projects/santhalia_site/image_4.jpg" loading="lazy" alt="Modern architecture" className="image-path" /></div><div className="card-cross-section _8"><img src="/assets/projects/photos_set1/image_1.jpg" loading="lazy" alt="Beautiful landscape" className="image-path" /></div></div></div></div></div></div></section>
+        <section id="section-about" className="section about" style={{ position: 'relative', top: 'auto', minHeight: '100vh' }}>
+          <div className="w-layout-blockcontainer container about w-container">
+            <div className="wrapper-about">
+              <div className="inner-about-wrapp">
+                <div className="wrapper-heading-about">
+                  <div className="inner-heading-about _1"><div className="text-heading-about">Thoughtful spaces, we </div></div>
+                  <div className="inner-heading-about _2"><div className="text-heading-about">build <em>homes</em> that bring </div></div>
+                  <div className="inner-heading-about _3"><div className="text-heading-about">comfort to <em>your live</em> </div></div>
+                </div>
+                <div className="wrapper-tag-section about">
+                  <div className="wrapper-tagline-about">
+                    <div className="text-tagline-section about">About us</div>
+                  </div>
+                  <div data-w-id="21ec498a-da00-b0a0-20cb-51467f79dc0b" className="wrapper-circle">
+                    <div className="circle-section"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="outer-descriptions-about">
+                <div className="wrapper-descriptions-about">
+                  <p className="paragraph-about">Focused on crafting exceptional living through careful planning and trusted property options.</p>
+                </div>
+              </div>
+              <div className="area-resize">
+                <div className="area">
+                  <div className="absolute-card in-about">
+                    <div className="card-cross-section _0">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/site_01/image_1.jpg" loading="lazy" alt="Modern interior design" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _1">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/site_02/image_2.jpg" loading="lazy" alt="Contemporary architecture" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _2">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/santhalia_site/image_3.jpg" loading="lazy" alt="Abstract modern architectural artwork" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _3">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/photos_set1/image_4.jpg" loading="lazy" alt="Modern curved architecture" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _4">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/photos_set2/image_5.jpg" loading="lazy" alt="Luxury house interior" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _5">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/site_01/image_6.jpg" loading="lazy" alt="Minimalist modern house" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _6">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/site_02/image_1.jpg" loading="lazy" alt="Modern wooden house" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _7">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/santhalia_site/image_4.jpg" loading="lazy" alt="Modern architecture" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _8">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/photos_set1/image_1.jpg" loading="lazy" alt="Beautiful landscape" className="image-path" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ====================================================
          * SECTION 2: REDESIGNED ABOUT US SECTION (Reinette Style)
