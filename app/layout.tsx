@@ -2,6 +2,7 @@ import "./globals.css";
 import "./webflow.css";
 import type { Metadata } from "next";
 import GSAPRouteCleaner from "@/components/GSAPRouteCleaner";
+import ClientProviders from "@/components/ClientProviders";
 
 export const metadata: Metadata = {
   title: "Decor Lab | Architecture & Interior Design Studio",
@@ -26,7 +27,9 @@ export default function RootLayout({
       </head>
       <body>
         <GSAPRouteCleaner />
-        {children}
+        <ClientProviders>
+          {children}
+        </ClientProviders>
       </body>
     </html>
   );

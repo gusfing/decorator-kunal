@@ -377,17 +377,35 @@ export default function Home() {
 
       // Progress Bar loading phase
       if (document.querySelector(".progress-bar")) {
+        const counterObj = { value: 0 };
         tl.to(".progress-bar", {
           scaleX: 1,
           duration: 3,
           ease: "power3.inOut",
-        })
+        }, 0)
+          .to(counterObj, {
+            value: 100,
+            duration: 3,
+            ease: "power3.inOut",
+            onUpdate: () => {
+              const counterEl = document.querySelector(".preloader-counter");
+              if (counterEl) {
+                counterEl.textContent = Math.floor(counterObj.value).toString().padStart(3, "0");
+              }
+            }
+          }, 0)
           .set(".progress-bar", { transformOrigin: "right" })
           .to(".progress-bar", {
             scaleX: 0,
             duration: 0.8,
             ease: "power3.in",
-          });
+          })
+          .to(".preloader-counter", {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: "power3.in",
+          }, "-=0.8");
       }
 
       // Image polygon reveals
@@ -672,6 +690,30 @@ export default function Home() {
         }
       );
     }
+
+    // 3. Hero Parallax ScrollTrigger
+    if (document.querySelector("#section-hero")) {
+      gsap.to(".hero-bg-video", {
+        yPercent: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#section-hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
+      gsap.to(".hero-foreground-content", {
+        yPercent: -15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#section-hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
+    }
   }, [isPreloaded]);
 
   // Horizontal scroll catalogues timeline pinning using ScrollTrigger
@@ -729,8 +771,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".about-right-image",
               start: "top 90%",
-              end: "bottom 10%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -749,8 +790,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#info",
               start: "top 80%",
-              end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -788,8 +828,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#info",
               start: "top 80%",
-              end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -831,8 +870,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#process",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -850,8 +888,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#process .process-steps-list",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -870,8 +907,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#collection",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -891,8 +927,7 @@ export default function Home() {
               scrollTrigger: {
                 trigger: img,
                 start: "top 90%",
-                end: "bottom 10%",
-                toggleActions: "play reverse play reverse",
+                once: true,
               }
             }
           );
@@ -933,8 +968,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".cashmere-bg",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -954,8 +988,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".cashmere-bg .collab-right",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -975,8 +1008,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".press-grid",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -995,8 +1027,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".press-grid",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1016,8 +1047,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#showcase",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1034,8 +1064,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#showcase .showcase-tabs",
               start: "bottom 90%",
-              end: "bottom 10%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1055,8 +1084,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".section-capabilities",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1075,8 +1103,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".section-capabilities .capabilities-grid",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1096,8 +1123,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1116,8 +1142,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram .instagram-grid",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1137,8 +1162,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#feedback",
               start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1158,8 +1182,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#contact-footer",
               start: "top 95%",
-              end: "bottom bottom",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1290,8 +1313,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1307,8 +1329,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 75%",
-            end: "bottom 25%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1324,8 +1345,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 70%",
-            end: "bottom 30%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1344,8 +1364,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#process",
             start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1366,8 +1385,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#process .process-steps-list",
             start: "top 80%",
-            end: "bottom 10%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1399,8 +1417,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#collection",
             start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1421,8 +1438,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#showcase",
             start: "top 82%",
-            end: "bottom 10%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1441,8 +1457,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#showcase",
             start: "top 85%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1463,8 +1478,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram .instagram-grid",
               start: "top 85%",
-              end: "bottom 10%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             },
             delay: i * 0.08,
           }
@@ -1506,8 +1520,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#feedback",
               start: "top 80%",
-              end: "bottom 10%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             },
             delay: i * 0.1,
           }
@@ -1528,8 +1541,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#contact-footer",
             start: "top 90%",
-            end: "bottom 5%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1549,8 +1561,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#contact-footer",
             start: "top 88%",
-            end: "bottom 5%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1569,8 +1580,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".section-capabilities",
             start: "top 82%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1591,8 +1601,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".section-capabilities .capabilities-grid",
             start: "top 82%",
-            end: "bottom 10%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1610,8 +1619,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".press-grid",
             start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1636,8 +1644,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: el,
             start: "top 90%",
-            end: "bottom 10%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1653,22 +1660,11 @@ export default function Home() {
       ScrollTrigger.create({
         trigger: headline,
         start: "top 85%",
-        end: "bottom 15%",
+        once: true,
         onEnter: () => {
           wordEls.forEach((w, i) => {
             setTimeout(() => w.classList.add("revealed"), i * 80);
           });
-        },
-        onLeave: () => {
-          wordEls.forEach((w) => w.classList.remove("revealed"));
-        },
-        onEnterBack: () => {
-          wordEls.forEach((w, i) => {
-            setTimeout(() => w.classList.add("revealed"), i * 80);
-          });
-        },
-        onLeaveBack: () => {
-          wordEls.forEach((w) => w.classList.remove("revealed"));
         }
       });
     });
@@ -1685,8 +1681,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: heading,
             start: "top 85%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1723,8 +1718,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: frame,
               start: "top 88%",
-              end: "bottom 10%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             }
           }
         );
@@ -1743,8 +1737,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: item,
             start: "top 90%",
-            end: "bottom 10%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           },
           delay: (i % 3) * 0.12,
         }
@@ -1766,8 +1759,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: wrapper,
               start: "top 88%",
-              end: "bottom 10%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             },
             delay: i * 0.1,
           }
@@ -1790,8 +1782,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: imgWrap,
             start: "top 88%",
-            end: "bottom 12%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1809,8 +1800,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: item,
             start: "top 90%",
-            end: "bottom 10%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           },
           delay: i * 0.15,
         }
@@ -1830,8 +1820,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".press-grid",
             start: "top 85%",
-            end: "bottom 15%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           }
         }
       );
@@ -1935,6 +1924,7 @@ export default function Home() {
         <>
           <div ref={preloaderRef} className="preloader">
             <div className="progress-bar"></div>
+            <div className="preloader-counter" style={{ position: "absolute", bottom: "3.5rem", right: "4rem", fontFamily: "var(--font-display)", fontSize: "5vw", fontWeight: "bold", color: "#f2f2f0", zIndex: 10, mixBlendMode: "difference" }}>000</div>
 
             <div className="preloader-images">
               <div className="img">
@@ -2045,8 +2035,39 @@ export default function Home() {
         {/* ====================================================
          * SECTION 1: HERO VIEW (Slideshow, vignettes & title)
          * ==================================================== */}
-        <section id="section-hero" className="section hero" style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(/assets/decor_01.png)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-          <div className="w-layout-blockcontainer container w-container">
+        <section id="section-hero" className="section hero" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#000' }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="hero-bg-video"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transform: "translate(-50%, -50%)",
+              zIndex: 0,
+              aspectRatio: "16/9"
+            }}
+          >
+            <source src="/assets/hero-bg.mp4" type="video/mp4" />
+          </video>
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.75))",
+              zIndex: 1
+            }}
+          />
+          <div className="w-layout-blockcontainer container w-container hero-foreground-content" style={{ position: 'relative', zIndex: 2 }}>
             <div className="wrapper-hero">
               <div className="wrapper-heading-hero">
                 <div className="reveal-line-wrap">
@@ -2091,7 +2112,7 @@ export default function Home() {
                 <div className="wrapper-heading-about">
                   <div className="inner-heading-about _1"><div className="text-heading-about">Thoughtful spaces, we </div></div>
                   <div className="inner-heading-about _2"><div className="text-heading-about">build <em>homes</em> that bring </div></div>
-                  <div className="inner-heading-about _3"><div className="text-heading-about">comfort to <em>your live</em> </div></div>
+                  <div className="inner-heading-about _3"><div className="text-heading-about">comfort to <em>your life</em> </div></div>
                 </div>
                 <div className="wrapper-tag-section about">
                   <div className="wrapper-tagline-about">
@@ -2435,6 +2456,7 @@ export default function Home() {
                       <div
                         key={index}
                         className="showcase-gallery-item"
+                        data-cursor="view"
                         onClick={() => setLightboxProject({
                           siteName: project.title,
                           images: project.images,
@@ -2498,7 +2520,7 @@ export default function Home() {
                 <p className="nube-capsule-desc">
                   Award-winning warm minimalist villa integrating natural linen, plaster, and signature ombre curtains.
                 </p>
-                <button className="nube-btn" onClick={() => setSelectedNube(0)}>
+                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(0)}>
                   Design Specs
                 </button>
               </div>
@@ -2517,7 +2539,7 @@ export default function Home() {
                 <p className="nube-capsule-desc">
                   Premium commercial space incorporating parametric timber paneling and biophilic lighting design.
                 </p>
-                <button className="nube-btn" onClick={() => setSelectedNube(1)}>
+                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(1)}>
                   Design Specs
                 </button>
               </div>
@@ -2536,7 +2558,7 @@ export default function Home() {
                 <p className="nube-capsule-desc">
                   Futuristic double-curvature structure showcasing Parametric Design and fluid architecture ideas.
                 </p>
-                <button className="nube-btn" onClick={() => setSelectedNube(2)}>
+                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(2)}>
                   Design Specs
                 </button>
               </div>
@@ -2555,7 +2577,7 @@ export default function Home() {
                 <p className="nube-capsule-desc">
                   Mediterranean plaster study exploring scale, soft ambient light, and organic seating curation.
                 </p>
-                <button className="nube-btn" onClick={() => setSelectedNube(3)}>
+                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(3)}>
                   Design Specs
                 </button>
               </div>
@@ -2702,6 +2724,7 @@ export default function Home() {
               <div
                 key={idx}
                 className="instagram-card"
+                data-cursor="View"
                 role="button"
                 aria-label={`View Instagram post ${idx + 1}`}
                 tabIndex={0}

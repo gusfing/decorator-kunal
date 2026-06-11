@@ -89,7 +89,7 @@ const StickyCols = () => {
                 scrollTrigger: {
                     trigger: ".mobile-projects-wrapper",
                     start: "top 85%",
-                    toggleActions: "play none none reverse",
+                    once: true,
                 }
             });
         });
