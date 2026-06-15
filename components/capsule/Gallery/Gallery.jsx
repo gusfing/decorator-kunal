@@ -5,9 +5,9 @@ import './gallery.css';
 import { BsFillPlusCircleFill } from "react-icons/bs";
 
 // Project images from Decor Lab
-const gbg1 = "/assets/projects/santhalia_site/image_1.jpg";
-const gbg2 = "/assets/projects/site_01/image_1.jpg";
-const gbg3 = "/assets/projects/site_02/image_1.jpg";
+const gbg1 = "/assets/projects/santhalia_site/image_1.webp";
+const gbg2 = "/assets/projects/site_01/image_1.webp";
+const gbg3 = "/assets/projects/site_02/image_1.webp";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -165,7 +165,7 @@ const Gallery = ({ isPreloaded = true }) => {
 
             <div className="gallery-background">
                 <div className="gallery-card-wrapper">
-                    <img src={gbg1} alt="Santhalia Residence Kolkata" />
+                    <img loading="lazy" src={gbg1} alt="Santhalia Residence Kolkata" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
                 </div>
                 <div className="gallery-topText">
@@ -185,7 +185,7 @@ const Gallery = ({ isPreloaded = true }) => {
 
             <div id="gallery-second" className="gallery-background2">
                 <div className="gallery-card-wrapper">
-                    <img src={gbg2} alt="Corporate Workspace HQ" />
+                    <img loading="lazy" src={gbg2} alt="Corporate Workspace HQ" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
                 </div>
                 <div className="gallery-topText">
@@ -205,7 +205,7 @@ const Gallery = ({ isPreloaded = true }) => {
 
             <div id="gallery-third" className="gallery-background2">
                 <div className="gallery-card-wrapper">
-                    <img src={gbg3} alt="Fluid Design Pavilion" />
+                    <img loading="lazy" src={gbg3} alt="Fluid Design Pavilion" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
                 </div>
                 <div className="gallery-topText">

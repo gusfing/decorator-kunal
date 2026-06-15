@@ -13,13 +13,13 @@ const Hero = () => {
   const containerRef = useRef(null);
 
   const images = [
-    "/assets/urbanland/Bench.jpeg",
-    "/assets/urbanland/Planters_Box.jpeg",
-    "/assets/urbanland/Car_Shelter.jpeg",
-    "/assets/urbanland/Wicker_Furniture.jpeg",
-    "/assets/urbanland/Dustbins.jpeg",
-    "/assets/urbanland/Bus_Shelters.jpeg",
-    "/assets/urbanland/Bench_Planter.jpeg"
+    "/assets/urbanland/Bench.webp",
+    "/assets/urbanland/Planters_Box.webp",
+    "/assets/urbanland/Car_Shelter.webp",
+    "/assets/urbanland/Wicker_Furniture.webp",
+    "/assets/urbanland/Dustbins.webp",
+    "/assets/urbanland/Bus_Shelters.webp",
+    "/assets/urbanland/Bench_Planter.webp"
   ];
 
   useGSAP(() => {
@@ -124,7 +124,7 @@ const Hero = () => {
               scale: 0.85
             }}
           >
-            <img src={src} alt="Urbanland Furniture" className="w-full h-full object-cover" />
+            <img loading="lazy" src={src} alt="Urbanland Furniture" className="w-full h-full object-cover" />
           </div>
         ))}
       </div>

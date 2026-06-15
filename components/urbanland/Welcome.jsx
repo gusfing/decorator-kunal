@@ -97,11 +97,11 @@ const Welcome = () => {
                 <div className="relative w-[260px] h-[220px] sm:w-[320px] sm:h-[270px] md:w-[370px] md:h-[310px] lg:w-[420px] lg:h-[350px] xl:w-[460px] xl:h-[380px] flex-shrink-0 select-none">
                     {/* Background Layer Card */}
                     <div className="absolute top-0 left-0 w-[65%] h-[82%] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:scale-[1.03] hover:-rotate-2 transition-all duration-700 cursor-pointer border border-black/5 z-0">
-                        <img src="/assets/urbanland/welcome-1.png" alt="Welcome layout urban furniture WPC bench supply" className="w-full h-full object-cover" />
+                        <img loading="lazy" src="/assets/urbanland/welcome-1.webp" alt="Welcome layout urban furniture WPC bench supply" className="w-full h-full object-cover" />
                     </div>
                     {/* Foreground Overlapping Layer Card */}
                     <div className="absolute bottom-0 right-0 w-[60%] h-[72%] rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.2)] hover:scale-[1.05] hover:rotate-2 transition-all duration-700 cursor-pointer border-[8px] border-[#F7F4EF] z-10">
-                        <img src="/assets/urbanland/welcome-2.png" alt="Welcome layout luxury hotel synthetic wicker poolside lounger furniture" className="w-full h-full object-cover" />
+                        <img loading="lazy" src="/assets/urbanland/welcome-2.webp" alt="Welcome layout luxury hotel synthetic wicker poolside lounger furniture" className="w-full h-full object-cover" />
                     </div>
                 </div>
 

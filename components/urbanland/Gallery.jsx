@@ -68,7 +68,7 @@ const Gallery = () => {
                 {/* Slide 1: Real Estate */}
                 <div className="gallery-card">
                     <div className="gallery-img-wrapper">
-                        <img src="/assets/urbanland/gallery_real_estate.png" alt="outdoor furniture for real estate projects" />
+                        <img loading="lazy" src="/assets/urbanland/gallery_real_estate.webp" alt="outdoor furniture for real estate projects" />
                     </div>
                     <div className="gallery-topText">
                         <h4>Real Estate & Townships</h4>
@@ -102,7 +102,7 @@ const Gallery = () => {
                 {/* Slide 2: Hotels & Resorts */}
                 <div className="gallery-card">
                     <div className="gallery-img-wrapper">
-                        <img src="/assets/urbanland/gallery_hotels.png" alt="hotel outdoor furniture manufacturer India" />
+                        <img loading="lazy" src="/assets/urbanland/gallery_hotels.webp" alt="hotel outdoor furniture manufacturer India" />
                     </div>
                     <div className="gallery-topText">
                         <h4>Hotels & Resorts</h4>
@@ -136,7 +136,7 @@ const Gallery = () => {
                 {/* Slide 3: Hospitals */}
                 <div className="gallery-card">
                     <div className="gallery-img-wrapper">
-                        <img src="/assets/urbanland/gallery_hospitals.png" alt="hospital outdoor furniture India" />
+                        <img loading="lazy" src="/assets/urbanland/gallery_hospitals.webp" alt="hospital outdoor furniture India" />
                     </div>
                     <div className="gallery-topText">
                         <h4>Hospitals & Healthcare</h4>
@@ -170,7 +170,7 @@ const Gallery = () => {
                 {/* Slide 4: Education */}
                 <div className="gallery-card">
                     <div className="gallery-img-wrapper">
-                        <img src="/assets/urbanland/gallery_education.png" alt="campus outdoor furniture manufacturer" />
+                        <img loading="lazy" src="/assets/urbanland/gallery_education.webp" alt="campus outdoor furniture manufacturer" />
                     </div>
                     <div className="gallery-topText">
                         <h4>Schools & Universities</h4>
@@ -204,7 +204,7 @@ const Gallery = () => {
                 {/* Slide 5: Municipal & Smart Cities */}
                 <div className="gallery-card">
                     <div className="gallery-img-wrapper">
-                        <img src="/assets/urbanland/gallery_smart_city.png" alt="smart city furniture manufacturer India" />
+                        <img loading="lazy" src="/assets/urbanland/gallery_smart_city.webp" alt="smart city furniture manufacturer India" />
                     </div>
                     <div className="gallery-topText">
                         <h4>Municipal & Smart Cities</h4>

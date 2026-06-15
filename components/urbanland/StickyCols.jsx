@@ -142,12 +142,12 @@ const StickyCols = () => {
                     <div className="col col-2">
                         <div className="col-img col-img-1">
                             <div className="col-img-wrapper">
-                                <img src="/assets/urbanland/Bench_Planter.png" alt="Urbanland Products WPC benches and planters installed in Lodha township" />
+                                <img loading="lazy" src="/assets/urbanland/Bench_Planter.webp" alt="Urbanland Products WPC benches and planters installed in Lodha township" />
                             </div>
                         </div>
                         <div className="col-img col-img-2">
                             <div className="col-img-wrapper">
-                                <img src="/assets/urbanland/Car_Shelter.png" alt="Outdoor urban furniture installed at Adani Realty residential project by Urbanland Products" />
+                                <img loading="lazy" src="/assets/urbanland/Car_Shelter.webp" alt="Outdoor urban furniture installed at Adani Realty residential project by Urbanland Products" />
                             </div>
                         </div>
                     </div>
@@ -219,12 +219,12 @@ const StickyCols = () => {
                     <div className="col col-4">
                         <div className="col-img col-img-1">
                             <div className="col-img-wrapper">
-                                <img src="/assets/urbanland/Wicker_Furniture.png" alt="Premium wicker furniture, poolside loungers, and cabanas crafted for Oberoi's luxury project" />
+                                <img loading="lazy" src="/assets/urbanland/Wicker_Furniture.webp" alt="Premium wicker furniture, poolside loungers, and cabanas crafted for Oberoi's luxury project" />
                             </div>
                         </div>
                         <div className="col-img col-img-2">
                             <div className="col-img-wrapper">
-                                <img src="/assets/urbanland/Bus_Shelters.png" alt="MS/SS bus shelters, park benches, bollards, and outdoor dustbins delivered for urban infrastructure" />
+                                <img loading="lazy" src="/assets/urbanland/Bus_Shelters.webp" alt="MS/SS bus shelters, park benches, bollards, and outdoor dustbins delivered for urban infrastructure" />
                             </div>
                         </div>
                     </div>
@@ -318,8 +318,8 @@ const StickyCols = () => {
 
                         {/* 3. Bottom Image Container - Full width & seamless */}
                         <div className="w-full aspect-[16/10] bg-black/20 rounded-[37.4px] overflow-hidden relative group mt-auto">
-                            <img 
-                                src="/assets/urbanland/Bench_Planter.png" 
+                            <img loading="lazy" 
+                                src="/assets/urbanland/Bench_Planter.webp" 
                                 alt="Urbanland Products WPC benches and planters installed in Lodha township" 
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                                 style={{ borderRadius: "38px", boxShadow: "rgba(255, 255, 255, 0.3) 5px 5px 10px 10px inset" }}
@@ -359,8 +359,8 @@ const StickyCols = () => {
 
                         {/* 3. Bottom Image Container - Full width & seamless */}
                         <div className="w-full aspect-[16/10] bg-black/20 rounded-[37.4px] overflow-hidden relative group mt-auto">
-                            <img 
-                                src="/assets/urbanland/Car_Shelter.png" 
+                            <img loading="lazy" 
+                                src="/assets/urbanland/Car_Shelter.webp" 
                                 alt="Outdoor urban furniture installed at Adani Realty residential project by Urbanland Products" 
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                                 style={{ borderRadius: "38px", boxShadow: "rgba(255, 255, 255, 0.3) 5px 5px 10px 10px inset" }}
@@ -400,8 +400,8 @@ const StickyCols = () => {
 
                         {/* 3. Bottom Image Container - Full width & seamless */}
                         <div className="w-full aspect-[16/10] bg-black/20 rounded-[37.4px] overflow-hidden relative group mt-auto">
-                            <img 
-                                src="/assets/urbanland/Wicker_Furniture.png" 
+                            <img loading="lazy" 
+                                src="/assets/urbanland/Wicker_Furniture.webp" 
                                 alt="Premium wicker furniture, poolside loungers, and cabanas crafted for Oberoi's luxury project" 
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                                 style={{ borderRadius: "38px", boxShadow: "rgba(255, 255, 255, 0.3) 5px 5px 10px 10px inset" }}
@@ -441,8 +441,8 @@ const StickyCols = () => {
 
                         {/* 3. Bottom Image Container - Full width & seamless */}
                         <div className="w-full aspect-[16/10] bg-black/20 rounded-[37.4px] overflow-hidden relative group mt-auto">
-                            <img 
-                                src="/assets/urbanland/Bus_Shelters.png" 
+                            <img loading="lazy" 
+                                src="/assets/urbanland/Bus_Shelters.webp" 
                                 alt="MS/SS bus shelters, park benches, bollards, and outdoor dustbins delivered for urban infrastructure" 
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                                 style={{ borderRadius: "38px", boxShadow: "rgba(255, 255, 255, 0.3) 5px 5px 10px 10px inset" }}

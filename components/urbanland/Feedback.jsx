@@ -49,9 +49,9 @@ const feedbackReviewLG = [
 ];
 
 const reviewImages = {
-    review1: "/assets/urbanland/review1.png",
-    review2: "/assets/urbanland/review2.png",
-    review3: "/assets/urbanland/review3.png"
+    review1: "/assets/urbanland/review1.webp",
+    review2: "/assets/urbanland/review2.webp",
+    review3: "/assets/urbanland/review3.webp"
 };
 
 const Feedback = () => {

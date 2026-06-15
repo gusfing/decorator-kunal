@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-const banner = "/assets/capsule/background3.png";;
+const banner = "/assets/capsule/background3.webp";;
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import ClickIndicator from '../MapLink/ClickIndicator';

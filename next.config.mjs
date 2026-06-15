@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false, // Disabling strict mode is often helpful when working with GSAP animations that attach to global windows or scroll triggers to prevent dual runs.
+  reactStrictMode: false,
+  images: {
+    formats: ['image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
 };
 
 export default nextConfig;

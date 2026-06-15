@@ -177,49 +177,49 @@ export default function Awards() {
       title: "India Design Awards",
       desc: "Best Commercial Project (Winner) — Recognized for pioneering sustainable materials and fluid spatial architecture at Corporate HQ.",
       highlight: true,
-      img: "/assets/projects/site_01/image_1.jpg"
+      img: "/assets/projects/site_01/image_1.webp"
     },
     {
       year: "2024",
       title: "Commercial Design Awards",
       desc: "Best Unbuilt Project of the Year (Winner) — Awarded for the Fluid Design Pavilion blueprint exploring organic parametrism.",
       highlight: false,
-      img: "/assets/projects/site_02/image_1.jpg"
+      img: "/assets/projects/site_02/image_1.webp"
     },
     {
       year: "2024",
       title: "ICA Creative Minds",
       desc: "Winner & Finalist (Best Conceptual Design) — Honoring spatial excellence and material layout innovations.",
       highlight: false,
-      img: "/assets/projects/site_02/image_2.jpg"
+      img: "/assets/projects/site_02/image_2.webp"
     },
     {
       year: "2024",
       title: "D/Code Mumbai",
       desc: "Design IKON India Awards: Emerging Interior Designer — Ar. Rajdip Sinha recognized for fluid architecture contributions.",
       highlight: false,
-      img: "/assets/projects/photos_set2/image_1.jpg"
+      img: "/assets/projects/photos_set2/image_1.webp"
     },
     {
       year: "2024",
       title: "National Excellence Awards",
       desc: "Prominent & Trusted Firm of the Year & Promising & Futuristic Designer of the Year.",
       highlight: false,
-      img: "/assets/projects/santhalia_site/image_2.jpg"
+      img: "/assets/projects/santhalia_site/image_2.webp"
     },
     {
       year: "2023",
       title: "Häfele Star Awards",
       desc: "Winner — Awarded for exceptional integration of modern fittings and structural utility in luxury residences.",
       highlight: false,
-      img: "/assets/projects/photos_set1/image_2.jpg"
+      img: "/assets/projects/photos_set1/image_2.webp"
     },
     {
       year: "2023",
       title: "Indian Design Awards",
       desc: "Winner (by Blind Wink) — Celebrating excellence in residential interior curation and bespoke art integration.",
       highlight: false,
-      img: "/assets/projects/santhalia_site/image_1.jpg"
+      img: "/assets/projects/santhalia_site/image_1.webp"
     }
   ];
 
@@ -228,37 +228,37 @@ export default function Awards() {
       media: "Forbes India",
       tagline: "Top 20 Designers in India",
       excerpt: "Raja Sinha and Ar. Rajdip Sinha named among India's top design pioneers shaping the country's modern architectural footprint.",
-      bgImage: "/assets/projects/santhalia_site/image_4.jpg"
+      bgImage: "/assets/projects/santhalia_site/image_4.webp"
     },
     {
       media: "Good Homes Magazine",
       tagline: "India's Top 15 Designers",
       excerpt: "Decor Lab recognized for artfully blending historical heritage with cutting-edge parametric styling.",
-      bgImage: "/assets/projects/site_01/image_4.jpg"
+      bgImage: "/assets/projects/site_01/image_4.webp"
     },
     {
       media: "Elle Decor Magazine",
       tagline: "Editorial Feature (2024 & 2025)",
       excerpt: "Featured two times for spatial curation, custom ombre curtains, and residential masterwork in Santhalia Residence.",
-      bgImage: "/assets/projects/photos_set1/image_5.jpg"
+      bgImage: "/assets/projects/photos_set1/image_5.webp"
     },
     {
       media: "Trends Magazine",
       tagline: "Brand Curation Showcase",
       excerpt: "Covering Decor Lab's unique material palettes, organic plaster finishes, and timber screenings.",
-      bgImage: "/assets/projects/site_02/image_4.jpg"
+      bgImage: "/assets/projects/site_02/image_4.webp"
     },
     {
       media: "Grohe India",
       tagline: "Strategic Partner Feature",
       excerpt: "Discussing our design philosophy: 'Functionality first, fluidity always.'",
-      bgImage: "/assets/projects/photos_set2/image_4.jpg"
+      bgImage: "/assets/projects/photos_set2/image_4.webp"
     },
     {
       media: "Architecture + Design",
       tagline: "Young Icons Profile",
       excerpt: "Highlighting Ar. Rajdip Sinha's parametric research at UCL and his vision for double-curvature forms in India.",
-      bgImage: "/assets/projects/photos_set1/image_6.jpg"
+      bgImage: "/assets/projects/photos_set1/image_6.webp"
     }
   ];
 
@@ -272,7 +272,7 @@ export default function Awards() {
           href="/"
           style={{ width: "auto", padding: "0 16px", borderRadius: "9999px", textDecoration: "none" }}
         >
-          <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="nav-logo-img" />
+          <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="nav-logo-img" />
         </a>
 
         <nav className="nav-menu glass" role="navigation" aria-label="Main Navigation" onMouseLeave={handleNavMouseLeave}>
@@ -356,7 +356,7 @@ export default function Awards() {
                       >
                         {/* Widescreen image thumbnail hidden by default, slides out on hover */}
                         <div className="award-hover-img-wrap" style={{ width: "100%", height: "0px", opacity: 0, borderRadius: "12px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)" }}>
-                          <img src={award.img} alt={award.title} style={{ width: "100%", height: "180px", objectFit: "cover" }} />
+                          <img loading="lazy" src={award.img} alt={award.title} style={{ width: "100%", height: "180px", objectFit: "cover" }} />
                         </div>
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
@@ -497,7 +497,7 @@ export default function Awards() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                 </div>
                 <p className="footer-desc">
                   Kolkata-based architecture and interior design powerhouse artfully blending legacy with design innovation since 1993.

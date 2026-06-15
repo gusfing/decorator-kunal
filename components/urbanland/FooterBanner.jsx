@@ -63,7 +63,7 @@ const FooterBanner = ({ isPreloaded = true }) => {
                     onMouseEnter={() => setActive(true)}
                     onMouseLeave={() => setActive(false)}
                     ref={fbImgRef} 
-                    src="/assets/projects/santhalia_site/image_1.jpg" 
+                    src="/assets/projects/santhalia_site/image_1.webp" 
                     alt="Decor Lab landmark residential project villa interior curation" 
                     className="w-full h-full object-cover absolute inset-0 z-0" 
                 />

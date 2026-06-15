@@ -2,8 +2,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap/all";
 import { useMediaQuery } from "react-responsive";
 import { welcomeLinesLG, welcomeLinesSM } from "../constants/welcome";
-const w1 = "/assets/capsule/welcome-1.png";
-const w2 = "/assets/capsule/welcome-2.png";
+const w1 = "/assets/capsule/welcome-1.webp";
+const w2 = "/assets/capsule/welcome-2.webp";
 
 const Welcome = () => {
 
@@ -49,8 +49,8 @@ const Welcome = () => {
             </div>
             <div className="flex md:flex-row flex-col justify-between items-center md:p-4 md:mt-20 mt-10">
                 <div className="flex flex-row justify-center items-center gap-1">
-                    <img src={w1} alt="welcome image" className="md:rounded-[8rem] rounded-[9rem] md:w-56 w-44" />
-                    <img src={w2} alt="welcome image" className="md:rounded-[8rem] rounded-[9rem] md:w-56 w-44" />
+                    <img loading="lazy" src={w1} alt="welcome image" className="md:rounded-[8rem] rounded-[9rem] md:w-56 w-44" />
+                    <img loading="lazy" src={w2} alt="welcome image" className="md:rounded-[8rem] rounded-[9rem] md:w-56 w-44" />
                 </div>
                 <div className="md:w-1/2 w-full md:mt-0 mt-10">
                     <p className="md:text-[2rem] text-[1.4rem] text-[#b1a696] md:leading-[1.1] md:pr-24 font-normal leading-[26px] tracking-[-0.2px]">

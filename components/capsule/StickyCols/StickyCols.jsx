@@ -1,9 +1,9 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-const colimg1 = "/assets/capsule/cap1-square.jpg";
-const colimg2 = "/assets/capsule/cap2-square.jpg";
-const colimg3 = "/assets/capsule/cap3-square.jpg";
+const colimg1 = "/assets/capsule/cap1-square.webp";
+const colimg2 = "/assets/capsule/cap2-square.webp";
+const colimg3 = "/assets/capsule/cap3-square.webp";
 import { useState } from "react";
 
 const StickyCols = () => {
@@ -93,12 +93,12 @@ const StickyCols = () => {
                 <div className="col col-2">
                     <div className="col-img col-img-1">
                         <div className="col-img-wrapper">
-                            <img src={colimg1} alt="img" />
+                            <img loading="lazy" src={colimg1} alt="img" />
                         </div>
                     </div>
                     <div className="col col-img-2 p-2">
                         <div className="col-img-wrapper">
-                            <img src={colimg2} alt="img" />
+                            <img loading="lazy" src={colimg2} alt="img" />
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@ const StickyCols = () => {
                 <div className="col col-4">
                     <div className="col-img col-img-1">
                         <div className="col-img-wrapper">
-                            <img src={colimg1} alt="img" />
+                            <img loading="lazy" src={colimg1} alt="img" />
                         </div>
                     </div>
                 </div>

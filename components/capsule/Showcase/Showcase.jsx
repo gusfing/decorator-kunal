@@ -4,9 +4,9 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
-const acImg1 = "/assets/capsule/activities-1.png";;
-const acImg2 = "/assets/capsule/activities-2.png";;
-const acImg3 = "/assets/capsule/activities-3.png";;
+const acImg1 = "/assets/capsule/activities-1.webp";;
+const acImg2 = "/assets/capsule/activities-2.webp";;
+const acImg3 = "/assets/capsule/activities-3.webp";;
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 

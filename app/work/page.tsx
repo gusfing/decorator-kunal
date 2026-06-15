@@ -55,15 +55,15 @@ export default function Work() {
         height: "2024",
         capacity: "Functionality & Aesthetics",
         access: "Ombre Curtains & Custom Art",
-        img: "/assets/projects/santhalia_site/image_1.jpg",
+        img: "/assets/projects/santhalia_site/image_1.webp",
       },
       images: [
-        "/assets/projects/santhalia_site/image_1.jpg",
-        "/assets/projects/santhalia_site/image_2.jpg",
-        "/assets/projects/santhalia_site/image_3.jpg",
-        "/assets/projects/santhalia_site/image_4.jpg",
-        "/assets/projects/santhalia_site/image_5.jpg",
-        "/assets/projects/santhalia_site/image_6.jpg",
+        "/assets/projects/santhalia_site/image_1.webp",
+        "/assets/projects/santhalia_site/image_2.webp",
+        "/assets/projects/santhalia_site/image_3.webp",
+        "/assets/projects/santhalia_site/image_4.webp",
+        "/assets/projects/santhalia_site/image_5.webp",
+        "/assets/projects/santhalia_site/image_6.webp",
       ]
     },
     {
@@ -81,15 +81,15 @@ export default function Work() {
         height: "2024",
         capacity: "Collaboration & Wellness",
         access: "Timber Screening & Light Wells",
-        img: "/assets/projects/site_01/image_1.jpg",
+        img: "/assets/projects/site_01/image_1.webp",
       },
       images: [
-        "/assets/projects/site_01/image_1.jpg",
-        "/assets/projects/site_01/image_2.jpg",
-        "/assets/projects/site_01/image_3.jpg",
-        "/assets/projects/site_01/image_4.jpg",
-        "/assets/projects/site_01/image_5.jpg",
-        "/assets/projects/site_01/image_6.jpg",
+        "/assets/projects/site_01/image_1.webp",
+        "/assets/projects/site_01/image_2.webp",
+        "/assets/projects/site_01/image_3.webp",
+        "/assets/projects/site_01/image_4.webp",
+        "/assets/projects/site_01/image_5.webp",
+        "/assets/projects/site_01/image_6.webp",
       ]
     },
     {
@@ -107,15 +107,15 @@ export default function Work() {
         height: "2025",
         capacity: "Parametric Exploration",
         access: "Aesthetic Lounges & Curved Shells",
-        img: "/assets/projects/site_02/image_1.jpg",
+        img: "/assets/projects/site_02/image_1.webp",
       },
       images: [
-        "/assets/projects/site_02/image_1.jpg",
-        "/assets/projects/site_02/image_2.jpg",
-        "/assets/projects/site_02/image_3.jpg",
-        "/assets/projects/site_02/image_4.jpg",
-        "/assets/projects/site_02/image_5.jpg",
-        "/assets/projects/site_02/image_6.jpg",
+        "/assets/projects/site_02/image_1.webp",
+        "/assets/projects/site_02/image_2.webp",
+        "/assets/projects/site_02/image_3.webp",
+        "/assets/projects/site_02/image_4.webp",
+        "/assets/projects/site_02/image_5.webp",
+        "/assets/projects/site_02/image_6.webp",
       ]
     },
     {
@@ -133,15 +133,15 @@ export default function Work() {
         height: "2023",
         capacity: "Tactile Curation",
         access: "Concrete Furniture & Linen",
-        img: "/assets/projects/photos_set1/image_1.jpg",
+        img: "/assets/projects/photos_set1/image_1.webp",
       },
       images: [
-        "/assets/projects/photos_set1/image_1.jpg",
-        "/assets/projects/photos_set1/image_2.jpg",
-        "/assets/projects/photos_set1/image_3.jpg",
-        "/assets/projects/photos_set1/image_4.jpg",
-        "/assets/projects/photos_set1/image_5.jpg",
-        "/assets/projects/photos_set1/image_6.jpg",
+        "/assets/projects/photos_set1/image_1.webp",
+        "/assets/projects/photos_set1/image_2.webp",
+        "/assets/projects/photos_set1/image_3.webp",
+        "/assets/projects/photos_set1/image_4.webp",
+        "/assets/projects/photos_set1/image_5.webp",
+        "/assets/projects/photos_set1/image_6.webp",
       ]
     },
     {
@@ -159,15 +159,15 @@ export default function Work() {
         height: "2024",
         capacity: "Scale Transitions",
         access: "Platform Curation & Spheres",
-        img: "/assets/projects/photos_set2/image_1.jpg",
+        img: "/assets/projects/photos_set2/image_1.webp",
       },
       images: [
-        "/assets/projects/photos_set2/image_1.jpg",
-        "/assets/projects/photos_set2/image_2.jpg",
-        "/assets/projects/photos_set2/image_3.jpg",
-        "/assets/projects/photos_set2/image_4.jpg",
-        "/assets/projects/photos_set2/image_5.jpg",
-        "/assets/projects/photos_set2/image_6.jpg",
+        "/assets/projects/photos_set2/image_1.webp",
+        "/assets/projects/photos_set2/image_2.webp",
+        "/assets/projects/photos_set2/image_3.webp",
+        "/assets/projects/photos_set2/image_4.webp",
+        "/assets/projects/photos_set2/image_5.webp",
+        "/assets/projects/photos_set2/image_6.webp",
       ]
     }
   ];
@@ -389,7 +389,7 @@ export default function Work() {
           href="/"
           style={{ width: "auto", padding: "0 16px", borderRadius: "9999px", textDecoration: "none" }}
         >
-          <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="nav-logo-img" />
+          <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="nav-logo-img" />
         </a>
 
         <nav className="nav-menu glass" role="navigation" aria-label="Main Navigation" onMouseLeave={handleNavMouseLeave}>
@@ -411,7 +411,7 @@ export default function Work() {
 
       {/* Floating Hover Preview Image Container */}
       <div className="hover-preview-container" style={{ position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 100, width: "260px", height: "170px", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.15)", boxShadow: "0 15px 45px rgba(0,0,0,0.6)", opacity: 0, transform: "scale(0.8)", transition: "opacity 0.3s, transform 0.3s" }}>
-        <img className="hover-preview-img" src="" alt="Work thumbnail hover" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <img loading="lazy" className="hover-preview-img" src="" alt="Work thumbnail hover" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
       </div>
 
       {/* Main Container */}
@@ -530,7 +530,7 @@ export default function Work() {
               >
                 {filteredProjects.map((project, index) => (
                   <div className="img" id={`preview-${index + 1}`} key={project.id}>
-                    <img id={`preview-img-${index + 1}`} src={project.images[0]} alt={project.title} />
+                    <img loading="lazy" id={`preview-img-${index + 1}`} src={project.images[0]} alt={project.title} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-20"></div>
                   </div>
                 ))}
@@ -571,7 +571,7 @@ export default function Work() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                 </div>
                 <p className="footer-desc">
                   Kolkata-based architecture and interior design powerhouse artfully blending legacy with design innovation since 1993.

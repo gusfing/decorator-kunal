@@ -320,7 +320,7 @@ export default function About() {
           href="/"
           style={{ width: "auto", padding: "0 16px", borderRadius: "9999px", textDecoration: "none" }}
         >
-          <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="nav-logo-img" />
+          <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="nav-logo-img" />
         </a>
 
         <nav className="nav-menu glass" role="navigation" aria-label="Main Navigation" onMouseLeave={handleNavMouseLeave}>
@@ -365,8 +365,8 @@ export default function About() {
             </div>
             
             <div className="hero-curtain-image" style={{ width: "100%", height: "65vh", overflow: "hidden", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.08)", position: "relative" }}>
-              <img 
-                src="/assets/projects/santhalia_site/image_5.jpg" 
+              <img loading="lazy" 
+                src="/assets/projects/santhalia_site/image_5.webp" 
                 alt="Studio legacy space curation"
                 style={{ width: "100%", height: "120%", objectFit: "cover" }}
               />
@@ -413,8 +413,8 @@ export default function About() {
                   </p>
                 </div>
                 <div className="founder-img-wrap parallax-img-wrap" style={{ height: "500px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.08)", overflow: "hidden" }}>
-                  <img 
-                    src="/assets/projects/photos_set1/image_3.jpg" 
+                  <img loading="lazy" 
+                    src="/assets/projects/photos_set1/image_3.webp" 
                     alt="Raja Sinha Curation" 
                     style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                   />
@@ -424,8 +424,8 @@ export default function About() {
               {/* Founder 2: Ar. Rajdip Sinha */}
               <div className="founder-section-row lg:grid-cols-2 lg:direction-rtl" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "4rem" }}>
                 <div className="founder-img-wrap parallax-img-wrap" style={{ height: "500px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.08)", overflow: "hidden" }}>
-                  <img 
-                    src="/assets/projects/photos_set2/image_2.jpg" 
+                  <img loading="lazy" 
+                    src="/assets/projects/photos_set2/image_2.webp" 
                     alt="Ar. Rajdip Sinha chief architect" 
                     style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                   />
@@ -593,7 +593,7 @@ export default function About() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                 </div>
                 <p className="footer-desc">
                   Kolkata-based architecture and interior design powerhouse artfully blending legacy with design innovation since 1993.
@@ -673,18 +673,18 @@ export default function About() {
             flex-direction: column !important;
             height: auto !important;
             width: 100% !important;
-            padding: 6rem 2rem !important;
-            gap: 4rem;
+            padding: 4rem 1.5rem !important;
+            gap: 3rem;
           }
           .stats-horizontal-track > div {
             width: 100% !important;
             border-left: none !important;
             border-top: 1px solid rgba(255,255,255,0.1) !important;
-            padding: 3rem 0 0 0 !important;
+            padding: 2rem 0 0 0 !important;
           }
           .timeline-item {
             grid-template-columns: 1fr !important;
-            gap: 2rem;
+            gap: 1.5rem;
             text-align: left !important;
           }
           .timeline-content {
@@ -696,6 +696,12 @@ export default function About() {
           }
           .timeline-progress-line {
             display: none !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .stats-horizontal-track {
+            padding: 3rem 1rem !important;
+            gap: 2rem;
           }
         }
       `}</style>

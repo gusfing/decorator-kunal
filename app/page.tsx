@@ -103,12 +103,12 @@ export default function Home() {
       location: "Kolkata, India",
       description: "An experimental 2,350 sq ft Kolkata residence showcasing a thoughtful application of unique materials, bespoke art installations, and signature ombre curtains. Highlighting clean, warm minimalism with organic plaster walls, textured linen panels, and soft, natural lighting to create a meditative atmosphere.",
       images: [
-        "/assets/projects/santhalia_site/image_1.jpg",
-        "/assets/projects/santhalia_site/image_2.jpg",
-        "/assets/projects/santhalia_site/image_3.jpg",
-        "/assets/projects/santhalia_site/image_4.jpg",
-        "/assets/projects/santhalia_site/image_5.jpg",
-        "/assets/projects/santhalia_site/image_6.jpg",
+        "/assets/projects/santhalia_site/image_1.webp",
+        "/assets/projects/santhalia_site/image_2.webp",
+        "/assets/projects/santhalia_site/image_3.webp",
+        "/assets/projects/santhalia_site/image_4.webp",
+        "/assets/projects/santhalia_site/image_5.webp",
+        "/assets/projects/santhalia_site/image_6.webp",
       ]
     },
     {
@@ -117,12 +117,12 @@ export default function Home() {
       location: "Kolkata, India",
       description: "An award-winning commercial headquarters that balances biophilic design principles with fluid spatial transitions. Incorporates custom-engineered partition systems, timber screening, and organic light wells to maximize natural daylighting and occupant productivity.",
       images: [
-        "/assets/projects/site_01/image_1.jpg",
-        "/assets/projects/site_01/image_2.jpg",
-        "/assets/projects/site_01/image_3.jpg",
-        "/assets/projects/site_01/image_4.jpg",
-        "/assets/projects/site_01/image_5.jpg",
-        "/assets/projects/site_01/image_6.jpg",
+        "/assets/projects/site_01/image_1.webp",
+        "/assets/projects/site_01/image_2.webp",
+        "/assets/projects/site_01/image_3.webp",
+        "/assets/projects/site_01/image_4.webp",
+        "/assets/projects/site_01/image_5.webp",
+        "/assets/projects/site_01/image_6.webp",
       ]
     },
     {
@@ -131,12 +131,12 @@ export default function Home() {
       location: "ICA Creative Minds Finalist",
       description: "A conceptual design project experimenting with double-curvature structures and organic spatial design. Seamlessly integrates interior architecture with warm lighting grids and natural texture layers to create a premium, immersive spatial flow.",
       images: [
-        "/assets/projects/site_02/image_1.jpg",
-        "/assets/projects/site_02/image_2.jpg",
-        "/assets/projects/site_02/image_3.jpg",
-        "/assets/projects/site_02/image_4.jpg",
-        "/assets/projects/site_02/image_5.jpg",
-        "/assets/projects/site_02/image_6.jpg",
+        "/assets/projects/site_02/image_1.webp",
+        "/assets/projects/site_02/image_2.webp",
+        "/assets/projects/site_02/image_3.webp",
+        "/assets/projects/site_02/image_4.webp",
+        "/assets/projects/site_02/image_5.webp",
+        "/assets/projects/site_02/image_6.webp",
       ]
     }
   ];
@@ -156,25 +156,25 @@ export default function Home() {
       model: "Santhalia Residence",
       title: "Close to Nature — Close to Yourself",
       desc: "Warm minimalist residences crafted with bespoke art and unique materials.",
-      bg: "/assets/projects/santhalia_site/image_1.jpg",
+      bg: "/assets/projects/santhalia_site/image_1.webp",
     },
     {
       model: "Corporate Workspace HQ",
       title: "Atmospheric Design Sanctuaries",
       desc: "Step into an organic workspace of fluid lines and custom lighting.",
-      bg: "/assets/projects/site_01/image_1.jpg",
+      bg: "/assets/projects/site_01/image_1.webp",
     },
     {
       model: "Fluid Architecture",
       title: "Fluidity is in the air",
       desc: "Unconventional structures and curved forms creating serene environments.",
-      bg: "/assets/projects/site_02/image_1.jpg",
+      bg: "/assets/projects/site_02/image_1.webp",
     },
     {
       model: "Aesthetic Lounges",
       title: "Tailored Interior Curation",
       desc: "Linen, raw concrete, and plaster studies creating signature spaces.",
-      bg: "/assets/projects/photos_set1/image_1.jpg",
+      bg: "/assets/projects/photos_set1/image_1.webp",
     },
   ];
 
@@ -189,7 +189,7 @@ export default function Home() {
       height: "2024",
       capacity: "Functionality & Aesthetics",
       access: "Ombre Curtains & Custom Art",
-      img: "/assets/projects/santhalia_site/image_1.jpg",
+      img: "/assets/projects/santhalia_site/image_1.webp",
     },
     {
       model: "Corporate HQ",
@@ -200,7 +200,7 @@ export default function Home() {
       height: "2024",
       capacity: "Collaborative Wellness",
       access: "Parametric Timber Screening",
-      img: "/assets/projects/site_01/image_1.jpg",
+      img: "/assets/projects/site_01/image_1.webp",
     },
     {
       model: "Fluid Architecture",
@@ -211,7 +211,7 @@ export default function Home() {
       height: "2025",
       capacity: "Freeform Curved Concrete",
       access: "Oculus Dome & Spatial Flow",
-      img: "/assets/projects/site_02/image_1.jpg",
+      img: "/assets/projects/site_02/image_1.webp",
     },
     {
       model: "Residential Lounge",
@@ -222,44 +222,44 @@ export default function Home() {
       height: "2023",
       capacity: "Tactile Textures",
       access: "Linen Cushions & Concrete Studies",
-      img: "/assets/projects/photos_set1/image_1.jpg",
+      img: "/assets/projects/photos_set1/image_1.webp",
     },
   ];
 
   // Instagram feed data
   const instaPosts: InstaPost[] = [
     {
-      img: "/assets/projects/photos_set1/image_2.jpg",
+      img: "/assets/projects/photos_set1/image_2.webp",
       caption: "A sleek beige organic sofa matches standard-setting minimal plaster walls. Elevating curated interior installations with custom textiles and low-pressure inflatable elements. Madrid — Mumbai.",
       likes: "1,824",
       comments: "84",
     },
     {
-      img: "/assets/projects/photos_set1/image_3.jpg",
+      img: "/assets/projects/photos_set1/image_3.webp",
       caption: "Tactile studies in linen. Blending organic soft pillows and pillow-shaped cushion installations into peaceful structural concepts. Habitats made to dream. #DecorLab",
       likes: "2,412",
       comments: "126",
     },
     {
-      img: "/assets/projects/photos_set1/image_4.jpg",
+      img: "/assets/projects/photos_set1/image_4.webp",
       caption: "Sculptured circular lines and stark concrete detail studies. Curated pampas accents contrast beautifully with organic white dining modules. Clean living aesthetics.",
       likes: "1,538",
       comments: "42",
     },
     {
-      img: "/assets/projects/photos_set2/image_2.jpg",
+      img: "/assets/projects/photos_set2/image_2.webp",
       caption: "Plaster ceilings, low oak platform beds, and pristine linen sheets catch the morning sunbeams. A cozy, high-end design study celebrating Mediterranean roots.",
       likes: "3,104",
       comments: "194",
     },
     {
-      img: "/assets/projects/photos_set2/image_3.jpg",
+      img: "/assets/projects/photos_set2/image_3.webp",
       caption: "Modern art installation featuring white geometric spheres and abstract minimalist shapes under clean gallery spotlighting. Sensory scale transitions.",
       likes: "1,209",
       comments: "38",
     },
     {
-      img: "/assets/projects/photos_set2/image_4.jpg",
+      img: "/assets/projects/photos_set2/image_4.webp",
       caption: "Concrete study and dry decorative accents in our design lab. Moods of shadow and light reflecting the future of premium interior architectures.",
       likes: "2,945",
       comments: "107",
@@ -1928,16 +1928,16 @@ export default function Home() {
 
             <div className="preloader-images">
               <div className="img">
-                <img src="/assets/projects/santhalia_site/image_1.jpg" alt="Opening structure 1" style={{ scale: 1.5 }} />
+                <img loading="lazy" src="/assets/projects/santhalia_site/image_1.webp" alt="Opening structure 1" style={{ scale: 1.5 }} />
               </div>
               <div className="img">
-                <img src="/assets/projects/site_01/image_1.jpg" alt="Opening structure 2" style={{ scale: 1.5 }} />
+                <img loading="lazy" src="/assets/projects/site_01/image_1.webp" alt="Opening structure 2" style={{ scale: 1.5 }} />
               </div>
               <div className="img">
-                <img src="/assets/projects/site_02/image_1.jpg" alt="Opening structure 3" style={{ scale: 1.5 }} />
+                <img loading="lazy" src="/assets/projects/site_02/image_1.webp" alt="Opening structure 3" style={{ scale: 1.5 }} />
               </div>
               <div className="img">
-                <img src="/assets/projects/photos_set1/image_1.jpg" alt="Opening structure 4" style={{ scale: 1.5 }} />
+                <img loading="lazy" src="/assets/projects/photos_set1/image_1.webp" alt="Opening structure 4" style={{ scale: 1.5 }} />
               </div>
             </div>
 
@@ -1981,7 +1981,7 @@ export default function Home() {
           onClick={handleLogoClick}
           style={{ width: "auto", padding: "0 16px", borderRadius: "9999px" }}
         >
-          <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="nav-logo-img" />
+          <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="nav-logo-img" />
         </div>
 
         <nav
@@ -2133,47 +2133,47 @@ export default function Home() {
                   <div className="absolute-card in-about">
                     <div className="card-cross-section _0">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_01/image_1.jpg" loading="lazy" alt="Modern interior design" className="image-path" />
+                        <img src="/assets/projects/site_01/image_1.webp" loading="lazy" alt="Modern interior design" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _1">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_02/image_2.jpg" loading="lazy" alt="Contemporary architecture" className="image-path" />
+                        <img src="/assets/projects/site_02/image_2.webp" loading="lazy" alt="Contemporary architecture" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _2">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/santhalia_site/image_3.jpg" loading="lazy" alt="Abstract modern architectural artwork" className="image-path" />
+                        <img src="/assets/projects/santhalia_site/image_3.webp" loading="lazy" alt="Abstract modern architectural artwork" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _3">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/photos_set1/image_4.jpg" loading="lazy" alt="Modern curved architecture" className="image-path" />
+                        <img src="/assets/projects/photos_set1/image_4.webp" loading="lazy" alt="Modern curved architecture" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _4">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/photos_set2/image_5.jpg" loading="lazy" alt="Luxury house interior" className="image-path" />
+                        <img src="/assets/projects/photos_set2/image_5.webp" loading="lazy" alt="Luxury house interior" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _5">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_01/image_6.jpg" loading="lazy" alt="Minimalist modern house" className="image-path" />
+                        <img src="/assets/projects/site_01/image_6.webp" loading="lazy" alt="Minimalist modern house" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _6">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_02/image_1.jpg" loading="lazy" alt="Modern wooden house" className="image-path" />
+                        <img src="/assets/projects/site_02/image_1.webp" loading="lazy" alt="Modern wooden house" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _7">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/santhalia_site/image_4.jpg" loading="lazy" alt="Modern architecture" className="image-path" />
+                        <img src="/assets/projects/santhalia_site/image_4.webp" loading="lazy" alt="Modern architecture" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _8">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/photos_set1/image_1.jpg" loading="lazy" alt="Beautiful landscape" className="image-path" />
+                        <img src="/assets/projects/photos_set1/image_1.webp" loading="lazy" alt="Beautiful landscape" className="image-path" />
                       </div>
                     </div>
                   </div>
@@ -2235,25 +2235,25 @@ export default function Home() {
                     num: "01",
                     title: "CONTACT US",
                     desc: "We work hand in hand with clients and collaborators. Commercial or residential, simply reach out to get a conversation going. No project is too complex or too simple.",
-                    img: "/assets/projects/santhalia_site/image_5.jpg"
+                    img: "/assets/projects/santhalia_site/image_5.webp"
                   },
                   {
                     num: "02",
                     title: "CONSULTATION",
                     desc: "We evaluate your spatial needs, translating your vision into functional plans. We inspect the site to align layout, lighting, materials, and execution logistics from the very start.",
-                    img: "/assets/projects/site_01/image_2.jpg"
+                    img: "/assets/projects/site_01/image_2.webp"
                   },
                   {
                     num: "03",
                     title: "DESIGN & VISUALIZATION",
                     desc: "We finalize material specs, lighting designs, and custom joinery. Photorealistic 3D renders help visualize the space, ensuring complete confidence before execution starts.",
-                    img: "/assets/projects/site_02/image_2.jpg"
+                    img: "/assets/projects/site_02/image_2.webp"
                   },
                   {
                     num: "04",
                     title: "ON-SITE EXECUTION",
                     desc: "Our team of 275+ professionals manages complete end-to-end site execution. From structural modifications to custom curation, we deliver a seamless, hassle-free transition.",
-                    img: "/assets/projects/site_01/image_1.jpg"
+                    img: "/assets/projects/site_01/image_1.webp"
                   }
                 ].map((step, idx) => (
                   <div
@@ -2268,7 +2268,7 @@ export default function Home() {
                         <p className="process-step-desc">{step.desc}</p>
                       </div>
                       <div className="process-step-media">
-                        <img src={step.img} alt={`${step.title} Preview`} />
+                        <img loading="lazy" src={step.img} alt={`${step.title} Preview`} />
                       </div>
                     </div>
                   </div>
@@ -2294,7 +2294,7 @@ export default function Home() {
 
                 {/* Secondary offset image in text column */}
                 <div className="gallery-image-wrapper gallery-image-small reveal-gallery-img" style={{ marginTop: "4rem" }}>
-                  <img src="/assets/projects/photos_set1/image_3.jpg" alt="Tactile studies in linen pillows" />
+                  <img loading="lazy" src="/assets/projects/photos_set1/image_3.webp" alt="Tactile studies in linen pillows" />
                   <div className="gallery-caption">
                     <span>Linen & Cushion Textures</span>
                     <div className="arrow-circle" />
@@ -2303,7 +2303,7 @@ export default function Home() {
               </div>
 
               <div className="gallery-image-wrapper gallery-image-large reveal-gallery-img">
-                <img src="/assets/projects/photos_set1/image_2.jpg" alt="Curved lounge interior concepts" />
+                <img loading="lazy" src="/assets/projects/photos_set1/image_2.webp" alt="Curved lounge interior concepts" />
                 <div className="gallery-caption">
                   <span>Signature Residential Lounge / Kolkata</span>
                   <div className="arrow-circle" />
@@ -2314,7 +2314,7 @@ export default function Home() {
             {/* Bottom Offset Row */}
             <div className="gallery-offset-row">
               <div className="gallery-image-wrapper gallery-image-medium reveal-gallery-img">
-                <img src="/assets/projects/photos_set1/image_4.jpg" alt="Stark concrete and curved lines" />
+                <img loading="lazy" src="/assets/projects/photos_set1/image_4.webp" alt="Stark concrete and curved lines" />
                 <div className="gallery-caption">
                   <span>Abstract Dining Modules</span>
                   <div className="arrow-circle" />
@@ -2322,7 +2322,7 @@ export default function Home() {
               </div>
 
               <div className="gallery-image-wrapper gallery-image-medium reveal-gallery-img" style={{ alignSelf: "flex-start" }}>
-                <img src="/assets/projects/photos_set2/image_2.jpg" alt="Oak platform bed sunlit" />
+                <img loading="lazy" src="/assets/projects/photos_set2/image_2.webp" alt="Oak platform bed sunlit" />
                 <div className="gallery-caption">
                   <span>Shadows & Light</span>
                   <div className="arrow-circle" />
@@ -2352,7 +2352,7 @@ export default function Home() {
 
               <div className="collab-right">
                 <div className="gallery-image-wrapper gallery-image-large" style={{ height: "450px" }}>
-                  <img src="/assets/projects/photos_set2/image_3.jpg" alt="White geometric spheres art gallery install" />
+                  <img loading="lazy" src="/assets/projects/photos_set2/image_3.webp" alt="White geometric spheres art gallery install" />
                   <div className="gallery-caption">
                     <span>Decor Lab x Häfele Star Awards Curation</span>
                     <div className="arrow-circle" />
@@ -2361,14 +2361,14 @@ export default function Home() {
 
                 <div className="collab-images-row">
                   <div className="gallery-image-wrapper gallery-image-medium" style={{ height: "280px" }}>
-                    <img src="/assets/projects/photos_set2/image_4.jpg" alt="Concrete study and shadow" />
+                    <img loading="lazy" src="/assets/projects/photos_set2/image_4.webp" alt="Concrete study and shadow" />
                     <div className="gallery-caption">
                       <span>Detail & Texture Studies</span>
                       <div className="arrow-circle" />
                     </div>
                   </div>
                   <div className="gallery-image-wrapper gallery-image-medium" style={{ height: "280px" }}>
-                    <img src="/assets/projects/site_02/image_1.jpg" alt="Inflatable dome yellow view" />
+                    <img loading="lazy" src="/assets/projects/site_02/image_1.webp" alt="Inflatable dome yellow view" />
                     <div className="gallery-caption">
                       <span>Fluid Forms / Ongoing Curation</span>
                       <div className="arrow-circle" />
@@ -2387,7 +2387,7 @@ export default function Home() {
           <div className="editorial-container">
             <div className="press-grid">
               <div className="gallery-image-wrapper press-left">
-                <img src="/assets/projects/site_01/image_1.jpg" alt="Ribbed walking canopy interior" />
+                <img loading="lazy" src="/assets/projects/site_01/image_1.webp" alt="Ribbed walking canopy interior" />
                 <div className="gallery-caption">
                   <span>Decor Lab Featured Cover / Elle Decor</span>
                   <div className="arrow-circle" />
@@ -2463,7 +2463,7 @@ export default function Home() {
                           activeIndex: index
                         })}
                       >
-                        <img src={img} alt={`${project.title} gallery shot ${index + 1}`} />
+                        <img loading="lazy" src={img} alt={`${project.title} gallery shot ${index + 1}`} />
                       </div>
                     ))}
                   </div>
@@ -2509,7 +2509,7 @@ export default function Home() {
           <div ref={scrollTrackRef} className="portfolio-scroll-track" id="portfolio-track">
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
-                <img src="/assets/projects/santhalia_site/image_1.jpg" alt="Santhalia Residence Kolkata" />
+                <img loading="lazy" src="/assets/projects/santhalia_site/image_1.webp" alt="Santhalia Residence Kolkata" />
               </div>
               <div className="nube-capsule-info">
                 <div className="nube-capsule-meta">
@@ -2528,7 +2528,7 @@ export default function Home() {
 
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
-                <img src="/assets/projects/site_01/image_1.jpg" alt="Corporate Headquarters Workspace" />
+                <img loading="lazy" src="/assets/projects/site_01/image_1.webp" alt="Corporate Headquarters Workspace" />
               </div>
               <div className="nube-capsule-info">
                 <div className="nube-capsule-meta">
@@ -2547,7 +2547,7 @@ export default function Home() {
 
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
-                <img src="/assets/projects/site_02/image_1.jpg" alt="Fluid Architecture Concept" />
+                <img loading="lazy" src="/assets/projects/site_02/image_1.webp" alt="Fluid Architecture Concept" />
               </div>
               <div className="nube-capsule-info">
                 <div className="nube-capsule-meta">
@@ -2566,7 +2566,7 @@ export default function Home() {
 
             <div className="horizontal-nube-card">
               <div className="nube-capsule-image-frame">
-                <img src="/assets/projects/photos_set1/image_1.jpg" alt="Aesthetic Lounge Design" />
+                <img loading="lazy" src="/assets/projects/photos_set1/image_1.webp" alt="Aesthetic Lounge Design" />
               </div>
               <div className="nube-capsule-info">
                 <div className="nube-capsule-meta">
@@ -2736,7 +2736,7 @@ export default function Home() {
                   }
                 }}
               >
-                <img src={post.img} alt={`Mock Decor Instagram Post ${idx + 1}`} />
+                <img loading="lazy" src={post.img} alt={`Mock Decor Instagram Post ${idx + 1}`} />
                 <div className="instagram-overlay">
                   <div className="insta-overlay-stat">
                     <svg viewBox="0 0 24 24">
@@ -2813,7 +2813,7 @@ export default function Home() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                   <span className="footer-logo-text" style={{ display: "none" }}>Decor Lab</span>
                 </div>
                 <p className="footer-desc">
@@ -3002,7 +3002,7 @@ export default function Home() {
 
             {/* Image container */}
             <div className="lightbox-image-panel">
-              <img id="lightbox-img" src={instaPosts[selectedInsta].img} alt="Instagram Post Full Size" />
+              <img loading="lazy" id="lightbox-img" src={instaPosts[selectedInsta].img} alt="Instagram Post Full Size" />
             </div>
 
             {/* Detailed Info Column */}

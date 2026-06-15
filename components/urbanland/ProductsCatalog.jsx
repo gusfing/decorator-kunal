@@ -69,8 +69,8 @@ const staticProducts = [
     line: "Robust MS/SS bus shelters for townships, campuses & smart cities — custom sizes available.",
     category: "Shelters",
     url: "/work",
-    image: "/assets/urbanland/Bus_Shelters.png",
-    gallery: ["/assets/urbanland/Bus_Shelters.png", "/assets/urbanland/gallery_smart_city.png", "/assets/urbanland/Bus_Shelters.jpeg"],
+    image: "/assets/urbanland/Bus_Shelters.webp",
+    gallery: ["/assets/urbanland/Bus_Shelters.webp", "/assets/urbanland/gallery_smart_city.webp", "/assets/urbanland/Bus_Shelters.webp"],
     badges: ["Popular"],
     tagline: "Robust MS/SS bus shelters for townships, campuses & smart cities.",
     description: "Our MS and SS bus shelters are engineered with hot-dip galvanized steel framing, tempered glass or polycarbonate wind barriers, and self-contained solar-powered lighting systems. Specified extensively for India's Smart City Mission projects, educational campuses, and large private townships.",
@@ -87,8 +87,8 @@ const staticProducts = [
     line: "Weather-resistant WPC and aluminium outdoor benches — India's most-specified park bench material.",
     category: "Benches",
     url: "/work",
-    image: "/assets/urbanland/Bench_Planter.png",
-    gallery: ["/assets/urbanland/Bench_Planter.png", "/assets/urbanland/gallery_real_estate.png", "/assets/urbanland/Bench.jpeg"],
+    image: "/assets/urbanland/Bench_Planter.webp",
+    gallery: ["/assets/urbanland/Bench_Planter.webp", "/assets/urbanland/gallery_real_estate.webp", "/assets/urbanland/Bench.webp"],
     badges: ["Best Seller"],
     tagline: "Weather-resistant and durable outdoor benches.",
     description: "Premium outdoor benches designed to redefine comfort in public parks, corporate offices, and private residential townships. Fabricated with corrosion-resistant metal side legs and sustainably sourced tropical hardwood or high-durability WPC composite slats."
@@ -99,8 +99,8 @@ const staticProducts = [
     line: "Stainless steel and composite dustbins for parks, roadsides, campuses, and smart city zones.",
     category: "Dustbin",
     url: "/work",
-    image: "/assets/urbanland/Dustbins.jpeg",
-    gallery: ["/assets/urbanland/Dustbins.jpeg", "/assets/urbanland/gallery_hospitals.png", "/assets/urbanland/Dustbins.jpeg"],
+    image: "/assets/urbanland/Dustbins.webp",
+    gallery: ["/assets/urbanland/Dustbins.webp", "/assets/urbanland/gallery_hospitals.webp", "/assets/urbanland/Dustbins.webp"],
     badges: ["Popular"],
     tagline: "Stainless steel and composite dustbins for smart city zones."
   },
@@ -110,8 +110,8 @@ const staticProducts = [
     line: "Lightweight GFRC and concrete planters — custom shapes, sizes & finishes for townships and hotels.",
     category: "Planter",
     url: "/work",
-    image: "/assets/urbanland/Planters_Box.jpeg",
-    gallery: ["/assets/urbanland/Planters_Box.jpeg", "/assets/urbanland/gallery_real_estate.png", "/assets/urbanland/Planters_Box.jpeg"],
+    image: "/assets/urbanland/Planters_Box.webp",
+    gallery: ["/assets/urbanland/Planters_Box.webp", "/assets/urbanland/gallery_real_estate.webp", "/assets/urbanland/Planters_Box.webp"],
     badges: ["Popular"],
     tagline: "Lightweight GFRC and concrete planters."
   },
@@ -121,8 +121,8 @@ const staticProducts = [
     line: "Heavy-duty canteen sets built for schools, hospitals, factories & corporate campuses.",
     category: "Benches",
     url: "/work",
-    image: "/assets/urbanland/Canteen_Tables.jpeg",
-    gallery: ["/assets/urbanland/Canteen_Tables.jpeg", "/assets/urbanland/gallery_education.png", "/assets/urbanland/Canteen_Tables.jpeg"],
+    image: "/assets/urbanland/Canteen_Tables.webp",
+    gallery: ["/assets/urbanland/Canteen_Tables.webp", "/assets/urbanland/gallery_education.webp", "/assets/urbanland/Canteen_Tables.webp"],
     badges: ["Popular"],
     tagline: "Heavy-duty canteen sets built for schools, hospitals, factories & corporate campuses."
   },
@@ -132,8 +132,8 @@ const staticProducts = [
     line: "Powder-coated steel car parking sheds — modular, durable, fast to install for residential projects.",
     category: "Car sheds",
     url: "/work",
-    image: "/assets/urbanland/Car_Shelter.png",
-    gallery: ["/assets/urbanland/Car_Shelter.png", "/assets/urbanland/gallery_smart_city.png", "/assets/urbanland/Car_Shelter.jpeg"],
+    image: "/assets/urbanland/Car_Shelter.webp",
+    gallery: ["/assets/urbanland/Car_Shelter.webp", "/assets/urbanland/gallery_smart_city.webp", "/assets/urbanland/Car_Shelter.webp"],
     badges: ["Featured"],
     tagline: "Powder-coated steel car parking sheds."
   },
@@ -143,8 +143,8 @@ const staticProducts = [
     line: "Premium aluminium and wicker loungers for hotel pools, resort decks & residential amenities.",
     category: "Pool",
     url: "/work",
-    image: "/assets/urbanland/Wicker_Furniture.png",
-    gallery: ["/assets/urbanland/Wicker_Furniture.png", "/assets/urbanland/gallery_hotels.png", "/assets/urbanland/welcome-2.png"],
+    image: "/assets/urbanland/Wicker_Furniture.webp",
+    gallery: ["/assets/urbanland/Wicker_Furniture.webp", "/assets/urbanland/gallery_hotels.webp", "/assets/urbanland/welcome-2.webp"],
     badges: ["Popular"],
     tagline: "Premium poolside loungers and cabanas."
   },
@@ -154,8 +154,8 @@ const staticProducts = [
     line: "Hand-woven synthetic wicker sets for luxury hospitality, outdoor dining & resort spaces.",
     category: "Wicker",
     url: "/work",
-    image: "/assets/urbanland/Wicker_Furniture.png",
-    gallery: ["/assets/urbanland/Wicker_Furniture.png", "/assets/urbanland/gallery_hotels.png", "/assets/urbanland/Wicker_Furniture.jpeg"],
+    image: "/assets/urbanland/Wicker_Furniture.webp",
+    gallery: ["/assets/urbanland/Wicker_Furniture.webp", "/assets/urbanland/gallery_hotels.webp", "/assets/urbanland/Wicker_Furniture.webp"],
     badges: ["Popular"],
     tagline: "Luxury hand-woven wicker dining sets and lounge chairs."
   },
@@ -165,8 +165,8 @@ const staticProducts = [
     line: "Modular residential structures",
     category: "Sheds",
     url: "/work",
-    image: "/assets/urbanland/welcome-1.png",
-    gallery: ["/assets/urbanland/welcome-1.png", "/assets/urbanland/gallery_education.png", "/assets/urbanland/welcome-1.png"],
+    image: "/assets/urbanland/welcome-1.webp",
+    gallery: ["/assets/urbanland/welcome-1.webp", "/assets/urbanland/gallery_education.webp", "/assets/urbanland/welcome-1.webp"],
     badges: ["New"],
     tagline: "Premium modular homes for quick deployment."
   },
@@ -176,8 +176,8 @@ const staticProducts = [
     line: "Modern shading structures",
     category: "Sheds",
     url: "/work",
-    image: "/assets/urbanland/Bench_Planter.png",
-    gallery: ["/assets/urbanland/Bench_Planter.png", "/assets/urbanland/gallery_real_estate.png", "/assets/urbanland/Bench_Planter.jpeg"],
+    image: "/assets/urbanland/Bench_Planter.webp",
+    gallery: ["/assets/urbanland/Bench_Planter.webp", "/assets/urbanland/gallery_real_estate.webp", "/assets/urbanland/Bench_Planter.webp"],
     badges: ["New"],
     tagline: "Architectural parabolic shading for outdoor spaces."
   },
@@ -187,8 +187,8 @@ const staticProducts = [
     line: "Elegant garden structures",
     category: "Sheds",
     url: "/work",
-    image: "/assets/urbanland/Wicker_Furniture.jpeg",
-    gallery: ["/assets/urbanland/Wicker_Furniture.jpeg", "/assets/urbanland/gallery_real_estate.png", "/assets/urbanland/Wicker_Furniture.jpeg"],
+    image: "/assets/urbanland/Wicker_Furniture.webp",
+    gallery: ["/assets/urbanland/Wicker_Furniture.webp", "/assets/urbanland/gallery_real_estate.webp", "/assets/urbanland/Wicker_Furniture.webp"],
     badges: ["New"],
     tagline: "Premium gazebos tailored for luxury outdoor relaxation."
   },
@@ -198,8 +198,8 @@ const staticProducts = [
     line: "Poolside comfort",
     category: "Cabanas",
     url: "/work",
-    image: "/assets/urbanland/Wicker_Furniture.jpeg",
-    gallery: ["/assets/urbanland/Wicker_Furniture.jpeg", "/assets/urbanland/gallery_hotels.png", "/assets/urbanland/welcome-1.png"],
+    image: "/assets/urbanland/Wicker_Furniture.webp",
+    gallery: ["/assets/urbanland/Wicker_Furniture.webp", "/assets/urbanland/gallery_hotels.webp", "/assets/urbanland/welcome-1.webp"],
     badges: ["New"],
     tagline: "Resort-style cabanas for luxury private seating."
   }
@@ -468,7 +468,7 @@ const ProductsCatalog = ({ showTitle = true }) => {
                     <div className="absolute bottom-4 left-4 flex -space-x-3.5 items-center z-10">
                       {product.gallery?.slice(0, 3).map((imgUrl, idx) => (
                         <div key={idx} className="relative w-10 h-10 rounded-[37px] border-2 border-white overflow-hidden bg-white shadow-md">
-                          <img src={imgUrl} className="w-full h-full object-cover" alt="gallery preview" style={{ borderRadius: '37px' }} />
+                          <img loading="lazy" src={imgUrl} className="w-full h-full object-cover" alt="gallery preview" style={{ borderRadius: '37px' }} />
                           <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#C9A84C] rounded-full flex items-center justify-center text-[0.5rem] text-white shadow-sm border border-white/50">
                             ★
                           </span>

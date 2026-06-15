@@ -1,6 +1,6 @@
 import gsap from "gsap/all";
 const smoke = "/assets/capsule/smoke_final.mp4";;
-const mobileHeroBg = "/assets/capsule/hero-mobile.png";
+const mobileHeroBg = "/assets/capsule/hero-mobile.webp";
 import { useGSAP } from "@gsap/react";
 import { useMediaQuery } from "react-responsive";
 
@@ -34,7 +34,7 @@ const Hero = () => {
             <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden">
                 <div className="responsive-mobile">
                     {/* Background image (down layer) */}
-                    <div className="hero-img absolute inset-0 bg-[url('/assets/capsule/cap1.png')] bg-no-repeat bg-cover bg-center z-0 md:block hidden" />
+                    <div className="hero-img absolute inset-0 bg-[url('/assets/capsule/cap1.webp')] bg-no-repeat bg-cover bg-center z-0 md:block hidden" />
 
                     {/* Mobile image fallback */}
                     <div className="block lg:hidden mt-6 mb-6">

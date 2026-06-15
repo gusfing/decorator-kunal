@@ -185,7 +185,7 @@ export default function Contact() {
           href="/"
           style={{ width: "auto", padding: "0 16px", borderRadius: "9999px", textDecoration: "none" }}
         >
-          <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="nav-logo-img" />
+          <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="nav-logo-img" />
         </a>
 
         <nav className="nav-menu glass" role="navigation" aria-label="Main Navigation" onMouseLeave={handleNavMouseLeave}>
@@ -241,8 +241,8 @@ export default function Contact() {
 
             {/* Right side column: Cinematic Image curtain wipe */}
             <div className="contact-hero-img-wrap" style={{ width: "100%", height: "65vh", overflow: "hidden", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.08)", position: "relative" }}>
-              <img 
-                src="/assets/projects/site_01/image_2.jpg" 
+              <img loading="lazy" 
+                src="/assets/projects/site_01/image_2.webp" 
                 alt="Workspace architecture studio design study" 
                 style={{ width: "100%", height: "120%", objectFit: "cover" }} 
               />
@@ -579,7 +579,7 @@ export default function Contact() {
             <div className="footer-top">
               <div className="footer-brand">
                 <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.png" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
+                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
                 </div>
                 <p className="footer-desc">
                   Kolkata-based architecture and interior design powerhouse artfully blending legacy with design innovation since 1993.

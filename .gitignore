@@ -37,3 +37,12 @@ Thumbs.db
 *.mp4
 *.zip
 *.tar.gz
+
+# Local temporary assets/scripts
+temp_scroll_animation/
+optimize-images.mjs
+update-img-refs.mjs
+update-img-refs-recursive.mjs
+add-lazy-loading.mjs
+add-lazy-loading-recursive.mjs
+

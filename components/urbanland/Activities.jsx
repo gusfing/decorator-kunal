@@ -22,20 +22,20 @@ const brandNames = [
 ];
 
 const brandLogos = [
-    "/assets/brands/1.png",
+    "/assets/brands/1.webp",
     "/assets/brands/11-3.webp",
-    "/assets/brands/12-1.png",
+    "/assets/brands/12-1.webp",
     "/assets/brands/13-3.webp",
-    "/assets/brands/2.png",
-    "/assets/brands/3-1.png",
-    "/assets/brands/3.png",
-    "/assets/brands/4-1.png",
-    "/assets/brands/5-1.png",
-    "/assets/brands/6-1.png",
-    "/assets/brands/7-1.png",
-    "/assets/brands/8-1.png",
-    "/assets/brands/9-1.png",
-    "/assets/brands/New-Project-7-Photoroom.png"
+    "/assets/brands/2.webp",
+    "/assets/brands/3-1.webp",
+    "/assets/brands/3.webp",
+    "/assets/brands/4-1.webp",
+    "/assets/brands/5-1.webp",
+    "/assets/brands/6-1.webp",
+    "/assets/brands/7-1.webp",
+    "/assets/brands/8-1.webp",
+    "/assets/brands/9-1.webp",
+    "/assets/brands/New-Project-7-Photoroom.webp"
 ];
 
 const Activities = () => {
@@ -77,8 +77,8 @@ const Activities = () => {
                 
                 <div className='lg:w-[45%] w-full flex flex-col justify-end gap-6'>
                     <div className="activities-featured-img w-full h-[200px] md:h-[250px] overflow-hidden rounded-3xl border border-[#2D2D2D]/10 shadow-2xl">
-                        <img 
-                            src="/assets/urbanland/Bench_Planter.png" 
+                        <img loading="lazy" 
+                            src="/assets/urbanland/Bench_Planter.webp" 
                             alt="Lodha township WPC benches and GFRC planters installed by Urbanland Products" 
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
                         />

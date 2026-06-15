@@ -2,9 +2,9 @@ import { useState } from "react";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
 import { feedbackH1LG, feedbackReviewLG } from "../constants/feedback";
 
-const review1 = "/assets/capsule/review1.png";;
-const review2 = "/assets/capsule/review2.png";;
-const review3 = "/assets/capsule/review3.png";;
+const review1 = "/assets/capsule/review1.webp";;
+const review2 = "/assets/capsule/review2.webp";;
+const review3 = "/assets/capsule/review3.webp";;
 
 const reviewImages = {
     review1,
