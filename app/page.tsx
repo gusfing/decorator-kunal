@@ -771,7 +771,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".about-right-image",
               start: "top 90%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -790,7 +790,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#info",
               start: "top 80%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -828,7 +828,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#info",
               start: "top 80%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -870,7 +870,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#process",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -888,7 +888,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#process .process-steps-list",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -907,7 +907,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#collection",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -927,7 +927,7 @@ export default function Home() {
               scrollTrigger: {
                 trigger: img,
                 start: "top 90%",
-                once: true,
+                toggleActions: "play reverse play reverse",
               }
             }
           );
@@ -968,7 +968,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".cashmere-bg",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -988,7 +988,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".cashmere-bg .collab-right",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1008,7 +1008,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".press-grid",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1027,7 +1027,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".press-grid",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1047,7 +1047,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#showcase",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1064,7 +1064,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#showcase .showcase-tabs",
               start: "bottom 90%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1084,7 +1084,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".section-capabilities",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1103,7 +1103,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".section-capabilities .capabilities-grid",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1123,7 +1123,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1142,7 +1142,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram .instagram-grid",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1162,7 +1162,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#feedback",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1182,7 +1182,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#contact-footer",
               start: "top 95%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1231,7 +1231,7 @@ export default function Home() {
               scrollTrigger: {
                 trigger: item.trigger,
                 start: "top 90%",
-                once: true
+                toggleActions: "play reverse play reverse"
               }
             }
           );
@@ -1253,7 +1253,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: stat,
               start: "top 95%",
-              once: true
+              toggleActions: "play reverse play reverse"
             },
             onUpdate: () => {
               stat.innerText = obj.val.toFixed(decimals) + suffix;
@@ -1313,7 +1313,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 80%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1329,7 +1329,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 75%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1345,7 +1345,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 70%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1364,7 +1364,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#process",
             start: "top 80%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1385,7 +1385,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#process .process-steps-list",
             start: "top 80%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1417,7 +1417,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#collection",
             start: "top 80%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1438,7 +1438,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#showcase",
             start: "top 82%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1457,7 +1457,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#showcase",
             start: "top 85%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1478,7 +1478,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram .instagram-grid",
               start: "top 85%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             },
             delay: i * 0.08,
           }
@@ -1520,7 +1520,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#feedback",
               start: "top 80%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             },
             delay: i * 0.1,
           }
@@ -1541,7 +1541,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#contact-footer",
             start: "top 90%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1561,7 +1561,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#contact-footer",
             start: "top 88%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1580,7 +1580,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".section-capabilities",
             start: "top 82%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1601,7 +1601,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".section-capabilities .capabilities-grid",
             start: "top 82%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1619,7 +1619,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".press-grid",
             start: "top 80%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1644,7 +1644,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: el,
             start: "top 90%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1660,11 +1660,21 @@ export default function Home() {
       ScrollTrigger.create({
         trigger: headline,
         start: "top 85%",
-        once: true,
         onEnter: () => {
           wordEls.forEach((w, i) => {
             setTimeout(() => w.classList.add("revealed"), i * 80);
           });
+        },
+        onLeave: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
+        },
+        onEnterBack: () => {
+          wordEls.forEach((w, i) => {
+            setTimeout(() => w.classList.add("revealed"), i * 80);
+          });
+        },
+        onLeaveBack: () => {
+          wordEls.forEach((w) => w.classList.remove("revealed"));
         }
       });
     });
@@ -1681,7 +1691,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: heading,
             start: "top 85%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1718,7 +1728,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: frame,
               start: "top 88%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             }
           }
         );
@@ -1737,7 +1747,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: item,
             start: "top 90%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           },
           delay: (i % 3) * 0.12,
         }
@@ -1759,7 +1769,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: wrapper,
               start: "top 88%",
-              once: true,
+              toggleActions: "play reverse play reverse",
             },
             delay: i * 0.1,
           }
@@ -1782,7 +1792,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: imgWrap,
             start: "top 88%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1800,7 +1810,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: item,
             start: "top 90%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           },
           delay: i * 0.15,
         }
@@ -1820,7 +1830,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".press-grid",
             start: "top 85%",
-            once: true,
+            toggleActions: "play reverse play reverse",
           }
         }
       );
@@ -1851,9 +1861,11 @@ export default function Home() {
   useEffect(() => {
     if (!isPreloaded) return;
     const timer1 = setTimeout(() => {
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
     }, 500);
     const timer2 = setTimeout(() => {
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
     }, 1200);
     return () => {
