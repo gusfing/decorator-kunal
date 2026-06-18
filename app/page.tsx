@@ -36,6 +36,82 @@ interface InstaPost {
   comments: string;
 }
 
+// Instagram feed data
+const instaPosts: InstaPost[] = [
+  {
+    img: "/assets/projects/photos_set1/image_2.webp",
+    caption: "A sleek beige organic sofa matches standard-setting minimal plaster walls. Elevating curated interior installations with custom textiles and low-pressure inflatable elements. Madrid — Mumbai.",
+    likes: "1,824",
+    comments: "84",
+  },
+  {
+    img: "/assets/projects/photos_set1/image_3.webp",
+    caption: "Tactile studies in linen. Blending organic soft pillows and pillow-shaped cushion installations into peaceful structural concepts. Habitats made to dream. #DecorLab",
+    likes: "2,412",
+    comments: "126",
+  },
+  {
+    img: "/assets/projects/photos_set1/image_4.webp",
+    caption: "Sculptured circular lines and stark concrete detail studies. Curated pampas accents contrast beautifully with organic white dining modules. Clean living aesthetics.",
+    likes: "1,538",
+    comments: "42",
+  },
+  {
+    img: "/assets/projects/photos_set2/image_2.webp",
+    caption: "Plaster ceilings, low oak platform beds, and pristine linen sheets catch the morning sunbeams. A cozy, high-end design study celebrating Mediterranean roots.",
+    likes: "3,104",
+    comments: "194",
+  },
+  {
+    img: "/assets/projects/photos_set2/image_3.webp",
+    caption: "Modern art installation featuring white geometric spheres and abstract minimalist shapes under clean gallery spotlighting. Sensory scale transitions.",
+    likes: "1,209",
+    comments: "38",
+  },
+  {
+    img: "/assets/projects/photos_set2/image_4.webp",
+    caption: "Concrete study and dry decorative accents in our design lab. Moods of shadow and light reflecting the future of premium interior architectures.",
+    likes: "2,945",
+    comments: "107",
+  },
+  {
+    img: "/assets/projects/photos_set1/image_1.webp",
+    caption: "Curating space, light, and shadow. A clean study in minimalist lines, organic textures, and functional elegance. Every detail designed with purpose.",
+    likes: "2,120",
+    comments: "76",
+  },
+  {
+    img: "/assets/projects/photos_set1/image_5.webp",
+    caption: "Serene corners. Warm neutral tones, textured plaster, and hand-selected natural accessories creating a quiet space for mindfulness and rest.",
+    likes: "1,980",
+    comments: "62",
+  },
+  {
+    img: "/assets/projects/photos_set1/image_6.webp",
+    caption: "Bespoke furniture studies. Seamless solid oak transitions matching low-profile linen seating. Tailored geometry for contemporary living.",
+    likes: "2,750",
+    comments: "112",
+  },
+  {
+    img: "/assets/projects/photos_set2/image_1.webp",
+    caption: "Exploring materiality. Raw limestone blocks meeting delicate linen weaves. A tactile harmony that speaks of silent luxury and permanence.",
+    likes: "2,430",
+    comments: "95",
+  },
+  {
+    img: "/assets/projects/photos_set2/image_5.webp",
+    caption: "Ambient illumination studies. Soft, indirect light reflecting off curvilinear walls to sculpt space and create a welcoming, soft-spoken atmosphere.",
+    likes: "1,690",
+    comments: "48",
+  },
+  {
+    img: "/assets/projects/photos_set2/image_6.webp",
+    caption: "Architectural silhouettes. Bold geometric forms finding balance in textured cream plaster. Crafting modern design narratives in everyday spaces.",
+    likes: "2,820",
+    comments: "134",
+  },
+];
+
 export default function Home() {
   // Preloader / Entrance state
   const [showPreloader, setShowPreloader] = useState(true);
@@ -84,6 +160,69 @@ export default function Home() {
   // Modals state
   const [selectedNube, setSelectedNube] = useState<number | null>(null);
   const [selectedInsta, setSelectedInsta] = useState<number | null>(null);
+  const [activeInstaSlide, setActiveInstaSlide] = useState(0);
+  const [posts, setPosts] = useState<InstaPost[]>([]);
+  const [loadingInsta, setLoadingInsta] = useState(true);
+
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        setLoadingInsta(true);
+        const res = await fetch("/api/instagram");
+        const data = await res.json();
+        if (data && data.success && data.posts) {
+          setPosts(data.posts);
+        } else {
+          setPosts(instaPosts);
+        }
+      } catch (e) {
+        console.error("Error fetching Instagram posts:", e);
+        setPosts(instaPosts);
+      } finally {
+        setTimeout(() => {
+          setLoadingInsta(false);
+        }, 1200);
+      }
+    }
+    getPosts();
+  }, []);
+
+  const handlePrevInsta = () => {
+    const total = posts.length > 0 ? posts.length : instaPosts.length;
+    setActiveInstaSlide((prev) => (prev === 0 ? total - 1 : prev - 1));
+  };
+
+  const handleNextInsta = () => {
+    const total = posts.length > 0 ? posts.length : instaPosts.length;
+    setActiveInstaSlide((prev) => (prev === total - 1 ? 0 : prev + 1));
+  };
+
+  // Swipe Gestures for the Mobile Mockup Slider
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    if (isLeftSwipe) {
+      handleNextInsta();
+    } else if (isRightSwipe) {
+      handlePrevInsta();
+    }
+  };
+
+  const displayPosts = posts.length > 0 ? posts : instaPosts;
 
   // Newsletter state
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
@@ -223,46 +362,6 @@ export default function Home() {
       capacity: "Tactile Textures",
       access: "Linen Cushions & Concrete Studies",
       img: "/assets/projects/photos_set1/image_1.webp",
-    },
-  ];
-
-  // Instagram feed data
-  const instaPosts: InstaPost[] = [
-    {
-      img: "/assets/projects/photos_set1/image_2.webp",
-      caption: "A sleek beige organic sofa matches standard-setting minimal plaster walls. Elevating curated interior installations with custom textiles and low-pressure inflatable elements. Madrid — Mumbai.",
-      likes: "1,824",
-      comments: "84",
-    },
-    {
-      img: "/assets/projects/photos_set1/image_3.webp",
-      caption: "Tactile studies in linen. Blending organic soft pillows and pillow-shaped cushion installations into peaceful structural concepts. Habitats made to dream. #DecorLab",
-      likes: "2,412",
-      comments: "126",
-    },
-    {
-      img: "/assets/projects/photos_set1/image_4.webp",
-      caption: "Sculptured circular lines and stark concrete detail studies. Curated pampas accents contrast beautifully with organic white dining modules. Clean living aesthetics.",
-      likes: "1,538",
-      comments: "42",
-    },
-    {
-      img: "/assets/projects/photos_set2/image_2.webp",
-      caption: "Plaster ceilings, low oak platform beds, and pristine linen sheets catch the morning sunbeams. A cozy, high-end design study celebrating Mediterranean roots.",
-      likes: "3,104",
-      comments: "194",
-    },
-    {
-      img: "/assets/projects/photos_set2/image_3.webp",
-      caption: "Modern art installation featuring white geometric spheres and abstract minimalist shapes under clean gallery spotlighting. Sensory scale transitions.",
-      likes: "1,209",
-      comments: "38",
-    },
-    {
-      img: "/assets/projects/photos_set2/image_4.webp",
-      caption: "Concrete study and dry decorative accents in our design lab. Moods of shadow and light reflecting the future of premium interior architectures.",
-      likes: "2,945",
-      comments: "107",
     },
   ];
 
@@ -1129,19 +1228,19 @@ export default function Home() {
         );
       }
 
-      const instaCards = document.querySelectorAll("#instagram .instagram-card");
-      if (instaCards.length > 0) {
-        gsap.fromTo(instaCards,
-          { y: 30, opacity: 0 },
+      const phoneWrapper = document.querySelector("#instagram .phone-slider-wrapper");
+      if (phoneWrapper) {
+        gsap.fromTo(phoneWrapper,
+          { y: 40, opacity: 0, scale: 0.95 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.7,
-            stagger: 0.06,
+            scale: 1,
+            duration: 0.9,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: "#instagram .instagram-grid",
-              start: "top 85%",
+              trigger: "#instagram",
+              start: "top 80%",
               toggleActions: "play reverse play reverse",
             }
           }
@@ -1463,47 +1562,23 @@ export default function Home() {
       );
     }
 
-    // ─── 6. INSTAGRAM: Alternating direction stagger ──────────
-    const instaCards = gsap.utils.toArray<HTMLElement>("#instagram .instagram-card");
-    if (instaCards.length > 0) {
-      instaCards.forEach((card, i) => {
-        gsap.fromTo(card,
-          { y: i % 2 === 0 ? 60 : -60, opacity: 0, rotateY: i % 2 === 0 ? 4 : -4 },
-          {
-            y: 0,
-            opacity: 1,
-            rotateY: 0,
-            duration: 1.0,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: "#instagram .instagram-grid",
-              start: "top 85%",
-              toggleActions: "play reverse play reverse",
-            },
-            delay: i * 0.08,
+    // ─── 6. INSTAGRAM: Phone Mockup Parallax ──────────
+    const phoneMock = document.querySelector("#instagram .phone-mockup");
+    if (phoneMock) {
+      gsap.fromTo(phoneMock,
+        { yPercent: 4, rotateZ: -1.5 },
+        {
+          yPercent: -4,
+          rotateZ: 1.5,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#instagram",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
           }
-        );
-      });
-
-      // Parallax inner image scroll
-      instaCards.forEach((card) => {
-        const img = card.querySelector("img");
-        if (img) {
-          gsap.fromTo(img,
-            { yPercent: -6 },
-            {
-              yPercent: 6,
-              ease: "none",
-              scrollTrigger: {
-                trigger: card,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-              }
-            }
-          );
         }
-      });
+      );
     }
 
     // ─── 7. TESTIMONIALS: Perspective slide in ────────────────
@@ -2066,7 +2141,7 @@ export default function Home() {
               aspectRatio: "16/9"
             }}
           >
-            <source src="/assets/hero-bg.mp4" type="video/mp4" />
+            <source src="/assets/living-room-hero.mp4" type="video/mp4" />
           </video>
           <div
             style={{
@@ -2730,40 +2805,181 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Post Grid */}
-          <div className="instagram-grid">
-            {instaPosts.map((post, idx) => (
-              <div
-                key={idx}
-                className="instagram-card"
-                data-cursor="View"
-                role="button"
-                aria-label={`View Instagram post ${idx + 1}`}
-                tabIndex={0}
-                onClick={() => setSelectedInsta(idx)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelectedInsta(idx);
-                  }
-                }}
-              >
-                <img loading="lazy" src={post.img} alt={`Mock Decor Instagram Post ${idx + 1}`} />
-                <div className="instagram-overlay">
-                  <div className="insta-overlay-stat">
-                    <svg viewBox="0 0 24 24">
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          {/* Phone Mockup Slider */}
+          <div className="phone-slider-wrapper">
+            <button
+              className="phone-slider-arrow prev"
+              onClick={handlePrevInsta}
+              aria-label="Previous Post"
+              disabled={loadingInsta}
+            >
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+              </svg>
+            </button>
+
+            <div 
+              className="phone-mockup"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
+              {/* Dynamic Island / Speaker */}
+              <div className="phone-dynamic-island"></div>
+              {/* Side Buttons */}
+              <div className="phone-button volume-up"></div>
+              <div className="phone-button volume-down"></div>
+              <div className="phone-button power"></div>
+
+              <div className="phone-screen">
+                {/* Phone Status Bar */}
+                <div className="phone-status-bar">
+                  <span className="phone-time">09:41</span>
+                  <div className="phone-status-icons">
+                    <svg viewBox="0 0 24 24" style={{ width: "14px", height: "14px" }}>
+                      <path d="M2 22h20V2z" />
                     </svg>
-                    <span>{post.likes}</span>
-                  </div>
-                  <div className="insta-overlay-stat">
-                    <svg viewBox="0 0 24 24">
-                      <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
+                    <svg viewBox="0 0 24 24" style={{ width: "14px", height: "14px" }}>
+                      <path d="M12 21l-12-18h24z" />
                     </svg>
-                    <span>{post.comments}</span>
+                    <svg viewBox="0 0 24 24" style={{ width: "16px", height: "16px" }}>
+                      <path d="M17 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z M21 9h2v6h-2z" />
+                    </svg>
                   </div>
                 </div>
+
+                {/* Mock Instagram Header */}
+                <div className="mock-app-header">
+                  <div className="mock-app-header-left">
+                    <div className="mock-avatar">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="8" cy="14" r="4.5" />
+                        <circle cx="16" cy="14" r="4.5" />
+                        <circle cx="12" cy="8" r="4.5" />
+                      </svg>
+                    </div>
+                    <div className="mock-user-info">
+                      <span className="mock-username">decorlab.in</span>
+                      <span className="mock-location">Kolkata, India</span>
+                    </div>
+                  </div>
+                  <div className="mock-header-more">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {loadingInsta ? (
+                  /* Loading Skeleton inside the phone screen */
+                  <div className="phone-screen-skeleton" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '16px', gap: '16px', justifyContent: 'space-between' }}>
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div className="skeleton-pulse skeleton-media" style={{ width: '100%', aspectRatio: '1/1', borderRadius: '16px', flexShrink: 0 }}></div>
+                      <div className="skeleton-details" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div className="skeleton-pulse skeleton-text-line" style={{ width: '35%', height: '10px' }}></div>
+                        <div className="skeleton-pulse skeleton-text-line" style={{ width: '90%', height: '10px' }}></div>
+                        <div className="skeleton-pulse skeleton-text-line" style={{ width: '55%', height: '10px' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* App Body (Slides) */
+                  <>
+                    <div className="mock-app-body">
+                      <div
+                        className="phone-slider-track"
+                        style={{ transform: `translateX(-${activeInstaSlide * 100}%)` }}
+                      >
+                        {displayPosts.map((post, idx) => (
+                          <div key={idx} className="phone-slider-slide">
+                            <div
+                              className="instagram-card"
+                              data-cursor="View"
+                              role="button"
+                              aria-label={`View Instagram post ${idx + 1}`}
+                              tabIndex={0}
+                              onClick={() => setSelectedInsta(idx)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  setSelectedInsta(idx);
+                                }
+                              }}
+                            >
+                              <img loading="lazy" src={post.img} alt={`Mock Decor Instagram Post ${idx + 1}`} />
+                              <div className="instagram-overlay">
+                                <div className="insta-overlay-stat">
+                                  <svg viewBox="0 0 24 24">
+                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                  </svg>
+                                  <span>{post.likes}</span>
+                                </div>
+                                <div className="insta-overlay-stat">
+                                  <svg viewBox="0 0 24 24">
+                                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
+                                  </svg>
+                                  <span>{post.comments}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Mock Instagram Action Bar */}
+                    <div className="mock-action-bar">
+                      <div className="mock-actions-left">
+                        <svg className="active" viewBox="0 0 24 24">
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                        <svg viewBox="0 0 24 24">
+                          <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
+                        </svg>
+                        <svg viewBox="0 0 24 24" style={{ transform: "rotate(-20deg)", transformOrigin: "center" }}>
+                          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                        </svg>
+                      </div>
+                      <svg className="bookmark" viewBox="0 0 24 24">
+                        <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                      </svg>
+                    </div>
+
+                    {/* Mock Instagram Likes & Caption */}
+                    <div className="mock-post-details">
+                      <div className="mock-likes">{displayPosts[activeInstaSlide]?.likes} likes</div>
+                      <div className="mock-caption">
+                        <span className="mock-caption-user">decorlab.in</span>
+                        {displayPosts[activeInstaSlide]?.caption}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
+            </div>
+
+            <button
+              className="phone-slider-arrow next"
+              onClick={handleNextInsta}
+              aria-label="Next Post"
+              disabled={loadingInsta}
+            >
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Dots Indicators */}
+          <div className="phone-slider-dots">
+            {displayPosts.map((_, idx) => (
+              <button
+                key={idx}
+                className={`phone-slider-dot ${activeInstaSlide === idx ? "active" : ""}`}
+                onClick={() => !loadingInsta && setActiveInstaSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                disabled={loadingInsta}
+              />
             ))}
           </div>
         </section>
@@ -3014,7 +3230,7 @@ export default function Home() {
 
             {/* Image container */}
             <div className="lightbox-image-panel">
-              <img loading="lazy" id="lightbox-img" src={instaPosts[selectedInsta].img} alt="Instagram Post Full Size" />
+              <img loading="lazy" id="lightbox-img" src={displayPosts[selectedInsta]?.img} alt="Instagram Post Full Size" />
             </div>
 
             {/* Detailed Info Column */}
@@ -3051,9 +3267,9 @@ export default function Home() {
                   <div className="comment-avatar">DL</div>
                   <div className="comment-text-box">
                     <p>
-                      <span className="comment-user">decorlab.in</span>{" "}
+                       <span className="comment-user">decorlab.in</span>{" "}
                       <span className="comment-txt" id="lightbox-caption">
-                        {instaPosts[selectedInsta].caption}
+                        {displayPosts[selectedInsta]?.caption}
                       </span>
                     </p>
                     <span className="comment-time">2 hours ago</span>
@@ -3093,10 +3309,10 @@ export default function Home() {
               <div className="lightbox-action-footer">
                 <div className="lightbox-actions-row">
                   <span className="lightbox-likes-count" id="lightbox-likes">
-                    {instaPosts[selectedInsta].likes} likes
+                    {displayPosts[selectedInsta]?.likes} likes
                   </span>
                   <span style={{ color: "rgba(255, 255, 255, 0.45)", fontSize: "0.8rem" }}>
-                    {instaPosts[selectedInsta].comments} comments
+                    {displayPosts[selectedInsta]?.comments} comments
                   </span>
                 </div>
 
