@@ -2210,17 +2210,6 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="preloader-copy">
-              <p>
-                {"A studio of fluid architecture and interior curation shaping spaces through heritage, materials, and refined design innovation."
-                  .split(" ")
-                  .map((word, index) => (
-                    <span key={index} className="line-mask" style={{ marginRight: "0.3em" }}>
-                      <span className="line">{word}</span>
-                    </span>
-                  ))}
-              </p>
-            </div>
           </div>
 
           <div ref={preloaderHeaderRef} className="preloader-header" id="preloader-header-container">
