@@ -582,11 +582,10 @@ export default function Home() {
 
       // Map light background sections to light theme
       if (
+        active === "section-about" ||
         active === "process" ||
         active === "collection" ||
-        active === "collabs" ||
         active === "press" ||
-        active === "showcase" ||
         active === "instagram"
       ) {
         setCurrentTheme("light");
@@ -701,29 +700,12 @@ export default function Home() {
           duration: 3,
           ease: "power3.inOut",
         }, 0)
-          .to(counterObj, {
-            value: 100,
-            duration: 3,
-            ease: "power3.inOut",
-            onUpdate: () => {
-              const counterEl = document.querySelector(".preloader-counter");
-              if (counterEl) {
-                counterEl.textContent = Math.floor(counterObj.value).toString().padStart(3, "0");
-              }
-            }
-          }, 0)
           .set(".progress-bar", { transformOrigin: "right" })
           .to(".progress-bar", {
             scaleX: 0,
             duration: 0.8,
             ease: "power3.in",
-          })
-          .to(".preloader-counter", {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: "power3.in",
-          }, "-=0.8");
+          });
       }
 
       // Image polygon reveals
@@ -2165,7 +2147,192 @@ export default function Home() {
       );
     });
 
+    // ─── SHOWCASE PORTFOLIO: Scroll-triggered reveals ──────────
+    const showcaseSection = document.querySelector("#showcase");
+    if (showcaseSection) {
+      // Header bar fade-in
+      gsap.from(".showcase-eyebrow", {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: "#showcase", start: "top 80%" }
+      });
+      gsap.from(".showcase-main-title", {
+        opacity: 0,
+        y: 40,
+        clipPath: "inset(100% 0% 0% 0%)",
+        duration: 1,
+        ease: "power4.out",
+        delay: 0.15,
+        scrollTrigger: { trigger: "#showcase", start: "top 80%" }
+      });
+      gsap.from(".showcase-header-desc", {
+        opacity: 0,
+        x: 30,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 0.3,
+        scrollTrigger: { trigger: "#showcase", start: "top 80%" }
+      });
+
+      // Staggered project list items
+      const listItems = gsap.utils.toArray<HTMLElement>(".showcase-list-item");
+      if (listItems.length > 0) {
+        gsap.from(listItems, {
+          opacity: 0,
+          x: -30,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".showcase-project-list", start: "top 85%" }
+        });
+      }
+
+      // Hero image clip-path reveal
+      gsap.from(".showcase-hero-img-wrap", {
+        clipPath: "inset(15% 15% 15% 15%)",
+        duration: 1.4,
+        ease: "power4.out",
+        scrollTrigger: { trigger: ".showcase-hero-img-wrap", start: "top 85%" }
+      });
+
+      // Thumbnail strip fade-in
+      gsap.from(".showcase-thumb-strip", {
+        opacity: 0,
+        y: 20,
+        duration: 0.7,
+        ease: "power3.out",
+        delay: 0.4,
+        scrollTrigger: { trigger: ".showcase-thumb-strip", start: "top 95%" }
+      });
+
+      // Description text fade
+      gsap.from(".showcase-project-desc-text", {
+        opacity: 0,
+        y: 15,
+        duration: 0.6,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".showcase-project-desc-text", start: "top 95%" }
+      });
+    }
+
+    // ─── FOOTER: Staggered scroll reveals ────────────────────────
+    const footerEl = document.querySelector("#contact-footer");
+    if (footerEl) {
+      // Brand row
+      gsap.from(".footer-brand-left", {
+        opacity: 0,
+        y: 40,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: { trigger: "#contact-footer", start: "top 85%" }
+      });
+      gsap.from(".footer-brand-right", {
+        opacity: 0,
+        y: 40,
+        duration: 0.9,
+        ease: "power3.out",
+        delay: 0.15,
+        scrollTrigger: { trigger: "#contact-footer", start: "top 85%" }
+      });
+
+      // Dividers wipe-in
+      const dividers = gsap.utils.toArray<HTMLElement>(".footer-divider");
+      dividers.forEach((div) => {
+        gsap.from(div, {
+          scaleX: 0,
+          transformOrigin: "left",
+          duration: 1,
+          ease: "power3.inOut",
+          scrollTrigger: { trigger: div, start: "top 95%" }
+        });
+      });
+
+      // Links grid columns stagger
+      const linkCols = gsap.utils.toArray<HTMLElement>(".footer-links-col");
+      if (linkCols.length > 0) {
+        gsap.from(linkCols, {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".footer-links-grid", start: "top 90%" }
+        });
+      }
+
+      // Bottom bar fade
+      gsap.from(".footer-bottom", {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".footer-bottom", start: "top 98%" }
+      });
+    }
+
   }, [isPreloaded]);
+
+  // ─── SHOWCASE TAB TRANSITION ANIMATION ──────────────────────
+  useEffect(() => {
+    if (!isPreloaded) return;
+    
+    const heroWrap = document.querySelector(".showcase-hero-img-wrap");
+    const heroImg = document.querySelector(".showcase-hero-img");
+    const badge = document.querySelector(".showcase-hero-badge");
+    const thumbs = document.querySelectorAll(".showcase-thumb");
+    const viewAll = document.querySelector(".showcase-view-all");
+    const descText = document.querySelector(".showcase-project-desc-text");
+    
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    
+    if (heroWrap) {
+      tl.fromTo(heroWrap, 
+        { clipPath: "inset(0% 8% 0% 8%)", opacity: 0.8 },
+        { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, duration: 0.6 }
+      );
+    }
+    
+    if (heroImg) {
+      tl.fromTo(heroImg,
+        { scale: 1.12 },
+        { scale: 1, duration: 0.8 },
+        0
+      );
+    }
+
+    if (badge) {
+      tl.fromTo(badge,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.4 },
+        0.2
+      );
+    }
+    
+    if (thumbs.length > 0) {
+      tl.fromTo(thumbs,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 },
+        0.15
+      );
+    }
+
+    if (viewAll) {
+      tl.fromTo(viewAll,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.4 },
+        0.3
+      );
+    }
+    
+    if (descText) {
+      tl.fromTo(descText,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4 },
+        0.25
+      );
+    }
+  }, [activeProjectTab, isPreloaded]);
 
 
   // Pinned ScrollTrigger layout settlement refresh
@@ -2247,7 +2414,6 @@ export default function Home() {
         <>
           <div ref={preloaderRef} className="preloader">
             <div className="progress-bar"></div>
-            <div className="preloader-counter" style={{ position: "absolute", bottom: "3.5rem", right: "4rem", fontFamily: "var(--font-display)", fontSize: "5vw", fontWeight: "bold", color: "#f2f2f0", zIndex: 10, mixBlendMode: "difference" }}>000</div>
 
             <div className="preloader-images">
               <div className="img">
@@ -2635,47 +2801,89 @@ export default function Home() {
           </div>
         </section>
 
+
         {/* ====================================================
-         * SECTION 2D: RECENT COLLABS (Human NYC showcase)
+         * SECTION 2D: RECENT COLLABS — Premium Dark Editorial
          * ==================================================== */}
         <section id="collabs" className="editorial-section cashmere-bg">
-          <div className="editorial-container">
-            <div className="collabs-grid">
-              <div className="collab-left">
-                <h4 className="studio-subtitle" style={{ textAlign: "left" }}>DESIGN PARTNERSHIPS</h4>
-                <h2 className="serif-headline" style={{ lineHeight: "1" }}>
-                  RECENT COLLABS<br />
-                  <span className="serif-subtitle" style={{ fontSize: "3rem", display: "block", marginTop: "1rem" }}>Häfele Curation</span>
-                </h2>
-                <p className="step-desc drop-cap" style={{ fontSize: "1.05rem" }}>
-                  Collaborating with international pioneers to bring smart hardware, premium fittings, and material innovations into our interior architectures. Seamlessly matching top-tier technology with handcrafted wooden elements.
-                </p>
-                <a href="#showcase" className="pill-btn-editorial">Explore Curation</a>
-              </div>
+          <div style={{ maxWidth: "1440px", margin: "0 auto", width: "100%", position: "relative" }}>
 
-              <div className="collab-right">
-                <div className="gallery-image-wrapper gallery-image-large" style={{ height: "450px" }}>
-                  <img loading="lazy" src="/assets/projects/photos_set2/image_3.webp" alt="White geometric spheres art gallery install" />
-                  <div className="gallery-caption">
-                    <span>Decor Lab x Häfele Star Awards Curation</span>
-                    <div className="arrow-circle" />
+            {/* Watermark number */}
+            <span className="collab-watermark" aria-hidden="true">02</span>
+
+            <div className="collabs-grid">
+              {/* ─── LEFT: Text + Stats ─── */}
+              <div className="collab-left">
+                {/* Top: label */}
+                <div>
+                  <h4 className="studio-subtitle" style={{ textAlign: "left" }}>DESIGN PARTNERSHIPS</h4>
+
+                  {/* Headline */}
+                  <h2 className="serif-headline">
+                    RECENT<br />COLLABS
+                    <span className="serif-subtitle">Häfele Curation</span>
+                  </h2>
+
+                  {/* Partner badge */}
+                  <div className="collab-partner-badge">
+                    <span className="badge-dot" />
+                    <span className="badge-label">Active Partner</span>
+                    <span className="badge-name">Häfele India</span>
                   </div>
                 </div>
 
-                <div className="collab-images-row">
-                  <div className="gallery-image-wrapper gallery-image-medium" style={{ height: "280px" }}>
-                    <img loading="lazy" src="/assets/projects/photos_set2/image_4.webp" alt="Concrete study and shadow" />
-                    <div className="gallery-caption">
-                      <span>Detail & Texture Studies</span>
-                      <div className="arrow-circle" />
-                    </div>
+                {/* Middle: Description */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "2rem", flex: 1, justifyContent: "center", padding: "4rem 0 3rem" }}>
+                  <p className="step-desc drop-cap" style={{ fontSize: "1.05rem" }}>
+                    Collaborating with international pioneers to bring smart hardware, premium fittings, and material innovations into our interior architectures. Seamlessly matching top-tier technology with handcrafted wooden elements.
+                  </p>
+                  <a href="#showcase" className="pill-btn-editorial">Explore Curation</a>
+                </div>
+
+                {/* Bottom: Stats */}
+                <div className="collab-stats-row">
+                  <div className="collab-stat">
+                    <span className="collab-stat-num">12+</span>
+                    <span className="collab-stat-label">Brand Partners</span>
                   </div>
-                  <div className="gallery-image-wrapper gallery-image-medium" style={{ height: "280px" }}>
-                    <img loading="lazy" src="/assets/projects/site_02/image_1.webp" alt="Inflatable dome yellow view" />
-                    <div className="gallery-caption">
-                      <span>Fluid Forms / Ongoing Curation</span>
-                      <div className="arrow-circle" />
-                    </div>
+                  <div className="collab-stat">
+                    <span className="collab-stat-num">48</span>
+                    <span className="collab-stat-label">Projects Curated</span>
+                  </div>
+                  <div className="collab-stat">
+                    <span className="collab-stat-num">6</span>
+                    <span className="collab-stat-label">Awards Won</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* ─── RIGHT: Cinematic Image Mosaic ─── */}
+              <div className="collab-right">
+                {/* Primary – large left */}
+                <div className="collab-img-primary">
+                  <span className="collab-year-tag">2024 — 2025</span>
+                  <img loading="lazy" src="/assets/projects/photos_set2/image_3.webp" alt="Decor Lab x Häfele – Star Awards Curation" />
+                  <div className="collab-img-overlay" />
+                  <div className="collab-img-caption">
+                    <span>Häfele Star Awards<br />Curation</span>
+                  </div>
+                </div>
+
+                {/* Secondary – top right */}
+                <div className="collab-img-secondary">
+                  <img loading="lazy" src="/assets/projects/photos_set2/image_4.webp" alt="Detail & Texture Studies" />
+                  <div className="collab-img-overlay" />
+                  <div className="collab-img-caption">
+                    <span>Detail &amp; Texture<br />Studies</span>
+                  </div>
+                </div>
+
+                {/* Tertiary – bottom right */}
+                <div className="collab-img-tertiary">
+                  <img loading="lazy" src="/assets/projects/site_02/image_1.webp" alt="Fluid Forms / Ongoing Curation" />
+                  <div className="collab-img-overlay" />
+                  <div className="collab-img-caption">
+                    <span>Fluid Forms<br />Ongoing</span>
                   </div>
                 </div>
               </div>
@@ -2721,60 +2929,104 @@ export default function Home() {
         <Gallery isPreloaded={isPreloaded} />
 
         {/* ====================================================
-         * SECTION 2F: PROJECTS SHOWCASE (Tabs & Gallery)
+         * SECTION 2F: PROJECTS SHOWCASE — Cinematic Dark Redesign
          * ==================================================== */}
         <section id="showcase" className="section-showcase">
-          <div className="showcase-container">
-            <div className="showcase-header">
-              <h4 className="studio-subtitle">PROJECTS</h4>
-              <h2 className="serif-headline" style={{ fontSize: "3rem" }}>Site Portfolio</h2>
+          <div className="showcase-inner">
+
+            {/* ── Header Bar ── */}
+            <div className="showcase-header-bar">
+              <div className="showcase-header-left">
+                <span className="showcase-eyebrow">PROJECTS</span>
+                <h2 className="showcase-main-title">Site Portfolio</h2>
+              </div>
+              <p className="showcase-header-desc">
+                Award-winning residential, commercial &amp; conceptual spaces across India.
+              </p>
             </div>
 
-            {/* Tab Selection */}
-            <div className="showcase-tabs">
-              {projectsData.map((project) => (
-                <button
-                  key={project.id}
-                  className={`showcase-tab ${activeProjectTab === project.id ? "active" : ""}`}
-                  onClick={() => setActiveProjectTab(project.id)}
-                >
-                  {project.title}
-                </button>
-              ))}
-            </div>
+            {/* ── Project List + Active Image ── */}
+            <div className="showcase-split">
 
-            {/* Tab Content Display */}
-            {projectsData.map((project) => {
-              if (project.id !== activeProjectTab) return null;
-              return (
-                <div key={project.id} className="showcase-content-grid">
-                  <div className="showcase-info-panel">
-                    <span className="showcase-project-location">{project.location}</span>
-                    <h3 className="showcase-project-title">{project.title}</h3>
-                    <p className="showcase-project-desc">{project.description}</p>
-                  </div>
+              {/* Left: numbered project list */}
+              <nav className="showcase-project-list">
+                {projectsData.map((project, idx) => (
+                  <button
+                    key={project.id}
+                    className={`showcase-list-item ${activeProjectTab === project.id ? "active" : ""}`}
+                    onClick={() => setActiveProjectTab(project.id)}
+                  >
+                    <span className="showcase-list-num">0{idx + 1}</span>
+                    <span className="showcase-list-name">{project.title}</span>
+                    <span className="showcase-list-loc">{project.location}</span>
+                    <span className="showcase-list-arrow">→</span>
+                  </button>
+                ))}
+              </nav>
 
-                  <div className="showcase-gallery-grid">
-                    {project.images.map((img, index) => (
-                      <div
-                        key={index}
-                        className="showcase-gallery-item"
-                        data-cursor="view"
+              {/* Right: active project hero */}
+              {projectsData.map((project) => {
+                if (project.id !== activeProjectTab) return null;
+                return (
+                  <div key={project.id} className="showcase-hero-panel">
+
+                    {/* Big hero image */}
+                    <div className="showcase-hero-img-wrap">
+                      <img
+                        loading="lazy"
+                        src={project.images[0]}
+                        alt={project.title}
+                        className="showcase-hero-img"
+                      />
+                      <div className="showcase-hero-overlay" />
+
+                      {/* Floating info badge */}
+                      <div className="showcase-hero-badge">
+                        <span className="showcase-badge-loc">{project.location}</span>
+                        <h3 className="showcase-badge-title">{project.title}</h3>
+                      </div>
+                    </div>
+
+                    {/* Thumbnail strip */}
+                    <div className="showcase-thumb-strip">
+                      {project.images.slice(1, 4).map((img, index) => (
+                        <div
+                          key={index}
+                          className="showcase-thumb"
+                          onClick={() => setLightboxProject({
+                            siteName: project.title,
+                            images: project.images,
+                            activeIndex: index + 1
+                          })}
+                        >
+                          <img loading="lazy" src={img} alt={`${project.title} view ${index + 2}`} />
+                        </div>
+                      ))}
+
+                      {/* View all CTA */}
+                      <button
+                        className="showcase-view-all"
                         onClick={() => setLightboxProject({
                           siteName: project.title,
                           images: project.images,
-                          activeIndex: index
+                          activeIndex: 0
                         })}
                       >
-                        <img loading="lazy" src={img} alt={`${project.title} gallery shot ${index + 1}`} />
-                      </div>
-                    ))}
+                        <span className="showcase-view-all-count">+{project.images.length}</span>
+                        <span className="showcase-view-all-label">View All</span>
+                      </button>
+                    </div>
+
+                    {/* Description */}
+                    <p className="showcase-project-desc-text">{project.description}</p>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+
           </div>
         </section>
+
 
         {/* ====================================================
          * SECTION 3: WORK PORTFOLIO (Horizontal Scroll Catalogue)
@@ -3249,72 +3501,89 @@ export default function Home() {
         </div>
 
         {/* ====================================================
-         * SECTION 7: STUDIO DETAILED FOOTER
+         * SECTION 7: STUDIO DETAILED FOOTER — Premium Redesign
          * ==================================================== */}
         <footer id="contact-footer" className="section-footer">
-
           <div className="footer-container">
-            <div className="footer-top">
-              <div className="footer-brand">
-                <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
-                  <span className="footer-logo-text" style={{ display: "none" }}>Decor Lab</span>
-                </div>
-                <p className="footer-desc">
-                  Kolkata-based architecture and interior design powerhouse artfully blending legacy with design innovation since 1993.
+
+            {/* ── Top: Brand + Tagline ── */}
+            <div className="footer-brand-row">
+              <div className="footer-brand-left">
+                <img src="/assets/Decorlab final-04.webp" alt="Decor Lab" className="footer-logo-img" style={{ maxHeight: "44px" }} />
+                <p className="footer-tagline">
+                  Architecture &amp; Interior Design.<br />
+                  Since 1993.
                 </p>
               </div>
+              <div className="footer-brand-right">
+                <p className="footer-desc">
+                  Kolkata-based design powerhouse blending legacy craftsmanship with bold contemporary architecture. Residential, commercial &amp; conceptual spaces across India.
+                </p>
+                <a href="mailto:info@decorlab.co.in" className="footer-cta-link">
+                  Start a Project <span className="footer-cta-arrow">→</span>
+                </a>
+              </div>
+            </div>
 
-              <div>
-                <h4 className="footer-col-title">Inquiries</h4>
+            {/* ── Divider ── */}
+            <div className="footer-divider" />
+
+            {/* ── Middle: 4-col Links ── */}
+            <div className="footer-links-grid">
+              <div className="footer-links-col">
+                <span className="footer-col-title">Studio</span>
                 <ul className="footer-links-list">
-                  <li>
-                    <a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a>
-                  </li>
-                  <li>
-                    <a href="tel:+913324648000">+91 33 2464 8000</a>
+                  <li><a href="#process">Our Process</a></li>
+                  <li><a href="#collection">Collections</a></li>
+                  <li><a href="#showcase">Portfolio</a></li>
+                  <li><a href="#collabs">Partnerships</a></li>
+                </ul>
+              </div>
+              <div className="footer-links-col">
+                <span className="footer-col-title">Services</span>
+                <ul className="footer-links-list">
+                  <li><a href="#capabilities">Residential</a></li>
+                  <li><a href="#capabilities">Commercial</a></li>
+                  <li><a href="#capabilities">Landscape</a></li>
+                  <li><a href="#capabilities">Conceptual</a></li>
+                </ul>
+              </div>
+              <div className="footer-links-col">
+                <span className="footer-col-title">Contact</span>
+                <ul className="footer-links-list">
+                  <li><a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a></li>
+                  <li><a href="tel:+913324648000">+91 33 2464 8000</a></li>
+                  <li style={{ color: "rgba(245,240,232,0.45)", fontSize: "0.88rem", lineHeight: 1.6 }}>
+                    Kolkata, West Bengal,<br />India
                   </li>
                 </ul>
               </div>
-
-              <div>
-                <h4 className="footer-col-title">Studio</h4>
+              <div className="footer-links-col">
+                <span className="footer-col-title">Follow</span>
                 <ul className="footer-links-list">
-                  <li style={{ fontSize: "0.95rem", lineHeight: 1.5, color: "var(--text-dark)" }}>
-                    Kolkata, West Bengal,
-                    <br />
-                    India
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="footer-col-title">Socials</h4>
-                <ul className="footer-links-list">
-                  <li>
-                    <a href="https://instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ==" target="_blank" rel="noopener noreferrer">
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                      LinkedIn
-                    </a>
-                  </li>
+                  <li><a href="https://instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ==" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                  <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                  <li><a href="#press">Elle Decor Feature</a></li>
                 </ul>
               </div>
             </div>
 
+            {/* ── Divider ── */}
+            <div className="footer-divider" />
+
+            {/* ── Bottom Bar ── */}
             <div className="footer-bottom">
-              <p>&copy; 2026 Decor Lab. All rights reserved.</p>
+              <p>&copy; 2026 Decor Lab Studio Pvt. Ltd. All rights reserved.</p>
               <div className="footer-bottom-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#legal">Legal Notice</a>
-                <a href="#cookies">Cookies Policy</a>
+                <a href="#privacy">Privacy</a>
+                <a href="#legal">Legal</a>
+                <a href="#cookies">Cookies</a>
               </div>
             </div>
+
           </div>
         </footer>
+
       </main>
 
       {/* ====================================================

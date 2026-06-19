@@ -76,7 +76,10 @@ const Feedback = () => {
                 </p>
 
                 <div>
-                    <h1 className='text-[#1A1A1A] text-lg sm:text-2xl md:text-3xl lg:text-[2.2rem] xl:text-[2.6rem] mt-4 mb-6 font-bold leading-[1.2] tracking-tight uppercase'>
+                    <h1
+                        className='text-[#1A1A1A] mt-4 mb-6 font-bold leading-[1.2] tracking-tight uppercase'
+                        style={{ fontSize: 'clamp(1rem, 3.8vw, 2.6rem)', lineHeight: 1.2 }}
+                    >
                         {feedbackH1LG[index].map((line, i) => (
                             <span key={i} className="block mb-1 sm:mb-2">
                                 {line}
