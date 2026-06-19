@@ -6002,3 +6002,24 @@ body {
     padding-top: 2rem;
   }
 }
+
+/* About Section Mobile Positioning Overrides to prevent overlap */
+@media (max-width: 768px) {
+  .area-resize {
+    align-items: flex-start !important;
+    padding-top: 38vh !important;
+  }
+
+  .text-heading-about {
+    font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em !important;
+    text-align: center !important;
+  }
+
+  .inner-heading-about {
+    width: 100% !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
