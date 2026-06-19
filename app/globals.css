@@ -2775,9 +2775,6 @@ body {
   position: relative;
   z-index: 2;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .panel-overlay {
@@ -2793,11 +2790,30 @@ body {
 }
 
 .panel-header-content {
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
   display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 1.5rem;
+  width: max-content;
+  z-index: 2;
+  transition: top 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              left 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              gap 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.process-accordion-panel.active .panel-header-content {
+  top: 3.5rem;
+  left: 3rem;
+  transform: translate(0, 0) rotate(0deg);
   flex-direction: column;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 
 .panel-icon-toggle {
@@ -2806,12 +2822,14 @@ body {
 
 .panel-number {
   font-family: var(--font-serif);
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: 300;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
+  transition: font-size 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              color 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              -webkit-text-stroke-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .process-accordion-panel.active .panel-number {
@@ -2823,30 +2841,41 @@ body {
 
 .panel-title {
   font-family: var(--font-body);
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: #fff;
-  transition: color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  line-height: 1;
+  transition: font-size 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              color 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              letter-spacing 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .process-accordion-panel.active .panel-title {
+  font-size: 1.25rem;
   color: #c5a880;
+  letter-spacing: 0.15em;
 }
 
 .panel-body-content {
-  position: relative;
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  width: calc(100% - 6rem);
   z-index: 2;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   max-width: 500px;
   pointer-events: none;
 }
 
 .process-accordion-panel.active .panel-body-content {
+  bottom: 3.5rem;
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.25s; /* Wait for flex expansion */
@@ -2980,6 +3009,10 @@ body {
 
   .panel-header-content {
     order: 1;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -3042,6 +3075,10 @@ body {
 
   .panel-body-content {
     order: 3;
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
     max-height: 0 !important;
     opacity: 0 !important;
     transform: translateY(10px) !important;
