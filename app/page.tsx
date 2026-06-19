@@ -958,8 +958,8 @@ export default function Home() {
       }
 
       // 3. Process Section (#process)
-      if (document.querySelector("#process .process-sidebar")) {
-        gsap.fromTo("#process .process-sidebar",
+      if (document.querySelector("#process .process-sidebar-inner")) {
+        gsap.fromTo("#process .process-sidebar-inner",
           { y: 30, opacity: 0 },
           {
             y: 0,
@@ -1451,9 +1451,9 @@ export default function Home() {
     }
 
     // ─── 3. PROCESS STEPS: Split layout animations ──
-    const processSidebar = document.querySelector("#process .process-sidebar");
-    if (processSidebar) {
-      gsap.fromTo(processSidebar,
+    const processSidebarInner = document.querySelector("#process .process-sidebar-inner");
+    if (processSidebarInner) {
+      gsap.fromTo(processSidebarInner,
         { x: -30, opacity: 0 },
         {
           x: 0,
@@ -2283,35 +2283,37 @@ export default function Home() {
             <div className="process-grid-container">
               {/* Sticky Sidebar on Left */}
               <div className="process-sidebar">
-                <div>
-                  <h4 className="studio-subtitle" style={{ textAlign: "left" }}>02 / METHODOLOGY</h4>
-                  <h2 className="serif-headline" style={{ textAlign: "left", marginTop: "1rem", lineHeight: "1.1" }}>
-                    Creating with us<br />is easy.
-                  </h2>
-                </div>
-                <div className="process-indicator-wrap">
-                  <div className="process-indicator-track-bg" />
-                  <div
-                    className="process-indicator-track-fill"
-                    style={{
-                      height: `${(activeProcessStep / 3) * 100}%`
-                    }}
-                  />
-                  {[
-                    "Contact Us",
-                    "Consultation",
-                    "Design & Visualization",
-                    "On-Site Execution"
-                  ].map((step, idx) => (
+                <div className="process-sidebar-inner">
+                  <div>
+                    <h4 className="studio-subtitle" style={{ textAlign: "left" }}>02 / METHODOLOGY</h4>
+                    <h2 className="serif-headline" style={{ textAlign: "left", marginTop: "1rem", lineHeight: "1.1" }}>
+                      Creating with us<br />is easy.
+                    </h2>
+                  </div>
+                  <div className="process-indicator-wrap">
+                    <div className="process-indicator-track-bg" />
                     <div
-                      key={step}
-                      className={`process-indicator-step ${activeProcessStep === idx ? "active" : ""}`}
-                      onClick={() => scrollToProcessStep(idx)}
-                    >
-                      <span className="process-indicator-bullet">{idx + 1} . </span>
-                      {step}
-                    </div>
-                  ))}
+                      className="process-indicator-track-fill"
+                      style={{
+                        height: `${(activeProcessStep / 3) * 100}%`
+                      }}
+                    />
+                    {[
+                      "Contact Us",
+                      "Consultation",
+                      "Design & Visualization",
+                      "On-Site Execution"
+                    ].map((step, idx) => (
+                      <div
+                        key={step}
+                        className={`process-indicator-step ${activeProcessStep === idx ? "active" : ""}`}
+                        onClick={() => scrollToProcessStep(idx)}
+                      >
+                        <span className="process-indicator-bullet">{idx + 1} . </span>
+                        {step}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
