@@ -209,6 +209,10 @@
     margin-top: 0;
     margin-bottom: 2rem;
   }
+  .rl-curated-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .rl-curated-card img {
@@ -246,11 +250,12 @@
   font-family: var(--font-serif);
   font-size: 1.8rem;
   margin: 0 0 0.5rem 0;
+  color: #fff;
 }
 .rl-curated-specs {
   font-family: var(--font-sans);
   font-size: 0.9rem;
-  opacity: 0.7;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* =========================================
