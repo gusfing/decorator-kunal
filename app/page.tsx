@@ -2588,23 +2588,22 @@ export default function Home() {
         {/* ====================================================
          * SECTION 1: HERO VIEW (Slideshow, vignettes & title)
          * ==================================================== */}
-        <section id="section-hero" className="section hero" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#000' }}>
+        <section id="section-hero" className="section hero" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#000', height: '100vh', minHeight: '600px' }}>
           <video
             autoPlay
             loop
             muted
             playsInline
             className="hero-bg-video"
+            poster="/assets/projects/santhalia_site/image_1.webp"
             style={{
               position: "absolute",
-              top: "50%",
-              left: "50%",
+              top: 0,
+              left: 0,
               width: "100%",
               height: "100%",
               objectFit: "cover",
-              transform: "translate(-50%, -50%)",
               zIndex: 0,
-              aspectRatio: "16/9"
             }}
           >
             <source src="/assets/living-room-hero.mp4" type="video/mp4" />

@@ -35,6 +35,7 @@ Thumbs.db
 
 # Large media files
 *.mp4
+!public/assets/living-room-hero.mp4
 *.zip
 *.tar.gz
 
