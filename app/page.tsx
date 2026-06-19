@@ -112,11 +112,120 @@ const instaPosts: InstaPost[] = [
   },
 ];
 
+// Curated Spaces categories data
+const curatedCategories = [
+  {
+    id: "living",
+    label: "Living Curation",
+    title: "Living Spaces",
+    desc: "A combination of soft, fluid shapes, plaster wall backdrops, and signature low-profile seating that invite a meditative living experience.",
+    cards: [
+      {
+        num: "01",
+        title: "Signature Residential Lounge / Kolkata",
+        desc: "Warm minimalist seating integrating custom linen upholstery, raw oak tables, and soft lighting.",
+        img: "/assets/projects/photos_set1/image_2.webp"
+      },
+      {
+        num: "02",
+        title: "Santhalia Home / Kolkata",
+        desc: "Award-winning minimalist villa integrating natural linen, plaster, and signature ombre curtains.",
+        img: "/assets/projects/santhalia_site/image_1.webp"
+      },
+      {
+        num: "03",
+        title: "Ribbed Canopy Walkway / Corporate HQ",
+        desc: "Clean geometric forms finding balance in custom-engineered structural wood and plaster structures.",
+        img: "/assets/projects/site_01/image_1.webp"
+      }
+    ]
+  },
+  {
+    id: "dining",
+    label: "Dining & Kitchen",
+    title: "Dining Modules",
+    desc: "Sculptured circular elements and material honesty in raw concrete, oak, and marble create spaces that celebrate connection.",
+    cards: [
+      {
+        num: "01",
+        title: "Abstract Dining Module / Bengal Studio",
+        desc: "Textured plaster, organic white dining curves, and bold concrete accent columns.",
+        img: "/assets/projects/photos_set1/image_4.webp"
+      },
+      {
+        num: "02",
+        title: "Contemporary Dining Room / Kolkata",
+        desc: "Fluid layouts matching custom-engineered timber screens and raw limestone block details.",
+        img: "/assets/projects/site_01/image_2.webp"
+      },
+      {
+        num: "03",
+        title: "Ambient Culinary Curation / Corporate HQ",
+        desc: "Indirect lighting studies reflecting off curvilinear walls to sculpt a quiet, social atmosphere.",
+        img: "/assets/projects/photos_set2/image_5.webp"
+      }
+    ]
+  },
+  {
+    id: "bedroom",
+    label: "Bedrooms & Lounges",
+    title: "Bedrooms & Retreats",
+    desc: "Plaster ceilings, low platform oak frames, and pristine natural linen fabrics catching soft morning light to foster tranquil rest.",
+    cards: [
+      {
+        num: "01",
+        title: "Oak Platform Retreat / Mumbai",
+        desc: "Low oak platform bed structures with textured neutral plaster backdrops catching morning sun.",
+        img: "/assets/projects/photos_set2/image_2.webp"
+      },
+      {
+        num: "02",
+        title: "Aesthetic Lounge / Bengaluru",
+        desc: "Mediterranean plaster study exploring scale, soft ambient light, and organic seating curation.",
+        img: "/assets/projects/photos_set1/image_1.webp"
+      },
+      {
+        num: "03",
+        title: "Santhalia Master Suite / Kolkata",
+        desc: "Cozy, high-end residential retreat celebrating limestone details and soft-spoken comfort.",
+        img: "/assets/projects/santhalia_site/image_2.webp"
+      }
+    ]
+  },
+  {
+    id: "details",
+    label: "Details & Textures",
+    title: "Details & Materiality",
+    desc: "Quiet studies of shadow, light, and tactile honesty. Celebrating the raw beauty of linen, stone, wood grain, and fluid architecture.",
+    cards: [
+      {
+        num: "01",
+        title: "Linen & Cushion Textures / Design Lab",
+        desc: "Tactile study in organic linen weaves and cushion installations matching minimal plaster.",
+        img: "/assets/projects/photos_set1/image_3.webp"
+      },
+      {
+        num: "02",
+        title: "Concrete Study & Dry Accents / Kolkata",
+        desc: "A sensory display of light and shadow reflecting from raw concrete studies and dried flora.",
+        img: "/assets/projects/photos_set2/image_4.webp"
+      },
+      {
+        num: "03",
+        title: "Fluid Forms & Canopy Geometry",
+        desc: "Futuristic double-curvature structure showing parametric design and fluid architectural scale.",
+        img: "/assets/projects/site_02/image_1.webp"
+      }
+    ]
+  }
+];
+
 export default function Home() {
   // Preloader / Entrance state
   const [showPreloader, setShowPreloader] = useState(true);
   const [isPreloaded, setIsPreloaded] = useState(false);
   const [activeProcessStep, setActiveProcessStep] = useState(0);
+  const [activeCuratedTab, setActiveCuratedTab] = useState("living");
 
   const scrollToProcessStep = (index: number) => {
     const el = document.getElementById(`process-step-${index}`);
@@ -439,6 +548,44 @@ export default function Home() {
       document.body.style.overflow = "";
     }
   }, [selectedNube, selectedInsta, showPreloader, lightboxProject]);
+
+  // Curated Spaces tab switch animation
+  useEffect(() => {
+    if (!isPreloaded) return;
+
+    // Localized Quick Stagger for Curation Cards & Texts
+    const cards = gsap.utils.toArray<HTMLElement>("#collection .curated-card");
+    const texts = gsap.utils.toArray<HTMLElement>("#collection .curated-text-animate");
+
+    if (cards.length > 0) {
+      gsap.fromTo(cards,
+        { y: 35, opacity: 0, scale: 0.98 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          overwrite: "auto"
+        }
+      );
+    }
+
+    if (texts.length > 0) {
+      gsap.fromTo(texts,
+        { y: 15, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power2.out",
+          overwrite: "auto"
+        }
+      );
+    }
+  }, [activeCuratedTab, isPreloaded]);
 
 
   // Entrance timelines with GSAP
@@ -994,14 +1141,13 @@ export default function Home() {
       }
 
       // 4. Curated Spaces Section (#collection)
-      if (document.querySelector("#collection .gallery-text-col > *:not(.serif-headline):not(p)")) {
-        gsap.fromTo("#collection .gallery-text-col > *:not(.serif-headline):not(p)",
-          { y: 30, opacity: 0 },
+      if (document.querySelector("#collection .curated-sidebar-col")) {
+        gsap.fromTo("#collection .curated-sidebar-col",
+          { x: -30, opacity: 0 },
           {
-            y: 0,
+            x: 0,
             opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
+            duration: 1.0,
             ease: "power3.out",
             scrollTrigger: {
               trigger: "#collection",
@@ -1012,37 +1158,36 @@ export default function Home() {
         );
       }
 
-      const collectionImgs = gsap.utils.toArray<HTMLElement>("#collection .reveal-gallery-img");
-      if (collectionImgs.length > 0) {
-        collectionImgs.forEach((img) => {
-          gsap.fromTo(img,
-            { y: 40, opacity: 0, scale: 0.97 },
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              duration: 1.0,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: img,
-                start: "top 90%",
-                toggleActions: "play reverse play reverse",
-              }
+      const collectionCards = gsap.utils.toArray<HTMLElement>("#collection .curated-card");
+      if (collectionCards.length > 0) {
+        gsap.fromTo(collectionCards,
+          { y: 50, opacity: 0, scale: 0.98 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.0,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: "#collection .curated-gallery-masonry",
+              start: "top 85%",
+              toggleActions: "play reverse play reverse",
             }
-          );
-        });
+          }
+        );
 
-        // Parallax scroll on images
-        collectionImgs.forEach((img) => {
-          const innerImg = img.querySelector("img");
-          if (innerImg) {
-            gsap.fromTo(innerImg,
-              { yPercent: -8 },
+        // Add a smooth scroll parallax effect on masonry images
+        collectionCards.forEach((card) => {
+          const img = card.querySelector(".curated-card-img");
+          if (img) {
+            gsap.fromTo(img,
+              { yPercent: -5 },
               {
-                yPercent: 8,
+                yPercent: 5,
                 ease: "none",
                 scrollTrigger: {
-                  trigger: img,
+                  trigger: card,
                   start: "top bottom",
                   end: "bottom top",
                   scrub: true,
@@ -2368,54 +2513,66 @@ export default function Home() {
         </section>
 
         {/* ====================================================
-         * SECTION 2C: CURATED PROJECTS (Editorial Gallery Grid)
+         * SECTION 2C: CURATED PROJECTS (Asymmetric Tabs & Masonry Grid)
          * ==================================================== */}
-        <section id="collection" className="editorial-section" style={{ borderTop: "none" }}>
+        <section id="collection" className="editorial-section animate-collection-section" style={{ borderTop: "none" }}>
           <div className="editorial-container">
-            <div className="editorial-gallery-grid">
-              <div className="gallery-text-col">
-                <h4 className="studio-subtitle" style={{ textAlign: "left" }}>COLLECTION</h4>
-                <h2 className="serif-headline" style={{ marginBottom: "1rem" }}>Curated Spaces</h2>
-                <p className="step-desc" style={{ fontSize: "1.05rem" }}>
-                  Step inside our curated spaces where art, material honesty, and light merge to redefine modern luxury living and working environments.
-                </p>
-                <a href="#showcase" className="pill-btn-editorial">View Showcase</a>
-
-                {/* Secondary offset image in text column */}
-                <div className="gallery-image-wrapper gallery-image-small reveal-gallery-img" style={{ marginTop: "4rem" }}>
-                  <img loading="lazy" src="/assets/projects/photos_set1/image_3.webp" alt="Tactile studies in linen pillows" />
-                  <div className="gallery-caption">
-                    <span>Linen & Cushion Textures</span>
-                    <div className="arrow-circle" />
+            <div className="curated-grid-layout">
+              {/* Left Column - Sticky Curation Tabs */}
+              <div className="curated-sidebar-col">
+                <div>
+                  <h4 className="studio-subtitle" style={{ textAlign: "left" }}>COLLECTION</h4>
+                  <div className="curated-text-animate">
+                    <h2 className="serif-headline" style={{ marginBottom: "1.5rem", lineHeight: "1.1" }}>
+                      Curated Spaces
+                    </h2>
+                  </div>
+                  <div className="curated-text-animate">
+                    <p className="curated-desc-para" style={{ fontSize: "1.05rem", lineHeight: "1.7", color: "var(--text-muted)", marginBottom: "2.5rem" }}>
+                      {curatedCategories.find(c => c.id === activeCuratedTab)?.desc}
+                    </p>
                   </div>
                 </div>
-              </div>
 
-              <div className="gallery-image-wrapper gallery-image-large reveal-gallery-img">
-                <img loading="lazy" src="/assets/projects/photos_set1/image_2.webp" alt="Curved lounge interior concepts" />
-                <div className="gallery-caption">
-                  <span>Signature Residential Lounge / Kolkata</span>
-                  <div className="arrow-circle" />
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Offset Row */}
-            <div className="gallery-offset-row">
-              <div className="gallery-image-wrapper gallery-image-medium reveal-gallery-img">
-                <img loading="lazy" src="/assets/projects/photos_set1/image_4.webp" alt="Stark concrete and curved lines" />
-                <div className="gallery-caption">
-                  <span>Abstract Dining Modules</span>
-                  <div className="arrow-circle" />
+                {/* Tab Switcher Buttons */}
+                <div className="curated-tabs-list">
+                  {curatedCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      className={`curated-tab-btn ${activeCuratedTab === cat.id ? "active" : ""}`}
+                      onClick={() => setActiveCuratedTab(cat.id)}
+                    >
+                      <span className="curated-tab-bullet">/ </span>
+                      {cat.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              <div className="gallery-image-wrapper gallery-image-medium reveal-gallery-img" style={{ alignSelf: "flex-start" }}>
-                <img loading="lazy" src="/assets/projects/photos_set2/image_2.webp" alt="Oak platform bed sunlit" />
-                <div className="gallery-caption">
-                  <span>Shadows & Light</span>
-                  <div className="arrow-circle" />
-                </div>
+              {/* Right Column - Dynamic Asymmetric Masonry Grid */}
+              <div className="curated-gallery-masonry">
+                {curatedCategories.find(c => c.id === activeCuratedTab)?.cards.map((card, idx) => (
+                  <div
+                    key={idx}
+                    className={`curated-card curated-card-${idx}`}
+                  >
+                    <div className="curated-card-image-wrap">
+                      <img
+                        loading="lazy"
+                        src={card.img}
+                        alt={card.title}
+                        className="curated-card-img"
+                      />
+                    </div>
+                    <div className="curated-card-info">
+                      <span className="curated-card-num">{card.num}</span>
+                      <div>
+                        <h4 className="curated-card-title">{card.title}</h4>
+                        <p className="curated-card-desc">{card.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
