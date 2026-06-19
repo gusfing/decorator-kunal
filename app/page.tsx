@@ -220,6 +220,54 @@ const curatedCategories = [
   }
 ];
 
+// Methodology steps data
+const methodologySteps = [
+  {
+    num: "01",
+    title: "Contact Us",
+    desc: "We work hand in hand with clients and collaborators. Commercial or residential, simply reach out to get a conversation going. No project is too complex or too simple.",
+    img: "/assets/projects/santhalia_site/image_5.webp",
+    deliverables: [
+      "Consultation Booking",
+      "Spatial Intent Scope",
+      "Feasibility Outline"
+    ]
+  },
+  {
+    num: "02",
+    title: "Consultation",
+    desc: "We evaluate your spatial needs, translating your vision into functional plans. We inspect the site to align layout, lighting, materials, and execution logistics from the very start.",
+    img: "/assets/projects/site_01/image_2.webp",
+    deliverables: [
+      "On-Site Inspection",
+      "Structural Planning",
+      "Resource Curation"
+    ]
+  },
+  {
+    num: "03",
+    title: "Design & Visualization",
+    desc: "We finalize material specs, lighting designs, and custom joinery. Photorealistic 3D renders help visualize the space, ensuring complete confidence before execution starts.",
+    img: "/assets/projects/site_02/image_2.webp",
+    deliverables: [
+      "Material Spec Sheets",
+      "3D Render Portfolios",
+      "Lighting Curation"
+    ]
+  },
+  {
+    num: "04",
+    title: "On-Site Execution",
+    desc: "Our team of 275+ professionals manages complete end-to-end site execution. From structural modifications to custom curation, we deliver a seamless, hassle-free transition.",
+    img: "/assets/projects/site_01/image_1.webp",
+    deliverables: [
+      "PM Supervision",
+      "Quality Assurance",
+      "Turnkey Handover"
+    ]
+  }
+];
+
 export default function Home() {
   // Preloader / Entrance state
   const [showPreloader, setShowPreloader] = useState(true);
@@ -1105,13 +1153,14 @@ export default function Home() {
       }
 
       // 3. Process Section (#process)
-      if (document.querySelector("#process .process-sidebar-inner")) {
-        gsap.fromTo("#process .process-sidebar-inner",
+      if (document.querySelector("#process .process-accordion-header")) {
+        gsap.fromTo("#process .process-accordion-header > *",
           { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.0,
+            duration: 0.8,
+            stagger: 0.12,
             ease: "power3.out",
             scrollTrigger: {
               trigger: "#process",
@@ -1122,17 +1171,19 @@ export default function Home() {
         );
       }
 
-      if (document.querySelector("#process .process-step-item")) {
-        gsap.fromTo("#process .process-step-item",
-          { y: 55, opacity: 0 },
+      const accordionPanels = gsap.utils.toArray<HTMLElement>("#process .process-accordion-panel");
+      if (accordionPanels.length > 0) {
+        gsap.fromTo(accordionPanels,
+          { y: 50, opacity: 0, scale: 0.98 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            stagger: 0.12,
+            scale: 1,
+            duration: 1.0,
+            stagger: 0.15,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: "#process .process-steps-list",
+              trigger: "#process .process-accordion-container",
               start: "top 85%",
               toggleActions: "play reverse play reverse",
             }
@@ -1595,58 +1646,44 @@ export default function Home() {
       );
     }
 
-    // ─── 3. PROCESS STEPS: Split layout animations ──
-    const processSidebarInner = document.querySelector("#process .process-sidebar-inner");
-    if (processSidebarInner) {
-      gsap.fromTo(processSidebarInner,
-        { x: -30, opacity: 0 },
+    // ─── 3. PROCESS STEPS: Cinematic Accordion Panels ──
+    const processHeader = document.querySelector("#process .process-accordion-header");
+    if (processHeader) {
+      gsap.fromTo(processHeader.children,
+        { y: 30, opacity: 0 },
         {
-          x: 0,
+          y: 0,
           opacity: 1,
-          duration: 1.0,
+          duration: 0.8,
+          stagger: 0.12,
           ease: "power3.out",
           scrollTrigger: {
             trigger: "#process",
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play reverse play reverse",
           }
         }
       );
     }
 
-    // Each step slides in from right/bottom
-    const redesignedStepCards = gsap.utils.toArray<HTMLElement>("#process .process-step-item");
-    if (redesignedStepCards.length > 0) {
-      gsap.fromTo(redesignedStepCards,
-        { y: 60, opacity: 0, scale: 0.98 },
+    const processPanels = gsap.utils.toArray<HTMLElement>("#process .process-accordion-panel");
+    if (processPanels.length > 0) {
+      gsap.fromTo(processPanels,
+        { y: 55, opacity: 0, scale: 0.98 },
         {
           y: 0,
           opacity: 1,
           scale: 1,
           duration: 1.0,
-          ease: "power4.out",
           stagger: 0.15,
+          ease: "power3.out",
           scrollTrigger: {
-            trigger: "#process .process-steps-list",
-            start: "top 80%",
+            trigger: "#process .process-accordion-container",
+            start: "top 85%",
             toggleActions: "play reverse play reverse",
           }
         }
       );
-
-      // Sync sidebar indicators with scroll position of steps
-      redesignedStepCards.forEach((item, index) => {
-        ScrollTrigger.create({
-          trigger: item,
-          start: "top 60%",
-          end: "bottom 40%",
-          onToggle: (self) => {
-            if (self.isActive) {
-              setActiveProcessStep(index);
-            }
-          },
-        });
-      });
     }
 
     // ─── 4. COLLECTION SECTION: Gallery text clip-path ────────
@@ -2423,92 +2460,54 @@ export default function Home() {
         {/* ====================================================
          * SECTION 2B: PROCESS (Creating with us is easy)
          * ==================================================== */}
-        <section id="process" className="editorial-section">
-          <div className="editorial-container">
-            <div className="process-grid-container">
-              {/* Sticky Sidebar on Left */}
-              <div className="process-sidebar">
-                <div className="process-sidebar-inner">
-                  <div>
-                    <h4 className="studio-subtitle" style={{ textAlign: "left" }}>02 / METHODOLOGY</h4>
-                    <h2 className="serif-headline" style={{ textAlign: "left", marginTop: "1rem", lineHeight: "1.1" }}>
-                      Creating with us<br />is easy.
-                    </h2>
-                  </div>
-                  <div className="process-indicator-wrap">
-                    <div className="process-indicator-track-bg" />
-                    <div
-                      className="process-indicator-track-fill"
-                      style={{
-                        height: `${(activeProcessStep / 3) * 100}%`
-                      }}
-                    />
-                    {[
-                      "Contact Us",
-                      "Consultation",
-                      "Design & Visualization",
-                      "On-Site Execution"
-                    ].map((step, idx) => (
-                      <div
-                        key={step}
-                        className={`process-indicator-step ${activeProcessStep === idx ? "active" : ""}`}
-                        onClick={() => scrollToProcessStep(idx)}
-                      >
-                        <span className="process-indicator-bullet">{idx + 1} . </span>
-                        {step}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+        {/* ====================================================
+         * SECTION 2B: PROCESS (Cinematic Accordion Panels)
+         * ==================================================== */}
+        <section id="process" className="process-accordion-section">
+          <div className="process-accordion-header">
+            <h4 className="studio-subtitle">02 / METHODOLOGY</h4>
+            <h2 className="serif-headline">Creating with us is easy.</h2>
+          </div>
 
-              {/* Stacking Steps List on Right */}
-              <div className="process-steps-list">
-                {[
-                  {
-                    num: "01",
-                    title: "CONTACT US",
-                    desc: "We work hand in hand with clients and collaborators. Commercial or residential, simply reach out to get a conversation going. No project is too complex or too simple.",
-                    img: "/assets/projects/santhalia_site/image_5.webp"
-                  },
-                  {
-                    num: "02",
-                    title: "CONSULTATION",
-                    desc: "We evaluate your spatial needs, translating your vision into functional plans. We inspect the site to align layout, lighting, materials, and execution logistics from the very start.",
-                    img: "/assets/projects/site_01/image_2.webp"
-                  },
-                  {
-                    num: "03",
-                    title: "DESIGN & VISUALIZATION",
-                    desc: "We finalize material specs, lighting designs, and custom joinery. Photorealistic 3D renders help visualize the space, ensuring complete confidence before execution starts.",
-                    img: "/assets/projects/site_02/image_2.webp"
-                  },
-                  {
-                    num: "04",
-                    title: "ON-SITE EXECUTION",
-                    desc: "Our team of 275+ professionals manages complete end-to-end site execution. From structural modifications to custom curation, we deliver a seamless, hassle-free transition.",
-                    img: "/assets/projects/site_01/image_1.webp"
-                  }
-                ].map((step, idx) => (
-                  <div
-                    key={step.num}
-                    id={`process-step-${idx}`}
-                    className="process-step-item"
-                  >
-                    <div className="process-step-num">{step.num}</div>
-                    <div className="process-step-body">
-                      <div className="process-step-info">
-                        <h4 className="process-step-title">{step.title}</h4>
-                        <p className="process-step-desc">{step.desc}</p>
-                      </div>
-                      <div className="process-step-media">
-                        <img loading="lazy" src={step.img} alt={`${step.title} Preview`} />
-                      </div>
+          <div className="process-accordion-container">
+            {methodologySteps.map((step, idx) => {
+              const isHovered = activeProcessStep === idx;
+              return (
+                <div
+                  key={step.num}
+                  className={`process-accordion-panel ${isHovered ? "active" : ""}`}
+                  onMouseEnter={() => setActiveProcessStep(idx)}
+                  onClick={() => setActiveProcessStep(idx)}
+                  style={{
+                    backgroundImage: `url(${step.img})`
+                  }}
+                >
+                  <div className="panel-overlay" />
+                  
+                  {/* Panel Header */}
+                  <div className="panel-header-content">
+                    <span className="panel-number">{step.num}</span>
+                    <h3 className="panel-title">{step.title}</h3>
+                  </div>
+
+                  {/* Panel Detailed Body */}
+                  <div className="panel-body-content">
+                    <p className="panel-desc">{step.desc}</p>
+                    <div className="panel-divider" />
+                    <div className="panel-deliverables">
+                      <span className="deliverables-heading">Deliverables:</span>
+                      <ul className="deliverables-list">
+                        {step.deliverables.map((item, itemIdx) => (
+                          <li key={itemIdx} className="deliverable-item">
+                            <span className="bullet">✦</span> {item}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
         </section>
 
