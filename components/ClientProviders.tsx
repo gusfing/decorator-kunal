@@ -11,66 +11,13 @@ export default function ClientProviders({ children }: { children: React.ReactNod
   useEffect(() => {
     // Set page-loading class on mount/route change
     document.documentElement.classList.add("page-loading");
-    document.documentElement.classList.remove("header-hidden", "mobile-menu-open");
-    document.body.style.overflow = "";
+    document.documentElement.classList.remove("header-hidden");
 
     const header = document.getElementById("main-header");
     if (!header) {
       document.documentElement.classList.remove("page-loading");
       return;
     }
-
-    // Central Mobile Menu Injector
-    let toggle: HTMLElement | null = null;
-    let overlay: HTMLElement | null = null;
-    let toggleMenu: ((e: Event) => void) | null = null;
-
-    // Create toggle button
-    toggle = document.createElement("div");
-    toggle.className = "mobile-menu-toggle glass glass-interactive";
-    toggle.setAttribute("role", "button");
-    toggle.setAttribute("aria-label", "Toggle Menu");
-    toggle.innerHTML = `
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    `;
-    header.appendChild(toggle);
-
-    // Create overlay
-    overlay = document.createElement("div");
-    overlay.id = "mobile-nav-overlay";
-    overlay.className = "mobile-menu-overlay";
-    overlay.innerHTML = `
-      <div class="mobile-menu-links">
-        <a href="/work" class="mobile-menu-link">Work</a>
-        <a href="/about" class="mobile-menu-link">About</a>
-        <a href="/awards" class="mobile-menu-link">Awards</a>
-        <a href="/contact" class="mobile-menu-link">Contact</a>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-
-    toggleMenu = (e: Event) => {
-      e.stopPropagation();
-      const isOpen = document.documentElement.classList.toggle("mobile-menu-open");
-      if (isOpen) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
-      }
-    };
-
-    toggle.addEventListener("click", toggleMenu);
-
-    // Close menu on link click
-    const links = overlay.querySelectorAll(".mobile-menu-link");
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        document.documentElement.classList.remove("mobile-menu-open");
-        document.body.style.overflow = "";
-      });
-    });
 
     let isHidden = false;
     let lastScrollY = window.scrollY;
@@ -84,9 +31,8 @@ export default function ClientProviders({ children }: { children: React.ReactNod
           isHidden = false;
         }
       } else if (currentScrollY > lastScrollY) {
-        // Scrolling down: hide header (unless mobile menu is open)
-        const isMenuOpen = document.documentElement.classList.contains("mobile-menu-open");
-        if (!isHidden && !isMenuOpen) {
+        // Scrolling down: hide header
+        if (!isHidden) {
           document.documentElement.classList.add("header-hidden");
           isHidden = true;
         }
@@ -129,15 +75,7 @@ export default function ClientProviders({ children }: { children: React.ReactNod
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      document.documentElement.classList.remove("page-loading", "header-hidden", "mobile-menu-open");
-      document.body.style.overflow = "";
-      if (toggle && toggleMenu) {
-        toggle.removeEventListener("click", toggleMenu);
-        toggle.remove();
-      }
-      if (overlay) {
-        overlay.remove();
-      }
+      document.documentElement.classList.remove("page-loading", "header-hidden");
     };
   }, [pathname]);
 
