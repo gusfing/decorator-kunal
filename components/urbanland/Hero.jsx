@@ -27,7 +27,7 @@ const Hero = () => {
 
     mm.add("(min-width: 769px)", () => {
       const tl = gsap.timeline({
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: containerRef.current,
           start: "top top",
           end: "+=300%",
@@ -71,7 +71,7 @@ const Hero = () => {
 
     mm.add("(max-width: 768px)", () => {
       const tl = gsap.timeline({
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: containerRef.current,
           start: "top top",
           end: "+=200%",

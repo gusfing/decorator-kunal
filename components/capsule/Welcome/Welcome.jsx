@@ -13,7 +13,7 @@ const Welcome = () => {
     useGSAP(() => {
         const lines = gsap.utils.toArray(".clip-text-welcome");
         const tl = gsap.timeline({
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
                 trigger: ".welcome-section",
                 start: "top 75%",
                 end: "bottom 75%",

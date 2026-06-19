@@ -50,7 +50,7 @@ const FooterTitle = () => {
             x: "0%",
             stagger: 0.02, // Add stagger for character-by-character reveal
             ease: "power3.out",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
                 trigger: ftConRef.current,
                 start: "top 90%",
                 end: "top 80%",

@@ -16,7 +16,7 @@ const Activities = () => {
         const progressLines = gsap.utils.toArray(".progress-line");
 
         const activitiesTl = gsap.timeline({
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
                 trigger: ".activities-section",
                 start: "top 80%",
                 end: "top 20%",

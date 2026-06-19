@@ -237,7 +237,7 @@ const ProductsCatalog = ({ showTitle = true }) => {
           opacity: 1,
           duration: 1,
           ease: "power3.out",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: containerRef.current,
             start: "top 80%",
           }
@@ -255,7 +255,7 @@ const ProductsCatalog = ({ showTitle = true }) => {
         duration: 0.8,
         ease: "power2.out",
         delay: showTitle ? 0.2 : 0,
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: containerRef.current,
           start: showTitle ? "top 80%" : "top 90%",
         }
@@ -274,7 +274,7 @@ const ProductsCatalog = ({ showTitle = true }) => {
         stagger: 0.1,
         ease: "power3.out",
         delay: showTitle ? 0.4 : 0.2,
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: containerRef.current,
           start: showTitle ? "top 70%" : "top 80%",
         }

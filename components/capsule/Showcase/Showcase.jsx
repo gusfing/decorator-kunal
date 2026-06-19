@@ -30,7 +30,7 @@ const Showcase = () => {
         gsap.to(imgConRef.current, {
             x: () => -totalWidth,
             ease: "none",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
                 trigger: containerRef.current,
                 start: "-10% 10%",
                 end: () => `+=${totalWidth}`,

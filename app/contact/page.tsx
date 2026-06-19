@@ -63,7 +63,7 @@ export default function Contact() {
           scale: 1.0,
           yPercent: 8,
           ease: "none",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".contact-hero-img-wrap",
             start: "top top",
             end: "bottom top",
@@ -85,7 +85,7 @@ export default function Contact() {
           duration: 0.8,
           ease: "power3.out",
           stagger: 0.1,
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".info-grid-section",
             start: "top 85%",
             once: true,
@@ -106,7 +106,7 @@ export default function Contact() {
           duration: 0.8,
           ease: "power3.out",
           stagger: 0.08,
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".contact-form-panel",
             start: "top 80%",
             once: true,
@@ -125,7 +125,7 @@ export default function Contact() {
           opacity: 1,
           duration: 1.2,
           ease: "power3.out",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".blueprint-map-section",
             start: "top 85%",
             once: true,

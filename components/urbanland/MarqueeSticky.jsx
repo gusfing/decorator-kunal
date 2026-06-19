@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const MarqueeSticky = () => {
     useGSAP(() => {
         const tl = gsap.timeline({
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
                 trigger: ".pin-con",
                 start: "bottom 80%",
                 end: "bottom 50%",

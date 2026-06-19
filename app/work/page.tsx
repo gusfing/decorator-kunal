@@ -218,7 +218,7 @@ export default function Work() {
       const startCondition = index === 0 ? "top top" : "bottom bottom";
 
       gsap.to(image, {
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: section,
           start: startCondition,
           end: () => {
@@ -245,7 +245,7 @@ export default function Work() {
       if (!preview || !document.querySelector(currentSection)) continue;
 
       const tl = gsap.timeline({
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: currentSection,
           start: i === 1 ? "top center" : "center center",
           endTrigger: nextSection,
@@ -284,7 +284,7 @@ export default function Work() {
         {
           width: "100%",
           ease: "none",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".gabriel-container",
             start: "top 20%",
             end: "bottom bottom",

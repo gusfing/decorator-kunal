@@ -24,7 +24,7 @@ const FooterBanner = ({ isPreloaded = true }) => {
             {
                 scale: 1, // Final scale
                 ease: "none",
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: fbConRef.current,
                     start: "top bottom-=20%",
                     end: "bottom top+=20%",
@@ -43,7 +43,7 @@ const FooterBanner = ({ isPreloaded = true }) => {
                     duration: 0.8,
                     stagger: 0.1,
                     ease: "power3.out",
-                    scrollTrigger: {
+                    scrollTrigger: { toggleActions: "play reverse play reverse",
                         trigger: fbConRef.current,
                         start: "top 85%",
                         end: "bottom 15%",

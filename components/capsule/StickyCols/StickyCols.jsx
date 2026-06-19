@@ -19,7 +19,7 @@ const StickyCols = () => {
 
         // 3️⃣ Controlled phase logic using timeline (simpler and stable)
         const tl = gsap.timeline({
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
                 trigger: ".sticky-cols",
                 start: "top 20%",
                 end: "+=90%",

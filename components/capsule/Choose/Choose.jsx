@@ -15,7 +15,7 @@ const Choose = () => {
         const lines = gsap.utils.toArray(".choose-title-clip");
 
         const tl = gsap.timeline({
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
                 trigger: ".choose-section",
                 start: "top 75%",
                 end: "bottom 100%",

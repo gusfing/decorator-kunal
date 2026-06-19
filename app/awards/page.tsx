@@ -51,7 +51,7 @@ export default function Awards() {
           scaleY: 1,
           ease: "none",
           transformOrigin: "top center",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".awards-timeline-container",
             start: "top 60%",
             end: "bottom 75%",
@@ -77,7 +77,7 @@ export default function Awards() {
             opacity: 1,
             duration: 1.0,
             ease: "power3.out",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
               trigger: item,
               start: "top 80%",
               once: true,
@@ -95,7 +95,7 @@ export default function Awards() {
             backgroundColor: "#C9A84C",
             duration: 0.6,
             ease: "back.out(1.7)",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
               trigger: item,
               start: "top 80%",
               once: true,
@@ -118,7 +118,7 @@ export default function Awards() {
           opacity: 1,
           duration: 1.0,
           ease: "power3.out",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: card,
             start: "top 85%",
             once: true,
@@ -133,7 +133,7 @@ export default function Awards() {
           {
             yPercent: 10,
             ease: "none",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
               trigger: card,
               start: "top bottom",
               end: "bottom top",

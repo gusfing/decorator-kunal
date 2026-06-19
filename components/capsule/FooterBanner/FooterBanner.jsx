@@ -20,7 +20,7 @@ const FooterBanner = () => {
             {
                 scale: 1, // Final scale
                 ease: "none",
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: fbConRef.current,
                     start: "top bottom-=20%",
                     end: "bottom top+=20%",

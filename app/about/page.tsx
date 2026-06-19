@@ -59,7 +59,7 @@ export default function About() {
           scale: 1.0,
           yPercent: 10,
           ease: "none",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".hero-curtain-image",
             start: "top top",
             end: "bottom top",
@@ -80,7 +80,7 @@ export default function About() {
           filter: "blur(0px)",
           stagger: 0.05,
           ease: "none",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: philosophyRef.current,
             start: "top 75%",
             end: "bottom 45%",
@@ -104,7 +104,7 @@ export default function About() {
             yPercent: 15,
             scale: 1.0,
             ease: "none",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
               trigger: row,
               start: "top bottom",
               end: "bottom top",
@@ -123,7 +123,7 @@ export default function About() {
             y: 0,
             duration: 1.0,
             ease: "power3.out",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
               trigger: row,
               start: "top 75%",
               once: true,
@@ -148,7 +148,7 @@ export default function About() {
         horizTween = gsap.to(statsTrack, {
           x: getScrollAmount,
           ease: "none",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: statsSection,
             start: "top top",
             end: () => `+=${statsTrack.scrollWidth - window.innerWidth}`,
@@ -169,7 +169,7 @@ export default function About() {
           val: target,
           duration: 2.0,
           ease: "power3.out",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: stat,
             // If horizontal containerAnimation is used, trigger by horizontal position.
             // If vertical, trigger by standard viewport vertical position.
@@ -193,7 +193,7 @@ export default function About() {
           scaleY: 1,
           ease: "none",
           transformOrigin: "top center",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: ".timeline-container",
             start: "top 65%",
             end: "bottom 80%",
@@ -218,7 +218,7 @@ export default function About() {
             opacity: 1,
             duration: 1.0,
             ease: "power3.out",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
               trigger: item,
               start: "top 80%",
               once: true,
@@ -236,7 +236,7 @@ export default function About() {
             backgroundColor: "#C9A84C",
             duration: 0.6,
             ease: "back.out(1.7)",
-            scrollTrigger: {
+            scrollTrigger: { toggleActions: "play reverse play reverse",
               trigger: item,
               start: "top 80%",
               once: true,
@@ -253,7 +253,7 @@ export default function About() {
       gsap.to(card, {
         scale: 0.92,
         opacity: 0.6,
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: accoladeCards[i + 1],
           start: "top 85%",
           end: "top 15%",

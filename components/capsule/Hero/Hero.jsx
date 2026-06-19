@@ -18,7 +18,7 @@ const Hero = () => {
                 stagger: 0.02,
                 scale: 1.2,
                 ease: "power1.inOut",
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: ".hero-section",
                     start: "top top",
                     end: "bottom top",

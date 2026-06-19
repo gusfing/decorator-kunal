@@ -29,7 +29,7 @@ const Welcome = () => {
         mm.add("(min-width: 769px)", () => {
             const lines = gsap.utils.toArray(".clip-text-welcome-lg");
             const tl = gsap.timeline({
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: ".welcome-line",
                     start: "top 85%",
                     end: "top 45%",
@@ -48,7 +48,7 @@ const Welcome = () => {
         mm.add("(max-width: 768px)", () => {
             const lines = gsap.utils.toArray(".clip-text-welcome-sm");
             const tl = gsap.timeline({
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: ".welcome-line",
                     start: "top 85%",
                     end: "top 45%",

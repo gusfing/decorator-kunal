@@ -19,7 +19,7 @@ const Gallery = () => {
             const scrollTween = gsap.to(sliderRef.current, {
                 x: () => -(sliderRef.current.scrollWidth - window.innerWidth),
                 ease: "none",
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: pageRef.current,
                     start: "top top",
                     end: () => `+=${sliderRef.current.scrollWidth - window.innerWidth}`,

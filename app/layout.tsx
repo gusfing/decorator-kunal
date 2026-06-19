@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./redesign.css";
 import "./webflow.css";
 import type { Metadata } from "next";
 import GSAPRouteCleaner from "@/components/GSAPRouteCleaner";

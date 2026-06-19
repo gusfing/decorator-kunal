@@ -29,7 +29,7 @@ const Choose = () => {
             const linesSelector = isMobile ? ".choose-title-clip-sm" : ".choose-title-clip-lg";
             const lines = gsap.utils.toArray(linesSelector);
             const tl = gsap.timeline({
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: sectionRef.current,
                     start: "top 75%",
                     end: "top 10%",

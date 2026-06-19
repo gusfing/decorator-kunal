@@ -23,7 +23,7 @@ const Gallery = ({ isPreloaded = true }) => {
         mm.add("(min-width: 901px)", () => {
             // Create new timeline
             const tl4 = gsap.timeline({
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: ".gallery-page4",
                     start: "10% 10%",
                     end: "220% 30%",

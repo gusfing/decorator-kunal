@@ -10,6 +10,7 @@ import { splitTextIntoWords } from "@/lib/domUtils";
 import Gallery from "../components/capsule/Gallery/Gallery";
 import Feedback from "../components/urbanland/Feedback";
 import FooterBanner from "../components/urbanland/FooterBanner";
+import RedesignAnimations from "./RedesignAnimations";
 
 // Register GSAP plugins client-side only (Next.js SSR safe)
 if (typeof window !== "undefined") {
@@ -416,6 +417,60 @@ export default function Home() {
     activeIndex: number;
   } | null>(null);
 
+  const handleCuratedTabChange = (tabId: string) => {
+    if (tabId === activeCuratedTab) return;
+    const cards = gsap.utils.toArray(".curated-gallery-masonry .curated-card-wrap");
+    if (cards.length > 0) {
+      gsap.to(cards, {
+        opacity: 0,
+        y: -20,
+        duration: 0.3,
+        stagger: 0.03,
+        ease: "power2.in",
+        onComplete: () => {
+          setActiveCuratedTab(tabId);
+        }
+      });
+    } else {
+      setActiveCuratedTab(tabId);
+    }
+  };
+
+  const handleProjectTabChange = (projectId: string) => {
+    if (projectId === activeProjectTab) return;
+    const heroWrap = document.querySelector(".showcase-hero-img-wrap");
+    const badge = document.querySelector(".showcase-hero-badge");
+    const thumbs = gsap.utils.toArray(".showcase-thumb");
+    const viewAll = document.querySelector(".showcase-view-all");
+    const descText = document.querySelector(".showcase-project-desc-text");
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setActiveProjectTab(projectId);
+      }
+    });
+
+    if (heroWrap) {
+      tl.to(heroWrap, { clipPath: "inset(0% 8% 0% 8%)", opacity: 0, duration: 0.35, ease: "power2.in" }, 0);
+    }
+    if (badge) {
+      tl.to(badge, { opacity: 0, x: -20, duration: 0.25, ease: "power2.in" }, 0);
+    }
+    if (thumbs.length > 0) {
+      tl.to(thumbs, { opacity: 0, y: 15, duration: 0.25, stagger: 0.05, ease: "power2.in" }, 0);
+    }
+    if (viewAll) {
+      tl.to(viewAll, { opacity: 0, y: 15, duration: 0.25, ease: "power2.in" }, 0);
+    }
+    if (descText) {
+      tl.to(descText, { opacity: 0, y: 10, duration: 0.25, ease: "power2.in" }, 0);
+    }
+    
+    if (!heroWrap && !badge && thumbs.length === 0 && !viewAll && !descText) {
+      setActiveProjectTab(projectId);
+    }
+  };
+
   const projectsData = [
     {
       id: "santhalia",
@@ -585,6 +640,7 @@ export default function Home() {
         active === "section-about" ||
         active === "process" ||
         active === "collection" ||
+        active === "collabs" ||
         active === "press" ||
         active === "instagram"
       ) {
@@ -931,7 +987,7 @@ export default function Home() {
 
       // SCROLL ANIMATION: Drop down into About Us, STACK into one image, and morph into a WIDE landscape!
       const aboutTl = gsap.timeline({
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: "#section-about",
           start: "top 90%", // Trigger when about section enters the bottom of the viewport
           end: "top 20%",   // Animation finishes when about section reaches 20% from top
@@ -981,7 +1037,7 @@ export default function Home() {
         {
           scale: 1,
           opacity: 1,
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: "#info",
             start: "top bottom",
             end: "bottom top",
@@ -996,7 +1052,7 @@ export default function Home() {
       gsap.to(".hero-bg-video", {
         yPercent: 20,
         ease: "none",
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: "#section-hero",
           start: "top top",
           end: "bottom top",
@@ -1006,7 +1062,7 @@ export default function Home() {
       gsap.to(".hero-foreground-content", {
         yPercent: -15,
         ease: "none",
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: "#section-hero",
           start: "top top",
           end: "bottom top",
@@ -1043,7 +1099,7 @@ export default function Home() {
       };
 
       const pinTimeline = gsap.timeline({
-        scrollTrigger: {
+        scrollTrigger: { toggleActions: "play reverse play reverse",
           trigger: scrollWrapper,
           start: "top top",
           end: () => `+=${scrollTrack.scrollWidth - window.innerWidth}`,
@@ -1107,7 +1163,7 @@ export default function Home() {
       const clipLines = gsap.utils.toArray<HTMLElement>(".clip-text-about");
       if (clipLines.length > 0) {
         const tlAbout = gsap.timeline({
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: "#info",
             start: "top 80%",
             end: "bottom 40%",
@@ -1257,7 +1313,7 @@ export default function Home() {
               {
                 y: yEnd,
                 ease: "none",
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                   trigger: wrap,
                   start: "top bottom",
                   end: "bottom top",
@@ -1273,7 +1329,7 @@ export default function Home() {
               {
                 yPercent: 8,
                 ease: "none",
-                scrollTrigger: {
+                scrollTrigger: { toggleActions: "play reverse play reverse",
                   trigger: wrap,
                   start: "top bottom",
                   end: "bottom top",
@@ -1524,7 +1580,7 @@ export default function Home() {
       if (runningText) {
         gsap.to(runningText, {
           xPercent: -30,
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: scrollWrapper,
             start: "top bottom",
             end: "bottom top",
@@ -1789,7 +1845,7 @@ export default function Home() {
           yPercent: -4,
           rotateZ: 1.5,
           ease: "none",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: "#instagram",
             start: "top bottom",
             end: "bottom top",
@@ -2137,7 +2193,7 @@ export default function Home() {
         {
           scale: 1,
           ease: "none",
-          scrollTrigger: {
+          scrollTrigger: { toggleActions: "play reverse play reverse",
             trigger: "#section-about",
             start: "top bottom",
             end: "bottom top",
@@ -2156,7 +2212,7 @@ export default function Home() {
         y: 20,
         duration: 0.8,
         ease: "power3.out",
-        scrollTrigger: { trigger: "#showcase", start: "top 80%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#showcase", start: "top 80%" }
       });
       gsap.from(".showcase-main-title", {
         opacity: 0,
@@ -2165,7 +2221,7 @@ export default function Home() {
         duration: 1,
         ease: "power4.out",
         delay: 0.15,
-        scrollTrigger: { trigger: "#showcase", start: "top 80%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#showcase", start: "top 80%" }
       });
       gsap.from(".showcase-header-desc", {
         opacity: 0,
@@ -2173,7 +2229,7 @@ export default function Home() {
         duration: 0.8,
         ease: "power3.out",
         delay: 0.3,
-        scrollTrigger: { trigger: "#showcase", start: "top 80%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#showcase", start: "top 80%" }
       });
 
       // Staggered project list items
@@ -2185,7 +2241,7 @@ export default function Home() {
           duration: 0.6,
           stagger: 0.12,
           ease: "power3.out",
-          scrollTrigger: { trigger: ".showcase-project-list", start: "top 85%" }
+          scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-project-list", start: "top 85%" }
         });
       }
 
@@ -2194,7 +2250,7 @@ export default function Home() {
         clipPath: "inset(15% 15% 15% 15%)",
         duration: 1.4,
         ease: "power4.out",
-        scrollTrigger: { trigger: ".showcase-hero-img-wrap", start: "top 85%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-hero-img-wrap", start: "top 85%" }
       });
 
       // Thumbnail strip fade-in
@@ -2204,7 +2260,7 @@ export default function Home() {
         duration: 0.7,
         ease: "power3.out",
         delay: 0.4,
-        scrollTrigger: { trigger: ".showcase-thumb-strip", start: "top 95%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-thumb-strip", start: "top 95%" }
       });
 
       // Description text fade
@@ -2213,7 +2269,7 @@ export default function Home() {
         y: 15,
         duration: 0.6,
         ease: "power3.out",
-        scrollTrigger: { trigger: ".showcase-project-desc-text", start: "top 95%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-project-desc-text", start: "top 95%" }
       });
     }
 
@@ -2226,7 +2282,7 @@ export default function Home() {
         y: 40,
         duration: 0.9,
         ease: "power3.out",
-        scrollTrigger: { trigger: "#contact-footer", start: "top 85%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#contact-footer", start: "top 85%" }
       });
       gsap.from(".footer-brand-right", {
         opacity: 0,
@@ -2234,7 +2290,7 @@ export default function Home() {
         duration: 0.9,
         ease: "power3.out",
         delay: 0.15,
-        scrollTrigger: { trigger: "#contact-footer", start: "top 85%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#contact-footer", start: "top 85%" }
       });
 
       // Dividers wipe-in
@@ -2245,7 +2301,7 @@ export default function Home() {
           transformOrigin: "left",
           duration: 1,
           ease: "power3.inOut",
-          scrollTrigger: { trigger: div, start: "top 95%" }
+          scrollTrigger: { toggleActions: "play reverse play reverse", trigger: div, start: "top 95%" }
         });
       });
 
@@ -2258,7 +2314,7 @@ export default function Home() {
           duration: 0.6,
           stagger: 0.1,
           ease: "power3.out",
-          scrollTrigger: { trigger: ".footer-links-grid", start: "top 90%" }
+          scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".footer-links-grid", start: "top 90%" }
         });
       }
 
@@ -2267,11 +2323,30 @@ export default function Home() {
         opacity: 0,
         duration: 0.8,
         ease: "power2.out",
-        scrollTrigger: { trigger: ".footer-bottom", start: "top 98%" }
+        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".footer-bottom", start: "top 98%" }
       });
     }
 
   }, [isPreloaded]);
+
+  // ─── CURATED SPACES TAB TRANSITION ANIMATION ─────────────────
+  useEffect(() => {
+    if (!isPreloaded) return;
+    const cards = gsap.utils.toArray(".curated-gallery-masonry .curated-card-wrap");
+    if (cards.length > 0) {
+      gsap.fromTo(cards,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power3.out",
+          overwrite: "auto"
+        }
+      );
+    }
+  }, [activeCuratedTab, isPreloaded]);
 
   // ─── SHOWCASE TAB TRANSITION ANIMATION ──────────────────────
   useEffect(() => {
@@ -2667,223 +2742,120 @@ export default function Home() {
 
 
         {/* ====================================================
-         * SECTION 2B: PROCESS (Creating with us is easy)
+         * SECTION 2B: REDESIGNED METHODOLOGY
          * ==================================================== */}
-        {/* ====================================================
-         * SECTION 2B: PROCESS (Cinematic Accordion Panels)
-         * ==================================================== */}
-        <section id="process" className="process-accordion-section">
-          <div className="process-accordion-header">
-            <h4 className="studio-subtitle">02 / METHODOLOGY</h4>
-            <h2 className="serif-headline">Creating with us is easy.</h2>
-          </div>
-
-          <div className="process-accordion-container">
-            {methodologySteps.map((step, idx) => {
-              const isHovered = activeProcessStep === idx;
-              return (
-                <div
-                  key={step.num}
-                  className={`process-accordion-panel ${isHovered ? "active" : ""}`}
-                  onMouseEnter={() => setActiveProcessStep(idx)}
-                  onClick={() => setActiveProcessStep(idx)}
-                >
-                  {/* Background Image Frame */}
-                  <div className="panel-image-bg" style={{ backgroundImage: `url(${step.img})` }} />
-                  
-                  <div className="panel-overlay" />
-                  
-                  {/* Content Wrapper */}
-                  <div className="panel-content-wrap">
-                    {/* Panel Header */}
-                    <div className="panel-header-content">
-                      <span className="panel-number">{step.num}</span>
-                      <h3 className="panel-title">{step.title}</h3>
-                      <div className="panel-icon-toggle">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M12 5v14M5 12h14" />
-                        </svg>
-                      </div>
-                    </div>
-
-                    {/* Panel Detailed Body */}
-                    <div className="panel-body-content">
-                      <p className="panel-desc">{step.desc}</p>
-                      <div className="panel-divider" />
-                      <div className="panel-deliverables">
-                        <span className="deliverables-heading">Deliverables:</span>
-                        <ul className="deliverables-list">
-                          {step.deliverables.map((item, itemIdx) => (
-                            <li key={itemIdx} className="deliverable-item">
-                              <span className="bullet">✦</span> {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* ====================================================
-         * SECTION 2C: CURATED PROJECTS (Asymmetric Tabs & Masonry Grid)
-         * ==================================================== */}
-        <section id="collection" className="editorial-section animate-collection-section" style={{ borderTop: "none" }}>
-          <div className="editorial-container">
-            <div className="curated-grid-layout">
-              {/* Left Column - Sticky Curation Tabs */}
-              <div className="curated-sidebar-col">
-                <div>
-                  <h4 className="studio-subtitle" style={{ textAlign: "left" }}>COLLECTION</h4>
-                  <div className="curated-text-animate">
-                    <h2 className="serif-headline" style={{ marginBottom: "1.5rem", lineHeight: "1.1" }}>
-                      Curated Spaces
-                    </h2>
-                  </div>
-                  <div className="curated-text-animate">
-                    <p className="curated-desc-para" style={{ fontSize: "1.05rem", lineHeight: "1.7", color: "var(--text-muted)", marginBottom: "2.5rem" }}>
-                      {curatedCategories.find(c => c.id === activeCuratedTab)?.desc}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Tab Switcher Buttons */}
-                <div className="curated-tabs-list">
-                  {curatedCategories.map((cat) => (
-                    <button
-                      key={cat.id}
-                      className={`curated-tab-btn ${activeCuratedTab === cat.id ? "active" : ""}`}
-                      onClick={() => setActiveCuratedTab(cat.id)}
+        <section id="process" className="rl-section rl-methodology">
+          <div className="rl-container">
+            <span className="rl-subtitle">02 / Methodology</span>
+            <h2 className="rl-title">Creating with us is easy.</h2>
+            
+            <div className="rl-methodology-grid">
+              <div className="rl-methodology-list">
+                {methodologySteps.map((step, idx) => {
+                  const isActive = activeProcessStep === idx;
+                  return (
+                    <div 
+                      key={step.num}
+                      className={"rl-methodology-item " + (isActive ? "active" : "")}
+                      onMouseEnter={() => setActiveProcessStep(idx)}
+                      onClick={() => setActiveProcessStep(idx)}
                     >
-                      <span className="curated-tab-bullet">/ </span>
-                      {cat.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right Column - Dynamic Asymmetric Masonry Grid */}
-              <div className="curated-gallery-masonry">
-                {curatedCategories.find(c => c.id === activeCuratedTab)?.cards.map((card, idx) => (
-                  <div
-                    key={idx}
-                    className={`curated-card-wrap curated-card-wrap-${idx}`}
-                  >
-                    <div className={`curated-card curated-card-${idx}`}>
-                      <div className="curated-card-image-wrap">
-                        <img
-                          loading="lazy"
-                          src={card.img}
-                          alt={card.title}
-                          className="curated-card-img"
-                        />
-                        <div className="curated-spec-badge">
-                          <span className="spec-area">{card.area}</span>
-                          <span className="spec-divider"></span>
-                          <span className="spec-materials">{card.specs}</span>
-                        </div>
+                      <div className="rl-methodology-header">
+                        <span className="rl-methodology-num">{step.num}</span>
+                        <h3 className="rl-methodology-name">{step.title}</h3>
                       </div>
-                      <div className="curated-card-info">
-                        <span className="curated-card-num">{card.num}</span>
-                        <div>
-                          <h4 className="curated-card-title">{card.title}</h4>
-                          <p className="curated-card-desc">{card.desc}</p>
-                        </div>
+                      <div className="rl-methodology-content">
+                        <p className="rl-methodology-desc">{step.desc}</p>
                       </div>
                     </div>
-                  </div>
+                  );
+                })}
+              </div>
+              
+              <div className="rl-methodology-img-wrap">
+                {methodologySteps.map((step, idx) => (
+                  <img
+                    key={step.num}
+                    src={step.img}
+                    alt={step.title}
+                    className={"rl-methodology-img " + (activeProcessStep === idx ? "active" : "")}
+                    loading="lazy"
+                  />
                 ))}
               </div>
             </div>
           </div>
         </section>
 
+        {/* ====================================================
+         * SECTION 2C: REDESIGNED CURATED SPACES
+         * ==================================================== */}
+        <section id="collection" className="rl-section light rl-curated">
+          <div className="rl-container">
+            <span className="rl-subtitle" style={{color: "#050505"}}>Collection</span>
+            <h2 className="rl-title" style={{color: "#050505", marginBottom: "0"}}>Curated Spaces</h2>
+            
+            <div className="rl-curated-gallery">
+              {curatedCategories[0]?.cards.slice(0, 3).map((card, idx) => (
+                <div key={idx} className="rl-curated-card">
+                  <img src={card.img} alt={card.title} loading="lazy" />
+                  <div className="rl-curated-overlay">
+                    <h4 className="rl-curated-title">{card.title}</h4>
+                    <span className="rl-curated-specs">{card.specs}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
 
         {/* ====================================================
-         * SECTION 2D: RECENT COLLABS — Premium Dark Editorial
+         * SECTION 2D: REDESIGNED RECENT COLLABS
          * ==================================================== */}
-        <section id="collabs" className="editorial-section cashmere-bg">
-          <div style={{ maxWidth: "1440px", margin: "0 auto", width: "100%", position: "relative" }}>
-
-            {/* Watermark number */}
-            <span className="collab-watermark" aria-hidden="true">02</span>
-
-            <div className="collabs-grid">
-              {/* ─── LEFT: Text + Stats ─── */}
-              <div className="collab-left">
-                {/* Top: label */}
-                <div>
-                  <h4 className="studio-subtitle" style={{ textAlign: "left" }}>DESIGN PARTNERSHIPS</h4>
-
-                  {/* Headline */}
-                  <h2 className="serif-headline">
-                    RECENT<br />COLLABS
-                    <span className="serif-subtitle">Häfele Curation</span>
-                  </h2>
-
-                  {/* Partner badge */}
-                  <div className="collab-partner-badge">
-                    <span className="badge-dot" />
-                    <span className="badge-label">Active Partner</span>
-                    <span className="badge-name">Häfele India</span>
+        <section id="collabs" className="rl-section rl-collabs">
+          <div className="rl-collabs-marquee">
+            <div className="rl-marquee-inner">
+              <span className="rl-marquee-text">Häfele • Kohler • Flos • Poliform • B&B Italia • Vitra • </span>
+              <span className="rl-marquee-text">Häfele • Kohler • Flos • Poliform • B&B Italia • Vitra • </span>
+            </div>
+          </div>
+          <div className="rl-container">
+            <div className="rl-collabs-content">
+              <div className="rl-collabs-text-block">
+                <span className="rl-subtitle">Design Partnerships</span>
+                <h2 className="rl-title">Recent Collabs</h2>
+                <p className="rl-collabs-desc">
+                  Collaborating with international pioneers to bring smart hardware, premium fittings, and material innovations into our interior architectures. Seamlessly matching top-tier technology with handcrafted wooden elements.
+                </p>
+                
+                <div className="rl-collabs-stats">
+                  <div className="rl-collabs-stat">
+                    <span className="rl-stat-num">12+</span>
+                    <span className="rl-stat-label">Brand Partners</span>
                   </div>
-                </div>
-
-                {/* Middle: Description */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "2rem", flex: 1, justifyContent: "center", padding: "4rem 0 3rem" }}>
-                  <p className="step-desc drop-cap" style={{ fontSize: "1.05rem" }}>
-                    Collaborating with international pioneers to bring smart hardware, premium fittings, and material innovations into our interior architectures. Seamlessly matching top-tier technology with handcrafted wooden elements.
-                  </p>
-                  <a href="#showcase" className="pill-btn-editorial">Explore Curation</a>
-                </div>
-
-                {/* Bottom: Stats */}
-                <div className="collab-stats-row">
-                  <div className="collab-stat">
-                    <span className="collab-stat-num">12+</span>
-                    <span className="collab-stat-label">Brand Partners</span>
+                  <div className="rl-collabs-stat">
+                    <span className="rl-stat-num">48</span>
+                    <span className="rl-stat-label">Projects Curated</span>
                   </div>
-                  <div className="collab-stat">
-                    <span className="collab-stat-num">48</span>
-                    <span className="collab-stat-label">Projects Curated</span>
-                  </div>
-                  <div className="collab-stat">
-                    <span className="collab-stat-num">6</span>
-                    <span className="collab-stat-label">Awards Won</span>
+                  <div className="rl-collabs-stat">
+                    <span className="rl-stat-num">6</span>
+                    <span className="rl-stat-label">Awards Won</span>
                   </div>
                 </div>
               </div>
-
-              {/* ─── RIGHT: Cinematic Image Mosaic ─── */}
-              <div className="collab-right">
-                {/* Primary – large left */}
-                <div className="collab-img-primary">
-                  <span className="collab-year-tag">2024 — 2025</span>
-                  <img loading="lazy" src="/assets/projects/photos_set2/image_3.webp" alt="Decor Lab x Häfele – Star Awards Curation" />
-                  <div className="collab-img-overlay" />
-                  <div className="collab-img-caption">
-                    <span>Häfele Star Awards<br />Curation</span>
-                  </div>
+              
+              <div className="rl-collabs-images">
+                <div className="rl-collabs-img-wrapper primary">
+                  <img src="/assets/projects/photos_set2/image_3.webp" alt="Häfele Star Awards Curation" loading="lazy" />
+                  <span className="rl-img-caption">Häfele Star Awards Curation</span>
                 </div>
-
-                {/* Secondary – top right */}
-                <div className="collab-img-secondary">
-                  <img loading="lazy" src="/assets/projects/photos_set2/image_4.webp" alt="Detail & Texture Studies" />
-                  <div className="collab-img-overlay" />
-                  <div className="collab-img-caption">
-                    <span>Detail &amp; Texture<br />Studies</span>
+                <div className="rl-collabs-img-stack">
+                  <div className="rl-collabs-img-wrapper secondary">
+                    <img src="/assets/projects/photos_set2/image_4.webp" alt="Detail & Texture Studies" loading="lazy" />
                   </div>
-                </div>
-
-                {/* Tertiary – bottom right */}
-                <div className="collab-img-tertiary">
-                  <img loading="lazy" src="/assets/projects/site_02/image_1.webp" alt="Fluid Forms / Ongoing Curation" />
-                  <div className="collab-img-overlay" />
-                  <div className="collab-img-caption">
-                    <span>Fluid Forms<br />Ongoing</span>
+                  <div className="rl-collabs-img-wrapper tertiary">
+                    <img src="/assets/projects/site_02/image_1.webp" alt="Fluid Forms Ongoing" loading="lazy" />
                   </div>
                 </div>
               </div>
@@ -2929,464 +2901,253 @@ export default function Home() {
         <Gallery isPreloaded={isPreloaded} />
 
         {/* ====================================================
-         * SECTION 2F: PROJECTS SHOWCASE — Cinematic Dark Redesign
+         * SECTION 2F: REDESIGNED SITE PORTFOLIO
          * ==================================================== */}
-        <section id="showcase" className="section-showcase">
-          <div className="showcase-inner">
+        <section id="showcase" className="rl-section light rl-portfolio">
+          <div className="rl-container">
+            <span className="rl-subtitle" style={{color: "#050505"}}>Projects</span>
+            <h2 className="rl-title" style={{color: "#050505"}}>Site Portfolio</h2>
+            <div className="rl-divider"></div>
+            
+            <div className="rl-portfolio-list">
+              {projectsData.map((project, idx) => (
+                <div 
+                  key={project.id} 
+                  className="rl-portfolio-row"
+                  onClick={() => setLightboxProject({
+                    siteName: project.title,
+                    images: project.images,
+                    activeIndex: 0
+                  })}
+                >
+                  <span className="rl-portfolio-num">0{idx + 1}</span>
+                  <h3 className="rl-portfolio-name">{project.title}</h3>
+                  <span className="rl-portfolio-loc">{project.location}</span>
+                  <img 
+                    src={project.images[0]} 
+                    alt={project.title}
+                    className="rl-portfolio-hover-img"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            {/* ── Header Bar ── */}
-            <div className="showcase-header-bar">
-              <div className="showcase-header-left">
-                <span className="showcase-eyebrow">PROJECTS</span>
-                <h2 className="showcase-main-title">Site Portfolio</h2>
+        {/* ====================================================
+         * SECTION 4: REDESIGNED PHILOSOPHY
+         * ==================================================== */}
+        <section id="capabilities" className="rl-philo-section">
+          {/* Top header band */}
+          <div className="rl-philo-header">
+            <span className="rl-philo-eyebrow">Philosophy</span>
+            <h2 className="rl-philo-headline">Our Design Approach</h2>
+          </div>
+
+          {/* Three pillars */}
+          <div className="rl-philo-pillars">
+
+            {/* Pillar 01 */}
+            <div className="rl-philo-pillar">
+              <div className="rl-philo-pillar-img-wrap">
+                <img src="/assets/projects/santhalia_site/image_1.webp" alt="Functionality First" loading="lazy" className="rl-philo-pillar-img" />
               </div>
-              <p className="showcase-header-desc">
-                Award-winning residential, commercial &amp; conceptual spaces across India.
-              </p>
+              <div className="rl-philo-pillar-body">
+                <span className="rl-philo-num">01</span>
+                <h3 className="rl-philo-pillar-title">Functionality<br/>First</h3>
+                <div className="rl-philo-pillar-divider"/>
+                <p className="rl-philo-pillar-desc">
+                  Every layout is tested for ergonomic usability before decorative styling is introduced. Space must live before it can impress.
+                </p>
+              </div>
             </div>
 
-            {/* ── Project List + Active Image ── */}
-            <div className="showcase-split">
-
-              {/* Left: numbered project list */}
-              <nav className="showcase-project-list">
-                {projectsData.map((project, idx) => (
-                  <button
-                    key={project.id}
-                    className={`showcase-list-item ${activeProjectTab === project.id ? "active" : ""}`}
-                    onClick={() => setActiveProjectTab(project.id)}
-                  >
-                    <span className="showcase-list-num">0{idx + 1}</span>
-                    <span className="showcase-list-name">{project.title}</span>
-                    <span className="showcase-list-loc">{project.location}</span>
-                    <span className="showcase-list-arrow">→</span>
-                  </button>
-                ))}
-              </nav>
-
-              {/* Right: active project hero */}
-              {projectsData.map((project) => {
-                if (project.id !== activeProjectTab) return null;
-                return (
-                  <div key={project.id} className="showcase-hero-panel">
-
-                    {/* Big hero image */}
-                    <div className="showcase-hero-img-wrap">
-                      <img
-                        loading="lazy"
-                        src={project.images[0]}
-                        alt={project.title}
-                        className="showcase-hero-img"
-                      />
-                      <div className="showcase-hero-overlay" />
-
-                      {/* Floating info badge */}
-                      <div className="showcase-hero-badge">
-                        <span className="showcase-badge-loc">{project.location}</span>
-                        <h3 className="showcase-badge-title">{project.title}</h3>
-                      </div>
-                    </div>
-
-                    {/* Thumbnail strip */}
-                    <div className="showcase-thumb-strip">
-                      {project.images.slice(1, 4).map((img, index) => (
-                        <div
-                          key={index}
-                          className="showcase-thumb"
-                          onClick={() => setLightboxProject({
-                            siteName: project.title,
-                            images: project.images,
-                            activeIndex: index + 1
-                          })}
-                        >
-                          <img loading="lazy" src={img} alt={`${project.title} view ${index + 2}`} />
-                        </div>
-                      ))}
-
-                      {/* View all CTA */}
-                      <button
-                        className="showcase-view-all"
-                        onClick={() => setLightboxProject({
-                          siteName: project.title,
-                          images: project.images,
-                          activeIndex: 0
-                        })}
-                      >
-                        <span className="showcase-view-all-count">+{project.images.length}</span>
-                        <span className="showcase-view-all-label">View All</span>
-                      </button>
-                    </div>
-
-                    {/* Description */}
-                    <p className="showcase-project-desc-text">{project.description}</p>
-                  </div>
-                );
-              })}
+            {/* Pillar 02 */}
+            <div className="rl-philo-pillar">
+              <div className="rl-philo-pillar-img-wrap">
+                <img src="/assets/projects/photos_set2/image_2.webp" alt="Material Innovation" loading="lazy" className="rl-philo-pillar-img" />
+              </div>
+              <div className="rl-philo-pillar-body">
+                <span className="rl-philo-num">02</span>
+                <h3 className="rl-philo-pillar-title">Material<br/>Innovation</h3>
+                <div className="rl-philo-pillar-divider"/>
+                <p className="rl-philo-pillar-desc">
+                  Raw textures, natural finishes, and innovative pairings that age gracefully. We celebrate material honesty over surface illusion.
+                </p>
+              </div>
             </div>
 
+            {/* Pillar 03 */}
+            <div className="rl-philo-pillar">
+              <div className="rl-philo-pillar-img-wrap">
+                <img src="/assets/projects/site_02/image_2.webp" alt="Fluid Architecture" loading="lazy" className="rl-philo-pillar-img" />
+              </div>
+              <div className="rl-philo-pillar-body">
+                <span className="rl-philo-num">03</span>
+                <h3 className="rl-philo-pillar-title">Fluid<br/>Architecture</h3>
+                <div className="rl-philo-pillar-divider"/>
+                <p className="rl-philo-pillar-desc">
+                  Challenging box-like conventions with organic curves, parametric surfaces, and continuous spatial geometries that breathe.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Bottom quote band */}
+          <div className="rl-philo-quote-band">
+            <blockquote className="rl-philo-quote">
+              "Design is not just what it looks like — design is how it works, how it feels, how it endures."
+            </blockquote>
           </div>
         </section>
 
 
         {/* ====================================================
-         * SECTION 3: WORK PORTFOLIO (Horizontal Scroll Catalogue)
+         * SECTION 5: INSTAGRAM — Profile + Phone Mockup
          * ==================================================== */}
-        {/*
-        <section ref={scrollWrapperRef} id="work" className="portfolio-horizontal-wrapper">
-          <div ref={runningTextRef} className="portfolio-running-text">
-            DESIGN . ARCHITECTURE . CURATION . DECORLAB
-          </div>
+        <section id="instagram" className="rl-insta-section">
 
-          <div className="portfolio-intro-panel">
-            <h4 className="studio-subtitle" style={{ textAlign: "left" }}>
-              PORTFOLIO
-            </h4>
-            <h2 className="studio-headline" style={{ textAlign: "left", fontSize: "2.25rem" }}>
-              Flagship Curation
-            </h2>
-            <p className="portfolio-intro-desc">
-              Explore our landmark residential, commercial, and conceptual design projects delivered across Kolkata and other metropolitan hubs in India.
-            </p>
+          {/* Left: Profile card */}
+          <div className="rl-insta-profile">
+            <div className="rl-insta-avatar">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                <circle cx="8" cy="14" r="4.5" />
+                <circle cx="16" cy="14" r="4.5" />
+                <circle cx="12" cy="8" r="4.5" />
+              </svg>
+            </div>
 
-            <div className="portfolio-filter-pills">
-              {["All Projects", "Residential", "Corporate", "Conceptual"].map((cat) => (
-                <span
-                  key={cat}
-                  className={`filter-pill ${cat === "All Projects" ? "active" : ""}`}
-                  onClick={() => handleFilterPillClick(cat)}
-                >
-                  {cat}
-                </span>
+            <div className="rl-insta-handle-row">
+              <h2 className="rl-insta-handle">decorlab.in</h2>
+              <span className="rl-insta-verified" title="Verified">
+                <svg viewBox="0 0 24 24" fill="#0095f6" width="18" height="18">
+                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </span>
+            </div>
+
+            <div className="rl-insta-stats">
+              <div className="rl-insta-stat">
+                <span className="rl-insta-stat-num">142</span>
+                <span className="rl-insta-stat-label">posts</span>
+              </div>
+              <div className="rl-insta-stat">
+                <span className="rl-insta-stat-num">42.8k</span>
+                <span className="rl-insta-stat-label">followers</span>
+              </div>
+              <div className="rl-insta-stat">
+                <span className="rl-insta-stat-num">249</span>
+                <span className="rl-insta-stat-label">following</span>
+              </div>
+            </div>
+
+            <div className="rl-insta-bio">
+              <span className="rl-insta-bio-name">Decor Lab</span>
+              <p>Curated Architecture &amp; Minimalist Interior Curation. Delivering timeless spaces across India since 1993.</p>
+            </div>
+
+            <a
+              href="https://www.instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rl-insta-follow-btn"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+              Follow on Instagram
+            </a>
+
+            <div className="rl-phone-dots">
+              {displayPosts.map((_, idx) => (
+                <button
+                  key={idx}
+                  className={"rl-phone-dot" + (activeInstaSlide === idx ? " active" : "")}
+                  onClick={() => !loadingInsta && setActiveInstaSlide(idx)}
+                  aria-label={"Go to slide " + (idx + 1)}
+                  disabled={loadingInsta}
+                />
               ))}
             </div>
           </div>
 
-          <div ref={scrollTrackRef} className="portfolio-scroll-track" id="portfolio-track">
-            <div className="horizontal-nube-card">
-              <div className="nube-capsule-image-frame">
-                <img loading="lazy" src="/assets/projects/santhalia_site/image_1.webp" alt="Santhalia Residence Kolkata" />
-              </div>
-              <div className="nube-capsule-info">
-                <div className="nube-capsule-meta">
-                  <span>Residential</span>
-                  <span>Kolkata</span>
-                </div>
-                <h3 className="nube-capsule-name">Santhalia Home</h3>
-                <p className="nube-capsule-desc">
-                  Award-winning warm minimalist villa integrating natural linen, plaster, and signature ombre curtains.
-                </p>
-                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(0)}>
-                  Design Specs
-                </button>
-              </div>
-            </div>
-
-            <div className="horizontal-nube-card">
-              <div className="nube-capsule-image-frame">
-                <img loading="lazy" src="/assets/projects/site_01/image_1.webp" alt="Corporate Headquarters Workspace" />
-              </div>
-              <div className="nube-capsule-info">
-                <div className="nube-capsule-meta">
-                  <span>Corporate</span>
-                  <span>Kolkata</span>
-                </div>
-                <h3 className="nube-capsule-name">Corporate HQ</h3>
-                <p className="nube-capsule-desc">
-                  Premium commercial space incorporating parametric timber paneling and biophilic lighting design.
-                </p>
-                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(1)}>
-                  Design Specs
-                </button>
-              </div>
-            </div>
-
-            <div className="horizontal-nube-card">
-              <div className="nube-capsule-image-frame">
-                <img loading="lazy" src="/assets/projects/site_02/image_1.webp" alt="Fluid Architecture Concept" />
-              </div>
-              <div className="nube-capsule-info">
-                <div className="nube-capsule-meta">
-                  <span>Conceptual</span>
-                  <span>Mumbai</span>
-                </div>
-                <h3 className="nube-capsule-name">Fluid Pavilion</h3>
-                <p className="nube-capsule-desc">
-                  Futuristic double-curvature structure showcasing Parametric Design and fluid architecture ideas.
-                </p>
-                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(2)}>
-                  Design Specs
-                </button>
-              </div>
-            </div>
-
-            <div className="horizontal-nube-card">
-              <div className="nube-capsule-image-frame">
-                <img loading="lazy" src="/assets/projects/photos_set1/image_1.webp" alt="Aesthetic Lounge Design" />
-              </div>
-              <div className="nube-capsule-info">
-                <div className="nube-capsule-meta">
-                  <span>Residential</span>
-                  <span>Bengaluru</span>
-                </div>
-                <h3 className="nube-capsule-name">Aesthetic Lounge</h3>
-                <p className="nube-capsule-desc">
-                  Mediterranean plaster study exploring scale, soft ambient light, and organic seating curation.
-                </p>
-                <button className="nube-btn" data-cursor="Specs" onClick={() => setSelectedNube(3)}>
-                  Design Specs
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-        */}
-
-        {/* ====================================================
-         * SECTION 4: CAPABILITIES & ENGINEERING
-         * ==================================================== */}
-        <section className="section-capabilities">
-          <div className="capabilities-container">
-            <div className="capabilities-header">
-              <h4 className="studio-subtitle" style={{ color: "var(--text-muted)" }}>
-                PHILOSOPHY
-              </h4>
-              <h2 className="capabilities-title">Our Design Approach</h2>
-            </div>
-
-            <div className="capabilities-grid">
-              {/* Functionality First */}
-              <div className="cap-card cap-card-functionality">
-                <span className="cap-num">01</span>
-                <div className="cap-divider" />
-                <div className="cap-icon cap-icon-compass">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                    <circle cx="12" cy="5" r="2" />
-                    <path d="M12 7L6 21M12 7l6 14M9 14h6" />
-                  </svg>
-                </div>
-                <h3 className="cap-name">Functionality First</h3>
-                <p className="cap-desc">
-                  We verify that every layout is highly usable and ergonomically optimized before introducing decorative styling.
-                </p>
-              </div>
-
-              {/* Material Innovation */}
-              <div className="cap-card cap-card-materials">
-                <span className="cap-num">02</span>
-                <div className="cap-divider" />
-                <div className="cap-icon cap-icon-materials">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                    {/* Layered Slabs */}
-                    <path d="M3 16l9 4.5 9-4.5-9-4.5z" />
-                    <g>
-                      <path d="M3 11l9 4.5 9-4.5-9-4.5z" opacity="0.75" />
-                    </g>
-                    <path d="M3 6l9 4.5 9-4.5-9-4.5z" opacity="0.4" strokeDasharray="2 2" />
-                  </svg>
-                </div>
-                <h3 className="cap-name">Material Innovation</h3>
-                <p className="cap-desc">
-                  Emphasizing raw textures, natural finishes, and innovative pairings that age gracefully and stand the test of time.
-                </p>
-              </div>
-
-              {/* Fluid Architecture */}
-              <div className="cap-card cap-card-fluid">
-                <span className="cap-num">03</span>
-                <div className="cap-divider" />
-                <div className="cap-icon cap-icon-fluid">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                    {/* Parametric Wave Curves */}
-                    <path d="M2 17c5-5 10 5 15-5 5-5 5 5 5 5" />
-                    <path d="M2 12c5-5 10 5 15-5 5-5 5 5 5 5" opacity="0.7" />
-                    <path d="M2 7c5-5 10 5 15-5 5-5 5 5 5 5" opacity="0.4" />
-                  </svg>
-                </div>
-                <h3 className="cap-name">Fluid Architecture</h3>
-                <p className="cap-desc">
-                  Challenging box-like conventions with organic curves, parametric surfaces, and continuous spatial geometries.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-         * SECTION 5: INSTAGRAM FEED SHOWCASE (@decorlab.in)
-         * ==================================================== */}
-        <section id="instagram" className="section-instagram">
-          <div className="instagram-header">
-            <div className="instagram-avatar-wrapper">
-              <div className="instagram-avatar">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="8" cy="14" r="4.5" />
-                  <circle cx="16" cy="14" r="4.5" />
-                  <circle cx="12" cy="8" r="4.5" />
-                </svg>
-              </div>
-            </div>
-
-            <div className="instagram-profile-info">
-              <div className="insta-username-row">
-                <h2 className="insta-username">decorlab.in</h2>
-                <span className="insta-verified" title="Verified Account">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                  </svg>
-                </span>
-                <a
-                  href="https://www.instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ=="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="insta-follow-btn"
-                >
-                  Follow
-                </a>
-              </div>
-
-              <div className="insta-stats-row">
-                <div className="insta-stat">
-                  <span>142</span> posts
-                </div>
-                <div className="insta-stat">
-                  <span>42.8k</span> followers
-                </div>
-                <div className="insta-stat">
-                  <span>249</span> following
-                </div>
-              </div>
-
-              <div className="insta-bio">
-                <span className="insta-bio-name">Decor Lab</span>
-                <br />
-                Curated Architecture & Minimalist Interior Curation. Delivering timeless spaces across India since 1993.
-                <br />
-                <a
-                  href="https://www.instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ=="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "var(--accent-color)", fontWeight: 600, textDecoration: "underline" }}
-                >
-                  decorlab.in
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Phone Mockup Slider */}
-          <div className="phone-slider-wrapper">
-            <button
-              className="phone-slider-arrow prev"
-              onClick={handlePrevInsta}
-              aria-label="Previous Post"
-              disabled={loadingInsta}
-            >
-              <svg viewBox="0 0 24 24">
-                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
-              </svg>
+          {/* Right: Phone Mockup */}
+          <div className="rl-phone-wrap">
+            <button className="rl-phone-arrow prev" onClick={handlePrevInsta} aria-label="Previous" disabled={loadingInsta}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
 
-            <div 
-              className="phone-mockup"
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-            >
-              {/* Dynamic Island / Speaker */}
-              <div className="phone-dynamic-island"></div>
-              {/* Side Buttons */}
-              <div className="phone-button volume-up"></div>
-              <div className="phone-button volume-down"></div>
-              <div className="phone-button power"></div>
+            <div className="rl-phone-mockup" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+              <div className="rl-phone-island"></div>
+              <div className="rl-phone-btn vol-up"></div>
+              <div className="rl-phone-btn vol-dn"></div>
+              <div className="rl-phone-btn pwr"></div>
 
-              <div className="phone-screen">
-                {/* Phone Status Bar */}
-                <div className="phone-status-bar">
-                  <span className="phone-time">09:41</span>
-                  <div className="phone-status-icons">
-                    <svg viewBox="0 0 24 24" style={{ width: "14px", height: "14px" }}>
-                      <path d="M2 22h20V2z" />
-                    </svg>
-                    <svg viewBox="0 0 24 24" style={{ width: "14px", height: "14px" }}>
-                      <path d="M12 21l-12-18h24z" />
-                    </svg>
-                    <svg viewBox="0 0 24 24" style={{ width: "16px", height: "16px" }}>
-                      <path d="M17 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z M21 9h2v6h-2z" />
-                    </svg>
+              <div className="rl-phone-screen">
+                <div className="rl-phone-status">
+                  <span className="rl-phone-time">09:41</span>
+                  <div className="rl-phone-icons">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M2 22h20V2z"/></svg>
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 21l-12-18h24z"/></svg>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M17 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zM21 9h2v6h-2z"/></svg>
                   </div>
                 </div>
 
-                {/* Mock Instagram Header */}
-                <div className="mock-app-header">
-                  <div className="mock-app-header-left">
-                    <div className="mock-avatar">
-                      <svg viewBox="0 0 24 24">
-                        <circle cx="8" cy="14" r="4.5" />
-                        <circle cx="16" cy="14" r="4.5" />
-                        <circle cx="12" cy="8" r="4.5" />
+                <div className="rl-phone-app-header">
+                  <div className="rl-phone-app-left">
+                    <div className="rl-phone-mini-avatar">
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <circle cx="8" cy="14" r="4.5"/><circle cx="16" cy="14" r="4.5"/><circle cx="12" cy="8" r="4.5"/>
                       </svg>
                     </div>
-                    <div className="mock-user-info">
-                      <span className="mock-username">decorlab.in</span>
-                      <span className="mock-location">Kolkata, India</span>
+                    <div>
+                      <div className="rl-phone-app-user">decorlab.in</div>
+                      <div className="rl-phone-app-loc">Kolkata, India</div>
                     </div>
                   </div>
-                  <div className="mock-header-more">
-                    <svg viewBox="0 0 24 24">
-                      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                    </svg>
-                  </div>
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                  </svg>
                 </div>
 
                 {loadingInsta ? (
-                  /* Loading Skeleton inside the phone screen */
-                  <div className="phone-screen-skeleton" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '16px', gap: '16px', justifyContent: 'space-between' }}>
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                      <div className="skeleton-pulse skeleton-media" style={{ width: '100%', aspectRatio: '1/1', borderRadius: '16px', flexShrink: 0 }}></div>
-                      <div className="skeleton-details" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div className="skeleton-pulse skeleton-text-line" style={{ width: '35%', height: '10px' }}></div>
-                        <div className="skeleton-pulse skeleton-text-line" style={{ width: '90%', height: '10px' }}></div>
-                        <div className="skeleton-pulse skeleton-text-line" style={{ width: '55%', height: '10px' }}></div>
-                      </div>
+                  <div className="rl-phone-skeleton">
+                    <div className="skeleton-pulse" style={{width:'100%', aspectRatio:'1/1', borderRadius:'12px'}}></div>
+                    <div style={{padding:'12px', display:'flex', flexDirection:'column', gap:'6px'}}>
+                      <div className="skeleton-pulse" style={{height:'8px', width:'40%', borderRadius:'4px'}}></div>
+                      <div className="skeleton-pulse" style={{height:'8px', width:'80%', borderRadius:'4px'}}></div>
                     </div>
                   </div>
                 ) : (
-                  /* App Body (Slides) */
                   <>
-                    <div className="mock-app-body">
+                    <div className="rl-phone-slider-track-wrap">
                       <div
-                        className="phone-slider-track"
-                        style={{ transform: `translateX(-${activeInstaSlide * 100}%)` }}
-                      >
+                        className="rl-phone-slider-track"
+                        style={{transform: "translateX(-" + (activeInstaSlide * 100) + "%)"}}>
                         {displayPosts.map((post, idx) => (
-                          <div key={idx} className="phone-slider-slide">
+                          <div key={idx} className="rl-phone-slide">
                             <div
-                              className="instagram-card"
-                              data-cursor="View"
+                              className="rl-phone-post-img"
                               role="button"
-                              aria-label={`View Instagram post ${idx + 1}`}
                               tabIndex={0}
                               onClick={() => setSelectedInsta(idx)}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") {
-                                  e.preventDefault();
-                                  setSelectedInsta(idx);
-                                }
-                              }}
+                              aria-label={"View post " + (idx + 1)}
                             >
-                              <img loading="lazy" src={post.img} alt={`Mock Decor Instagram Post ${idx + 1}`} />
-                              <div className="instagram-overlay">
-                                <div className="insta-overlay-stat">
-                                  <svg viewBox="0 0 24 24">
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                  </svg>
-                                  <span>{post.likes}</span>
-                                </div>
-                                <div className="insta-overlay-stat">
-                                  <svg viewBox="0 0 24 24">
-                                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
-                                  </svg>
-                                  <span>{post.comments}</span>
+                              <img loading="lazy" src={post.img} alt={"Post " + (idx + 1)} />
+                              <div className="rl-phone-post-overlay">
+                                <div className="rl-phone-post-stats">
+                                  <span>
+                                    <svg viewBox="0 0 24 24" fill="white" width="12" height="12"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    {post.likes}
+                                  </span>
+                                  <span>
+                                    <svg viewBox="0 0 24 24" fill="white" width="12" height="12"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                                    {post.comments}
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -3395,29 +3156,19 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Mock Instagram Action Bar */}
-                    <div className="mock-action-bar">
-                      <div className="mock-actions-left">
-                        <svg className="active" viewBox="0 0 24 24">
-                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                        </svg>
-                        <svg viewBox="0 0 24 24">
-                          <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
-                        </svg>
-                        <svg viewBox="0 0 24 24" style={{ transform: "rotate(-20deg)", transformOrigin: "center" }}>
-                          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                        </svg>
+                    <div className="rl-phone-actions">
+                      <div className="rl-phone-actions-left">
+                        <svg className="rl-phone-action-icon liked" viewBox="0 0 24 24" fill="#ed4956"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <svg className="rl-phone-action-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                        <svg className="rl-phone-action-icon" viewBox="0 0 24 24" fill="currentColor" style={{transform:'rotate(-20deg)'}}><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                       </div>
-                      <svg className="bookmark" viewBox="0 0 24 24">
-                        <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
-                      </svg>
+                      <svg className="rl-phone-action-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
                     </div>
 
-                    {/* Mock Instagram Likes & Caption */}
-                    <div className="mock-post-details">
-                      <div className="mock-likes">{displayPosts[activeInstaSlide]?.likes} likes</div>
-                      <div className="mock-caption">
-                        <span className="mock-caption-user">decorlab.in</span>
+                    <div className="rl-phone-caption">
+                      <div className="rl-phone-likes">{displayPosts[activeInstaSlide]?.likes} likes</div>
+                      <div className="rl-phone-caption-text">
+                        <span className="rl-phone-caption-user">decorlab.in </span>
                         {displayPosts[activeInstaSlide]?.caption}
                       </div>
                     </div>
@@ -3426,30 +3177,11 @@ export default function Home() {
               </div>
             </div>
 
-            <button
-              className="phone-slider-arrow next"
-              onClick={handleNextInsta}
-              aria-label="Next Post"
-              disabled={loadingInsta}
-            >
-              <svg viewBox="0 0 24 24">
-                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-              </svg>
+            <button className="rl-phone-arrow next" onClick={handleNextInsta} aria-label="Next" disabled={loadingInsta}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
             </button>
           </div>
 
-          {/* Dots Indicators */}
-          <div className="phone-slider-dots">
-            {displayPosts.map((_, idx) => (
-              <button
-                key={idx}
-                className={`phone-slider-dot ${activeInstaSlide === idx ? "active" : ""}`}
-                onClick={() => !loadingInsta && setActiveInstaSlide(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-                disabled={loadingInsta}
-              />
-            ))}
-          </div>
         </section>
 
         {/* ====================================================
@@ -3487,100 +3219,42 @@ export default function Home() {
         <Feedback />
         <FooterBanner isPreloaded={isPreloaded} />
 
+        <RedesignAnimations />
         {/* ====================================================
-         * MARQUEE STRIP — Reinette-style CTA Band
+         * REDESIGNED FOOTER
          * ==================================================== */}
-        <div className="footer-marquee-section" style={{ background: '#0b0b0a' }}>
-          <div className="marquee-strip">
-            <div className="marquee-track">
-              {[...Array(8)].map((_, i) => (
-                <span key={i} className="marquee-item">Architecture &amp; Interior Design</span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ====================================================
-         * SECTION 7: STUDIO DETAILED FOOTER — Premium Redesign
-         * ==================================================== */}
-        <footer id="contact-footer" className="section-footer">
-          <div className="footer-container">
-
-            {/* ── Top: Brand + Tagline ── */}
-            <div className="footer-brand-row">
-              <div className="footer-brand-left">
-                <img src="/assets/Decorlab final-04.webp" alt="Decor Lab" className="footer-logo-img" style={{ maxHeight: "44px" }} />
-                <p className="footer-tagline">
-                  Architecture &amp; Interior Design.<br />
-                  Since 1993.
-                </p>
+        <footer id="contact-footer" className="rl-footer">
+          <div className="rl-container">
+            <div className="rl-footer-top">
+              <div className="rl-footer-logo-desc">
+                <img src="/assets/Decorlab final-04.webp" alt="Decor Lab" />
+                <p>Architecture & Interior Design.<br/>Kolkata-based design powerhouse blending legacy craftsmanship with bold contemporary architecture. Since 1993.</p>
               </div>
-              <div className="footer-brand-right">
-                <p className="footer-desc">
-                  Kolkata-based design powerhouse blending legacy craftsmanship with bold contemporary architecture. Residential, commercial &amp; conceptual spaces across India.
-                </p>
-                <a href="mailto:info@decorlab.co.in" className="footer-cta-link">
-                  Start a Project <span className="footer-cta-arrow">→</span>
-                </a>
+              <div className="rl-footer-links">
+                <div className="rl-footer-col">
+                  <h4>Studio</h4>
+                  <ul>
+                    <li><a href="#process">Methodology</a></li>
+                    <li><a href="#collection">Collection</a></li>
+                    <li><a href="#showcase">Portfolio</a></li>
+                  </ul>
+                </div>
+                <div className="rl-footer-col">
+                  <h4>Contact</h4>
+                  <ul>
+                    <li><a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a></li>
+                    <li><a href="tel:+913324648000">+91 33 2464 8000</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
-
-            {/* ── Divider ── */}
-            <div className="footer-divider" />
-
-            {/* ── Middle: 4-col Links ── */}
-            <div className="footer-links-grid">
-              <div className="footer-links-col">
-                <span className="footer-col-title">Studio</span>
-                <ul className="footer-links-list">
-                  <li><a href="#process">Our Process</a></li>
-                  <li><a href="#collection">Collections</a></li>
-                  <li><a href="#showcase">Portfolio</a></li>
-                  <li><a href="#collabs">Partnerships</a></li>
-                </ul>
-              </div>
-              <div className="footer-links-col">
-                <span className="footer-col-title">Services</span>
-                <ul className="footer-links-list">
-                  <li><a href="#capabilities">Residential</a></li>
-                  <li><a href="#capabilities">Commercial</a></li>
-                  <li><a href="#capabilities">Landscape</a></li>
-                  <li><a href="#capabilities">Conceptual</a></li>
-                </ul>
-              </div>
-              <div className="footer-links-col">
-                <span className="footer-col-title">Contact</span>
-                <ul className="footer-links-list">
-                  <li><a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a></li>
-                  <li><a href="tel:+913324648000">+91 33 2464 8000</a></li>
-                  <li style={{ color: "rgba(245,240,232,0.45)", fontSize: "0.88rem", lineHeight: 1.6 }}>
-                    Kolkata, West Bengal,<br />India
-                  </li>
-                </ul>
-              </div>
-              <div className="footer-links-col">
-                <span className="footer-col-title">Follow</span>
-                <ul className="footer-links-list">
-                  <li><a href="https://instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ==" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-                  <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                  <li><a href="#press">Elle Decor Feature</a></li>
-                </ul>
-              </div>
+            
+            <h1 className="rl-footer-big-text">DECOR LAB</h1>
+            
+            <div className="rl-footer-bottom">
+              <span>&copy; 2026 Decor Lab Studio. All rights reserved.</span>
+              <span>Made with precision in Kolkata, India.</span>
             </div>
-
-            {/* ── Divider ── */}
-            <div className="footer-divider" />
-
-            {/* ── Bottom Bar ── */}
-            <div className="footer-bottom">
-              <p>&copy; 2026 Decor Lab Studio Pvt. Ltd. All rights reserved.</p>
-              <div className="footer-bottom-links">
-                <a href="#privacy">Privacy</a>
-                <a href="#legal">Legal</a>
-                <a href="#cookies">Cookies</a>
-              </div>
-            </div>
-
           </div>
         </footer>
 
