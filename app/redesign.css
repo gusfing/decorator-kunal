@@ -213,6 +213,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+  .rl-curated-title {
+    font-size: 1.15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .rl-curated-card img {
