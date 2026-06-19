@@ -5959,29 +5959,39 @@ body {
 
 @media (max-width: 768px) {
   .nav-header {
-    flex-direction: column !important;
-    padding: 0.5rem 0.8rem !important;
-    gap: 0.4rem !important;
-    width: 90% !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    gap: 8px !important;
+    width: 95% !important;
     max-width: none !important;
     top: 1.5rem !important;
-    justify-content: center !important;
   }
 
-  .nav-menu {
+  .nav-logo {
+    height: 38px !important;
+    padding: 0 12px !important;
     display: flex !important;
-    width: 100% !important;
+    align-items: center !important;
     justify-content: center !important;
-  }
-
-  .nav-link {
-    font-size: 0.7rem !important;
-    padding: 6px 10px !important;
   }
 
   .nav-logo-img {
     height: 18px !important;
     max-height: 18px !important;
+  }
+
+  .nav-menu {
+    display: flex !important;
+    width: auto !important;
+    padding: 3px !important;
+    border-radius: 9999px !important;
+  }
+
+  .nav-link {
+    font-size: 0.72rem !important;
+    padding: 6px 10px !important;
   }
 
   .mobile-menu-toggle {
