@@ -2478,31 +2478,39 @@ export default function Home() {
                   className={`process-accordion-panel ${isHovered ? "active" : ""}`}
                   onMouseEnter={() => setActiveProcessStep(idx)}
                   onClick={() => setActiveProcessStep(idx)}
-                  style={{
-                    backgroundImage: `url(${step.img})`
-                  }}
                 >
+                  {/* Background Image Frame */}
+                  <div className="panel-image-bg" style={{ backgroundImage: `url(${step.img})` }} />
+                  
                   <div className="panel-overlay" />
                   
-                  {/* Panel Header */}
-                  <div className="panel-header-content">
-                    <span className="panel-number">{step.num}</span>
-                    <h3 className="panel-title">{step.title}</h3>
-                  </div>
+                  {/* Content Wrapper */}
+                  <div className="panel-content-wrap">
+                    {/* Panel Header */}
+                    <div className="panel-header-content">
+                      <span className="panel-number">{step.num}</span>
+                      <h3 className="panel-title">{step.title}</h3>
+                      <div className="panel-icon-toggle">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M12 5v14M5 12h14" />
+                        </svg>
+                      </div>
+                    </div>
 
-                  {/* Panel Detailed Body */}
-                  <div className="panel-body-content">
-                    <p className="panel-desc">{step.desc}</p>
-                    <div className="panel-divider" />
-                    <div className="panel-deliverables">
-                      <span className="deliverables-heading">Deliverables:</span>
-                      <ul className="deliverables-list">
-                        {step.deliverables.map((item, itemIdx) => (
-                          <li key={itemIdx} className="deliverable-item">
-                            <span className="bullet">✦</span> {item}
-                          </li>
-                        ))}
-                      </ul>
+                    {/* Panel Detailed Body */}
+                    <div className="panel-body-content">
+                      <p className="panel-desc">{step.desc}</p>
+                      <div className="panel-divider" />
+                      <div className="panel-deliverables">
+                        <span className="deliverables-heading">Deliverables:</span>
+                        <ul className="deliverables-list">
+                          {step.deliverables.map((item, itemIdx) => (
+                            <li key={itemIdx} className="deliverable-item">
+                              <span className="bullet">✦</span> {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
