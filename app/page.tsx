@@ -124,19 +124,25 @@ const curatedCategories = [
         num: "01",
         title: "Signature Residential Lounge / Kolkata",
         desc: "Warm minimalist seating integrating custom linen upholstery, raw oak tables, and soft lighting.",
-        img: "/assets/projects/photos_set1/image_2.webp"
+        img: "/assets/projects/photos_set1/image_2.webp",
+        area: "54 m²",
+        specs: "Linen • Oak • Plaster"
       },
       {
         num: "02",
         title: "Santhalia Home / Kolkata",
         desc: "Award-winning minimalist villa integrating natural linen, plaster, and signature ombre curtains.",
-        img: "/assets/projects/santhalia_site/image_1.webp"
+        img: "/assets/projects/santhalia_site/image_1.webp",
+        area: "65 m²",
+        specs: "Travertine • Bouclé • Walnut"
       },
       {
         num: "03",
         title: "Ribbed Canopy Walkway / Corporate HQ",
         desc: "Clean geometric forms finding balance in custom-engineered structural wood and plaster structures.",
-        img: "/assets/projects/site_01/image_1.webp"
+        img: "/assets/projects/site_01/image_1.webp",
+        area: "120 m²",
+        specs: "Oak • Cotton • Stone"
       }
     ]
   },
@@ -150,19 +156,25 @@ const curatedCategories = [
         num: "01",
         title: "Abstract Dining Module / Bengal Studio",
         desc: "Textured plaster, organic white dining curves, and bold concrete accent columns.",
-        img: "/assets/projects/photos_set1/image_4.webp"
+        img: "/assets/projects/photos_set1/image_4.webp",
+        area: "38 m²",
+        specs: "Concrete • Oak • Marble"
       },
       {
         num: "02",
         title: "Contemporary Dining Room / Kolkata",
         desc: "Fluid layouts matching custom-engineered timber screens and raw limestone block details.",
-        img: "/assets/projects/site_01/image_2.webp"
+        img: "/assets/projects/site_01/image_2.webp",
+        area: "45 m²",
+        specs: "Timber • Limestone • Steel"
       },
       {
         num: "03",
         title: "Ambient Culinary Curation / Corporate HQ",
         desc: "Indirect lighting studies reflecting off curvilinear walls to sculpt a quiet, social atmosphere.",
-        img: "/assets/projects/photos_set2/image_5.webp"
+        img: "/assets/projects/photos_set2/image_5.webp",
+        area: "52 m²",
+        specs: "Plaster • Walnut • Brass"
       }
     ]
   },
@@ -176,19 +188,25 @@ const curatedCategories = [
         num: "01",
         title: "Oak Platform Retreat / Mumbai",
         desc: "Low oak platform bed structures with textured neutral plaster backdrops catching morning sun.",
-        img: "/assets/projects/photos_set2/image_2.webp"
+        img: "/assets/projects/photos_set2/image_2.webp",
+        area: "32 m²",
+        specs: "Linen • Platform Oak • Plaster"
       },
       {
         num: "02",
         title: "Aesthetic Lounge / Bengaluru",
         desc: "Mediterranean plaster study exploring scale, soft ambient light, and organic seating curation.",
-        img: "/assets/projects/photos_set1/image_1.webp"
+        img: "/assets/projects/photos_set1/image_1.webp",
+        area: "40 m²",
+        specs: "Bouclé • Velvet • Travertine"
       },
       {
         num: "03",
         title: "Santhalia Master Suite / Kolkata",
         desc: "Cozy, high-end residential retreat celebrating limestone details and soft-spoken comfort.",
-        img: "/assets/projects/santhalia_site/image_2.webp"
+        img: "/assets/projects/santhalia_site/image_2.webp",
+        area: "48 m²",
+        specs: "Limestone • Soft Cotton • Oak"
       }
     ]
   },
@@ -202,19 +220,25 @@ const curatedCategories = [
         num: "01",
         title: "Linen & Cushion Textures / Design Lab",
         desc: "Tactile study in organic linen weaves and cushion installations matching minimal plaster.",
-        img: "/assets/projects/photos_set1/image_3.webp"
+        img: "/assets/projects/photos_set1/image_3.webp",
+        area: "Close-up",
+        specs: "Linen Weave • Cushion Install"
       },
       {
         num: "02",
         title: "Concrete Study & Dry Accents / Kolkata",
         desc: "A sensory display of light and shadow reflecting from raw concrete studies and dried flora.",
-        img: "/assets/projects/photos_set2/image_4.webp"
+        img: "/assets/projects/photos_set2/image_4.webp",
+        area: "Detail",
+        specs: "Concrete • Shadow Study"
       },
       {
         num: "03",
         title: "Fluid Forms & Canopy Geometry",
         desc: "Futuristic double-curvature structure showing parametric design and fluid architectural scale.",
-        img: "/assets/projects/site_02/image_1.webp"
+        img: "/assets/projects/site_02/image_1.webp",
+        area: "HQ Study",
+        specs: "Double Curvature • Parametric"
       }
     ]
   }
@@ -1020,6 +1044,14 @@ export default function Home() {
 
     if (!scrollWrapper || !scrollTrack) return;
 
+    // 0. Dark Mode background toggle ScrollTrigger for #collection (global across viewports)
+    ScrollTrigger.create({
+      trigger: "#collection",
+      start: "top 60%",
+      end: "bottom 30%",
+      toggleClass: "curated-dark-active",
+    });
+
     // Use matchMedia to support desktop dynamic pinning and mobile native gestures
     const mm = gsap.matchMedia();
 
@@ -1209,16 +1241,16 @@ export default function Home() {
         );
       }
 
-      const collectionCards = gsap.utils.toArray<HTMLElement>("#collection .curated-card");
-      if (collectionCards.length > 0) {
-        gsap.fromTo(collectionCards,
-          { y: 50, opacity: 0, scale: 0.98 },
+      const collectionCardWraps = gsap.utils.toArray<HTMLElement>("#collection .curated-card-wrap");
+      if (collectionCardWraps.length > 0) {
+        gsap.fromTo(collectionCardWraps,
+          { y: 60, opacity: 0, scale: 0.98 },
           {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 1.0,
-            stagger: 0.15,
+            duration: 1.2,
+            stagger: 0.18,
             ease: "power3.out",
             scrollTrigger: {
               trigger: "#collection .curated-gallery-masonry",
@@ -1228,17 +1260,39 @@ export default function Home() {
           }
         );
 
-        // Add a smooth scroll parallax effect on masonry images
-        collectionCards.forEach((card) => {
-          const img = card.querySelector(".curated-card-img");
-          if (img) {
-            gsap.fromTo(img,
-              { yPercent: -5 },
+        // Asymmetric vertical card parallax translation + inner image parallax
+        collectionCardWraps.forEach((wrap, idx) => {
+          const card = wrap.querySelector(".curated-card");
+          const img = wrap.querySelector(".curated-card-img");
+          
+          // Outer card parallax: idx 0 slow-up, idx 1 fast-down, idx 2 medium-up
+          const yStart = idx === 1 ? -35 : (idx === 0 ? 25 : -15);
+          const yEnd = idx === 1 ? 35 : (idx === 0 ? -25 : 15);
+          
+          if (card) {
+            gsap.fromTo(card,
+              { y: yStart },
               {
-                yPercent: 5,
+                y: yEnd,
                 ease: "none",
                 scrollTrigger: {
-                  trigger: card,
+                  trigger: wrap,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: true,
+                }
+              }
+            );
+          }
+
+          if (img) {
+            gsap.fromTo(img,
+              { yPercent: -8 },
+              {
+                yPercent: 8,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: wrap,
                   start: "top bottom",
                   end: "bottom top",
                   scrub: true,
@@ -1502,7 +1556,7 @@ export default function Home() {
       const mobileTriggers = [
         { trigger: "#info", targets: ".about-title-wrapper, .about-right-headline, .about-right-body, .about-left-image img, .about-right-image img, .about-stat-item" },
         { trigger: "#process", targets: "#process .serif-headline, #process .step-card-new" },
-        { trigger: "#collection", targets: "#collection .gallery-text-col > *:not(.serif-headline):not(p), #collection .reveal-gallery-img" },
+        { trigger: "#collection", targets: "#collection .curated-sidebar-col > *, #collection .curated-card-wrap" },
         { trigger: ".cashmere-bg", targets: ".cashmere-bg .collab-left > *:not(.serif-headline):not(p), .cashmere-bg .collab-right .gallery-image-wrapper" },
         { trigger: ".press-grid", targets: ".press-grid .press-left, .press-grid .press-right > *:not(.serif-headline):not(p)" },
         { trigger: "#showcase", targets: "#showcase .showcase-header > *, #showcase .showcase-tabs, #showcase .showcase-content-grid" },
@@ -2550,21 +2604,28 @@ export default function Home() {
                 {curatedCategories.find(c => c.id === activeCuratedTab)?.cards.map((card, idx) => (
                   <div
                     key={idx}
-                    className={`curated-card curated-card-${idx}`}
+                    className={`curated-card-wrap curated-card-wrap-${idx}`}
                   >
-                    <div className="curated-card-image-wrap">
-                      <img
-                        loading="lazy"
-                        src={card.img}
-                        alt={card.title}
-                        className="curated-card-img"
-                      />
-                    </div>
-                    <div className="curated-card-info">
-                      <span className="curated-card-num">{card.num}</span>
-                      <div>
-                        <h4 className="curated-card-title">{card.title}</h4>
-                        <p className="curated-card-desc">{card.desc}</p>
+                    <div className={`curated-card curated-card-${idx}`}>
+                      <div className="curated-card-image-wrap">
+                        <img
+                          loading="lazy"
+                          src={card.img}
+                          alt={card.title}
+                          className="curated-card-img"
+                        />
+                        <div className="curated-spec-badge">
+                          <span className="spec-area">{card.area}</span>
+                          <span className="spec-divider"></span>
+                          <span className="spec-materials">{card.specs}</span>
+                        </div>
+                      </div>
+                      <div className="curated-card-info">
+                        <span className="curated-card-num">{card.num}</span>
+                        <div>
+                          <h4 className="curated-card-title">{card.title}</h4>
+                          <p className="curated-card-desc">{card.desc}</p>
+                        </div>
                       </div>
                     </div>
                   </div>

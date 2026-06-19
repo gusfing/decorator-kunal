@@ -3290,6 +3290,75 @@ body {
 }
 
 /* Redesigned Curated Spaces Layout */
+#collection {
+  transition: background-color 1.0s var(--ease-quint), border-color 1.0s var(--ease-quint);
+}
+
+/* Active Dark Theme state toggled on scroll */
+#collection.curated-dark-active {
+  background-color: #121110 !important;
+}
+
+#collection.curated-dark-active .studio-subtitle {
+  color: #c5a880 !important;
+}
+
+#collection.curated-dark-active .serif-headline {
+  color: #f2f0e8 !important;
+}
+
+#collection.curated-dark-active .curated-desc-para {
+  color: #a49f97 !important;
+}
+
+#collection.curated-dark-active .curated-tabs-list {
+  border-left-color: rgba(197, 168, 128, 0.25) !important;
+}
+
+#collection.curated-dark-active .curated-tab-btn {
+  color: #8a847c;
+}
+
+#collection.curated-dark-active .curated-tab-btn:hover {
+  color: #f2f0e8;
+}
+
+#collection.curated-dark-active .curated-tab-btn.active {
+  color: #c5a880;
+}
+
+/* Dark glassmorphic card styling inside the active dark section */
+#collection.curated-dark-active .curated-card {
+  background: rgba(26, 25, 23, 0.4);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(197, 168, 128, 0.08);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+}
+
+#collection.curated-dark-active .curated-card:hover {
+  background: rgba(26, 25, 23, 0.85);
+  border-color: rgba(197, 168, 128, 0.3);
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
+}
+
+#collection.curated-dark-active .curated-card-title {
+  color: #f2f0e8;
+}
+
+#collection.curated-dark-active .curated-card-desc {
+  color: #a49f97;
+}
+
+#collection.curated-dark-active .curated-card-num {
+  -webkit-text-stroke-color: rgba(242, 240, 232, 0.15);
+}
+
+#collection.curated-dark-active .curated-card:hover .curated-card-num {
+  color: #c5a880;
+  -webkit-text-stroke-color: #c5a880;
+}
+
 .curated-grid-layout {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
@@ -3368,10 +3437,34 @@ body {
   width: 100%;
 }
 
+.curated-card-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: transform 0.8s var(--ease-quint);
+}
+
+.curated-card-wrap-0 {
+  align-self: flex-start;
+  width: 95%;
+}
+
+.curated-card-wrap-1 {
+  align-self: flex-end;
+  width: 85%;
+  margin-top: -2rem; /* Overlapping masonry effect */
+}
+
+.curated-card-wrap-2 {
+  align-self: flex-start;
+  width: 90%;
+  margin-top: -1rem;
+}
+
 .curated-card {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -3389,32 +3482,31 @@ body {
   background: rgba(255, 255, 255, 0.88);
 }
 
-.curated-card-0 {
-  align-self: flex-start;
-  width: 95%;
-}
-
-.curated-card-1 {
-  align-self: flex-end;
-  width: 85%;
-  margin-top: -2rem; /* Overlapping masonry effect */
-}
-
-.curated-card-2 {
-  align-self: flex-start;
-  width: 90%;
-  margin-top: -1rem;
-}
-
 .curated-card-image-wrap {
   width: 100%;
   height: 380px;
-  border-radius: 16px;
   overflow: hidden;
   position: relative;
   box-shadow: 0 10px 30px rgba(42, 41, 40, 0.03);
   border: 1px solid rgba(197, 168, 128, 0.1);
   background-color: #eae5dd;
+  transition: border-radius 0.6s ease;
+}
+
+/* Asymmetrical Architectural border-radius shapes for each card */
+.curated-card-0 .curated-card-image-wrap {
+  border-radius: 24px;
+}
+
+.curated-card-1 .curated-card-image-wrap {
+  border-top-left-radius: 140px;
+  border-top-right-radius: 140px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+.curated-card-2 .curated-card-image-wrap {
+  border-radius: 140px 24px 140px 24px;
 }
 
 .curated-card-img {
@@ -3428,6 +3520,64 @@ body {
 .curated-card:hover .curated-card-img {
   transform: scale(1.05);
   filter: grayscale(0%) contrast(100%);
+}
+
+/* Floating Glassmorphic Specification Badge */
+.curated-spec-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(197, 168, 128, 0.94);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  color: #121110;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7) rotate(-15deg);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.curated-card:hover .curated-spec-badge {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.0) rotate(0deg);
+}
+
+.spec-area {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.spec-divider {
+  width: 30px;
+  height: 1px;
+  background: rgba(18, 17, 16, 0.2);
+  margin: 8px 0;
+}
+
+.spec-materials {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  color: rgba(18, 17, 16, 0.8);
 }
 
 .curated-card-info {
@@ -3517,6 +3667,44 @@ body {
 
   .curated-card-image-wrap {
     height: 280px;
+  }
+
+  .curated-spec-badge {
+    opacity: 0.95 !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+    right: 15px !important;
+    bottom: 15px !important;
+    width: 100px !important;
+    height: 100px !important;
+    padding: 10px !important;
+    scale: 0.9 !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .spec-area {
+    font-size: 1.15rem !important;
+  }
+
+  .spec-divider {
+    margin: 4px 0 !important;
+    width: 20px !important;
+  }
+
+  .spec-materials {
+    font-size: 0.58rem !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  /* Keep border radius forms visible on mobile */
+  .curated-card-1 .curated-card-image-wrap {
+    border-top-left-radius: 80px !important;
+    border-top-right-radius: 80px !important;
+  }
+
+  .curated-card-2 .curated-card-image-wrap {
+    border-radius: 80px 20px 80px 20px !important;
   }
 }
 
