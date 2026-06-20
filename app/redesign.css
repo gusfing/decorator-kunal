@@ -430,7 +430,7 @@
 .rl-footer-logo-desc img {
   width: auto;
   height: auto;
-  max-height: 40px;
+  max-height: 80px;
   object-fit: contain;
   margin-bottom: 2rem;
 }
@@ -1276,7 +1276,7 @@
     max-width: 100%;
   }
   .rl-footer-logo-desc img {
-    max-height: 38px;
+    max-height: 70px;
     margin-bottom: 1.5rem;
   }
   .rl-footer-logo-desc p {

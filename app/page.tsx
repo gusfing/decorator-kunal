@@ -3226,7 +3226,7 @@ export default function Home() {
           <div className="rl-container">
             <div className="rl-footer-top">
               <div className="rl-footer-logo-desc">
-                <img src="/assets/Decorlab final-04.webp" alt="Decor Lab" />
+                <img src="/assets/Decorlab final-01-trans.webp" alt="Decor Lab" />
                 <p>Architecture & Interior Design.<br/>Kolkata-based design powerhouse blending legacy craftsmanship with bold contemporary architecture. Since 1993.</p>
               </div>
               <div className="rl-footer-links">
