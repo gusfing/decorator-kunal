@@ -382,14 +382,21 @@ export default function Home() {
   // Swipe Gestures for the Mobile Mockup Slider
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isSwiping, setIsSwiping] = useState(false);
 
   const onTouchStart = (e: React.TouchEvent) => {
+    setIsSwiping(false);
     setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    setTouchStart(e.touches[0].clientX);
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    if (!touchStart) return;
+    const currentX = e.touches[0].clientX;
+    setTouchEnd(currentX);
+    if (Math.abs(touchStart - currentX) > 10) {
+      setIsSwiping(true);
+    }
   };
 
   const onTouchEnd = () => {
@@ -402,6 +409,8 @@ export default function Home() {
     } else if (isRightSwipe) {
       handlePrevInsta();
     }
+    setTouchStart(null);
+    setTouchEnd(null);
   };
 
   const displayPosts = posts.length > 0 ? posts : instaPosts;
@@ -3133,7 +3142,7 @@ export default function Home() {
                               className="rl-phone-post-img"
                               role="button"
                               tabIndex={0}
-                              onClick={() => setSelectedInsta(idx)}
+                              onClick={() => { if (!isSwiping) setSelectedInsta(idx); }}
                               aria-label={"View post " + (idx + 1)}
                             >
                               <img loading="lazy" src={post.img} alt={"Post " + (idx + 1)} />
