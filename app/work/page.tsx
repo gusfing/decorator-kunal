@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import FooterBanner from "@/components/urbanland/FooterBanner";
 
 interface NubeSpec {
   model: string;
@@ -29,6 +28,39 @@ export default function Work() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [openItems, setOpenItems] = useState<number[]>([]);
   const navIndicatorRef = useRef<HTMLDivElement>(null);
+  const bookContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const container = bookContainerRef.current;
+    if (!container) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    // Max 8 degrees tilt on X and 12 degrees on Y for premium subtle parallax
+    const rotateX = -(y / (rect.height / 2)) * 8;
+    const rotateY = (x / (rect.width / 2)) * 12;
+    
+    container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) ${
+      openItems.length > 0 ? "translateX(25%)" : "translateX(0px)"
+    }`;
+  };
+
+  const handleMouseLeave = () => {
+    const container = bookContainerRef.current;
+    if (!container) return;
+    container.style.transform = `rotateX(0deg) rotateY(0deg) ${
+      openItems.length > 0 ? "translateX(25%)" : "translateX(0px)"
+    }`;
+  };
+
+  useEffect(() => {
+    const container = bookContainerRef.current;
+    if (!container) return;
+    container.style.transform = `rotateX(0deg) rotateY(0deg) ${
+      openItems.length > 0 ? "translateX(25%)" : "translateX(0px)"
+    }`;
+  }, [openItems]);
 
   // Core Projects database
   const projectsData: Project[] = [
@@ -296,13 +328,35 @@ export default function Work() {
         </div>
 
         {/* 3D Book Gallery Scene */}
-        <div className="scene" onClick={handleSceneClick}>
+        <div 
+          className="scene" 
+          onClick={handleSceneClick}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ position: "relative" }}
+        >
+          {/* Ambient Video Background */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="scene-video-bg"
+          >
+            <source src="/assets/living-room-hero.mp4" type="video/mp4" />
+          </video>
+          {/* Dark Glassmorphic & Vignette Overlay */}
+          <div className="scene-overlay"></div>
+
           <div className="bg-typography">
             <span>Selected</span>
             <span>Works</span>
           </div>
 
-          <div className={"galeria-book-3d" + (openItems.length > 0 ? " book-open" : "")}>
+          <div 
+            ref={bookContainerRef}
+            className={"galeria-book-3d" + (openItems.length > 0 ? " book-open" : "")}
+          >
             {filteredProjects.map((project, idx) => {
               const isOpen = openItems.includes(idx);
               return (
@@ -362,8 +416,7 @@ export default function Work() {
           </div>
         </div>
 
-        {/* Premium Call to Action (CTA) consult block */}
-        <FooterBanner isPreloaded={true} />
+
 
         {/* Decorative Marquee Band */}
         <div className="footer-marquee-section" style={{ background: '#0b0b0a', padding: "3rem 0" }}>
@@ -518,21 +571,39 @@ export default function Work() {
         /* 3D Book Gallery Layout Styling */
         .scene {
           width: 100%;
-          height: 80vh;
-          min-height: 550px;
-          perspective: 1200px;
+          height: 85vh;
+          min-height: 580px;
+          perspective: 1500px;
           transform-style: preserve-3d;
           display: flex;
           justify-content: center;
           align-items: center;
           overflow: hidden;
           position: relative;
-          background-image: url("/assets/projects/site_01/image_3.webp");
-          background-size: cover;
-          background-position: center;
-          background-blend-mode: overlay;
-          background-color: rgba(0, 0, 0, 0.88);
+          background-color: #050505;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .scene-video-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: 0;
+          pointer-events: none;
+          opacity: 0.35;
+          filter: grayscale(30%) brightness(40%) contrast(110%);
+        }
+
+        .scene-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.95) 100%);
+          backdrop-filter: blur(6px);
         }
 
         .bg-typography {
@@ -550,7 +621,7 @@ export default function Work() {
           align-items: center;
           padding: 0 5vw;
           pointer-events: none;
-          z-index: 0;
+          z-index: 2;
           mix-blend-mode: overlay;
           color: rgba(255, 255, 255, 0.15);
           font-family: var(--font-display, 'Syne', sans-serif);
@@ -565,41 +636,37 @@ export default function Work() {
           position: relative;
           width: clamp(250px, 18vw, 340px);
           height: clamp(375px, 27vw, 510px);
-          perspective: 1200px;
+          perspective: 1500px;
           transform-style: preserve-3d;
           display: flex;
           justify-content: center;
           align-items: center;
           z-index: 10;
-          transform: translateX(0px);
-          transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .galeria-book-3d.book-open {
-          transform: translateX(25%);
+          transform: rotateX(0deg) rotateY(0deg) translateX(0px);
+          transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .galeria-book-3d__item {
           position: absolute;
           width: 100%;
           height: 100%;
-          perspective: 1200px;
+          perspective: 1500px;
           transform-style: preserve-3d;
           display: flex;
           justify-content: center;
           align-items: center;
           transform-origin: left center;
-          transform: rotateY(0deg);
-          transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), z-index 0s;
-          transition-delay: calc((4 - var(--i)) * 0.08s), calc((4 - var(--i)) * 0.08s + 0.3s);
-          box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+          transform: translate3d(calc(var(--i) * -1px), 0, calc(var(--i) * -2px)) rotateY(0deg);
+          transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s;
+          transition-delay: calc((4 - var(--i)) * 0.08s), calc((4 - var(--i)) * 0.08s + 0.4s);
+          box-shadow: 10px 15px 35px rgba(0, 0, 0, 0.6);
           cursor: pointer;
           z-index: calc(10 - var(--i));
           border-radius: 12px;
         }
 
         .galeria-book-3d__item.is-open {
-          transform: rotateY(-180deg);
+          transform: translate3d(calc((var(--i) - 4) * 1px - 10px), 0, calc(var(--i) * 2px + 10px)) rotateY(-180deg);
           transition-delay: 0s, 0s;
           z-index: calc(20 + var(--i));
         }
@@ -615,16 +682,19 @@ export default function Work() {
           border-radius: 12px;
           overflow: hidden;
           box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .book-page-front {
           z-index: 2;
           transform: rotateY(0deg);
+          border-left: 5px solid #C9A84C;
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .book-page-back {
           transform: rotateY(180deg);
+          border-right: 5px solid #C9A84C;
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .book-page-front img,
@@ -642,26 +712,32 @@ export default function Work() {
         .book-page-front-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.2) 100%);
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 35%, rgba(0, 0, 0, 0.25) 100%);
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
-          padding: 2rem 1.5rem;
+          padding: 2.2rem 1.8rem;
           color: #fff;
           z-index: 3;
+          border: 1px solid rgba(201, 168, 76, 0.2);
+          margin: 6px;
+          border-radius: 8px;
         }
 
         .book-page-back-overlay {
           position: absolute;
           inset: 0;
-          background: rgba(8, 8, 10, 0.9);
-          backdrop-filter: blur(12px);
+          background: rgba(8, 8, 10, 0.94);
+          backdrop-filter: blur(15px);
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 2rem 1.5rem;
+          padding: 2.2rem 1.8rem;
           color: #fff;
           z-index: 3;
+          border: 1px solid rgba(201, 168, 76, 0.15);
+          margin: 6px;
+          border-radius: 8px;
         }
 
         .book-page-num {
@@ -748,15 +824,15 @@ export default function Work() {
         }
 
         .book-project-btn {
-          background: #C9A84C;
+          background: linear-gradient(135deg, #C9A84C 0%, #E6C675 50%, #C9A84C 100%);
           color: #000;
           border: none;
-          border-radius: 4px;
-          padding: 0.7rem 1.2rem;
+          border-radius: 6px;
+          padding: 0.8rem 1.4rem;
           font-size: 0.8rem;
-          font-weight: 600;
+          font-weight: 700;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
           width: 100%;
           text-align: center;
           text-transform: uppercase;
@@ -766,7 +842,8 @@ export default function Work() {
         .book-project-btn:hover {
           background: #fff;
           color: #000;
-          box-shadow: 0 5px 15px rgba(199, 168, 76, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(230, 198, 117, 0.5);
         }
 
         /* Lightbox Overlay and dialog modal layout styling */
