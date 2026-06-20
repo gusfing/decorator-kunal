@@ -408,11 +408,12 @@
    FOOTER (rl-footer)
    ========================================= */
 .rl-footer {
-  background-color: #000;
-  color: #fff;
+  background-color: #fdfdfd;
+  color: #050505;
   padding: 8rem 5% 2rem;
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .rl-footer-top {
@@ -464,7 +465,7 @@
 }
 
 .rl-footer-col a {
-  color: #fff;
+  color: #050505;
   text-decoration: none;
   font-size: 1.1rem;
   transition: opacity 0.3s;
@@ -482,8 +483,8 @@
   text-align: center;
   margin: 0;
   letter-spacing: -0.05em;
-  color: #111; /* Very dark grey */
-  -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+  color: #f4f4f4; /* Very light grey */
+  -webkit-text-stroke: 1px rgba(0,0,0,0.06);
 }
 
 .rl-footer-bottom {
@@ -491,7 +492,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(0,0,0,0.08);
   margin-top: 4rem;
   font-family: var(--font-sans);
   font-size: 0.9rem;
