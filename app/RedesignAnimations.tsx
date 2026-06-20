@@ -54,16 +54,21 @@ export default function RedesignAnimations() {
 
       // ─── 3. METHODOLOGY items — stagger slide-in from left ────────────
       const methodGroups = gsap.utils.toArray<HTMLElement>(".rl-methodology-item");
-      methodGroups.forEach((item, i) => {
-        gsap.fromTo(item,
+      if (methodGroups.length > 0) {
+        gsap.fromTo(methodGroups,
           { opacity: 0, x: -60, clipPath: "inset(0 100% 0 0)" },
           {
             opacity: 1, x: 0, clipPath: "inset(0 0% 0 0)",
-            duration: 0.9, ease: "power3.out", delay: i * 0.08,
-            scrollTrigger: { trigger: item, start: "top 88%", toggleActions: "play none none reverse" },
+            duration: 0.9, ease: "power3.out",
+            stagger: 0.12,
+            scrollTrigger: {
+              trigger: ".rl-methodology-list",
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            }
           }
         );
-      });
+      }
 
       // Methodology image — parallax scale reveal
       const methodImg = document.querySelector(".rl-methodology-img-wrap");
