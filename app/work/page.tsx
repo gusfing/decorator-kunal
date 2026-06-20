@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import FooterBanner from "@/components/urbanland/FooterBanner";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 interface NubeSpec {
   model: string;
@@ -34,9 +27,8 @@ interface Project {
 
 export default function Work() {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [openItems, setOpenItems] = useState<number[]>([]);
   const navIndicatorRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   // Core Projects database
   const projectsData: Project[] = [
@@ -45,7 +37,7 @@ export default function Work() {
       title: "Santhalia Residence",
       location: "Kolkata, India",
       category: "residential",
-      description: "An experimental 2,350 sq ft Kolkata residence showcasing a thoughtful application of unique materials, bespoke art installations, and signature ombre curtains. Highlighting clean, warm minimalism with organic plaster walls, textured linen panels, and soft, natural lighting to create a meditative atmosphere.",
+      description: "An experimental 2,350 sq ft Kolkata residence showcasing unique materials, bespoke art, and signature ombre curtains. Highlighting warm minimalism with organic plaster walls, textured linen panels, and soft natural lighting to create a meditative atmosphere.",
       specs: {
         model: "Santhalia Residence",
         name: "Residential Masterpiece",
@@ -71,7 +63,7 @@ export default function Work() {
       title: "Corporate Workspace HQ",
       location: "Kolkata, India",
       category: "corporate",
-      description: "An award-winning commercial headquarters that balances biophilic design principles with fluid spatial transitions. Incorporates custom-engineered partition systems, timber screening, and organic light wells to maximize natural daylighting and occupant productivity.",
+      description: "An award-winning commercial headquarters balancing biophilic design principles with fluid spatial transitions. Incorporates custom-engineered partition systems, timber screening, and organic light wells to maximize natural daylighting.",
       specs: {
         model: "Corporate HQ",
         name: "Commercial Office",
@@ -97,7 +89,7 @@ export default function Work() {
       title: "Fluid Design Pavilion",
       location: "ICA Creative Minds Finalist",
       category: "conceptual",
-      description: "A conceptual design project experimenting with double-curvature structures and organic spatial design. Seamlessly integrates interior architecture with warm lighting grids and natural texture layers to create a premium, immersive spatial flow.",
+      description: "A conceptual design project experimenting with double-curvature structures and organic spatial design. Seamlessly integrates interior architecture with warm lighting grids and natural texture layers to sculpt a premium, immersive spatial flow.",
       specs: {
         model: "Fluid Architecture",
         name: "Conceptual Study",
@@ -172,169 +164,34 @@ export default function Work() {
     }
   ];
 
-  const filteredProjects = activeCategory === "all" 
-    ? projectsData 
+  const filteredProjects = activeCategory === "all"
+    ? projectsData
     : projectsData.filter(p => p.category === activeCategory);
 
-  useGSAP(() => {
-    // Clear old ScrollTriggers to prevent layout math overlap
-    ScrollTrigger.getAll().forEach(t => t.kill());
-
-    // Reset active index when category changes
-    setActiveProjectIndex(0);
-
-    // 1. Hero Stagger Entrance Animations
-    const workChars = gsap.utils.toArray<HTMLElement>(".work-hero-title .work-char");
-    if (workChars.length > 0) {
-      gsap.fromTo(
-        workChars,
-        { yPercent: 100, rotateX: 30, opacity: 0, filter: "blur(8px)" },
-        {
-          yPercent: 0,
-          rotateX: 0,
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 1.0,
-          ease: "power4.out",
-          stagger: 0.03,
-        }
-      );
-    }
-
-    if (document.querySelector(".work-hero-line")) {
-      gsap.fromTo(
-        ".work-hero-line",
-        { width: "0%" },
-        { width: "100%", duration: 1.2, ease: "power3.inOut", delay: 0.3 }
-      );
-    }
-
-    // 2. Scale image scrubs inside fixed media preview frame (exact scale: 3)
-    filteredProjects.forEach((project, index) => {
-      const section = document.querySelector(`#section-${index + 1}`);
-      const image = document.querySelector(`#preview-img-${index + 1}`);
-      if (!section || !image) return;
-
-      const startCondition = index === 0 ? "top top" : "bottom bottom";
-
-      gsap.to(image, {
-        scrollTrigger: { toggleActions: "play reverse play reverse",
-          trigger: section,
-          start: startCondition,
-          end: () => {
-            const viewportHeight = window.innerHeight;
-            const sectionBottom = (section as HTMLElement).offsetTop + (section as HTMLElement).offsetHeight;
-            const additionalDistance = viewportHeight * 0.5;
-            const endValue = sectionBottom - viewportHeight + additionalDistance;
-            return `+=${endValue}`;
-          },
-          scrub: 1,
-        },
-        scale: 3,
-        ease: "none",
-      });
-    });
-
-    // 3. Clip-path transitions
-    const totalPreviews = filteredProjects.length;
-    for (let i = 1; i <= totalPreviews; i++) {
-      const preview = document.querySelector(`#preview-${i}`);
-      const currentSection = `#section-${i}`;
-      const nextSection = `#section-${i + 1}`;
-
-      if (!preview || !document.querySelector(currentSection)) continue;
-
-      const tl = gsap.timeline({
-        scrollTrigger: { toggleActions: "play reverse play reverse",
-          trigger: currentSection,
-          start: i === 1 ? "top center" : "center center",
-          endTrigger: nextSection,
-          end: "center center",
-          scrub: 0.125,
-        }
-      });
-
-      tl.fromTo(preview,
-        { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" },
-        { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", ease: "none", duration: 0.4 }
-      )
-      .to(preview,
-        { duration: 0.2 } // Hold fully open
-      )
-      .to(preview,
-        { clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)", ease: "none", duration: 0.4 }
-      );
-    }
-
-    // 4. Active project index trigger boundaries
-    filteredProjects.forEach((_, idx) => {
-      if (idx === 0) return;
-      ScrollTrigger.create({
-        trigger: `#section-${idx + 1}`,
-        start: "top center",
-        onEnter: () => setActiveProjectIndex(idx),
-        onLeaveBack: () => setActiveProjectIndex(idx - 1)
-      });
-    });
-
-    // 5. Scroll-linked overall progress bar
-    if (document.querySelector(".scroll-progress-fill")) {
-      gsap.fromTo(".scroll-progress-fill", 
-        { width: "0%" },
-        {
-          width: "100%",
-          ease: "none",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
-            trigger: ".gabriel-container",
-            start: "top 20%",
-            end: "bottom bottom",
-            scrub: true,
-          }
-        }
-      );
-    }
-
-    // 6. Header hover-preview setup
-    const headers = gsap.utils.toArray<HTMLElement>(".headers section h1");
-    const hoverPreview = document.querySelector(".hover-preview-container");
-    const hoverImg = document.querySelector(".hover-preview-img") as HTMLImageElement;
-
-    if (hoverPreview && hoverImg) {
-      headers.forEach((header, idx) => {
-        if (idx >= filteredProjects.length) return; // skip last outline-text header
-        
-        header.addEventListener("mouseenter", () => {
-          hoverImg.src = filteredProjects[idx].images[0];
-          gsap.to(hoverPreview, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.3,
-            ease: "power3.out"
-          });
-        });
-
-        header.addEventListener("mousemove", (e: any) => {
-          gsap.to(hoverPreview, {
-            x: e.clientX + 20,
-            y: e.clientY + 20,
-            duration: 0.1,
-            ease: "power2.out"
-          });
-        });
-
-        header.addEventListener("mouseleave", () => {
-          gsap.to(hoverPreview, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.3,
-            ease: "power3.out"
-          });
-        });
-      });
-    }
-
-    ScrollTrigger.refresh();
+  // Close all pages when category changes
+  useEffect(() => {
+    setOpenItems([]);
   }, [activeCategory]);
+
+  const handleItemClick = (e: React.MouseEvent, idx: number) => {
+    e.stopPropagation();
+    if (openItems.includes(idx)) {
+      // Close this page and all pages after it (higher indices)
+      setOpenItems(prev => prev.filter(i => i < idx));
+    } else {
+      // Open this page and all pages before it (lower indices)
+      const newOpen: number[] = [];
+      for (let i = 0; i <= idx; i++) {
+        newOpen.push(i);
+      }
+      setOpenItems(newOpen);
+    }
+  };
+
+  // Close all pages when clicking outside the book
+  const handleSceneClick = () => {
+    setOpenItems([]);
+  };
 
   // Lightbox modal state
   const [lightboxProject, setLightboxProject] = useState<{
@@ -380,7 +237,7 @@ export default function Work() {
   };
 
   return (
-    <div ref={containerRef} className="noise-overlay" style={{ backgroundColor: "#000", minHeight: "100vh" }}>
+    <div className="noise-overlay" style={{ backgroundColor: "#000", minHeight: "100vh" }}>
       {/* Floating navigation header */}
       <header className="nav-header scrolled" id="main-header" style={{ opacity: 1, pointerEvents: "auto" }}>
         <a
@@ -408,11 +265,6 @@ export default function Work() {
           </a>
         </nav>
       </header>
-
-      {/* Floating Hover Preview Image Container */}
-      <div className="hover-preview-container" style={{ position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 100, width: "260px", height: "170px", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.15)", boxShadow: "0 15px 45px rgba(0,0,0,0.6)", opacity: 0, transform: "scale(0.8)", transition: "opacity 0.3s, transform 0.3s" }}>
-        <img loading="lazy" className="hover-preview-img" src="" alt="Work thumbnail hover" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-      </div>
 
       {/* Main Container */}
       <main style={{ backgroundColor: "#000", minHeight: "100vh", paddingTop: "8rem" }}>
@@ -443,112 +295,71 @@ export default function Work() {
           ))}
         </div>
 
-        <div className="gabriel-container">
-          
-          {/* Minimal Project Details Fixed Overlay */}
-          {filteredProjects.length > 0 && (
-            <div className="specs-overlay" key={activeProjectIndex}>
-              <span className="project-title-label">
-                {filteredProjects[activeProjectIndex].title}
-              </span>
-              <div className="specs-grid">
-                <span>Concept: {filteredProjects[activeProjectIndex].specs.structure}</span>
-                <span>Area: {filteredProjects[activeProjectIndex].specs.interior}</span>
-                <span>Year: {filteredProjects[activeProjectIndex].specs.height}</span>
-                <span>Location: {filteredProjects[activeProjectIndex].specs.exterior}</span>
-              </div>
-            </div>
-          )}
-
-          {/* Dynamic Scroll Scrub Progress Bar Overlay */}
-          <div className="scroll-indicator-overlay" style={{ position: "fixed", bottom: "40px", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: "2rem", zIndex: 40, fontFamily: "monospace", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>
-            <span>{`0${activeProjectIndex + 1}`}</span>
-            <div style={{ width: "120px", height: "2px", backgroundColor: "rgba(255,255,255,0.15)", position: "relative", borderRadius: "9999px", overflow: "hidden" }}>
-              <div className="scroll-progress-fill" style={{ position: "absolute", top: 0, left: 0, height: "100%", width: "0%", backgroundColor: "#C9A84C" }}></div>
-            </div>
-            <span>{`0${filteredProjects.length}`}</span>
+        {/* 3D Book Gallery Scene */}
+        <div className="scene" onClick={handleSceneClick}>
+          <div className="bg-typography">
+            <span>Selected</span>
+            <span>Works</span>
           </div>
 
-          {/* View Gallery Button Fixed Overlay */}
-          {filteredProjects.length > 0 && (
-            <button 
-              onClick={() => setLightboxProject({
-                siteName: filteredProjects[activeProjectIndex].title,
-                images: filteredProjects[activeProjectIndex].images,
-                activeIndex: 0
-              })}
-              className="gallery-btn"
-              data-cursor="view"
-            >
-              <span>View Gallery</span>
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
-          )}
-
-          {/* Intro Copy shown in center background (revealed when previews exit) */}
-          <div className="intro-copy">
-            <span style={{ fontSize: "10px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.25em", color: "#C9A84C", display: "block", marginBottom: "0.6rem" }}>PORTFOLIO</span>
-            <h1 className="work-hero-title" style={{ fontSize: "4.2vw", fontFamily: "var(--font-display)", fontWeight: 800, textTransform: "uppercase", margin: 0, overflow: "visible", lineHeight: 1.25, paddingBottom: "0.15em", whiteSpace: "nowrap" }}>
-              {"SELECTED WORKS".split("").map((char, index) => (
-                <span key={index} className="work-char char-reveal" style={{ display: "inline-block" }}>
-                  {char === " " ? "\u00A0" : char}
-                </span>
-              ))}
-            </h1>
-            <div className="work-hero-line" style={{ width: "0%", height: "1px", backgroundColor: "rgba(255,255,255,0.15)", margin: "0.75rem auto 0.5rem auto" }}></div>
-            <p style={{ textTransform: "none", color: "rgba(255, 255, 255, 0.45)", fontSize: "12px", letterSpacing: "0.05em" }}>
-              Scroll down to explore our curation
-            </p>
-          </div>
-
-          {/* Scrolling Headers (Normal Scroll Flow) */}
-          <div className="headers">
-            {filteredProjects.map((project, index) => (
-              <section id={`section-${index + 1}`} key={project.id}>
-                <h1>{project.title.split(" ")[0]}</h1>
-              </section>
-            ))}
-            <section id={`section-${filteredProjects.length + 1}`}>
-              <h1 className="outline-text">Decor Lab</h1>
-            </section>
-            <div className="spacer"></div>
-          </div>
-
-          {/* Fixed Previews Layer */}
-          <div className="section-previews">
-            {filteredProjects.length > 0 && (
-              <div 
-                onClick={() => setLightboxProject({
-                  siteName: filteredProjects[activeProjectIndex].title,
-                  images: filteredProjects[activeProjectIndex].images,
-                  activeIndex: 0
-                })}
-                className="relative w-full h-full cursor-pointer group pointer-events-auto"
-                data-cursor="view"
-              >
-                {filteredProjects.map((project, index) => (
-                  <div className="img" id={`preview-${index + 1}`} key={project.id}>
-                    <img loading="lazy" id={`preview-img-${index + 1}`} src={project.images[0]} alt={project.title} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-20"></div>
+          <div className={"galeria-book-3d" + (openItems.length > 0 ? " book-open" : "")}>
+            {filteredProjects.map((project, idx) => {
+              const isOpen = openItems.includes(idx);
+              return (
+                <div
+                  key={project.id}
+                  className={"galeria-book-3d__item" + (isOpen ? " is-open" : "")}
+                  style={{ "--i": idx } as React.CSSProperties}
+                  onClick={(e) => handleItemClick(e, idx)}
+                >
+                  {/* Front Page (Cover) */}
+                  <div className="book-page-front">
+                    <img loading="lazy" src={project.images[0]} alt={`${project.title} Cover`} />
+                    <div className="book-page-front-overlay">
+                      <span className="book-page-num">0{idx + 1}</span>
+                      <h3 className="book-page-title">{project.title}</h3>
+                      <span className="book-page-category">{project.category}</span>
+                    </div>
                   </div>
-                ))}
 
-                {/* Interactive Glass Hover Badge */}
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-30">
-                  <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full px-4.5 py-2.5 text-[9px] font-mono uppercase tracking-[0.2em] text-white flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    <span>View Gallery</span>
+                  {/* Back Page (Details) */}
+                  <div className="book-page-back">
+                    <img loading="lazy" src={project.images[1] || project.images[0]} alt={`${project.title} details background`} />
+                    <div className="book-page-back-overlay">
+                      <h3 className="book-project-title">{project.title}</h3>
+                      <span className="book-project-loc">{project.location}</span>
+                      <p className="book-project-desc">{project.description}</p>
+                      
+                      <div className="book-project-specs">
+                        <div className="spec-item">
+                          <span className="spec-label">Concept</span>
+                          <span className="spec-value">{project.specs.structure}</span>
+                        </div>
+                        <div className="spec-item">
+                          <span className="spec-label">Area</span>
+                          <span className="spec-value">{project.specs.interior}</span>
+                        </div>
+                      </div>
+
+                      <button
+                        className="book-project-btn"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent closing page
+                          setLightboxProject({
+                            siteName: project.title,
+                            images: project.images,
+                            activeIndex: 0
+                          });
+                        }}
+                      >
+                        View Gallery
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            })}
           </div>
-
         </div>
 
         {/* Premium Call to Action (CTA) consult block */}
@@ -704,122 +515,259 @@ export default function Work() {
 
       {/* Local responsive styling */}
       <style jsx global>{`
-        .outline-text {
-          color: transparent !important;
-          -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
-          transition: all 0.3s ease;
-        }
-        .outline-text:hover {
-          -webkit-text-stroke: 1px #C9A84C !important;
-        }
-
-        /* Gabriel Contassot 1:1 Scroll Animation Layout Styling */
-        .gabriel-container {
+        /* 3D Book Gallery Layout Styling */
+        .scene {
           width: 100%;
-          min-height: 100vh;
-          background-color: #000;
-          color: #fff;
-          position: relative;
-          overflow-x: hidden;
-        }
-
-        .gabriel-container h1 {
-          color: #fff;
-          font-size: 16vw;
-          font-weight: 400;
-          letter-spacing: -0.025em;
-          text-transform: uppercase;
-          text-align: center;
-          font-family: var(--font-serif);
-          position: relative;
-          z-index: 2;
-        }
-
-        @media (min-width: 1024px) {
-          .gabriel-container h1 {
-            font-size: 14vw;
-          }
-        }
-
-        .gabriel-container section {
-          height: 100vh;
+          height: 80vh;
+          min-height: 550px;
+          perspective: 1200px;
+          transform-style: preserve-3d;
           display: flex;
-          align-items: center;
           justify-content: center;
-          margin: 150vh 0;
+          align-items: center;
+          overflow: hidden;
+          position: relative;
+          background-image: url("/assets/projects/site_01/image_3.webp");
+          background-size: cover;
+          background-position: center;
+          background-blend-mode: overlay;
+          background-color: rgba(0, 0, 0, 0.88);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .gabriel-container section:first-of-type {
-          margin-top: 30vh;
-        }
-
-        .gabriel-container .section-previews {
-          position: fixed;
-          width: 75vw;
-          height: 50vh;
-          max-height: 400px;
+        .bg-typography {
+          position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+          width: 100%;
+          text-align: center;
+          font-size: clamp(3rem, 12vw, 10rem);
+          font-weight: 800;
+          line-height: 0.85;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 5vw;
+          pointer-events: none;
+          z-index: 0;
+          mix-blend-mode: overlay;
+          color: rgba(255, 255, 255, 0.15);
+          font-family: var(--font-display, 'Syne', sans-serif);
+          text-transform: uppercase;
+        }
+
+        .bg-typography span {
+          display: block;
+        }
+
+        .galeria-book-3d {
+          position: relative;
+          width: clamp(250px, 18vw, 340px);
+          height: clamp(375px, 27vw, 510px);
+          perspective: 1200px;
+          transform-style: preserve-3d;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           z-index: 10;
-          pointer-events: none; /* Let pointer pass to overlay view button */
+          transform: translateX(0px);
+          transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        @media (min-width: 768px) {
-          .gabriel-container .section-previews {
-            width: 380px;
-            height: 532px;
-            max-height: none;
-          }
+        .galeria-book-3d.book-open {
+          transform: translateX(25%);
         }
 
-        @media (min-width: 1280px) {
-          .gabriel-container .section-previews {
-            width: 500px;
-            height: 700px;
-            max-height: none;
-          }
-        }
-
-        .gabriel-container .img {
+        .galeria-book-3d__item {
+          position: absolute;
           width: 100%;
           height: 100%;
-          position: absolute;
-          clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-          overflow: hidden;
-          border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          box-shadow: 0 30px 100px rgba(0, 0, 0, 0.9);
+          perspective: 1200px;
+          transform-style: preserve-3d;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transform-origin: left center;
+          transform: rotateY(0deg);
+          transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), z-index 0s;
+          transition-delay: calc((4 - var(--i)) * 0.08s), calc((4 - var(--i)) * 0.08s + 0.3s);
+          box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+          cursor: pointer;
+          z-index: calc(10 - var(--i));
+          border-radius: 12px;
         }
 
-        .gabriel-container .img img {
+        .galeria-book-3d__item.is-open {
+          transform: rotateY(-180deg);
+          transition-delay: 0s, 0s;
+          z-index: calc(20 + var(--i));
+        }
+
+        .book-page-front,
+        .book-page-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          backface-visibility: hidden;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .book-page-front {
+          z-index: 2;
+          transform: rotateY(0deg);
+        }
+
+        .book-page-back {
+          transform: rotateY(180deg);
+        }
+
+        .book-page-front img,
+        .book-page-back img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: #111;
         }
 
-        .gabriel-container .intro-copy {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 0;
-          text-align: center;
-          width: max-content;
-          max-width: 95vw;
-        }
-
-        .gabriel-container .intro-copy p {
+        /* Gradient overlays */
+        .book-page-front-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.2) 100%);
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: 2rem 1.5rem;
           color: #fff;
-          font-size: 14px;
-          font-weight: 500;
-          text-transform: uppercase;
-          text-align: center;
+          z-index: 3;
         }
 
-        .gabriel-container .spacer {
+        .book-page-back-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(8, 8, 10, 0.9);
+          backdrop-filter: blur(12px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 2rem 1.5rem;
+          color: #fff;
+          z-index: 3;
+          transform: rotateY(180deg); /* align text with back page */
+        }
+
+        .book-page-num {
+          font-family: var(--font-body), monospace;
+          font-size: 0.9rem;
+          color: #C9A84C;
+          margin-bottom: 0.5rem;
+          letter-spacing: 2px;
+          display: block;
+        }
+
+        .book-page-title {
+          font-family: var(--font-serif), serif;
+          font-size: clamp(1.4rem, 2vw, 1.8rem);
+          line-height: 1.2;
+          font-weight: 400;
+          margin: 0 0 0.5rem 0;
+        }
+
+        .book-page-category {
+          font-family: var(--font-body), sans-serif;
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          opacity: 0.6;
+        }
+
+        /* Back page specs details */
+        .book-project-title {
+          font-family: var(--font-serif), serif;
+          font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+          font-weight: 400;
+          margin: 0 0 0.25rem 0;
+          color: #fff;
+        }
+
+        .book-project-loc {
+          font-family: var(--font-body), sans-serif;
+          font-size: 0.75rem;
+          color: #C9A84C;
+          margin-bottom: 1rem;
+          display: block;
+          letter-spacing: 0.5px;
+        }
+
+        .book-project-desc {
+          font-family: var(--font-body), sans-serif;
+          font-size: 0.8rem;
+          line-height: 1.5;
+          opacity: 0.75;
+          margin-bottom: 1.2rem;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .book-project-specs {
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 0.8rem 0;
+          margin-bottom: 1.2rem;
+        }
+
+        .spec-item {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.75rem;
+          font-family: var(--font-body), sans-serif;
+        }
+
+        .spec-label {
+          opacity: 0.5;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .spec-value {
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.95);
+        }
+
+        .book-project-btn {
+          background: #C9A84C;
+          color: #000;
+          border: none;
+          border-radius: 4px;
+          padding: 0.7rem 1.2rem;
+          font-size: 0.8rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
           width: 100%;
-          height: 400px;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        .book-project-btn:hover {
+          background: #fff;
+          color: #000;
+          box-shadow: 0 5px 15px rgba(199, 168, 76, 0.4);
         }
 
         /* Lightbox Overlay and dialog modal layout styling */
@@ -910,91 +858,6 @@ export default function Work() {
           text-transform: uppercase;
           letter-spacing: 0.1em;
           white-space: nowrap;
-        }
-
-        .specs-overlay {
-          position: fixed;
-          z-index: 30;
-          pointer-events: auto;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          text-align: center;
-          font-family: monospace;
-          text-transform: uppercase;
-          font-size: 10px;
-          letter-spacing: 0.05em;
-          color: rgba(255, 255, 255, 0.5);
-          bottom: 64px;
-          left: 24px;
-          right: 24px;
-          align-items: center;
-        }
-        .specs-overlay .project-title-label {
-          color: #fff;
-          font-weight: 600;
-          font-size: 12px;
-          font-family: sans-serif;
-          text-transform: none;
-          letter-spacing: normal;
-          margin-bottom: 4px;
-        }
-        .specs-grid {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 8px 16px;
-        }
-        @media (min-width: 1024px) {
-          .specs-overlay {
-            bottom: 40px;
-            left: 40px;
-            right: auto;
-            text-align: left;
-            align-items: flex-start;
-          }
-          .specs-grid {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-          }
-        }
-
-        .gallery-btn {
-          position: fixed;
-          z-index: 30;
-          pointer-events: auto;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 9999px;
-          font-size: 9px;
-          font-family: monospace;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: rgba(255, 255, 255, 0.8);
-          background-color: rgba(0, 0, 0, 0.4);
-          backdrop-filter: blur(4px);
-          transition: all 0.3s ease;
-          cursor: pointer;
-          bottom: 24px;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-        .gallery-btn:hover {
-          border-color: #fff;
-          color: #fff;
-          background-color: rgba(0, 0, 0, 0.8);
-        }
-        @media (min-width: 1024px) {
-          .gallery-btn {
-            bottom: 40px;
-            right: 40px;
-            left: auto;
-            transform: none;
-          }
         }
 
         .section-footer.dark-footer {
