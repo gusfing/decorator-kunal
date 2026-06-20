@@ -662,7 +662,6 @@ export default function Work() {
           padding: 2rem 1.5rem;
           color: #fff;
           z-index: 3;
-          transform: rotateY(180deg); /* align text with back page */
         }
 
         .book-page-num {
