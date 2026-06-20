@@ -63,7 +63,7 @@ export default function Contact() {
           scale: 1.0,
           yPercent: 8,
           ease: "none",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: ".contact-hero-img-wrap",
             start: "top top",
             end: "bottom top",
@@ -85,7 +85,7 @@ export default function Contact() {
           duration: 0.8,
           ease: "power3.out",
           stagger: 0.1,
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: ".info-grid-section",
             start: "top 85%",
             once: true,
@@ -106,7 +106,7 @@ export default function Contact() {
           duration: 0.8,
           ease: "power3.out",
           stagger: 0.08,
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: ".contact-form-panel",
             start: "top 80%",
             once: true,
@@ -125,7 +125,7 @@ export default function Contact() {
           opacity: 1,
           duration: 1.2,
           ease: "power3.out",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: ".blueprint-map-section",
             start: "top 85%",
             once: true,
@@ -211,8 +211,8 @@ export default function Contact() {
         {/* ====================================================
          * SECTION 1: HERO VIEW (Cinematic Split Screen)
          * ==================================================== */}
-        <section style={{ minHeight: "75vh", padding: "4rem 2.5rem 6rem", display: "flex", alignItems: "center" }}>
-          <div style={{ maxWidth: "1400px", margin: "0 auto", width: "100%", display: "grid", gridTemplateColumns: "1fr", gap: "5rem" }} className="lg:grid-cols-2">
+        <section className="contact-hero-section" style={{ minHeight: "75vh", display: "flex", alignItems: "center" }}>
+          <div className="contact-hero-grid" style={{ maxWidth: "1400px", margin: "0 auto", width: "100%" }}>
             
             {/* Left side column: Large split title */}
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.35rem" }}>
@@ -254,8 +254,8 @@ export default function Contact() {
         {/* ====================================================
          * SECTION 2: GRID OF INFO CARDS + STACK FORM
          * ==================================================== */}
-        <section style={{ padding: "8rem 2.5rem", borderTop: "1px solid rgba(255,255,255,0.08)", background: "#060605" }}>
-          <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: "6rem" }} className="lg:grid-cols-2">
+        <section className="contact-details-section" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: "#060605" }}>
+          <div className="contact-details-grid" style={{ maxWidth: "1200px", margin: "0 auto" }}>
             
             {/* Left side: Studio Info cards grid */}
             <div className="info-grid-section" style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
@@ -263,7 +263,7 @@ export default function Contact() {
               
               {/* Location Details Card */}
               <div className="info-grid-card glow-hover" style={{ backgroundColor: "rgba(20,20,18,0.95)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "20px", padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                <span style={{ fontSize: "10px", fontFamily: "monospace", color: "#C9A84C", letterSpacing: "1.5px" }}>STUDIO ADRESS</span>
+                <span style={{ fontSize: "10px", fontFamily: "monospace", color: "#C9A84C", letterSpacing: "1.5px" }}>STUDIO ADDRESS</span>
                 <h3 style={{ fontSize: "1.6rem", fontFamily: "var(--font-serif)", fontWeight: 400, color: "#fff", margin: 0 }}>Kolkata Headquarters</h3>
                 <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.05rem", lineHeight: 1.6, margin: 0 }}>
                   Decor Lab, Suite 402, Design Chambers,<br />
@@ -500,9 +500,8 @@ export default function Contact() {
         {/* ====================================================
          * SECTION 3: STYLIZED MAP (Coordinate Display)
          * ==================================================== */}
-        <section className="blueprint-map-section" style={{ padding: "0 2.5rem 8rem", maxWidth: "1400px", margin: "0 auto" }}>
-          <div style={{ 
-            height: "450px", 
+        <section className="blueprint-map-section" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+          <div className="blueprint-map-container" style={{ 
             borderRadius: "24px", 
             overflow: "hidden", 
             position: "relative",
@@ -661,10 +660,117 @@ export default function Contact() {
           background-color: rgba(255, 255, 255, 0.05) !important;
         }
 
+        /* ===== LAYOUT & RESPONSIVE GRID HELPERS ===== */
+        .contact-hero-section {
+          padding: 6rem 2.5rem 4rem;
+        }
+        .contact-hero-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+        
+        .contact-details-section {
+          padding: 8rem 2.5rem;
+        }
+        .contact-details-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+
+        .blueprint-map-section {
+          padding: 0 2.5rem 8rem;
+        }
+        .blueprint-map-container {
+          height: 450px;
+        }
+
+        /* Desktop Layout (min-width: 1024px) */
+        @media (min-width: 1024px) {
+          .contact-hero-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+          }
+          .contact-details-grid {
+            grid-template-columns: 1fr 1.1fr;
+            gap: 6rem;
+          }
+        }
+
+        /* Tablet/Mobile Layouts (max-width: 1024px) */
         @media (max-width: 1024px) {
-          .contact-grid-container {
-            grid-template-columns: 1fr !important;
-            gap: 4rem !important;
+          .contact-hero-section {
+            padding: 4rem 2rem 3rem;
+          }
+          .contact-details-section {
+            padding: 6rem 2rem;
+          }
+          .blueprint-map-section {
+            padding: 0 2rem 6rem;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .contact-hero-section {
+            padding: 3rem 1.5rem 2rem;
+          }
+          .contact-hero-grid {
+            gap: 2.5rem;
+          }
+          .contact-hero-img-wrap {
+            height: 45vh !important;
+          }
+          .contact-hero-title {
+            font-size: clamp(2.2rem, 8vw, 3.8rem) !important;
+            white-space: normal !important;
+          }
+          .contact-details-section {
+            padding: 4rem 1.5rem;
+          }
+          .contact-details-grid {
+            gap: 3rem;
+          }
+          .contact-form-panel {
+            padding: 2rem !important;
+          }
+          .blueprint-map-section {
+            padding: 0 1.5rem 4rem;
+          }
+          .blueprint-map-container {
+            height: 320px;
+          }
+
+          /* Footer responsive stacking */
+          .section-footer .footer-top {
+            flex-direction: column !important;
+            gap: 2.5rem !important;
+          }
+          .section-footer .footer-bottom {
+            flex-direction: column !important;
+            text-align: center !important;
+            gap: 1rem !important;
+          }
+          .section-footer .footer-bottom-links {
+            justify-content: center !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .contact-hero-section {
+            padding: 2rem 1rem 2rem;
+          }
+          .contact-details-section {
+            padding: 3rem 1rem;
+          }
+          .contact-form-panel {
+            padding: 1.5rem !important;
+          }
+          .blueprint-map-section {
+            padding: 0 1rem 3rem;
+          }
+          .blueprint-map-container {
+            height: 280px;
           }
         }
       `}</style>

@@ -32,7 +32,7 @@ export default function RedesignAnimations() {
           { opacity: 0, y: 20 },
           {
             opacity: 1, y: 0, duration: 0.7, ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" },
           }
         );
       });
@@ -47,7 +47,7 @@ export default function RedesignAnimations() {
             stagger: 0.025,
             duration: 0.7,
             ease: "power3.out",
-            scrollTrigger: { trigger: heading, start: "top 88%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: heading, start: "top 88%", toggleActions: "play none none none" },
           }
         );
       });
@@ -64,7 +64,7 @@ export default function RedesignAnimations() {
             scrollTrigger: {
               trigger: ".rl-methodology-list",
               start: "top 85%",
-              toggleActions: "play none none reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -95,7 +95,7 @@ export default function RedesignAnimations() {
           {
             opacity: 1, clipPath: "inset(0 0 0% 0)", y: 0,
             duration: 1.1, ease: "power3.out", delay: i * 0.12,
-            scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none none" },
           }
         );
       });
@@ -106,7 +106,7 @@ export default function RedesignAnimations() {
         gsap.fromTo(marquee,
           { opacity: 0, y: 40 },
           { opacity: 1, y: 0, duration: 1, ease: "power2.out",
-            scrollTrigger: { trigger: marquee, start: "top 90%", toggleActions: "play none none reverse" } }
+            scrollTrigger: { trigger: marquee, start: "top 90%", toggleActions: "play none none none" } }
         );
       }
 
@@ -122,7 +122,7 @@ export default function RedesignAnimations() {
           onUpdate: () => {
             el.textContent = Math.round(obj.val) + (hasPlus ? "+" : "");
           },
-          scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reset" },
+          scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
         });
       });
 
@@ -134,7 +134,7 @@ export default function RedesignAnimations() {
           {
             opacity: 1, y: 0, scale: 1,
             duration: 1.2, ease: "power3.out", delay: i * 0.15,
-            scrollTrigger: { trigger: "#collabs", start: "top 75%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: "#collabs", start: "top 75%", toggleActions: "play none none none" },
           }
         );
       });
@@ -147,7 +147,7 @@ export default function RedesignAnimations() {
           {
             opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)",
             duration: 0.8, ease: "power3.out", delay: i * 0.1,
-            scrollTrigger: { trigger: "#showcase", start: "top 80%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: "#showcase", start: "top 80%", toggleActions: "play none none none" },
           }
         );
       });
@@ -162,7 +162,7 @@ export default function RedesignAnimations() {
             { clipPath: "inset(100% 0 0 0)" },
             {
               clipPath: "inset(0% 0 0 0)", duration: 1.2, ease: "power4.out", delay: i * 0.18,
-              scrollTrigger: { trigger: "#capabilities", start: "top 80%", toggleActions: "play none none reverse" },
+              scrollTrigger: { trigger: "#capabilities", start: "top 80%", toggleActions: "play none none none" },
             }
           );
         }
@@ -173,7 +173,7 @@ export default function RedesignAnimations() {
             { opacity: 0, y: 40 },
             {
               opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: i * 0.18 + 0.25,
-              scrollTrigger: { trigger: "#capabilities", start: "top 80%", toggleActions: "play none none reverse" },
+              scrollTrigger: { trigger: "#capabilities", start: "top 80%", toggleActions: "play none none none" },
             }
           );
         }
@@ -186,7 +186,7 @@ export default function RedesignAnimations() {
           { opacity: 0, y: 30 },
           {
             opacity: 0.75, y: 0, duration: 1.1, ease: "power2.out",
-            scrollTrigger: { trigger: ".rl-philo-quote-band", start: "top 88%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: ".rl-philo-quote-band", start: "top 88%", toggleActions: "play none none none" },
           }
         );
       }
@@ -199,7 +199,7 @@ export default function RedesignAnimations() {
           {
             opacity: 1, y: 0, rotateY: 0,
             duration: 1.4, ease: "power3.out",
-            scrollTrigger: { trigger: "#instagram", start: "top 80%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: "#instagram", start: "top 80%", toggleActions: "play none none none" },
           }
         );
         // Subtle floating idle animation
@@ -221,7 +221,7 @@ export default function RedesignAnimations() {
         {
           opacity: 1, x: 0,
           stagger: 0.08, duration: 0.7, ease: "power2.out",
-          scrollTrigger: { trigger: "#instagram", start: "top 80%", toggleActions: "play none none reverse" },
+          scrollTrigger: { trigger: "#instagram", start: "top 80%", toggleActions: "play none none none" },
         }
       );
 
@@ -233,7 +233,7 @@ export default function RedesignAnimations() {
           {
             opacity: 1, y: 0, scale: 1,
             duration: 1.6, ease: "expo.out",
-            scrollTrigger: { trigger: ".rl-footer", start: "top 80%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: ".rl-footer", start: "top 80%", toggleActions: "play none none none" },
           }
         );
       }
@@ -245,7 +245,7 @@ export default function RedesignAnimations() {
         {
           opacity: 1, y: 0,
           stagger: 0.1, duration: 0.8, ease: "power2.out",
-          scrollTrigger: { trigger: ".rl-footer-top", start: "top 85%", toggleActions: "play none none reverse" },
+          scrollTrigger: { trigger: ".rl-footer-top", start: "top 85%", toggleActions: "play none none none" },
         }
       );
 
@@ -255,7 +255,7 @@ export default function RedesignAnimations() {
           { scaleX: 0, transformOrigin: "left" },
           {
             scaleX: 1, duration: 1, ease: "power3.out",
-            scrollTrigger: { trigger: divider, start: "top 90%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: divider, start: "top 90%", toggleActions: "play none none none" },
           }
         );
       });

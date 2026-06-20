@@ -996,7 +996,7 @@ export default function Home() {
 
       // SCROLL ANIMATION: Drop down into About Us, STACK into one image, and morph into a WIDE landscape!
       const aboutTl = gsap.timeline({
-        scrollTrigger: { toggleActions: "play reverse play reverse",
+        scrollTrigger: { toggleActions: "play none none none",
           trigger: "#section-about",
           start: "top 90%", // Trigger when about section enters the bottom of the viewport
           end: "top 20%",   // Animation finishes when about section reaches 20% from top
@@ -1046,7 +1046,7 @@ export default function Home() {
         {
           scale: 1,
           opacity: 1,
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: "#info",
             start: "top bottom",
             end: "bottom top",
@@ -1061,7 +1061,7 @@ export default function Home() {
       gsap.to(".hero-bg-video", {
         yPercent: 20,
         ease: "none",
-        scrollTrigger: { toggleActions: "play reverse play reverse",
+        scrollTrigger: { toggleActions: "play none none none",
           trigger: "#section-hero",
           start: "top top",
           end: "bottom top",
@@ -1071,7 +1071,7 @@ export default function Home() {
       gsap.to(".hero-foreground-content", {
         yPercent: -15,
         ease: "none",
-        scrollTrigger: { toggleActions: "play reverse play reverse",
+        scrollTrigger: { toggleActions: "play none none none",
           trigger: "#section-hero",
           start: "top top",
           end: "bottom top",
@@ -1108,7 +1108,7 @@ export default function Home() {
       };
 
       const pinTimeline = gsap.timeline({
-        scrollTrigger: { toggleActions: "play reverse play reverse",
+        scrollTrigger: { toggleActions: "play none none none",
           trigger: scrollWrapper,
           start: "top top",
           end: () => `+=${scrollTrack.scrollWidth - window.innerWidth}`,
@@ -1144,7 +1144,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".about-right-image",
               start: "top 90%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1163,7 +1163,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#info",
               start: "top 80%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1172,7 +1172,7 @@ export default function Home() {
       const clipLines = gsap.utils.toArray<HTMLElement>(".clip-text-about");
       if (clipLines.length > 0) {
         const tlAbout = gsap.timeline({
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: "#info",
             start: "top 80%",
             end: "bottom 40%",
@@ -1201,7 +1201,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#info",
               start: "top 80%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1244,7 +1244,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#process",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1264,7 +1264,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#process .process-accordion-container",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1282,7 +1282,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#collection",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1302,7 +1302,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#collection .curated-gallery-masonry",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1322,7 +1322,7 @@ export default function Home() {
               {
                 y: yEnd,
                 ease: "none",
-                scrollTrigger: { toggleActions: "play reverse play reverse",
+                scrollTrigger: { toggleActions: "play none none none",
                   trigger: wrap,
                   start: "top bottom",
                   end: "bottom top",
@@ -1338,7 +1338,7 @@ export default function Home() {
               {
                 yPercent: 8,
                 ease: "none",
-                scrollTrigger: { toggleActions: "play reverse play reverse",
+                scrollTrigger: { toggleActions: "play none none none",
                   trigger: wrap,
                   start: "top bottom",
                   end: "bottom top",
@@ -1364,7 +1364,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".cashmere-bg",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1384,7 +1384,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".cashmere-bg .collab-right",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1404,7 +1404,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".press-grid",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1423,7 +1423,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".press-grid",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1443,7 +1443,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#showcase",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1460,7 +1460,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#showcase .showcase-tabs",
               start: "bottom 90%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1480,7 +1480,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".section-capabilities",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1499,7 +1499,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: ".section-capabilities .capabilities-grid",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1519,7 +1519,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1538,7 +1538,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#instagram",
               start: "top 80%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1558,7 +1558,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#feedback",
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1578,7 +1578,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#contact-footer",
               start: "top 95%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -1589,7 +1589,7 @@ export default function Home() {
       if (runningText) {
         gsap.to(runningText, {
           xPercent: -30,
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: scrollWrapper,
             start: "top bottom",
             end: "bottom top",
@@ -1627,7 +1627,7 @@ export default function Home() {
               scrollTrigger: {
                 trigger: item.trigger,
                 start: "top 90%",
-                toggleActions: "play reverse play reverse"
+                toggleActions: "play none none none"
               }
             }
           );
@@ -1649,7 +1649,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: stat,
               start: "top 95%",
-              toggleActions: "play reverse play reverse"
+              toggleActions: "play none none none"
             },
             onUpdate: () => {
               stat.innerText = obj.val.toFixed(decimals) + suffix;
@@ -1709,7 +1709,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 80%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1725,7 +1725,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 75%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1741,7 +1741,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#section-about",
             start: "top 70%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1761,7 +1761,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#process",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1781,7 +1781,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#process .process-accordion-container",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1799,7 +1799,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#collection",
             start: "top 80%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1820,7 +1820,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#showcase",
             start: "top 82%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1839,7 +1839,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#showcase",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1854,7 +1854,7 @@ export default function Home() {
           yPercent: -4,
           rotateZ: 1.5,
           ease: "none",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: "#instagram",
             start: "top bottom",
             end: "bottom top",
@@ -1878,7 +1878,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: "#feedback",
               start: "top 80%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
             delay: i * 0.1,
           }
@@ -1899,7 +1899,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#contact-footer",
             start: "top 90%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1919,7 +1919,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: "#contact-footer",
             start: "top 88%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1938,7 +1938,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".section-capabilities",
             start: "top 82%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1959,7 +1959,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".section-capabilities .capabilities-grid",
             start: "top 82%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -1977,7 +1977,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".press-grid",
             start: "top 80%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -2002,7 +2002,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: el,
             start: "top 90%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -2049,7 +2049,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: heading,
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -2086,7 +2086,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: frame,
               start: "top 88%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             }
           }
         );
@@ -2105,7 +2105,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: item,
             start: "top 90%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
           delay: (i % 3) * 0.12,
         }
@@ -2127,7 +2127,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: wrapper,
               start: "top 88%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
             delay: i * 0.1,
           }
@@ -2150,7 +2150,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: imgWrap,
             start: "top 88%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -2168,7 +2168,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: item,
             start: "top 90%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
           delay: i * 0.15,
         }
@@ -2188,7 +2188,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: ".press-grid",
             start: "top 85%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           }
         }
       );
@@ -2202,7 +2202,7 @@ export default function Home() {
         {
           scale: 1,
           ease: "none",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: "#section-about",
             start: "top bottom",
             end: "bottom top",
@@ -2221,7 +2221,7 @@ export default function Home() {
         y: 20,
         duration: 0.8,
         ease: "power3.out",
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#showcase", start: "top 80%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
       });
       gsap.from(".showcase-main-title", {
         opacity: 0,
@@ -2230,7 +2230,7 @@ export default function Home() {
         duration: 1,
         ease: "power4.out",
         delay: 0.15,
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#showcase", start: "top 80%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
       });
       gsap.from(".showcase-header-desc", {
         opacity: 0,
@@ -2238,7 +2238,7 @@ export default function Home() {
         duration: 0.8,
         ease: "power3.out",
         delay: 0.3,
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#showcase", start: "top 80%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
       });
 
       // Staggered project list items
@@ -2250,7 +2250,7 @@ export default function Home() {
           duration: 0.6,
           stagger: 0.12,
           ease: "power3.out",
-          scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-project-list", start: "top 85%" }
+          scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-project-list", start: "top 85%" }
         });
       }
 
@@ -2259,7 +2259,7 @@ export default function Home() {
         clipPath: "inset(15% 15% 15% 15%)",
         duration: 1.4,
         ease: "power4.out",
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-hero-img-wrap", start: "top 85%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-hero-img-wrap", start: "top 85%" }
       });
 
       // Thumbnail strip fade-in
@@ -2269,7 +2269,7 @@ export default function Home() {
         duration: 0.7,
         ease: "power3.out",
         delay: 0.4,
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-thumb-strip", start: "top 95%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-thumb-strip", start: "top 95%" }
       });
 
       // Description text fade
@@ -2278,7 +2278,7 @@ export default function Home() {
         y: 15,
         duration: 0.6,
         ease: "power3.out",
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".showcase-project-desc-text", start: "top 95%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-project-desc-text", start: "top 95%" }
       });
     }
 
@@ -2291,7 +2291,7 @@ export default function Home() {
         y: 40,
         duration: 0.9,
         ease: "power3.out",
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#contact-footer", start: "top 85%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: "#contact-footer", start: "top 85%" }
       });
       gsap.from(".footer-brand-right", {
         opacity: 0,
@@ -2299,7 +2299,7 @@ export default function Home() {
         duration: 0.9,
         ease: "power3.out",
         delay: 0.15,
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: "#contact-footer", start: "top 85%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: "#contact-footer", start: "top 85%" }
       });
 
       // Dividers wipe-in
@@ -2310,7 +2310,7 @@ export default function Home() {
           transformOrigin: "left",
           duration: 1,
           ease: "power3.inOut",
-          scrollTrigger: { toggleActions: "play reverse play reverse", trigger: div, start: "top 95%" }
+          scrollTrigger: { toggleActions: "play none none none", trigger: div, start: "top 95%" }
         });
       });
 
@@ -2323,7 +2323,7 @@ export default function Home() {
           duration: 0.6,
           stagger: 0.1,
           ease: "power3.out",
-          scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".footer-links-grid", start: "top 90%" }
+          scrollTrigger: { toggleActions: "play none none none", trigger: ".footer-links-grid", start: "top 90%" }
         });
       }
 
@@ -2332,7 +2332,7 @@ export default function Home() {
         opacity: 0,
         duration: 0.8,
         ease: "power2.out",
-        scrollTrigger: { toggleActions: "play reverse play reverse", trigger: ".footer-bottom", start: "top 98%" }
+        scrollTrigger: { toggleActions: "play none none none", trigger: ".footer-bottom", start: "top 98%" }
       });
     }
 

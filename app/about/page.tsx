@@ -59,7 +59,7 @@ export default function About() {
           scale: 1.0,
           yPercent: 10,
           ease: "none",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: ".hero-curtain-image",
             start: "top top",
             end: "bottom top",
@@ -78,13 +78,13 @@ export default function About() {
         {
           opacity: 1,
           filter: "blur(0px)",
-          stagger: 0.05,
-          ease: "none",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          stagger: 0.08,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: philosophyRef.current,
             start: "top 75%",
-            end: "bottom 45%",
-            scrub: true,
+            once: true,
           },
         }
       );
@@ -104,7 +104,7 @@ export default function About() {
             yPercent: 15,
             scale: 1.0,
             ease: "none",
-            scrollTrigger: { toggleActions: "play reverse play reverse",
+            scrollTrigger: { toggleActions: "play none none none",
               trigger: row,
               start: "top bottom",
               end: "bottom top",
@@ -123,7 +123,7 @@ export default function About() {
             y: 0,
             duration: 1.0,
             ease: "power3.out",
-            scrollTrigger: { toggleActions: "play reverse play reverse",
+            scrollTrigger: { toggleActions: "play none none none",
               trigger: row,
               start: "top 75%",
               once: true,
@@ -137,18 +137,19 @@ export default function About() {
     const statsTrack = statsTrackRef.current;
     const statsSection = statsSectionRef.current;
     if (statsTrack && statsSection) {
-      const isDesktop = window.innerWidth > 900;
-      let horizTween: any;
+      const mm = gsap.matchMedia();
 
-      if (isDesktop) {
+      // Desktop layout (> 900px)
+      mm.add("(min-width: 901px)", () => {
         const getScrollAmount = () => {
           return -(statsTrack.scrollWidth - window.innerWidth);
         };
 
-        horizTween = gsap.to(statsTrack, {
+        const horizTween = gsap.to(statsTrack, {
           x: getScrollAmount,
           ease: "none",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: {
+            toggleActions: "play none none none",
             trigger: statsSection,
             start: "top top",
             end: () => `+=${statsTrack.scrollWidth - window.innerWidth}`,
@@ -157,29 +158,53 @@ export default function About() {
             invalidateOnRefresh: true,
           }
         });
-      }
 
-      // Animate stat counters when they scroll into view
-      const statsNum = gsap.utils.toArray<HTMLElement>(".stat-huge-number");
-      statsNum.forEach((stat) => {
-        const target = parseFloat(stat.getAttribute("data-target") || "0");
-        const suffix = stat.getAttribute("data-suffix") || "";
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: target,
-          duration: 2.0,
-          ease: "power3.out",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
-            trigger: stat,
-            // If horizontal containerAnimation is used, trigger by horizontal position.
-            // If vertical, trigger by standard viewport vertical position.
-            start: isDesktop ? "left 85%" : "top 85%",
-            containerAnimation: isDesktop ? horizTween : undefined,
-            once: true,
-          },
-          onUpdate: () => {
-            stat.innerText = Math.floor(obj.val).toLocaleString() + suffix;
-          }
+        // Animate stat counters for desktop (using containerAnimation)
+        const statsNum = gsap.utils.toArray<HTMLElement>(".stat-huge-number");
+        statsNum.forEach((stat) => {
+          const target = parseFloat(stat.getAttribute("data-target") || "0");
+          const suffix = stat.getAttribute("data-suffix") || "";
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 2.0,
+            ease: "power3.out",
+            scrollTrigger: {
+              toggleActions: "play none none none",
+              trigger: stat,
+              start: "left 85%",
+              containerAnimation: horizTween,
+              once: true,
+            },
+            onUpdate: () => {
+              stat.innerText = Math.floor(obj.val).toLocaleString() + suffix;
+            }
+          });
+        });
+      });
+
+      // Mobile layout (<= 900px)
+      mm.add("(max-width: 900px)", () => {
+        // Animate stat counters for mobile
+        const statsNum = gsap.utils.toArray<HTMLElement>(".stat-huge-number");
+        statsNum.forEach((stat) => {
+          const target = parseFloat(stat.getAttribute("data-target") || "0");
+          const suffix = stat.getAttribute("data-suffix") || "";
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 2.0,
+            ease: "power3.out",
+            scrollTrigger: {
+              toggleActions: "play none none none",
+              trigger: stat,
+              start: "top 85%",
+              once: true,
+            },
+            onUpdate: () => {
+              stat.innerText = Math.floor(obj.val).toLocaleString() + suffix;
+            }
+          });
         });
       });
     }
@@ -193,7 +218,7 @@ export default function About() {
           scaleY: 1,
           ease: "none",
           transformOrigin: "top center",
-          scrollTrigger: { toggleActions: "play reverse play reverse",
+          scrollTrigger: { toggleActions: "play none none none",
             trigger: ".timeline-container",
             start: "top 65%",
             end: "bottom 80%",
@@ -218,7 +243,7 @@ export default function About() {
             opacity: 1,
             duration: 1.0,
             ease: "power3.out",
-            scrollTrigger: { toggleActions: "play reverse play reverse",
+            scrollTrigger: { toggleActions: "play none none none",
               trigger: item,
               start: "top 80%",
               once: true,
@@ -236,7 +261,7 @@ export default function About() {
             backgroundColor: "#C9A84C",
             duration: 0.6,
             ease: "back.out(1.7)",
-            scrollTrigger: { toggleActions: "play reverse play reverse",
+            scrollTrigger: { toggleActions: "play none none none",
               trigger: item,
               start: "top 80%",
               once: true,
@@ -253,7 +278,7 @@ export default function About() {
       gsap.to(card, {
         scale: 0.92,
         opacity: 0.6,
-        scrollTrigger: { toggleActions: "play reverse play reverse",
+        scrollTrigger: { toggleActions: "play none none none",
           trigger: accoladeCards[i + 1],
           start: "top 85%",
           end: "top 15%",
@@ -383,7 +408,7 @@ export default function About() {
             
             <p className="philosophy-statement" style={{ fontSize: "3.6vw", fontFamily: "var(--font-serif)", fontWeight: 400, lineHeight: 1.35, color: "#fff", margin: 0 }}>
               {"We believe that a space is not just a layout of concrete and timber, but a living sanctuary that shapes your mind and soul. At Decor Lab, we merge three decades of design heritage with computational modeling to craft fluid, functional architecture you can fully experience.".split(" ").map((word, index) => (
-                <span key={index} className="word" style={{ display: "inline-block", marginRight: "0.28em", opacity: 0.15 }}>
+                <span key={index} className="word" style={{ display: "inline-block", marginRight: "0.28em" }}>
                   {word}
                 </span>
               ))}
@@ -392,58 +417,116 @@ export default function About() {
         </section>
 
         {/* ====================================================
-         * SECTION 3: VISIONARY LEADERSHIP & FOUNDERS
+         * SECTION 3: VISIONARY LEADERSHIP & FOUNDERS (Redesigned)
          * ==================================================== */}
-        <section id="leadership" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "10rem 2.5rem" }}>
-          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-            <div style={{ marginBottom: "6rem" }}>
-              <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color: "#C9A84C" }}>LEADERSHIP</span>
-              <h2 style={{ fontSize: "4.5rem", fontFamily: "var(--font-display)", fontWeight: 700, marginTop: "1rem", textTransform: "uppercase" }}>The Visionaries</h2>
+        <section id="leadership" className="leadership-section" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "0", overflow: "hidden" }}>
+          
+          {/* Section Header */}
+          <div style={{ padding: "8rem 2.5rem 4rem", maxWidth: "1400px", margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: "2rem" }}>
+              <div>
+                <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.3em", color: "#C9A84C", display: "block", marginBottom: "1.5rem" }}>LEADERSHIP</span>
+                <h2 style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", fontFamily: "var(--font-display)", fontWeight: 700, textTransform: "uppercase", margin: 0, lineHeight: 1 }}>The Visionaries</h2>
+              </div>
+              <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.4)", maxWidth: "320px", lineHeight: 1.6, fontFamily: "var(--font-body)", margin: 0 }}>
+                Three decades of design excellence, shaped by two generations of creative leadership.
+              </p>
+            </div>
+            <div style={{ width: "100%", height: "1px", background: "linear-gradient(to right, #C9A84C, transparent)", marginTop: "3rem" }} />
+          </div>
+
+          {/* Founder 1: Raja Sinha — Full-width cinematic card */}
+          <div className="founder-card-1 founder-section-row" style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "stretch" }}>
+            {/* Large background image */}
+            <div className="founder-img-wrap" style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+              <img loading="lazy"
+                src="/assets/projects/photos_set1/image_3.webp"
+                alt="Raja Sinha — Founder"
+                style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.45)" }}
+              />
+              {/* Gradient overlays */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 40%)" }} />
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "12rem" }}>
+            {/* Text content overlaid */}
+            <div className="founder-text-panel" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(2rem, 5vw, 6rem)", maxWidth: "700px", gap: "1.5rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <div style={{ width: "40px", height: "2px", background: "#C9A84C" }} />
+                <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.25em", color: "#C9A84C", textTransform: "uppercase" }}>FOUNDER · EST. 1993</span>
+              </div>
               
-              {/* Founder 1: Raja Sinha */}
-              <div className="founder-section-row lg:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "4rem" }}>
-                <div className="founder-text-panel" style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "1.5rem" }}>
-                  <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.15em", color: "rgba(255,255,255,0.4)" }}>FOUNDER (EST. 1993)</span>
-                  <h3 style={{ fontSize: "3.2rem", fontFamily: "var(--font-serif)", fontWeight: 400 }}>Raja Sinha</h3>
-                  <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-body)" }}>
-                    Raja Sinha founded Decor Lab in 1993, establishing the firm as a dedicated interior design practice. Under his leadership, the firm built a foundation of trust, client-centricity, and execution excellence that allowed it to grow into the nationwide design powerhouse it is today.
-                  </p>
+              <h3 style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontFamily: "var(--font-serif)", fontWeight: 300, margin: 0, lineHeight: 1.1, letterSpacing: "-1px" }}>
+                Raja Sinha
+              </h3>
+              
+              <p style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.15rem)", lineHeight: 1.75, color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-body)", margin: 0, maxWidth: "520px" }}>
+                Raja Sinha founded Decor Lab in 1993, establishing the firm as a dedicated interior design practice. Under his leadership, the firm built a foundation of trust, client-centricity, and execution excellence that allowed it to grow into the nationwide design powerhouse it is today.
+              </p>
+
+              {/* Stats row */}
+              <div style={{ display: "flex", gap: "3rem", marginTop: "1rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+                <div>
+                  <div style={{ fontSize: "2rem", fontFamily: "var(--font-serif)", color: "#C9A84C", lineHeight: 1 }}>32+</div>
+                  <div style={{ fontSize: "0.7rem", fontFamily: "monospace", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "0.4rem" }}>Years of Legacy</div>
                 </div>
-                <div className="founder-img-wrap parallax-img-wrap" style={{ height: "500px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.08)", overflow: "hidden" }}>
-                  <img loading="lazy" 
-                    src="/assets/projects/photos_set1/image_3.webp" 
-                    alt="Raja Sinha Curation" 
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }} 
-                  />
+                <div>
+                  <div style={{ fontSize: "2rem", fontFamily: "var(--font-serif)", color: "#C9A84C", lineHeight: 1 }}>500+</div>
+                  <div style={{ fontSize: "0.7rem", fontFamily: "monospace", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "0.4rem" }}>Projects Delivered</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: "2rem", fontFamily: "var(--font-serif)", color: "#C9A84C", lineHeight: 1 }}>15</div>
+                  <div style={{ fontSize: "0.7rem", fontFamily: "monospace", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "0.4rem" }}>Cities Across India</div>
                 </div>
               </div>
-
-              {/* Founder 2: Ar. Rajdip Sinha */}
-              <div className="founder-section-row lg:grid-cols-2 lg:direction-rtl" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "4rem" }}>
-                <div className="founder-img-wrap parallax-img-wrap" style={{ height: "500px", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.08)", overflow: "hidden" }}>
-                  <img loading="lazy" 
-                    src="/assets/projects/photos_set2/image_2.webp" 
-                    alt="Ar. Rajdip Sinha chief architect" 
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }} 
-                  />
-                </div>
-                <div className="founder-text-panel" style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "1.5rem" }}>
-                  <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.15em", color: "rgba(255,255,255,0.4)" }}>CO-FOUNDER & CHIEF ARCHITECT</span>
-                  <h3 style={{ fontSize: "3.2rem", fontFamily: "var(--font-serif)", fontWeight: 400 }}>Ar. Rajdip Sinha</h3>
-                  <blockquote style={{ borderLeft: "3px solid #C9A84C", paddingLeft: "1.5rem", fontStyle: "italic", color: "#C9A84C", fontSize: "1.25rem", fontFamily: "var(--font-serif)", margin: "0.5rem 0" }}>
-                    "There are 360 degrees, so why stick to one?" — Zaha Hadid
-                  </blockquote>
-                  <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-body)" }}>
-                    An architect with a passion for innovation, Rajdip completed his Master's degree at The Bartlett School of Architecture, University College London (UCL), where he is currently pursuing his PhD. His design philosophy centers on "functionality first," bringing parametric design, fluid structures, and material innovation to create timeless, distinctive environments.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
+
+          {/* Founder 2: Ar. Rajdip Sinha — Asymmetric split */}
+          <div className="founder-card-2 founder-section-row" style={{ position: "relative", minHeight: "85vh", display: "grid", gridTemplateColumns: "1fr", alignItems: "center" }}>
+            {/* Background image — right-aligned */}
+            <div className="founder-img-wrap" style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+              <img loading="lazy"
+                src="/assets/projects/photos_set2/image_2.webp"
+                alt="Ar. Rajdip Sinha — Chief Architect"
+                style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.4)" }}
+              />
+              {/* Gradient overlays — mirrored for right text */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 40%)" }} />
+            </div>
+
+            {/* Text content — right side */}
+            <div className="founder-text-panel" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(2rem, 5vw, 6rem)", marginLeft: "auto", maxWidth: "700px", gap: "1.5rem", minHeight: "85vh" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <div style={{ width: "40px", height: "2px", background: "#C9A84C" }} />
+                <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.25em", color: "#C9A84C", textTransform: "uppercase" }}>CO-FOUNDER · CHIEF ARCHITECT</span>
+              </div>
+              
+              <h3 style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontFamily: "var(--font-serif)", fontWeight: 300, margin: 0, lineHeight: 1.1, letterSpacing: "-1px" }}>
+                Ar. Rajdip Sinha
+              </h3>
+
+              <blockquote style={{ borderLeft: "3px solid #C9A84C", paddingLeft: "1.5rem", fontStyle: "italic", color: "rgba(201, 168, 76, 0.85)", fontSize: "clamp(1rem, 1.3vw, 1.2rem)", fontFamily: "var(--font-serif)", margin: "0.5rem 0", lineHeight: 1.6 }}>
+                {"\u201C"}There are 360 degrees, so why stick to one?{"\u201D"}
+                <span style={{ display: "block", fontSize: "0.8rem", color: "rgba(255,255,255,0.35)", marginTop: "0.5rem", fontStyle: "normal", fontFamily: "monospace" }}>— Zaha Hadid</span>
+              </blockquote>
+
+              <p style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.15rem)", lineHeight: 1.75, color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-body)", margin: 0, maxWidth: "520px" }}>
+                An architect with a passion for innovation, Rajdip completed his Master{"'"}s degree at The Bartlett School of Architecture, University College London (UCL), where he is currently pursuing his PhD. His design philosophy centers on {"\u201C"}functionality first,{"\u201D"} bringing parametric design, fluid structures, and material innovation to create timeless, distinctive environments.
+              </p>
+
+              {/* Credentials */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem", marginTop: "1rem" }}>
+                {["UCL Bartlett", "MArch", "PhD Candidate", "Parametric Design"].map((tag) => (
+                  <span key={tag} style={{ fontSize: "0.7rem", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.15em", padding: "0.5rem 1rem", border: "1px solid rgba(201, 168, 76, 0.3)", borderRadius: "999px", color: "rgba(201, 168, 76, 0.8)", background: "rgba(201, 168, 76, 0.06)" }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </section>
 
         {/* ====================================================
@@ -653,18 +736,14 @@ export default function About() {
       </main>
 
       <style jsx global>{`
-        .lg\\:grid-cols-2 {
-          @media (min-width: 1024px) {
+        @media (min-width: 1024px) {
+          .lg\\:grid-cols-2 {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
           }
-        }
-        .lg\\:direction-rtl {
-          @media (min-width: 1024px) {
+          .lg\\:direction-rtl {
             direction: rtl !important;
           }
-        }
-        .lg\\:direction-rtl > * {
-          @media (min-width: 1024px) {
+          .lg\\:direction-rtl > * {
             direction: ltr !important;
           }
         }
@@ -696,6 +775,15 @@ export default function About() {
           }
           .timeline-progress-line {
             display: none !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .founder-card-1,
+          .founder-card-2 {
+            min-height: 70vh !important;
+          }
+          .founder-card-2 .founder-text-panel {
+            margin-left: 0 !important;
           }
         }
         @media (max-width: 600px) {
