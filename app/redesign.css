@@ -1259,3 +1259,49 @@
 .rl-collabs-marquee:hover .rl-marquee-inner {
   animation-play-state: paused;
 }
+
+/* =========================================
+   MOBILE FOOTER ADJUSTMENTS (rl-footer mobile)
+   ========================================= */
+@media (max-width: 768px) {
+  .rl-footer {
+    padding: 10rem 5% 3rem;
+  }
+  .rl-footer-top {
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  .rl-footer-logo-desc {
+    max-width: 100%;
+  }
+  .rl-footer-logo-desc img {
+    max-height: 38px;
+    margin-bottom: 1.5rem;
+  }
+  .rl-footer-logo-desc p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .rl-footer-links {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .rl-footer-col h4 {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .rl-footer-col a {
+    font-size: 0.95rem;
+  }
+  .rl-footer-bottom {
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: center;
+    align-items: center;
+    margin-top: 3rem;
+  }
+}
