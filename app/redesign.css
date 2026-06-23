@@ -59,33 +59,62 @@
 /* =========================================
    02 / METHODOLOGY (rl-methodology)
    ========================================= */
+.rl-methodology {
+  overflow: visible !important;
+}
+
 .rl-methodology-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 6rem;
   align-items: start;
 }
 
 @media (max-width: 1024px) {
   .rl-methodology-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
 .rl-methodology-list {
   display: flex;
   flex-direction: column;
+  padding-bottom: 35vh;
+}
+
+@media (max-width: 1024px) {
+  .rl-methodology-list {
+    padding-bottom: 0;
+  }
 }
 
 .rl-methodology-item {
   padding: 3rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
 }
+
 .rl-methodology-item:first-child {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rl-methodology-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 50%, rgba(197, 168, 128, 0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rl-methodology-item:hover::before,
+.rl-methodology-item.active::before {
+  opacity: 1;
 }
 
 .rl-methodology-item:hover,
@@ -93,17 +122,42 @@
   padding-left: 2rem;
 }
 
+.rl-methodology-indicator {
+  position: absolute;
+  left: 0;
+  top: 3rem;
+  bottom: 3rem;
+  width: 2px;
+  background-color: #c5a880;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+}
+
+.rl-methodology-item.active .rl-methodology-indicator {
+  transform: scaleY(1);
+}
+
 .rl-methodology-header {
   display: flex;
   align-items: baseline;
   gap: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .rl-methodology-num {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: 1rem;
   opacity: 0.4;
   font-weight: 300;
+  color: #c5a880;
+  transition: opacity 0.4s ease;
+}
+
+.rl-methodology-item.active .rl-methodology-num {
+  opacity: 1;
 }
 
 .rl-methodology-name {
@@ -122,16 +176,50 @@
 }
 
 .rl-methodology-content {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s;
-  opacity: 0;
-}
-.rl-methodology-item.active .rl-methodology-content {
   height: auto;
-  opacity: 1;
+  opacity: 0.4;
   padding-top: 1.5rem;
   padding-left: 3.5rem;
+  transition: opacity 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+.rl-methodology-item.active .rl-methodology-content {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .rl-methodology-item {
+    cursor: default;
+    padding: 2.5rem 0;
+    padding-left: 0 !important;
+  }
+
+  .rl-methodology-item::before {
+    display: none !important;
+  }
+
+  .rl-methodology-indicator {
+    display: none !important;
+  }
+
+  .rl-methodology-name {
+    color: #fff !important;
+  }
+
+  .rl-methodology-content {
+    height: auto !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    padding-top: 1.2rem !important;
+    padding-left: 0 !important;
+  }
+
+  .rl-methodology-tag {
+    border-color: rgba(197, 168, 128, 0.25) !important;
+    background: rgba(197, 168, 128, 0.04) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
 }
 
 .rl-methodology-desc {
@@ -139,17 +227,91 @@
   line-height: 1.6;
   color: #fdfdfd;
   opacity: 0.75;
-  max-width: 400px;
+  max-width: 450px;
   margin-bottom: 1.5rem;
+}
+
+.rl-methodology-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  max-width: 450px;
+}
+
+.rl-methodology-tag {
+  font-size: 0.72rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.rl-methodology-item.active .rl-methodology-tag {
+  border-color: rgba(197, 168, 128, 0.25);
+  background: rgba(197, 168, 128, 0.04);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.rl-methodology-tag:hover {
+  border-color: rgba(197, 168, 128, 0.6) !important;
+  background: rgba(197, 168, 128, 0.1) !important;
+  color: #fff !important;
 }
 
 .rl-methodology-img-wrap {
   position: sticky;
-  top: 10rem;
+  top: 15vh;
   height: 70vh;
   width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .rl-methodology-img-wrap {
+    display: none;
+  }
+}
+
+.rl-methodology-img-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
   border-radius: 4px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rl-methodology-img-caption {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.4s ease;
+}
+
+.rl-methodology-img-caption .caption-num {
+  color: #c5a880;
+  font-weight: 600;
+}
+
+.rl-methodology-img-caption .caption-divider {
+  opacity: 0.25;
+}
+
+.rl-methodology-img-caption .caption-title {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
 }
 
 .rl-methodology-img {
@@ -168,6 +330,27 @@
   opacity: 1;
   transform: scale(1);
   z-index: 2;
+}
+
+/* Mobile-only inline methodology image styling */
+.rl-methodology-mobile-img {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .rl-methodology-mobile-img {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 40vh;
+  }
+  .rl-methodology-mobile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 /* =========================================
@@ -364,9 +547,10 @@
 .rl-portfolio-hover-img {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
-  width: 400px;
+  right: 15%;
+  left: auto;
+  transform: translateY(-50%) scale(0.8) rotate(-5deg);
+  width: 350px;
   aspect-ratio: 4/3;
   object-fit: cover;
   border-radius: 4px;
@@ -379,7 +563,13 @@
 
 .rl-portfolio-row:hover .rl-portfolio-hover-img {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  transform: translateY(-50%) scale(1) rotate(0deg);
+}
+
+@media (max-width: 768px) {
+  .rl-portfolio-hover-img {
+    display: none;
+  }
 }
 
 /* =========================================
@@ -1225,6 +1415,45 @@
   .rl-insta-profile { width: 100%; position: static; min-height: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 0 3rem; }
   .rl-phone-wrap { width: 100%; }
 }
+
+@media (max-width: 640px) {
+  /* Stack arrows below the phone on small screens */
+  .rl-phone-wrap {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  /* Row of arrows under the phone */
+  .rl-phone-wrap .rl-phone-arrow {
+    position: static;
+    order: 1; /* arrows after phone */
+  }
+  .rl-phone-wrap .rl-phone-mockup {
+    order: 0; /* phone first */
+  }
+  /* Put both arrows side-by-side in a flex row after the phone */
+  .rl-phone-wrap {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .rl-phone-wrap .rl-phone-mockup {
+    flex: 0 0 100%;
+    width: 260px;
+    height: 580px;
+    margin: 0 auto;
+    order: 0;
+  }
+  .rl-phone-wrap .rl-phone-arrow {
+    order: 1;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+}
+
 
 /* =========================================
    ANIMATION SUPPORT STYLES

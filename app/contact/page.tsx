@@ -218,7 +218,7 @@ export default function Contact() {
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.35rem" }}>
               <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color: "#C9A84C" }}>GET IN TOUCH</span>
               
-              <h1 className="contact-hero-title" style={{ fontSize: "6vw", fontFamily: "var(--font-display)", fontWeight: 800, lineHeight: 1.25, paddingBottom: "0.15em", textTransform: "uppercase", margin: 0, overflow: "visible" }}>
+              <h1 className="contact-hero-title" style={{ fontSize: "clamp(2rem, 4.5vw, 6rem)", fontFamily: "var(--font-display)", fontWeight: 800, lineHeight: 1.15, paddingBottom: "0.15em", textTransform: "uppercase", margin: 0, overflow: "visible", whiteSpace: "nowrap" }}>
                 {"LET'S CREATE".split("").map((char, index) => (
                   <span key={index} className="char-reveal char" style={{ display: "inline-block" }}>
                     {char === " " ? "\u00A0" : char}
@@ -266,8 +266,10 @@ export default function Contact() {
                 <span style={{ fontSize: "10px", fontFamily: "monospace", color: "#C9A84C", letterSpacing: "1.5px" }}>STUDIO ADDRESS</span>
                 <h3 style={{ fontSize: "1.6rem", fontFamily: "var(--font-serif)", fontWeight: 400, color: "#fff", margin: 0 }}>Kolkata Headquarters</h3>
                 <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.05rem", lineHeight: 1.6, margin: 0 }}>
-                  Decor Lab, Suite 402, Design Chambers,<br />
-                  Kolkata, West Bengal, India
+                  Decor Lab,<br />
+                  GROUND FLOOR, Vinayak Garden, 102, Raja Dinendra St,<br />
+                  Manicktala, Gouri Bari, Ward Number 15,<br />
+                  Kolkata, West Bengal 700004
                 </p>
                 
                 <a 
@@ -319,6 +321,20 @@ export default function Contact() {
                   Monday to Saturday: 10:00 AM – 7:00 PM<br />
                   Sundays &amp; National Holidays: Closed
                 </p>
+              </div>
+
+              {/* Careers Card */}
+              <div className="info-grid-card glow-hover" style={{ backgroundColor: "rgba(20,20,18,0.95)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "20px", padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                <span style={{ fontSize: "10px", fontFamily: "monospace", color: "#C9A84C", letterSpacing: "1.5px" }}>JOIN THE TEAM</span>
+                <h3 style={{ fontSize: "1.6rem", fontFamily: "var(--font-serif)", fontWeight: 400, color: "#fff", margin: 0 }}>Careers</h3>
+                <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.05rem", lineHeight: 1.6, margin: 0 }}>
+                  We are always looking for passionate designers, architects, and detailers. Send your portfolio and resume to:
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <p style={{ margin: 0, fontSize: "1.05rem" }}>
+                    <a href="mailto:careers@decorlab.co.in" style={{ color: "#fff", textDecoration: "none" }}>careers@decorlab.co.in</a>
+                  </p>
+                </div>
               </div>
 
             </div>
@@ -569,6 +585,58 @@ export default function Contact() {
             }}>
               22.5450° N, 88.3513° E
             </div>
+
+            {/* Get Directions Hover Button */}
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=GROUND+FLOOR+Vinayak+Garden+102+Raja+Dinendra+St+Manicktala+Gouri+Bari+Kolkata+West+Bengal+700004"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="map-get-directions-btn"
+              style={{
+                position: "absolute",
+                bottom: "20px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "12px 28px",
+                background: "rgba(201, 168, 76, 0.12)",
+                border: "1px solid rgba(201, 168, 76, 0.5)",
+                borderRadius: "9999px",
+                color: "#C9A84C",
+                fontFamily: "monospace",
+                fontSize: "11px",
+                letterSpacing: "1.5px",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                backdropFilter: "blur(12px)",
+                transition: "all 0.35s cubic-bezier(0.23, 1, 0.32, 1)",
+                zIndex: 5,
+                whiteSpace: "nowrap"
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "#C9A84C";
+                el.style.color = "#000";
+                el.style.borderColor = "#C9A84C";
+                el.style.boxShadow = "0 8px 32px rgba(201, 168, 76, 0.4)";
+                el.style.transform = "translateX(-50%) translateY(-3px)";
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "rgba(201, 168, 76, 0.12)";
+                el.style.color = "#C9A84C";
+                el.style.borderColor = "rgba(201, 168, 76, 0.5)";
+                el.style.boxShadow = "none";
+                el.style.transform = "translateX(-50%) translateY(0)";
+              }}
+            >
+              <svg style={{ width: "14px", height: "14px", flexShrink: 0 }} fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              Get Directions to Our Headquarters
+            </a>
           </div>
         </section>
 
@@ -601,9 +669,9 @@ export default function Contact() {
                 <h4 className="footer-col-title">Studio</h4>
                 <ul className="footer-links-list">
                   <li style={{ fontSize: "0.95rem", lineHeight: 1.5, color: "rgba(255, 255, 255, 0.6)" }}>
-                    Kolkata, West Bengal,
+                    Vinayak Garden, Kolkata,
                     <br />
-                    India
+                    West Bengal 700004
                   </li>
                 </ul>
               </div>
@@ -626,7 +694,7 @@ export default function Contact() {
             </div>
 
             <div className="footer-bottom">
-              <p>&copy; 2026 Decor Lab. All rights reserved.</p>
+              <p>&copy; 2026 Decorlab. All rights reserved.</p>
               <div className="footer-bottom-links">
                 <a href="#privacy">Privacy Policy</a>
                 <a href="#legal">Legal Notice</a>
@@ -724,6 +792,7 @@ export default function Contact() {
           .contact-hero-title {
             font-size: clamp(2.2rem, 8vw, 3.8rem) !important;
             white-space: normal !important;
+            line-height: 1.2 !important;
           }
           .contact-details-section {
             padding: 4rem 1.5rem;

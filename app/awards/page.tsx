@@ -520,9 +520,9 @@ export default function Awards() {
                 <h4 className="footer-col-title">Studio</h4>
                 <ul className="footer-links-list">
                   <li style={{ fontSize: "0.95rem", lineHeight: 1.5, color: "rgba(255, 255, 255, 0.6)" }}>
-                    Kolkata, West Bengal,
+                    Vinayak Garden, Kolkata,
                     <br />
-                    India
+                    West Bengal 700004
                   </li>
                 </ul>
               </div>
@@ -545,7 +545,7 @@ export default function Awards() {
             </div>
 
             <div className="footer-bottom">
-              <p>&copy; 2026 Decor Lab. All rights reserved.</p>
+              <p>&copy; 2026 Decorlab. All rights reserved.</p>
               <div className="footer-bottom-links">
                 <a href="#privacy">Privacy Policy</a>
                 <a href="#legal">Legal Notice</a>

@@ -517,6 +517,7 @@ export default function Home() {
     {
       id: "santhalia",
       title: "Santhalia Residence",
+      type: "Residential Curation",
       location: "Kolkata, India",
       description: "An experimental 2,350 sq ft Kolkata residence showcasing a thoughtful application of unique materials, bespoke art installations, and signature ombre curtains. Highlighting clean, warm minimalism with organic plaster walls, textured linen panels, and soft, natural lighting to create a meditative atmosphere.",
       images: [
@@ -531,6 +532,7 @@ export default function Home() {
     {
       id: "site01",
       title: "Corporate Workspace HQ",
+      type: "Commercial Office",
       location: "Kolkata, India",
       description: "An award-winning commercial headquarters that balances biophilic design principles with fluid spatial transitions. Incorporates custom-engineered partition systems, timber screening, and organic light wells to maximize natural daylighting and occupant productivity.",
       images: [
@@ -545,6 +547,7 @@ export default function Home() {
     {
       id: "site02",
       title: "Fluid Design Pavilion",
+      type: "Conceptual Architecture",
       location: "ICA Creative Minds Finalist",
       description: "A conceptual design project experimenting with double-curvature structures and organic spatial design. Seamlessly integrates interior architecture with warm lighting grids and natural texture layers to create a premium, immersive spatial flow.",
       images: [
@@ -2250,30 +2253,36 @@ export default function Home() {
     const showcaseSection = document.querySelector("#showcase");
     if (showcaseSection) {
       // Header bar fade-in
-      gsap.from(".showcase-eyebrow", {
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
-      });
-      gsap.from(".showcase-main-title", {
-        opacity: 0,
-        y: 40,
-        clipPath: "inset(100% 0% 0% 0%)",
-        duration: 1,
-        ease: "power4.out",
-        delay: 0.15,
-        scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
-      });
-      gsap.from(".showcase-header-desc", {
-        opacity: 0,
-        x: 30,
-        duration: 0.8,
-        ease: "power3.out",
-        delay: 0.3,
-        scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
-      });
+      if (document.querySelector(".showcase-eyebrow")) {
+        gsap.from(".showcase-eyebrow", {
+          opacity: 0,
+          y: 20,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
+        });
+      }
+      if (document.querySelector(".showcase-main-title")) {
+        gsap.from(".showcase-main-title", {
+          opacity: 0,
+          y: 40,
+          clipPath: "inset(100% 0% 0% 0%)",
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.15,
+          scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
+        });
+      }
+      if (document.querySelector(".showcase-header-desc")) {
+        gsap.from(".showcase-header-desc", {
+          opacity: 0,
+          x: 30,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: 0.3,
+          scrollTrigger: { toggleActions: "play none none none", trigger: "#showcase", start: "top 80%" }
+        });
+      }
 
       // Staggered project list items
       const listItems = gsap.utils.toArray<HTMLElement>(".showcase-list-item");
@@ -2289,52 +2298,62 @@ export default function Home() {
       }
 
       // Hero image clip-path reveal
-      gsap.from(".showcase-hero-img-wrap", {
-        clipPath: "inset(15% 15% 15% 15%)",
-        duration: 1.4,
-        ease: "power4.out",
-        scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-hero-img-wrap", start: "top 85%" }
-      });
+      if (document.querySelector(".showcase-hero-img-wrap")) {
+        gsap.from(".showcase-hero-img-wrap", {
+          clipPath: "inset(15% 15% 15% 15%)",
+          duration: 1.4,
+          ease: "power4.out",
+          scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-hero-img-wrap", start: "top 85%" }
+        });
+      }
 
       // Thumbnail strip fade-in
-      gsap.from(".showcase-thumb-strip", {
-        opacity: 0,
-        y: 20,
-        duration: 0.7,
-        ease: "power3.out",
-        delay: 0.4,
-        scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-thumb-strip", start: "top 95%" }
-      });
+      if (document.querySelector(".showcase-thumb-strip")) {
+        gsap.from(".showcase-thumb-strip", {
+          opacity: 0,
+          y: 20,
+          duration: 0.7,
+          ease: "power3.out",
+          delay: 0.4,
+          scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-thumb-strip", start: "top 95%" }
+        });
+      }
 
       // Description text fade
-      gsap.from(".showcase-project-desc-text", {
-        opacity: 0,
-        y: 15,
-        duration: 0.6,
-        ease: "power3.out",
-        scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-project-desc-text", start: "top 95%" }
-      });
+      if (document.querySelector(".showcase-project-desc-text")) {
+        gsap.from(".showcase-project-desc-text", {
+          opacity: 0,
+          y: 15,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: { toggleActions: "play none none none", trigger: ".showcase-project-desc-text", start: "top 95%" }
+        });
+      }
     }
 
     // ─── FOOTER: Staggered scroll reveals ────────────────────────
     const footerEl = document.querySelector("#contact-footer");
     if (footerEl) {
       // Brand row
-      gsap.from(".footer-brand-left", {
-        opacity: 0,
-        y: 40,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: { toggleActions: "play none none none", trigger: "#contact-footer", start: "top 85%" }
-      });
-      gsap.from(".footer-brand-right", {
-        opacity: 0,
-        y: 40,
-        duration: 0.9,
-        ease: "power3.out",
-        delay: 0.15,
-        scrollTrigger: { toggleActions: "play none none none", trigger: "#contact-footer", start: "top 85%" }
-      });
+      if (document.querySelector(".footer-brand-left")) {
+        gsap.from(".footer-brand-left", {
+          opacity: 0,
+          y: 40,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { toggleActions: "play none none none", trigger: "#contact-footer", start: "top 85%" }
+        });
+      }
+      if (document.querySelector(".footer-brand-right")) {
+        gsap.from(".footer-brand-right", {
+          opacity: 0,
+          y: 40,
+          duration: 0.9,
+          ease: "power3.out",
+          delay: 0.15,
+          scrollTrigger: { toggleActions: "play none none none", trigger: "#contact-footer", start: "top 85%" }
+        });
+      }
 
       // Dividers wipe-in
       const dividers = gsap.utils.toArray<HTMLElement>(".footer-divider");
@@ -2362,12 +2381,14 @@ export default function Home() {
       }
 
       // Bottom bar fade
-      gsap.from(".footer-bottom", {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: { toggleActions: "play none none none", trigger: ".footer-bottom", start: "top 98%" }
-      });
+      if (document.querySelector(".footer-bottom")) {
+        gsap.from(".footer-bottom", {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: { toggleActions: "play none none none", trigger: ".footer-bottom", start: "top 98%" }
+        });
+      }
     }
 
   }, [isPreloaded]);
@@ -2772,6 +2793,30 @@ export default function Home() {
             <h2 className="rl-title">Services Offered.</h2>
             
             <div className="rl-methodology-grid">
+              <div className="rl-methodology-img-wrap">
+                <div className="rl-methodology-img-inner">
+                  {methodologySteps.map((step, idx) => (
+                    <img
+                      key={step.num}
+                      src={step.img}
+                      alt={step.title}
+                      className={"rl-methodology-img " + (activeProcessStep === idx ? "active" : "")}
+                      loading="lazy"
+                    />
+                  ))}
+                </div>
+                {/* Active service caption below sticky image */}
+                <div className="rl-methodology-img-caption">
+                  <span className="caption-num">
+                    {methodologySteps[activeProcessStep]?.num || "01"}
+                  </span>
+                  <span className="caption-divider">/</span>
+                  <span className="caption-title">
+                    {methodologySteps[activeProcessStep]?.title || ""}
+                  </span>
+                </div>
+              </div>
+
               <div className="rl-methodology-list">
                 {methodologySteps.map((step, idx) => {
                   const isActive = activeProcessStep === idx;
@@ -2782,28 +2827,34 @@ export default function Home() {
                       onMouseEnter={() => setActiveProcessStep(idx)}
                       onClick={() => setActiveProcessStep(idx)}
                     >
+                      {/* Active indicator line */}
+                      <div className="rl-methodology-indicator" />
+
                       <div className="rl-methodology-header">
                         <span className="rl-methodology-num">{step.num}</span>
                         <h3 className="rl-methodology-name">{step.title}</h3>
                       </div>
                       <div className="rl-methodology-content">
                         <p className="rl-methodology-desc">{step.desc}</p>
+                        
+                        {/* Deliverables tags */}
+                        {step.deliverables && (
+                          <div className="rl-methodology-tags">
+                            {step.deliverables.map((deliv, dIdx) => (
+                              <span key={dIdx} className="rl-methodology-tag">
+                                {deliv}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="rl-methodology-mobile-img">
+                          <img src={step.img} alt={step.title} loading="lazy" />
+                        </div>
                       </div>
                     </div>
                   );
                 })}
-              </div>
-              
-              <div className="rl-methodology-img-wrap">
-                {methodologySteps.map((step, idx) => (
-                  <img
-                    key={step.num}
-                    src={step.img}
-                    alt={step.title}
-                    className={"rl-methodology-img " + (activeProcessStep === idx ? "active" : "")}
-                    loading="lazy"
-                  />
-                ))}
               </div>
             </div>
           </div>
@@ -2836,17 +2887,11 @@ export default function Home() {
          * SECTION 2D: REDESIGNED RECENT COLLABS
          * ==================================================== */}
         <section id="collabs" className="rl-section rl-collabs">
-          <div className="rl-collabs-marquee">
-            <div className="rl-marquee-inner">
-              <span className="rl-marquee-text">Häfele • Kohler • Flos • Poliform • B&B Italia • Vitra • </span>
-              <span className="rl-marquee-text">Häfele • Kohler • Flos • Poliform • B&B Italia • Vitra • </span>
-            </div>
-          </div>
           <div className="rl-container">
             <div className="rl-collabs-content">
               <div className="rl-collabs-text-block">
                 <span className="rl-subtitle">Design Partnerships</span>
-                <h2 className="rl-title">Recent Collabs</h2>
+                <h2 className="rl-title">Recent Awards</h2>
                 <p className="rl-collabs-desc">
                   Collaborating with international pioneers to bring smart hardware, premium fittings, and material innovations into our interior architectures. Seamlessly matching top-tier technology with handcrafted wooden elements.
                 </p>
@@ -2869,15 +2914,15 @@ export default function Home() {
               
               <div className="rl-collabs-images">
                 <div className="rl-collabs-img-wrapper primary">
-                  <img src="/assets/projects/photos_set2/image_3.webp" alt="Häfele Star Awards Curation" loading="lazy" />
-                  <span className="rl-img-caption">Häfele Star Awards Curation</span>
+                  <img src="/assets/awards_gold.png" alt="India Design Accolade" loading="lazy" />
+                  <span className="rl-img-caption">Selected Industry Awards</span>
                 </div>
                 <div className="rl-collabs-img-stack">
                   <div className="rl-collabs-img-wrapper secondary">
-                    <img src="/assets/projects/photos_set2/image_4.webp" alt="Detail & Texture Studies" loading="lazy" />
+                    <img src="/assets/awards_glass.png" alt="Emerging Architect Award" loading="lazy" />
                   </div>
                   <div className="rl-collabs-img-wrapper tertiary">
-                    <img src="/assets/projects/site_02/image_1.webp" alt="Fluid Forms Ongoing" loading="lazy" />
+                    <img src="/assets/awards_medal.png" alt="Best Residential Project Medal" loading="lazy" />
                   </div>
                 </div>
               </div>
@@ -2885,40 +2930,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ====================================================
-         * SECTION 2E: PRESS & PUBLICATION (Elle Decor highlight)
-         * ==================================================== */}
-        <section id="press" className="editorial-section">
-          <div className="editorial-container">
-            <div className="press-grid">
-              <div className="gallery-image-wrapper press-left">
-                <img loading="lazy" src="/assets/projects/site_01/image_1.webp" alt="Ribbed walking canopy interior" />
-                <div className="gallery-caption">
-                  <span>Decor Lab Featured Cover / Elle Decor</span>
-                  <div className="arrow-circle" />
-                </div>
-              </div>
 
-              <div className="press-right">
-                <h4 className="studio-subtitle" style={{ textAlign: "left" }}>PUBLICATIONS</h4>
-                <h2 className="serif-headline" style={{ lineHeight: "1" }}>
-                  AS SEEN IN...<br />
-                  <span className="serif-subtitle" style={{ fontSize: "3rem", display: "block", marginTop: "1rem" }}>Elle Decor</span>
-                </h2>
-
-                <blockquote className="press-quote">
-                  "Decor Lab blends heritage, organic curves, and 'functionality first' planning to create habitable sculptures that redefine contemporary Indian spaces."
-                </blockquote>
-
-                <p className="step-desc drop-cap" style={{ fontSize: "1rem" }}>
-                  A detailed feature highlighting our Kolkata-based design studio, celebrating three decades of design excellence, luxury residential portfolios, and our cutting-edge outlook on fluid architecture.
-                </p>
-
-                <a href="#info" className="pill-btn-editorial">Read Full Feature</a>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <Gallery isPreloaded={isPreloaded} />
 
@@ -2928,7 +2940,7 @@ export default function Home() {
         <section id="showcase" className="rl-section light rl-portfolio">
           <div className="rl-container">
             <span className="rl-subtitle" style={{color: "#050505"}}>Projects</span>
-            <h2 className="rl-title" style={{color: "#050505"}}>Site Portfolio</h2>
+            <h2 className="rl-title" style={{color: "#050505"}}>Project Type</h2>
             <div className="rl-divider"></div>
             
             <div className="rl-portfolio-list">
@@ -2944,7 +2956,7 @@ export default function Home() {
                 >
                   <span className="rl-portfolio-num">0{idx + 1}</span>
                   <h3 className="rl-portfolio-name">{project.title}</h3>
-                  <span className="rl-portfolio-loc">{project.location}</span>
+                  <span className="rl-portfolio-loc">{project.type}</span>
                   <img 
                     src={project.images[0]} 
                     alt={project.title}
@@ -3241,7 +3253,7 @@ export default function Home() {
         <Feedback />
         <FooterBanner isPreloaded={isPreloaded} />
 
-        <RedesignAnimations />
+        <RedesignAnimations setActiveProcessStep={setActiveProcessStep} />
         {/* ====================================================
          * REDESIGNED FOOTER
          * ==================================================== */}
@@ -3274,7 +3286,7 @@ export default function Home() {
             <h1 className="rl-footer-big-text">DECOR LAB</h1>
             
             <div className="rl-footer-bottom">
-              <span>&copy; 2026 Decor Lab Studio. All rights reserved.</span>
+              <span>&copy; 2026 Decorlab. All rights reserved.</span>
               <span>Made with precision in Kolkata, India.</span>
             </div>
           </div>

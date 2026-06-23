@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-export default function RedesignAnimations() {
+export default function RedesignAnimations({
+  setActiveProcessStep,
+}: {
+  setActiveProcessStep?: (index: number) => void;
+}) {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -70,10 +74,10 @@ export default function RedesignAnimations() {
         );
       }
 
-      // Methodology image — parallax scale reveal
-      const methodImg = document.querySelector(".rl-methodology-img-wrap");
-      if (methodImg) {
-        gsap.fromTo(methodImg,
+      // Methodology image — parallax scale reveal (applied to inner container to preserve sticky alignment)
+      const methodImgInner = document.querySelector(".rl-methodology-img-inner");
+      if (methodImgInner) {
+        gsap.fromTo(methodImgInner,
           { clipPath: "inset(30% 5% 30% 5%)", scale: 1.1 },
           {
             clipPath: "inset(0% 0% 0% 0%)", scale: 1,
@@ -86,6 +90,22 @@ export default function RedesignAnimations() {
           }
         );
       }
+
+      // Responsive active step synchronization via ScrollTrigger
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1025px)", () => {
+        if (methodGroups.length > 0 && setActiveProcessStep) {
+          methodGroups.forEach((item, idx) => {
+            ScrollTrigger.create({
+              trigger: item,
+              start: "top 55%",
+              end: "bottom 55%",
+              onEnter: () => setActiveProcessStep(idx),
+              onEnterBack: () => setActiveProcessStep(idx),
+            });
+          });
+        }
+      });
 
       // ─── 4. CURATED CARDS — stagger + clip-path wipe ─────────────────
       const curatedCards = gsap.utils.toArray<HTMLElement>(".rl-curated-card");
