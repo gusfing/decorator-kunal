@@ -56,7 +56,7 @@
 .gallery-slider .gallery-box {
     position: relative;
     min-width: calc(50rem * 5);
-    height: 15rem;
+    height: 18rem;
     display: flex;
     gap: 2rem;
 }
@@ -68,6 +68,7 @@
     color: #f4efe7;
     font-weight: 600;
     left: 100%;
+    white-space: nowrap;
     animation: gallery-animate var(--time) linear infinite;
     animation-delay: calc((var(--time) / var(--quantity) * (var(--index) - 1)) - var(--time));
 }
@@ -181,7 +182,7 @@
     }
 
     .gallery-slider .gallery-box {
-        height: 6rem !important;
+        height: 8rem !important;
         gap: 1.5rem !important;
     }
 
@@ -324,7 +325,7 @@
     }
 
     .gallery-slider .gallery-box {
-        height: 4.5rem !important;
+        height: 6rem !important;
     }
 
     .gallery-slider .gallery-box h3 {

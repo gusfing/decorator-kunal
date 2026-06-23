@@ -79,7 +79,7 @@ export default function RedesignAnimations() {
             clipPath: "inset(0% 0% 0% 0%)", scale: 1,
             ease: "none",
             scrollTrigger: {
-              trigger: "#process",
+              trigger: "#services",
               start: "top 80%", end: "center 30%",
               scrub: 1.5,
             },

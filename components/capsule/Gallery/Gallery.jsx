@@ -145,7 +145,7 @@ const Gallery = ({ isPreloaded = true }) => {
         for (let i = 1; i <= quantity; i++) {
             capsules.push(
                 <h3 key={i} style={{ "--index": i }} className='tracking-tighter'>
-                    Decor Lab®
+                    DecoLab®
                 </h3>
             );
         }

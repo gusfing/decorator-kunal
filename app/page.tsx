@@ -245,50 +245,83 @@ const curatedCategories = [
   }
 ];
 
-// Methodology steps data
+// Methodology steps data (repurposed for Services)
 const methodologySteps = [
   {
     num: "01",
-    title: "Contact Us",
-    desc: "We work hand in hand with clients and collaborators. Commercial or residential, simply reach out to get a conversation going. No project is too complex or too simple.",
-    img: "/assets/projects/santhalia_site/image_5.webp",
+    title: "Architecture",
+    desc: "High-end architectural planning for luxury residential villas, institutional landmarks, and commercial projects, blending computational modeling with spatial mastery.",
+    img: "/assets/services/architecture.png",
     deliverables: [
-      "Consultation Booking",
-      "Spatial Intent Scope",
-      "Feasibility Outline"
+      "Residential Villas",
+      "Commercial Blueprints",
+      "Parametric Planning"
     ]
   },
   {
     num: "02",
-    title: "Consultation",
-    desc: "We evaluate your spatial needs, translating your vision into functional plans. We inspect the site to align layout, lighting, materials, and execution logistics from the very start.",
-    img: "/assets/projects/site_01/image_2.webp",
+    title: "Interior Design",
+    desc: "Complete spatial curation for luxury residences, corporate workspaces, and retail showrooms. We detail custom millwork, furniture systems, and tailored material styling.",
+    img: "/assets/services/interior_design.png",
     deliverables: [
-      "On-Site Inspection",
-      "Structural Planning",
-      "Resource Curation"
+      "Bespoke Furnishing",
+      "Custom Millwork",
+      "Space Organization"
     ]
   },
   {
     num: "03",
-    title: "Design & Visualization",
-    desc: "We finalize material specs, lighting designs, and custom joinery. Photorealistic 3D renders help visualize the space, ensuring complete confidence before execution starts.",
-    img: "/assets/projects/site_02/image_2.webp",
+    title: "Landscape Design",
+    desc: "Integrating biophilic design and outdoor elements to create tranquil courtyard landscapes, rooftop gardens, and structural outdoor pathways.",
+    img: "/assets/services/landscape_design.png",
     deliverables: [
-      "Material Spec Sheets",
-      "3D Render Portfolios",
-      "Lighting Curation"
+      "Biophilic Layouts",
+      "Hardscape Design",
+      "Water Features"
     ]
   },
   {
     num: "04",
-    title: "On-Site Execution",
-    desc: "Our team of 275+ professionals manages complete end-to-end site execution. From structural modifications to custom curation, we deliver a seamless, hassle-free transition.",
-    img: "/assets/projects/site_01/image_1.webp",
+    title: "Structural Drawings & Technical Documentation",
+    desc: "Detailed structural plans, foundation drafting, mechanical, electrical, and plumbing (MEP) schematics to ensure flawless site safety and regulatory compliance.",
+    img: "/assets/services/structural_drawings.png",
     deliverables: [
-      "PM Supervision",
-      "Quality Assurance",
-      "Turnkey Handover"
+      "MEP Documentation",
+      "Foundation Detailing",
+      "Load Calculations"
+    ]
+  },
+  {
+    num: "05",
+    title: "3D Visualization",
+    desc: "Photorealistic 3D interior and exterior renderings and spatial walkthroughs, allowing clients to experience and refine spaces before construction begins.",
+    img: "/assets/services/3d_visualization.png",
+    deliverables: [
+      "High-Fidelity Renders",
+      "Walkthrough Videos",
+      "Material Previews"
+    ]
+  },
+  {
+    num: "06",
+    title: "Building Plan Sanctioning",
+    desc: "Managing plan approvals, municipal sanctions, local body permissions, and zoning compliance check-offs with authorities.",
+    img: "/assets/services/building_plan_sanctioning.png",
+    deliverables: [
+      "Zoning Approvals",
+      "Municipal Sanctioning",
+      "Regulatory Compliance"
+    ]
+  },
+  {
+    num: "07",
+    title: "Site Supervision & Project Management",
+    desc: "End-to-end project scheduling, turnkey construction management, site inspections, quality control audits, and hassle-free handover coordination.",
+    img: "/assets/services/site_supervision.png",
+    deliverables: [
+      "Turnkey Supervision",
+      "Quality Control Audits",
+      "Scheduling & Logistics"
     ]
   }
 ];
@@ -1006,7 +1039,8 @@ export default function Home() {
       });
 
       aboutCards.forEach((card, index) => {
-        const offset = index - 4; // -4, -3, -2, -1, 0, 1, 2, 3, 4
+        const centerIndex = Math.floor(aboutCards.length / 2);
+        const offset = index - centerIndex;
         aboutTl.fromTo(card,
           {
             x: () => offset * getSpread(),
@@ -1033,7 +1067,7 @@ export default function Home() {
       ScrollTrigger.create({
         trigger: "#section-about",
         start: "top 20%",
-        end: "+=150%",
+        end: "+=30%",
         pin: true,
         anticipatePin: 1
       });
@@ -2517,8 +2551,8 @@ export default function Home() {
           </div>
 
           <div ref={preloaderHeaderRef} className="preloader-header" id="preloader-header-container">
-            <a href="#" id="preloader-title-link">
-              {"DecorLab".split("").map((char, index) => (
+            <a href="#" id="preloader-title-link" style={{ whiteSpace: 'nowrap', display: 'flex', justifyContent: 'center' }}>
+              {"DecoLab".split("").map((char, index) => (
                 <span key={index} className="char-mask">
                   <span className="char">{char === " " ? "\u00A0" : char}</span>
                 </span>
@@ -2633,7 +2667,7 @@ export default function Home() {
               <div className="wrapper-heading-hero">
                 <div className="reveal-line-wrap">
                   <div className="text-heading-hero reveal-line" style={{ fontFamily: '"Playfair Display", "Times New Roman", Times, serif', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.5)', position: 'relative', zIndex: 50 }}>
-                    DECOR LAB
+                    DECORLAB
                   </div>
                 </div>
                 <a data-w-id="66aeaa42-d8c6-e18c-6215-71bab4d1eaa7" href="#contact" className="inner-button-universall w-inline-block">
@@ -2717,26 +2751,6 @@ export default function Home() {
                         <img src="/assets/projects/photos_set2/image_5.webp" loading="lazy" alt="Luxury house interior" className="image-path" />
                       </div>
                     </div>
-                    <div className="card-cross-section _5">
-                      <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_01/image_6.webp" loading="lazy" alt="Minimalist modern house" className="image-path" />
-                      </div>
-                    </div>
-                    <div className="card-cross-section _6">
-                      <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_02/image_1.webp" loading="lazy" alt="Modern wooden house" className="image-path" />
-                      </div>
-                    </div>
-                    <div className="card-cross-section _7">
-                      <div className="card-cross-section-inner">
-                        <img src="/assets/projects/santhalia_site/image_4.webp" loading="lazy" alt="Modern architecture" className="image-path" />
-                      </div>
-                    </div>
-                    <div className="card-cross-section _8">
-                      <div className="card-cross-section-inner">
-                        <img src="/assets/projects/photos_set1/image_1.webp" loading="lazy" alt="Beautiful landscape" className="image-path" />
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -2750,12 +2764,12 @@ export default function Home() {
 
 
         {/* ====================================================
-         * SECTION 2B: REDESIGNED METHODOLOGY
+         * SECTION 2B: REDESIGNED SERVICES
          * ==================================================== */}
-        <section id="process" className="rl-section rl-methodology">
+        <section id="services" className="rl-section rl-methodology">
           <div className="rl-container">
-            <span className="rl-subtitle">02 / Methodology</span>
-            <h2 className="rl-title">Creating with us is easy.</h2>
+            <span className="rl-subtitle">02 / Services</span>
+            <h2 className="rl-title">Services Offered.</h2>
             
             <div className="rl-methodology-grid">
               <div className="rl-methodology-list">
@@ -3235,14 +3249,14 @@ export default function Home() {
           <div className="rl-container">
             <div className="rl-footer-top">
               <div className="rl-footer-logo-desc">
-                <img src="/assets/Decorlab final-01-trans.webp" alt="Decor Lab" />
+                <img src="/assets/Decorlab-final-05-trans.webp" alt="Decor Lab" />
                 <p>Architecture & Interior Design.<br/>Kolkata-based design powerhouse blending legacy craftsmanship with bold contemporary architecture. Since 1993.</p>
               </div>
               <div className="rl-footer-links">
                 <div className="rl-footer-col">
                   <h4>Studio</h4>
                   <ul>
-                    <li><a href="#process">Methodology</a></li>
+                    <li><a href="#services">Services</a></li>
                     <li><a href="#collection">Collection</a></li>
                     <li><a href="#showcase">Portfolio</a></li>
                   </ul>

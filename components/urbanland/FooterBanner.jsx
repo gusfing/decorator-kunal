@@ -56,7 +56,7 @@ const FooterBanner = ({ isPreloaded = true }) => {
     }, { scope: fbConRef, dependencies: [isPreloaded] });
 
     return (
-        <div ref={fbConRef} className="w-full h-dvh p-2">
+        <div ref={fbConRef} className="w-full h-dvh p-2 bg-[#F7F4EF]">
             <div className="relative w-full h-full rounded-[2.5rem] bg-[#2D2D2D] overflow-hidden flex flex-col justify-center items-center p-8 md:p-16 lg:p-24 pb-20">
                 <ClickIndicator active={active} />
                 <img
