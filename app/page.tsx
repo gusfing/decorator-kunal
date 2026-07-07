@@ -279,50 +279,6 @@ const methodologySteps = [
       "Hardscape Design",
       "Water Features"
     ]
-  },
-  {
-    num: "04",
-    title: "Structural Drawings & Technical Documentation",
-    desc: "Detailed structural plans, foundation drafting, mechanical, electrical, and plumbing (MEP) schematics to ensure flawless site safety and regulatory compliance.",
-    img: "/assets/services/structural_drawings.png",
-    deliverables: [
-      "MEP Documentation",
-      "Foundation Detailing",
-      "Load Calculations"
-    ]
-  },
-  {
-    num: "05",
-    title: "3D Visualization",
-    desc: "Photorealistic 3D interior and exterior renderings and spatial walkthroughs, allowing clients to experience and refine spaces before construction begins.",
-    img: "/assets/services/3d_visualization.png",
-    deliverables: [
-      "High-Fidelity Renders",
-      "Walkthrough Videos",
-      "Material Previews"
-    ]
-  },
-  {
-    num: "06",
-    title: "Building Plan Sanctioning",
-    desc: "Managing plan approvals, municipal sanctions, local body permissions, and zoning compliance check-offs with authorities.",
-    img: "/assets/services/building_plan_sanctioning.png",
-    deliverables: [
-      "Zoning Approvals",
-      "Municipal Sanctioning",
-      "Regulatory Compliance"
-    ]
-  },
-  {
-    num: "07",
-    title: "Site Supervision & Project Management",
-    desc: "End-to-end project scheduling, turnkey construction management, site inspections, quality control audits, and hassle-free handover coordination.",
-    img: "/assets/services/site_supervision.png",
-    deliverables: [
-      "Turnkey Supervision",
-      "Quality Control Audits",
-      "Scheduling & Logistics"
-    ]
   }
 ];
 
@@ -379,27 +335,20 @@ export default function Home() {
   const [posts, setPosts] = useState<InstaPost[]>([]);
   const [loadingInsta, setLoadingInsta] = useState(true);
 
+  const [instaProfile] = useState({
+    posts: '142',
+    followers: '42.8k',
+    following: '249',
+    bio: 'Curated Architecture & Minimalist Interior Curation. Delivering timeless spaces across India since 1993.',
+    username: 'decorlab.in',
+    profilePicUrl: ''
+  });
+
   useEffect(() => {
-    async function getPosts() {
-      try {
-        setLoadingInsta(true);
-        const res = await fetch("/api/instagram");
-        const data = await res.json();
-        if (data && data.success && data.posts) {
-          setPosts(data.posts);
-        } else {
-          setPosts(instaPosts);
-        }
-      } catch (e) {
-        console.error("Error fetching Instagram posts:", e);
-        setPosts(instaPosts);
-      } finally {
-        setTimeout(() => {
-          setLoadingInsta(false);
-        }, 1200);
-      }
-    }
-    getPosts();
+    setPosts(instaPosts);
+    setTimeout(() => {
+      setLoadingInsta(false);
+    }, 1200);
   }, []);
 
   const handlePrevInsta = () => {
@@ -521,12 +470,39 @@ export default function Home() {
       location: "Kolkata, India",
       description: "An experimental 2,350 sq ft Kolkata residence showcasing a thoughtful application of unique materials, bespoke art installations, and signature ombre curtains. Highlighting clean, warm minimalism with organic plaster walls, textured linen panels, and soft, natural lighting to create a meditative atmosphere.",
       images: [
-        "/assets/projects/santhalia_site/image_1.webp",
-        "/assets/projects/santhalia_site/image_2.webp",
-        "/assets/projects/santhalia_site/image_3.webp",
-        "/assets/projects/santhalia_site/image_4.webp",
-        "/assets/projects/santhalia_site/image_5.webp",
-        "/assets/projects/santhalia_site/image_6.webp",
+        "/assets/projects/santhalia_site/image_1.jpg",
+        "/assets/projects/santhalia_site/image_2.jpg",
+        "/assets/projects/santhalia_site/image_3.jpg",
+        "/assets/projects/santhalia_site/image_4.jpg",
+        "/assets/projects/santhalia_site/image_5.jpg",
+        "/assets/projects/santhalia_site/image_6.jpg",
+        "/assets/projects/santhalia_site/image_7.jpg",
+        "/assets/projects/santhalia_site/image_8.jpg",
+        "/assets/projects/santhalia_site/image_9.jpg",
+        "/assets/projects/santhalia_site/image_10.jpg",
+        "/assets/projects/santhalia_site/image_11.jpg",
+        "/assets/projects/santhalia_site/image_12.jpg",
+        "/assets/projects/santhalia_site/image_13.jpg",
+        "/assets/projects/santhalia_site/image_14.jpg",
+        "/assets/projects/santhalia_site/image_15.jpg",
+        "/assets/projects/santhalia_site/image_16.jpg",
+        "/assets/projects/santhalia_site/image_17.jpg",
+        "/assets/projects/santhalia_site/image_18.jpg",
+        "/assets/projects/santhalia_site/image_19.jpg",
+        "/assets/projects/santhalia_site/image_20.jpg",
+        "/assets/projects/santhalia_site/image_21.jpg",
+        "/assets/projects/santhalia_site/image_22.jpg",
+        "/assets/projects/santhalia_site/image_23.jpg",
+        "/assets/projects/santhalia_site/image_24.jpg",
+        "/assets/projects/santhalia_site/image_25.jpg",
+        "/assets/projects/santhalia_site/image_26.jpg",
+        "/assets/projects/santhalia_site/image_27.jpg",
+        "/assets/projects/santhalia_site/image_28.jpg",
+        "/assets/projects/santhalia_site/image_29.jpg",
+        "/assets/projects/santhalia_site/image_30.jpg",
+        "/assets/projects/santhalia_site/image_31.jpg",
+        "/assets/projects/santhalia_site/image_32.jpg",
+        "/assets/projects/santhalia_site/image_33.jpg"
       ]
     },
     {
@@ -557,6 +533,75 @@ export default function Home() {
         "/assets/projects/site_02/image_4.webp",
         "/assets/projects/site_02/image_5.webp",
         "/assets/projects/site_02/image_6.webp",
+      ]
+    },
+    {
+      id: "rathi",
+      title: "Rathi Residence",
+      type: "Residential Project",
+      location: "India",
+      description: "A beautifully curated residential space featuring customized decor and a harmonious material palette. Focuses on premium finishing and an elegant spatial arrangement.",
+      images: [
+        "/assets/projects/rathi/image_1.jpg",
+        "/assets/projects/rathi/image_2.jpg",
+        "/assets/projects/rathi/image_3.jpg",
+        "/assets/projects/rathi/image_4.jpg",
+        "/assets/projects/rathi/image_5.jpg",
+        "/assets/projects/rathi/image_6.jpg",
+        "/assets/projects/rathi/image_7.jpg",
+        "/assets/projects/rathi/image_8.jpg",
+        "/assets/projects/rathi/image_9.jpg",
+        "/assets/projects/rathi/image_10.jpg",
+        "/assets/projects/rathi/image_11.jpg",
+        "/assets/projects/rathi/image_12.jpg",
+        "/assets/projects/rathi/image_13.jpg",
+        "/assets/projects/rathi/image_14.jpg",
+        "/assets/projects/rathi/image_15.jpg",
+        "/assets/projects/rathi/image_16.jpg",
+        "/assets/projects/rathi/image_17.jpg",
+        "/assets/projects/rathi/image_18.jpg",
+        "/assets/projects/rathi/image_19.jpg",
+        "/assets/projects/rathi/image_20.jpg",
+        "/assets/projects/rathi/image_21.jpg",
+        "/assets/projects/rathi/image_22.jpg",
+        "/assets/projects/rathi/image_23.jpg",
+        "/assets/projects/rathi/image_24.jpg",
+        "/assets/projects/rathi/image_25.jpg",
+        "/assets/projects/rathi/image_26.jpg",
+        "/assets/projects/rathi/image_27.jpg",
+        "/assets/projects/rathi/image_28.jpg",
+        "/assets/projects/rathi/image_29.jpg",
+        "/assets/projects/rathi/image_30.jpg",
+        "/assets/projects/rathi/image_31.jpg",
+        "/assets/projects/rathi/image_32.jpg",
+        "/assets/projects/rathi/image_33.jpg",
+        "/assets/projects/rathi/image_34.jpg",
+        "/assets/projects/rathi/image_35.jpg",
+        "/assets/projects/rathi/image_36.jpg",
+        "/assets/projects/rathi/image_37.jpg",
+        "/assets/projects/rathi/image_38.jpg"
+      ]
+    },
+    {
+      id: "residential_3ds",
+      title: "Residential 3D Concepts",
+      type: "Conceptual Architecture",
+      location: "India",
+      description: "High-quality 3D visualizations showcasing modern residential design concepts. Features detailed interior planning, lighting simulation, and material exploration.",
+      images: [
+        "/assets/projects/residential_3ds/image_1.jpg",
+        "/assets/projects/residential_3ds/image_2.png",
+        "/assets/projects/residential_3ds/image_3.jpg",
+        "/assets/projects/residential_3ds/image_4.jpg",
+        "/assets/projects/residential_3ds/image_5.jpg",
+        "/assets/projects/residential_3ds/image_6.jpg",
+        "/assets/projects/residential_3ds/image_7.png",
+        "/assets/projects/residential_3ds/image_8.jpg",
+        "/assets/projects/residential_3ds/image_9.jpg",
+        "/assets/projects/residential_3ds/image_10.png",
+        "/assets/projects/residential_3ds/image_11.jpg",
+        "/assets/projects/residential_3ds/image_12.jpeg",
+        "/assets/projects/residential_3ds/image_13.jpg"
       ]
     }
   ];
@@ -2573,7 +2618,7 @@ export default function Home() {
 
           <div ref={preloaderHeaderRef} className="preloader-header" id="preloader-header-container">
             <a href="#" id="preloader-title-link" style={{ whiteSpace: 'nowrap', display: 'flex', justifyContent: 'center' }}>
-              {"DecoLab".split("").map((char, index) => (
+              {"DecorLab".split("").map((char, index) => (
                 <span key={index} className="char-mask">
                   <span className="char">{char === " " ? "\u00A0" : char}</span>
                 </span>
@@ -2691,12 +2736,7 @@ export default function Home() {
                     DECORLAB
                   </div>
                 </div>
-                <a data-w-id="66aeaa42-d8c6-e18c-6215-71bab4d1eaa7" href="#contact" className="inner-button-universall w-inline-block">
-                  <div className="text-button">
-                    <div className="inner-text-button-home">Get started</div>
-                    <div className="inner-text-button-home absolute">Get started</div>
-                  </div>
-                </a>
+
               </div>
 
               <div className="main-content-hero">
@@ -2726,13 +2766,13 @@ export default function Home() {
             <div className="wrapper-about">
               <div className="inner-about-wrapp">
                 <div className="wrapper-heading-about">
-                  <div className="inner-heading-about _1"><div className="text-heading-about">Thoughtful spaces, we </div></div>
-                  <div className="inner-heading-about _2"><div className="text-heading-about">build <em>homes</em> that bring </div></div>
-                  <div className="inner-heading-about _3"><div className="text-heading-about">comfort to <em>your life</em> </div></div>
+                  <div className="inner-heading-about _1" style={{ width: '100%', justifyContent: 'center' }}><div className="text-heading-about" style={{ fontSize: 'clamp(1rem, 2vw, 2.5rem)', lineHeight: 1.2, whiteSpace: 'normal', textAlign: 'center' }}>Founded in 1993 by Raja Sinha, </div></div>
+                  <div className="inner-heading-about _2" style={{ width: '100%', justifyContent: 'center' }}><div className="text-heading-about" style={{ fontSize: 'clamp(1rem, 2vw, 2.5rem)', lineHeight: 1.2, whiteSpace: 'normal', textAlign: 'center' }}>Decorlab has spent 33 years treating </div></div>
+                  <div className="inner-heading-about _3" style={{ width: '100%', justifyContent: 'center' }}><div className="text-heading-about" style={{ fontSize: 'clamp(1rem, 2vw, 2.5rem)', lineHeight: 1.2, whiteSpace: 'normal', textAlign: 'center' }}>architecture, interiors, and landscape as one discipline.</div></div>
                 </div>
                 <div className="wrapper-tag-section about">
                   <div className="wrapper-tagline-about">
-                    <div className="text-tagline-section about">About us</div>
+                    <div className="text-tagline-section about">Designing since 1993</div>
                   </div>
                   <div data-w-id="21ec498a-da00-b0a0-20cb-51467f79dc0b" className="wrapper-circle">
                     <div className="circle-section"></div>
@@ -2741,7 +2781,9 @@ export default function Home() {
               </div>
               <div className="outer-descriptions-about">
                 <div className="wrapper-descriptions-about">
-                  <p className="paragraph-about">Focused on crafting exceptional living through careful planning and trusted property options.</p>
+                  <p className="paragraph-about">
+                    What began in a small room at home has grown into a 275-strong team working across 15 cities pan-India, with 1,300+ sites behind it — the same conviction holding steady the whole way. Rajdip Sinha, trained at the Bartlett, UCL, now carries that legacy forward, on a mission to build India's parametric and fluid architecture movement — his core specialty — while keeping the firm's oldest habit alive. That growth shows in our clients too — a large share of them return to us, because a legacy like this only carries on when it's earned twice over.
+                  </p>
                 </div>
               </div>
               <div className="area-resize">
@@ -2769,7 +2811,15 @@ export default function Home() {
                     </div>
                     <div className="card-cross-section _4">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/photos_set2/image_5.webp" loading="lazy" alt="Luxury house interior" className="image-path" />
+                        <video 
+                          src="/assets/living-room-hero.mp4" 
+                          autoPlay 
+                          loop 
+                          muted 
+                          playsInline 
+                          className="image-path" 
+                          style={{ objectFit: "cover" }} 
+                        />
                       </div>
                     </div>
                   </div>
@@ -2860,27 +2910,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ====================================================
-         * SECTION 2C: REDESIGNED CURATED SPACES
-         * ==================================================== */}
-        <section id="collection" className="rl-section light rl-curated">
-          <div className="rl-container">
-            <span className="rl-subtitle" style={{color: "#050505"}}>Collection</span>
-            <h2 className="rl-title" style={{color: "#050505", marginBottom: "0"}}>Curated Spaces</h2>
-            
-            <div className="rl-curated-gallery">
-              {curatedCategories[0]?.cards.slice(0, 3).map((card, idx) => (
-                <div key={idx} className="rl-curated-card">
-                  <img src={card.img} alt={card.title} loading="lazy" />
-                  <div className="rl-curated-overlay">
-                    <h4 className="rl-curated-title">{card.title}</h4>
-                    <span className="rl-curated-specs">{card.specs}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Removed Curated Spaces Section */}
 
 
         {/* ====================================================
@@ -2913,16 +2943,20 @@ export default function Home() {
               </div>
               
               <div className="rl-collabs-images">
-                <div className="rl-collabs-img-wrapper primary">
-                  <img src="/assets/awards_gold.png" alt="India Design Accolade" loading="lazy" />
-                  <span className="rl-img-caption">Selected Industry Awards</span>
-                </div>
-                <div className="rl-collabs-img-stack">
+                <div className="rl-collabs-img-stack" style={{ aspectRatio: '3/4' }}>
                   <div className="rl-collabs-img-wrapper secondary">
-                    <img src="/assets/awards_glass.png" alt="Emerging Architect Award" loading="lazy" />
+                    <img src="/assets/award_new_1.png" alt="India Design Accolade" loading="lazy" />
                   </div>
                   <div className="rl-collabs-img-wrapper tertiary">
-                    <img src="/assets/awards_medal.png" alt="Best Residential Project Medal" loading="lazy" />
+                    <img src="/assets/award_new_2.png" alt="Emerging Architect Award" loading="lazy" />
+                  </div>
+                </div>
+                <div className="rl-collabs-img-stack" style={{ aspectRatio: '3/4' }}>
+                  <div className="rl-collabs-img-wrapper secondary">
+                    <img src="/assets/award_new_3.png" alt="Best Residential Project Medal" loading="lazy" />
+                  </div>
+                  <div className="rl-collabs-img-wrapper tertiary">
+                    <img src="/assets/award_new_4.png" alt="Industry Excellence Award" loading="lazy" />
                   </div>
                 </div>
               </div>
@@ -2937,7 +2971,7 @@ export default function Home() {
         {/* ====================================================
          * SECTION 2F: REDESIGNED SITE PORTFOLIO
          * ==================================================== */}
-        <section id="showcase" className="rl-section light rl-portfolio">
+        <section id="showcase" className="rl-section light rl-portfolio" style={{ display: 'none' }}>
           <div className="rl-container">
             <span className="rl-subtitle" style={{color: "#050505"}}>Projects</span>
             <h2 className="rl-title" style={{color: "#050505"}}>Project Type</h2>
@@ -3045,16 +3079,23 @@ export default function Home() {
 
           {/* Left: Profile card */}
           <div className="rl-insta-profile">
-            <div className="rl-insta-avatar">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                <circle cx="8" cy="14" r="4.5" />
-                <circle cx="16" cy="14" r="4.5" />
-                <circle cx="12" cy="8" r="4.5" />
-              </svg>
+            <div className="rl-insta-avatar" style={{
+              background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+              padding: '3px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '80px',
+              height: '80px'
+            }}>
+              <div style={{ background: '#1a1a1a', width: '100%', height: '100%', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <img src="/assets/Decorlab-favicon.png" alt="decorlab.in" style={{width: '65%', height: '65%', objectFit: 'contain'}} />
+              </div>
             </div>
 
             <div className="rl-insta-handle-row">
-              <h2 className="rl-insta-handle">decorlab.in</h2>
+              <h2 className="rl-insta-handle">{instaProfile.username}</h2>
               <span className="rl-insta-verified" title="Verified">
                 <svg viewBox="0 0 24 24" fill="#0095f6" width="18" height="18">
                   <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -3064,22 +3105,22 @@ export default function Home() {
 
             <div className="rl-insta-stats">
               <div className="rl-insta-stat">
-                <span className="rl-insta-stat-num">142</span>
+                <span className="rl-insta-stat-num">{instaProfile.posts}</span>
                 <span className="rl-insta-stat-label">posts</span>
               </div>
               <div className="rl-insta-stat">
-                <span className="rl-insta-stat-num">42.8k</span>
+                <span className="rl-insta-stat-num">{instaProfile.followers}</span>
                 <span className="rl-insta-stat-label">followers</span>
               </div>
               <div className="rl-insta-stat">
-                <span className="rl-insta-stat-num">249</span>
+                <span className="rl-insta-stat-num">{instaProfile.following}</span>
                 <span className="rl-insta-stat-label">following</span>
               </div>
             </div>
 
             <div className="rl-insta-bio">
               <span className="rl-insta-bio-name">Decor Lab</span>
-              <p>Curated Architecture &amp; Minimalist Interior Curation. Delivering timeless spaces across India since 1993.</p>
+              <p>{instaProfile.bio}</p>
             </div>
 
             <a
@@ -3133,10 +3174,20 @@ export default function Home() {
 
                 <div className="rl-phone-app-header">
                   <div className="rl-phone-app-left">
-                    <div className="rl-phone-mini-avatar">
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                        <circle cx="8" cy="14" r="4.5"/><circle cx="16" cy="14" r="4.5"/><circle cx="12" cy="8" r="4.5"/>
-                      </svg>
+                    <div className="rl-phone-mini-avatar" style={{
+                      background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                      padding: '2px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '32px',
+                      height: '32px',
+                      marginRight: '8px'
+                    }}>
+                      <div style={{ background: '#1a1a1a', width: '100%', height: '100%', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                        <img src="/assets/Decorlab-favicon.png" alt="decorlab.in" style={{width: '65%', height: '65%', objectFit: 'contain'}} />
+                      </div>
                     </div>
                     <div>
                       <div className="rl-phone-app-user">decorlab.in</div>
@@ -3283,7 +3334,7 @@ export default function Home() {
               </div>
             </div>
             
-            <h1 className="rl-footer-big-text">DECOR LAB</h1>
+            <h1 className="rl-footer-big-text">DECORLAB</h1>
             
             <div className="rl-footer-bottom">
               <span>&copy; 2026 Decorlab. All rights reserved.</span>
@@ -3431,12 +3482,20 @@ export default function Home() {
               {/* Profile Header */}
               <div className="lightbox-profile-header">
                 <div className="lightbox-profile-left">
-                  <div className="lightbox-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="8" cy="14" r="4.5" />
-                      <circle cx="16" cy="14" r="4.5" />
-                      <circle cx="12" cy="8" r="4.5" />
-                    </svg>
+                  <div className="lightbox-avatar" style={{
+                    background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                    padding: '2px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '40px',
+                    height: '40px',
+                    marginRight: '12px'
+                  }}>
+                    <div style={{ background: '#1a1a1a', width: '100%', height: '100%', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                      <img src="/assets/Decorlab-favicon.png" alt="decorlab.in" style={{width: '65%', height: '65%', objectFit: 'contain'}} />
+                    </div>
                   </div>
                   <div className="lightbox-profile-text">
                     <span className="lightbox-username">decorlab.in</span>

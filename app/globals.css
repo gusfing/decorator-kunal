@@ -2465,7 +2465,7 @@ body {
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   will-change: clip-path;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 2147483640;
 }
 
 .progress-bar {
@@ -2534,7 +2534,7 @@ body {
   transform: translateY(60svh);
   transform-origin: top;
   will-change: transform;
-  z-index: 1001;
+  z-index: 2147483641;
 }
 
 .preloader-header a {
@@ -5393,6 +5393,15 @@ html.lenis body {
 @media (hover: hover) and (pointer: fine) {
   * {
     cursor: none !important;
+  }
+  
+  /* Restore cursor for third-party widgets and iframes so users can interact with them */
+  iframe, 
+  [id*="chat"], 
+  [class*="chat"], 
+  [id*="growbro"], 
+  [class*="growbro"] {
+    cursor: auto !important;
   }
 }
 

@@ -8,6 +8,8 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 const gbg1 = "/assets/projects/santhalia_site/image_1.webp";
 const gbg2 = "/assets/projects/site_01/image_1.webp";
 const gbg3 = "/assets/projects/site_02/image_1.webp";
+const gbg4 = "/assets/projects/rathi/image_1.jpg";
+const gbg5 = "/assets/projects/residential_3ds/image_1.jpg";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -26,7 +28,7 @@ const Gallery = ({ isPreloaded = true }) => {
                 scrollTrigger: { toggleActions: "play reverse play reverse",
                     trigger: ".gallery-page4",
                     start: "10% 10%",
-                    end: "220% 30%",
+                    end: "440% 30%",
                     scrub: 1,
                     pin: true,
                 }
@@ -131,6 +133,60 @@ const Gallery = ({ isPreloaded = true }) => {
             }
             
             tl4.to({}, { duration: 0.4 }, "+=0");
+
+            if (document.querySelector("#gallery-fourth")) {
+                tl4.to("#gallery-fourth", {
+                    transform: "translate(-50%, -56%)",
+                }, 'd');
+            }
+            if (document.querySelector("#gallery-fourth img")) {
+                tl4.to("#gallery-fourth img", {
+                    transform: "scale(1)",
+                }, 'd');
+            }
+            if (document.querySelector("#gallery-third")) {
+                tl4.to("#gallery-third", {
+                    scale: 0.9,
+                    opacity: 0,
+                }, 'd');
+            }
+            
+            const fourthTexts = document.querySelectorAll("#gallery-fourth .gallery-topText h4, #gallery-fourth .gallery-topText h3, #gallery-fourth .gallery-bottomText h3");
+            if (fourthTexts.length > 0) {
+                tl4.from(fourthTexts, {
+                    opacity: 0,
+                    x: 50,
+                });
+            }
+            
+            tl4.to({}, { duration: 0.4 }, "+=0");
+            
+            if (document.querySelector("#gallery-fifth")) {
+                tl4.to("#gallery-fifth", {
+                    transform: "translate(-50%, -56%)",
+                }, 'e');
+            }
+            if (document.querySelector("#gallery-fifth img")) {
+                tl4.to("#gallery-fifth img", {
+                    transform: "scale(1)",
+                }, 'e');
+            }
+            if (document.querySelector("#gallery-fourth")) {
+                tl4.to("#gallery-fourth", {
+                    scale: 0.9,
+                    opacity: 0,
+                }, 'e');
+            }
+            
+            const fifthTexts = document.querySelectorAll("#gallery-fifth .gallery-topText h4, #gallery-fifth .gallery-topText h3, #gallery-fifth .gallery-bottomText h3");
+            if (fifthTexts.length > 0) {
+                tl4.from(fifthTexts, {
+                    opacity: 0,
+                    x: 50,
+                });
+            }
+            
+            tl4.to({}, { duration: 0.4 }, "+=0");
         });
 
         // Clean up function
@@ -145,7 +201,7 @@ const Gallery = ({ isPreloaded = true }) => {
         for (let i = 1; i <= quantity; i++) {
             capsules.push(
                 <h3 key={i} style={{ "--index": i }} className='tracking-tighter'>
-                    DecoLab®
+                    DecorLab®
                 </h3>
             );
         }
@@ -178,7 +234,7 @@ const Gallery = ({ isPreloaded = true }) => {
                         <h3>Santhalia Residence boasts raw plaster finishes, bespoke curation, and signature <br /> ombre curtains, creating a meditative, warm minimalist retreat.</h3>
                     </div>
                     <div className="relative z-9 w-50 h-[0.1rem] bg-[#4f4b48]">
-                        <div className="progress-line absolute z-10 bg-[#f4efe7] w-[33%] h-[0.1rem] top-1/2 -translate-y-1/2 left-0"></div>
+                        <div className="progress-line absolute z-10 bg-[#f4efe7] w-[20%] h-[0.1rem] top-1/2 -translate-y-1/2 left-0"></div>
                     </div>
                 </div>
             </div>
@@ -198,7 +254,7 @@ const Gallery = ({ isPreloaded = true }) => {
                         <h3>Corporate Workspace balances biophilic planning, custom structural timber <br /> screens, and organic light wells to maximize spatial connectivity.</h3>
                     </div>
                     <div className="relative z-9 w-50 h-[0.1rem] bg-[#4f4b48]">
-                        <div className="progress-line absolute z-10 bg-[#f4efe7] w-[67%] h-[0.1rem] top-1/2 -translate-y-1/2 left-0"></div>
+                        <div className="progress-line absolute z-10 bg-[#f4efe7] w-[40%] h-[0.1rem] top-1/2 -translate-y-1/2 left-0"></div>
                     </div>
                 </div>
             </div>
@@ -216,6 +272,45 @@ const Gallery = ({ isPreloaded = true }) => {
                     <div className='w-full flex justify-center items-center gap-0'>
                         <BsFillPlusCircleFill className='gallery-desktop-plus w-8 h-8 text-[#b1a696]' />
                         <h3>Fluid Pavilion experiments with parametric double-curvature structures, <br /> warm lighting grids, and seamless spatial transitions.</h3>
+                    </div>
+                    <div className="relative z-9 w-50 h-[0.1rem] bg-[#4f4b48]">
+                        <div className="progress-line absolute z-10 bg-[#f4efe7] w-[60%] h-[0.1rem] top-1/2 -translate-y-1/2 left-0"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="gallery-fourth" className="gallery-background2">
+                <div className="gallery-card-wrapper">
+                    <img loading="lazy" src={gbg4} alt="Rathi Residence" />
+                    <BsFillPlusCircleFill className="gallery-mobile-plus" />
+                </div>
+                <div className="gallery-topText">
+                    <h4>Rathi Residence®</h4>
+                    <h3>(Scroll)</h3>
+                </div>
+                <div className="gallery-bottomText">
+                    <div className='w-full flex justify-center items-center gap-0'>
+                        <BsFillPlusCircleFill className='gallery-desktop-plus w-8 h-8 text-[#b1a696]' />
+                        <h3>Rathi Residence features customized decor and a harmonious material palette. <br /> Focuses on premium finishing and an elegant spatial arrangement.</h3>
+                    </div>
+                    <div className="relative z-9 w-50 h-[0.1rem] bg-[#4f4b48]">
+                        <div className="progress-line absolute z-10 bg-[#f4efe7] w-[80%] h-[0.1rem] top-1/2 -translate-y-1/2 left-0"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gallery-fifth" className="gallery-background2">
+                <div className="gallery-card-wrapper">
+                    <img loading="lazy" src={gbg5} alt="Residential 3D Concepts" />
+                    <BsFillPlusCircleFill className="gallery-mobile-plus" />
+                </div>
+                <div className="gallery-topText">
+                    <h4>Residential 3Ds®</h4>
+                    <h3>(Scroll)</h3>
+                </div>
+                <div className="gallery-bottomText">
+                    <div className='w-full flex justify-center items-center gap-0'>
+                        <BsFillPlusCircleFill className='gallery-desktop-plus w-8 h-8 text-[#b1a696]' />
+                        <h3>High-quality 3D visualizations showcasing modern residential design concepts. <br /> Features detailed interior planning, lighting simulation, and material exploration.</h3>
                     </div>
                     <div className="relative z-9 w-50 h-[0.1rem] bg-[#4f4b48]">
                         <div className="progress-line absolute z-10 bg-[#f4efe7] w-[100%] h-[0.1rem] top-1/2 -translate-y-1/2 left-0"></div>

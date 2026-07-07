@@ -18,7 +18,9 @@
 
 .gallery-background img,
 #gallery-second img,
-#gallery-third img {
+#gallery-third img,
+#gallery-fourth img,
+#gallery-fifth img {
     position: absolute;
     top: 0;
     left: 0;
@@ -69,6 +71,10 @@
     font-weight: 600;
     left: 100%;
     white-space: nowrap;
+    line-height: 1.1;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
     animation: gallery-animate var(--time) linear infinite;
     animation-delay: calc((var(--time) / var(--quantity) * (var(--index) - 1)) - var(--time));
 }
@@ -142,7 +148,9 @@
 /* text animation end */
 
 .gallery-page4 #gallery-second,
-.gallery-page4 #gallery-third {
+.gallery-page4 #gallery-third,
+.gallery-page4 #gallery-fourth,
+.gallery-page4 #gallery-fifth {
     position: absolute;
     width: calc(100vw - 1rem);
     height: calc(100vh - 1rem);
@@ -201,7 +209,9 @@
     /* Stacked natural flow cards on mobile */
     .gallery-page4 .gallery-background,
     .gallery-page4 #gallery-second,
-    .gallery-page4 #gallery-third {
+    .gallery-page4 #gallery-third,
+    .gallery-page4 #gallery-fourth,
+    .gallery-page4 #gallery-fifth {
         position: relative !important;
         width: 100% !important;
         max-width: 500px !important;

@@ -2,48 +2,65 @@
 
 import { useState } from "react";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
+import { FaUserCircle } from "react-icons/fa";
 
 const feedbackH1LG = [
     [
-        "Decor Lab's warm minimalist layout",
-        "elevated our Kolkata villa's luxury",
-        "index — bespoke art curation, custom",
-        "linen wall treatments, and signature",
-        "ombre curtains that we absolutely love."
+        "Professional, creative, and timely.",
+        "Loved the design ideas and the",
+        "execution. Great work 👍🏻"
     ],
     [
-        "Partnering with Kolkata's premium",
-        "interior architecture studio was key",
-        "for our corporate workspace. Seamless",
-        "biophilic light wells and custom timber",
-        "screens that perfectly align with our brand."
+        "Excellent design, great attention",
+        "to detail, highly recommend 👍"
     ],
     [
-        "Their experimental fluid architecture",
-        "and organic curves transformed our",
-        "penthouse. Outstanding tactile plaster",
-        "finishes and beautiful spatial flow",
-        "that redefine luxury Indian interiors."
+        "One of the finest interior designing",
+        "companies in kolkata. The designs are",
+        "really very satisfying. The service is",
+        "also very impressive."
+    ],
+    [
+        "I was looking for some finest interior",
+        "for my home. Then I came to know about",
+        "decorlab and I found that it is one of the best",
+        "interior designing companies in Kolkata."
+    ],
+    [
+        "Best interior designing",
+        "company in kolkata 🙏"
     ]
 ];
 
 const feedbackReviewLG = [
     [
-        "Rohan Mehta",
-        "Director, Prestige Group (Kolkata Villa)",
+        "Vaishnavi Shetye",
+        "Google Review",
         "review1",
-        "33%"
+        "20%"
     ],
     [
-        "Priya Sharma",
-        "Lead Designer, Taj Hospitality (Corporate HQ)",
+        "Ajinkya Patil",
+        "Google Review",
         "review2",
-        "66%"
+        "40%"
     ],
     [
-        "Dr. Amit Verma",
-        "Chief Curator, ICA Creative Minds",
+        "Ayushi Burnwal",
+        "Local Guide • Google Review",
         "review3",
+        "60%"
+    ],
+    [
+        "Sudeshna Meikap",
+        "Local Guide • Google Review",
+        "review1",
+        "80%"
+    ],
+    [
+        "Mriganko Santra",
+        "Local Guide • Google Review",
+        "review2",
         "100%"
     ]
 ];
@@ -89,11 +106,7 @@ const Feedback = () => {
                 </div>
 
                 <div className='flex items-center gap-4 mt-8 sm:mt-12 select-none'>
-                    <img
-                        src={reviewImages[feedbackReviewLG[index][2]]}
-                        alt="review img"
-                        className='w-12 h-12 sm:w-[4.5vw] sm:min-w-[50px] rounded-full object-cover shadow-sm'
-                    />
+                    <FaUserCircle className='w-10 h-10 sm:w-[4vw] sm:min-w-[45px] text-[#1A1A1A]/40' />
                     <p className="text-[#1A1A1A]/70 text-[10px] sm:text-xs font-bold uppercase tracking-wider leading-relaxed">
                         {feedbackReviewLG[index][0]}<br />
                         <span className="text-[#2C5F2E] text-[9px] sm:text-[10px] font-semibold">({feedbackReviewLG[index][1]})</span>
