@@ -86,7 +86,7 @@ const Feedback = () => {
     const progressWidth = feedbackReviewLG[index][3];
 
     return (
-        <section id="feedback" className='w-full py-16 lg:py-0 lg:h-dvh p-6 sm:p-8 flex flex-col justify-center items-stretch bg-[#F7F4EF] overflow-hidden'>
+        <section id="feedback" className='w-full py-16 lg:py-0 lg:h-dvh p-6 sm:p-8 flex flex-col justify-center items-stretch bg-white overflow-hidden'>
             <div className='w-full text-left max-w-[1400px] mx-auto flex flex-col justify-center h-full'>
                 <p className='text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#2C5F2E] text-left mb-2 sm:mb-4 select-none'>
                     — Client Testimonials

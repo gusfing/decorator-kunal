@@ -5726,7 +5726,8 @@ html.lenis body {
 
   /* ---- Founder image blocks ---- */
   .founder-img-wrap {
-    height: 350px !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
     border-radius: 16px !important;
   }
 
@@ -5847,7 +5848,8 @@ html.lenis body {
 
   /* ---- Founder section ---- */
   .founder-img-wrap {
-    height: 250px !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
     border-radius: 12px !important;
   }
 

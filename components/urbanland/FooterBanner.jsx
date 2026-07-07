@@ -8,7 +8,7 @@ import ClickIndicator from './ClickIndicator';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FooterBanner = ({ isPreloaded = true }) => {
+const FooterBanner = ({ isPreloaded = true, bgColor = "bg-transparent" }) => {
     const [active, setActive] = useState(false);
     const fbConRef = useRef(null);
     const fbImgRef = useRef(null);
@@ -56,7 +56,7 @@ const FooterBanner = ({ isPreloaded = true }) => {
     }, { scope: fbConRef, dependencies: [isPreloaded] });
 
     return (
-        <div ref={fbConRef} className="w-full h-dvh p-2 bg-[#F7F4EF]">
+        <div ref={fbConRef} className={`w-full h-dvh p-2 ${bgColor}`}>
             <div className="relative w-full h-full rounded-[2.5rem] bg-[#2D2D2D] overflow-hidden flex flex-col justify-center items-center p-8 md:p-16 lg:p-24 pb-20">
                 <ClickIndicator active={active} />
                 <img

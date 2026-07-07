@@ -435,22 +435,19 @@ export default function About() {
             <div style={{ width: "100%", height: "1px", background: "linear-gradient(to right, #C9A84C, transparent)", marginTop: "3rem" }} />
           </div>
 
-          {/* Founder 1: Raja Sinha — Full-width cinematic card */}
-          <div className="founder-card-1 founder-section-row" style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "stretch" }}>
-            {/* Large background image */}
-            <div className="founder-img-wrap" style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+          {/* Founder 1: Raja Sinha — Split Layout */}
+          <div className="founder-card-1 founder-section-row" style={{ display: "flex", flexWrap: "wrap", gap: "4rem", alignItems: "center", marginBottom: "8rem" }}>
+            {/* Portrait Image */}
+            <div className="founder-img-wrap" style={{ flex: "1 1 400px", maxWidth: "500px", position: "relative", aspectRatio: "1/1", borderRadius: "12px", overflow: "hidden" }}>
               <img loading="lazy"
-                src="/assets/projects/photos_set1/image_3.webp"
+                src="/assets/founders/raja-sinha.jpeg"
                 alt="Raja Sinha — Founder"
-                style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.45)" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
               />
-              {/* Gradient overlays */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 40%)" }} />
             </div>
 
-            {/* Text content overlaid */}
-            <div className="founder-text-panel" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(2rem, 5vw, 6rem)", maxWidth: "700px", gap: "1.5rem" }}>
+            {/* Text content */}
+            <div className="founder-text-panel" style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                 <div style={{ width: "40px", height: "2px", background: "#C9A84C" }} />
                 <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.25em", color: "#C9A84C", textTransform: "uppercase" }}>FOUNDER · EST. 1993</span>
@@ -465,7 +462,7 @@ export default function About() {
               </p>
 
               {/* Stats row */}
-              <div style={{ display: "flex", gap: "3rem", marginTop: "1rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "3rem", marginTop: "1rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
                 <div>
                   <div style={{ fontSize: "2rem", fontFamily: "var(--font-serif)", color: "#C9A84C", lineHeight: 1 }}>32+</div>
                   <div style={{ fontSize: "0.7rem", fontFamily: "monospace", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "0.4rem" }}>Years of Legacy</div>
@@ -482,22 +479,19 @@ export default function About() {
             </div>
           </div>
 
-          {/* Founder 2: Ar. Rajdip Sinha — Asymmetric split */}
-          <div className="founder-card-2 founder-section-row" style={{ position: "relative", minHeight: "85vh", display: "grid", gridTemplateColumns: "1fr", alignItems: "center" }}>
-            {/* Background image — right-aligned */}
-            <div className="founder-img-wrap" style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+          {/* Founder 2: Ar. Rajdip Sinha — Split Layout (Reversed) */}
+          <div className="founder-card-2 founder-section-row" style={{ display: "flex", flexWrap: "wrap", flexDirection: "row-reverse", gap: "4rem", alignItems: "center", marginBottom: "8rem" }}>
+            {/* Portrait Image */}
+            <div className="founder-img-wrap" style={{ flex: "1 1 400px", maxWidth: "500px", position: "relative", aspectRatio: "1/1", borderRadius: "12px", overflow: "hidden" }}>
               <img loading="lazy"
-                src="/assets/projects/photos_set2/image_2.webp"
+                src="/assets/founders/rajdip-sinha.jpg"
                 alt="Ar. Rajdip Sinha — Chief Architect"
-                style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.4)" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
               />
-              {/* Gradient overlays — mirrored for right text */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 40%)" }} />
             </div>
 
-            {/* Text content — right side */}
-            <div className="founder-text-panel" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "clamp(2rem, 5vw, 6rem)", marginLeft: "auto", maxWidth: "700px", gap: "1.5rem", minHeight: "85vh" }}>
+            {/* Text content */}
+            <div className="founder-text-panel" style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                 <div style={{ width: "40px", height: "2px", background: "#C9A84C" }} />
                 <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.25em", color: "#C9A84C", textTransform: "uppercase" }}>CO-FOUNDER · CHIEF ARCHITECT</span>

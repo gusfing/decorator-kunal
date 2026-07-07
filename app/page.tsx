@@ -3302,7 +3302,7 @@ export default function Home() {
         */}
 
         <Feedback />
-        <FooterBanner isPreloaded={isPreloaded} />
+        <FooterBanner isPreloaded={isPreloaded} bgColor="bg-white" />
 
         <RedesignAnimations setActiveProcessStep={setActiveProcessStep} />
         {/* ====================================================
