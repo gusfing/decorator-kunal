@@ -1,0 +1,5 @@
+feat(ui): Update layout, animations, and pages
+
+Update layout, RedesignAnimations, and several pages. Add Footer component and image optimization script.
+
+Co-Authored-By: Antigravity <noreply@example.com>

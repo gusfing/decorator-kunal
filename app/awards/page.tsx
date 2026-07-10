@@ -491,69 +491,6 @@ export default function Awards() {
         {/* Premium consultation consult section */}
         <FooterBanner isPreloaded={true} />
 
-        {/* Studio Footer */}
-        <footer id="awards-footer" className="section-footer dark-footer" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-          <div className="footer-container">
-            <div className="footer-top">
-              <div className="footer-brand">
-                <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
-                </div>
-                <p className="footer-desc">
-                  Kolkata-based architecture and interior design powerhouse artfully blending legacy with design innovation since 1993.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="footer-col-title">Inquiries</h4>
-                <ul className="footer-links-list">
-                  <li>
-                    <a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a>
-                  </li>
-                  <li>
-                    <a href="tel:+913324648000">+91 33 2464 8000</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="footer-col-title">Studio</h4>
-                <ul className="footer-links-list">
-                  <li style={{ fontSize: "0.95rem", lineHeight: 1.5, color: "rgba(255, 255, 255, 0.6)" }}>
-                    Vinayak Garden, Kolkata,
-                    <br />
-                    West Bengal 700004
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="footer-col-title">Socials</h4>
-                <ul className="footer-links-list">
-                  <li>
-                    <a href="https://instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ==" target="_blank" rel="noopener noreferrer">
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                      LinkedIn
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="footer-bottom">
-              <p>&copy; 2026 Decorlab. All rights reserved.</p>
-              <div className="footer-bottom-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#legal">Legal Notice</a>
-                <a href="#cookies">Cookies Policy</a>
-              </div>
-            </div>
-          </div>
-        </footer>
       </main>
 
       <style jsx global>{`

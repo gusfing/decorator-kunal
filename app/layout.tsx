@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import GSAPRouteCleaner from "@/components/GSAPRouteCleaner";
 import ClientProviders from "@/components/ClientProviders";
 import Script from "next/script";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Decor Lab | Architecture & Interior Design Studio",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <ClientProviders>
           {children}
         </ClientProviders>
+        <Footer />
         <Script 
           src="https://chatbox.growbro.ai/assets/chatbox-widget-bundle.js" 
           data-ai-id="2d04f8f7-b7c7-49e5-8d48-3a58b019a863" 

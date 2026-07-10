@@ -35,6 +35,7 @@ interface InstaPost {
   caption: string;
   likes: string;
   comments: string;
+  permalink?: string;
 }
 
 // Instagram feed data
@@ -335,7 +336,7 @@ export default function Home() {
   const [posts, setPosts] = useState<InstaPost[]>([]);
   const [loadingInsta, setLoadingInsta] = useState(true);
 
-  const [instaProfile] = useState({
+  const [instaProfile, setInstaProfile] = useState({
     posts: '142',
     followers: '42.8k',
     following: '249',
@@ -345,10 +346,29 @@ export default function Home() {
   });
 
   useEffect(() => {
-    setPosts(instaPosts);
-    setTimeout(() => {
-      setLoadingInsta(false);
-    }, 1200);
+    const fetchInstaData = async () => {
+      try {
+        const res = await fetch('/api/instagram');
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        
+        if (data.profile) {
+          setInstaProfile(data.profile);
+        }
+        if (data.feed && data.feed.length > 0) {
+          setPosts(data.feed);
+        } else {
+          setPosts(instaPosts);
+        }
+      } catch (err) {
+        console.error('Error fetching Instagram data:', err);
+        setPosts(instaPosts);
+      } finally {
+        setLoadingInsta(false);
+      }
+    };
+
+    fetchInstaData();
   }, []);
 
   const handlePrevInsta = () => {
@@ -2715,7 +2735,7 @@ export default function Home() {
               zIndex: 0,
             }}
           >
-            <source src="/assets/living-room-hero.mp4" type="video/mp4" />
+            <source src="/assets/Boys_Room_1.mp4" type="video/mp4" />
           </video>
           <div
             style={{
@@ -2940,6 +2960,28 @@ export default function Home() {
                     <span className="rl-stat-label">Awards Won</span>
                   </div>
                 </div>
+
+                <div style={{ marginTop: "2.5rem" }}>
+                  <a href="/awards" style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.75rem",
+                    color: "#C9A84C",
+                    textDecoration: "none",
+                    fontFamily: "monospace",
+                    textTransform: "uppercase",
+                    letterSpacing: "2px",
+                    fontSize: "0.85rem",
+                    borderBottom: "1px solid rgba(201,168,76,0.3)",
+                    paddingBottom: "4px",
+                    transition: "all 0.3s ease"
+                  }}>
+                    View All Awards
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                </div>
               </div>
               
               <div className="rl-collabs-images">
@@ -3090,7 +3132,7 @@ export default function Home() {
               height: '80px'
             }}>
               <div style={{ background: '#1a1a1a', width: '100%', height: '100%', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                <img src="/assets/Decorlab-favicon.png" alt="decorlab.in" style={{width: '65%', height: '65%', objectFit: 'contain'}} />
+                <img src={instaProfile.profilePicUrl || "/assets/Decorlab-favicon.png"} alt={instaProfile.username} style={{width: instaProfile.profilePicUrl ? '100%' : '65%', height: instaProfile.profilePicUrl ? '100%' : '65%', objectFit: instaProfile.profilePicUrl ? 'cover' : 'contain'}} />
               </div>
             </div>
 
@@ -3124,7 +3166,7 @@ export default function Home() {
             </div>
 
             <a
-              href="https://www.instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ=="
+              href={`https://www.instagram.com/${instaProfile.username}`}
               target="_blank"
               rel="noopener noreferrer"
               className="rl-insta-follow-btn"
@@ -3186,11 +3228,11 @@ export default function Home() {
                       marginRight: '8px'
                     }}>
                       <div style={{ background: '#1a1a1a', width: '100%', height: '100%', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                        <img src="/assets/Decorlab-favicon.png" alt="decorlab.in" style={{width: '65%', height: '65%', objectFit: 'contain'}} />
+                        <img src={instaProfile.profilePicUrl || "/assets/Decorlab-favicon.png"} alt={instaProfile.username} style={{width: instaProfile.profilePicUrl ? '100%' : '65%', height: instaProfile.profilePicUrl ? '100%' : '65%', objectFit: instaProfile.profilePicUrl ? 'cover' : 'contain'}} />
                       </div>
                     </div>
                     <div>
-                      <div className="rl-phone-app-user">decorlab.in</div>
+                      <div className="rl-phone-app-user">{instaProfile.username}</div>
                       <div className="rl-phone-app-loc">Kolkata, India</div>
                     </div>
                   </div>
@@ -3253,7 +3295,7 @@ export default function Home() {
                     <div className="rl-phone-caption">
                       <div className="rl-phone-likes">{displayPosts[activeInstaSlide]?.likes} likes</div>
                       <div className="rl-phone-caption-text">
-                        <span className="rl-phone-caption-user">decorlab.in </span>
+                        <span className="rl-phone-caption-user">{instaProfile.username} </span>
                         {displayPosts[activeInstaSlide]?.caption}
                       </div>
                     </div>
@@ -3305,43 +3347,6 @@ export default function Home() {
         <FooterBanner isPreloaded={isPreloaded} bgColor="bg-white" />
 
         <RedesignAnimations setActiveProcessStep={setActiveProcessStep} />
-        {/* ====================================================
-         * REDESIGNED FOOTER
-         * ==================================================== */}
-        <footer id="contact-footer" className="rl-footer">
-          <div className="rl-container">
-            <div className="rl-footer-top">
-              <div className="rl-footer-logo-desc">
-                <img src="/assets/Decorlab-final-05-trans.webp" alt="Decor Lab" />
-                <p>Architecture & Interior Design.<br/>Kolkata-based design powerhouse blending legacy craftsmanship with bold contemporary architecture. Since 1993.</p>
-              </div>
-              <div className="rl-footer-links">
-                <div className="rl-footer-col">
-                  <h4>Studio</h4>
-                  <ul>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#collection">Collection</a></li>
-                    <li><a href="#showcase">Portfolio</a></li>
-                  </ul>
-                </div>
-                <div className="rl-footer-col">
-                  <h4>Contact</h4>
-                  <ul>
-                    <li><a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a></li>
-                    <li><a href="tel:+913324648000">+91 33 2464 8000</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            
-            <h1 className="rl-footer-big-text">DECORLAB</h1>
-            
-            <div className="rl-footer-bottom">
-              <span>&copy; 2026 Decorlab. All rights reserved.</span>
-              <span>Made with precision in Kolkata, India.</span>
-            </div>
-          </div>
-        </footer>
 
       </main>
 

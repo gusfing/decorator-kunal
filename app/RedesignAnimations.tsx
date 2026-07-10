@@ -245,30 +245,6 @@ export default function RedesignAnimations({
         }
       );
 
-      // ─── 9. FOOTER — big text reveal ──────────────────────────────────
-      const footerText = document.querySelector(".rl-footer-big-text");
-      if (footerText) {
-        gsap.fromTo(footerText,
-          { opacity: 0, y: 80, scale: 0.92 },
-          {
-            opacity: 1, y: 0, scale: 1,
-            duration: 1.6, ease: "expo.out",
-            scrollTrigger: { trigger: ".rl-footer", start: "top 80%", toggleActions: "play none none none" },
-          }
-        );
-      }
-
-      // Footer top items stagger
-      const footerCols = gsap.utils.toArray<HTMLElement>(".rl-footer-col, .rl-footer-logo-desc");
-      gsap.fromTo(footerCols,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0,
-          stagger: 0.1, duration: 0.8, ease: "power2.out",
-          scrollTrigger: { trigger: ".rl-footer-top", start: "top 85%", toggleActions: "play none none none" },
-        }
-      );
-
       // ─── 10. GENERIC SECTION DIVIDERS — draw line ─────────────────────
       gsap.utils.toArray<HTMLElement>(".rl-divider, .rl-philo-pillar-divider").forEach((divider) => {
         gsap.fromTo(divider,

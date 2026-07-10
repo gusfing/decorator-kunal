@@ -466,18 +466,7 @@ export default function Work() {
           onMouseLeave={handleMouseLeave}
           style={{ position: "relative" }}
         >
-          {/* Ambient Video Background */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="scene-video-bg"
-          >
-            <source src="/assets/living-room-hero.mp4" type="video/mp4" />
-          </video>
-          {/* Dark Glassmorphic & Vignette Overlay */}
-          <div className="scene-overlay"></div>
+
 
           <div className="bg-typography">
             <span>Selected</span>
@@ -560,69 +549,6 @@ export default function Work() {
           </div>
         </div>
 
-        {/* Studio Footer */}
-        <footer id="work-footer" className="section-footer dark-footer">
-          <div className="footer-container">
-            <div className="footer-top">
-              <div className="footer-brand">
-                <div className="footer-logo">
-                  <img src="/assets/Decorlab final-04.webp" alt="Decor Lab Logo" className="footer-logo-img" style={{ maxHeight: "36px", marginRight: "12px" }} />
-                </div>
-                <p className="footer-desc">
-                  Kolkata-based architecture and interior design powerhouse artfully blending legacy with design innovation since 1993.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="footer-col-title">Inquiries</h4>
-                <ul className="footer-links-list">
-                  <li>
-                    <a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a>
-                  </li>
-                  <li>
-                    <a href="tel:+913324648000">+91 33 2464 8000</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="footer-col-title">Studio</h4>
-                <ul className="footer-links-list">
-                  <li style={{ fontSize: "0.95rem", lineHeight: 1.5, color: "rgba(255, 255, 255, 0.6)" }}>
-                    Vinayak Garden, Kolkata,
-                    <br />
-                    West Bengal 700004
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="footer-col-title">Socials</h4>
-                <ul className="footer-links-list">
-                  <li>
-                    <a href="https://instagram.com/decorlab.in?igsh=MWluaGo2OXZtbzBsOQ==" target="_blank" rel="noopener noreferrer">
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                      LinkedIn
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="footer-bottom">
-              <p>&copy; 2026 Decorlab. All rights reserved.</p>
-              <div className="footer-bottom-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#legal">Legal Notice</a>
-                <a href="#cookies">Cookies Policy</a>
-              </div>
-            </div>
-          </div>
-        </footer>
       </main>
 
       {/* Lightbox dialog modal */}
@@ -715,25 +641,7 @@ export default function Work() {
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .scene-video-bg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
-          pointer-events: none;
-          opacity: 1;
-        }
 
-        .scene-overlay {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          pointer-events: none;
-          background: transparent;
-        }
 
         .bg-typography {
           position: absolute;
