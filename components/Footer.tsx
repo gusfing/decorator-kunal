@@ -4,7 +4,7 @@ import React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
+import Script from "next/script";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -60,6 +60,10 @@ export default function Footer() {
   return (
     <footer id="contact-footer" className="rl-footer" ref={container}>
       <div className="rl-container">
+        
+        {/* Instagram Feed Widget Script */}
+        <Script type="module" src="https://w.behold.so/widget.js" strategy="lazyOnload" />
+
         <div className="rl-footer-top">
           <div className="rl-footer-logo-desc">
             <img src="/assets/Decorlab-final-05-trans.webp" alt="Decor Lab" />

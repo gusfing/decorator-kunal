@@ -3264,7 +3264,35 @@ export default function Home() {
                               onClick={() => { if (!isSwiping) setSelectedInsta(idx); }}
                               aria-label={"View post " + (idx + 1)}
                             >
-                              <img loading="lazy" src={post.img} alt={"Post " + (idx + 1)} />
+                              {post.mediaType === 'VIDEO' && post.videoUrl ? (
+                                <video 
+                                  autoPlay 
+                                  muted 
+                                  loop 
+                                  playsInline 
+                                  src={post.videoUrl} 
+                                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                                />
+                              ) : post.mediaType === 'CAROUSEL_ALBUM' && post.children && post.children.length > 0 ? (
+                                <div 
+                                  style={{ display: 'flex', overflowX: 'auto', scrollSnapType: 'x mandatory', width: '100%', height: '100%', scrollbarWidth: 'none' }}
+                                  onTouchStart={(e) => e.stopPropagation()}
+                                  onTouchMove={(e) => e.stopPropagation()}
+                                  onTouchEnd={(e) => e.stopPropagation()}
+                                >
+                                  {post.children.map((child: any, cIdx: number) => (
+                                    <img 
+                                      key={cIdx} 
+                                      loading="lazy" 
+                                      src={child.img} 
+                                      alt={"Carousel Image " + (cIdx + 1)} 
+                                      style={{ width: '100%', height: '100%', objectFit: 'cover', flexShrink: 0, scrollSnapAlign: 'start' }} 
+                                    />
+                                  ))}
+                                </div>
+                              ) : (
+                                <img loading="lazy" src={post.img} alt={"Post " + (idx + 1)} />
+                              )}
                               <div className="rl-phone-post-overlay">
                                 <div className="rl-phone-post-stats">
                                   <span>
@@ -3479,7 +3507,32 @@ export default function Home() {
 
             {/* Image container */}
             <div className="lightbox-image-panel">
-              <img loading="lazy" id="lightbox-img" src={displayPosts[selectedInsta]?.img} alt="Instagram Post Full Size" />
+              {displayPosts[selectedInsta]?.mediaType === 'VIDEO' && displayPosts[selectedInsta]?.videoUrl ? (
+                <video 
+                  autoPlay 
+                  controls
+                  loop 
+                  playsInline 
+                  src={displayPosts[selectedInsta]?.videoUrl} 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                />
+              ) : displayPosts[selectedInsta]?.mediaType === 'CAROUSEL_ALBUM' && displayPosts[selectedInsta]?.children && displayPosts[selectedInsta]?.children.length > 0 ? (
+                <div 
+                  style={{ display: 'flex', overflowX: 'auto', scrollSnapType: 'x mandatory', width: '100%', height: '100%', scrollbarWidth: 'none' }}
+                >
+                  {displayPosts[selectedInsta].children.map((child: any, cIdx: number) => (
+                    <img 
+                      key={cIdx} 
+                      loading="lazy" 
+                      src={child.img} 
+                      alt={"Carousel Image " + (cIdx + 1)} 
+                      style={{ width: '100%', height: '100%', objectFit: 'contain', flexShrink: 0, scrollSnapAlign: 'start' }} 
+                    />
+                  ))}
+                </div>
+              ) : (
+                <img loading="lazy" id="lightbox-img" src={displayPosts[selectedInsta]?.img} alt="Instagram Post Full Size" />
+              )}
             </div>
 
             {/* Detailed Info Column */}
