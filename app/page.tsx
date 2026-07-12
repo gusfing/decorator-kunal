@@ -36,6 +36,9 @@ interface InstaPost {
   likes: string;
   comments: string;
   permalink?: string;
+  mediaType?: string;
+  videoUrl?: string;
+  children?: any[];
 }
 
 // Instagram feed data
