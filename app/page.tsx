@@ -2731,11 +2731,13 @@ export default function Home() {
          * SECTION 1: HERO VIEW (Slideshow, vignettes & title)
          * ==================================================== */}
         <section id="section-hero" className="section hero" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#000', height: '100vh', minHeight: '600px' }}>
-          <img
+          <video
             className="hero-bg-video"
-            src="/assets/projects/santhalia_site/image_1.webp"
-            alt="Hero Background"
-            loading="lazy"
+            src="/assets/videos/living-room.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
             style={{
               position: "absolute",
               top: 0,
