@@ -65,7 +65,7 @@ export default function Scroll3DEffect({ projects, onProjectClick }: Scroll3DEff
     // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
@@ -73,7 +73,7 @@ export default function Scroll3DEffect({ projects, onProjectClick }: Scroll3DEff
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
-    });
+    } as any);
 
     let animationFrameId: number;
     function raf(time: number) {

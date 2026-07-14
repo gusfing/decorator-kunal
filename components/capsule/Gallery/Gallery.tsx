@@ -14,7 +14,22 @@ const gbg5 = "/assets/projects/residential_3ds/image_1.jpg";
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const Gallery = ({ isPreloaded = true, projectsData = [], onOpenProject = () => {} }) => {
+export interface Project {
+  id: string;
+  title: string;
+  type: string;
+  location: string;
+  description: string;
+  images: string[];
+}
+
+interface GalleryProps {
+  isPreloaded?: boolean;
+  projectsData?: Project[];
+  onOpenProject?: (project: Project) => void;
+}
+
+const Gallery: React.FC<GalleryProps> = ({ isPreloaded = true, projectsData = [], onOpenProject = () => {} }) => {
     const pageRef = useRef(null);
 
     useEffect(() => {
@@ -194,7 +209,7 @@ const Gallery = ({ isPreloaded = true, projectsData = [], onOpenProject = () => 
         const capsules = [];
         for (let i = 1; i <= quantity; i++) {
             capsules.push(
-                <h3 key={i} style={{ "--index": i }} className='tracking-tighter'>
+                <h3 key={i} style={{ "--index": i } as React.CSSProperties} className='tracking-tighter'>
                     DecorLab®
                 </h3>
             );
@@ -207,7 +222,7 @@ const Gallery = ({ isPreloaded = true, projectsData = [], onOpenProject = () => 
             <div className="gallery-slider">
                 <div
                     className="gallery-box"
-                    style={{ "--time": "40s", "--quantity": 6 }}
+                    style={{ "--time": "40s", "--quantity": 6 } as React.CSSProperties}
                 >
                     {generateCapsules(6)}
                 </div>
