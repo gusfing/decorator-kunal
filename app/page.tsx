@@ -2641,7 +2641,7 @@ export default function Home() {
 
           <div ref={preloaderHeaderRef} className="preloader-header" id="preloader-header-container">
             <a href="#" id="preloader-title-link" style={{ whiteSpace: 'nowrap', display: 'flex', justifyContent: 'center' }}>
-              {"DecorLab".split("").map((char, index) => (
+              {"DL".split("").map((char, index) => (
                 <span key={index} className="char-mask">
                   <span className="char">{char === " " ? "\u00A0" : char}</span>
                 </span>

@@ -309,12 +309,12 @@ export default function Awards() {
       </header>
 
       {/* Main Container */}
-      <main style={{ paddingTop: "8rem" }}>
+      <main className="pt-24 md:pt-32">
         
         {/* ====================================================
          * SECTION 1: HERO VIEW (Magazine Typography)
          * ==================================================== */}
-        <section style={{ minHeight: "70vh", padding: "4rem 2.5rem 6rem", display: "flex", alignItems: "center" }}>
+        <section className="px-6 pb-16 pt-16 md:px-10 md:pb-24 md:pt-16" style={{ minHeight: "70vh", display: "flex", alignItems: "center" }}>
           <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
             <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color: "#C9A84C" }}>ACCOLADES & RECOGNITION</span>
             
@@ -337,7 +337,7 @@ export default function Awards() {
         {/* ====================================================
          * SECTION 2: TIMELINE VIEW (Ink progress drawing)
          * ==================================================== */}
-        <section style={{ padding: "8rem 2.5rem", borderTop: "1px solid rgba(255,255,255,0.08)", background: "#060605" }}>
+        <section className="py-16 px-6 md:py-32 md:px-10" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: "#060605" }}>
           <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
             <div style={{ marginBottom: "6rem" }}>
               <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color: "#C9A84C" }}>TIMELINE</span>
@@ -441,7 +441,7 @@ export default function Awards() {
         {/* ====================================================
          * SECTION 3: PRESS VIEW (Magazine Layout)
          * ==================================================== */}
-        <section style={{ padding: "10rem 2.5rem", borderTop: "1px solid rgba(255,255,255,0.08)", background: "#000" }}>
+        <section className="py-20 px-6 md:py-40 md:px-10" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: "#000" }}>
           <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
             <div style={{ marginBottom: "6rem" }}>
               <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color: "#C9A84C" }}>EDITORIALS</span>
