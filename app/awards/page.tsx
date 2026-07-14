@@ -257,7 +257,8 @@ export default function Awards() {
       tagline: "Video Feature",
       excerpt: "An inside look into the design process, computational models, and fluid architecture.",
       bgImage: "/assets/projects/site_02/image_4.webp",
-      url: "https://youtu.be/eWxS0YkIWCE?si=HEH4AcBTEPb1XmAR"
+      url: "https://youtu.be/eWxS0YkIWCE?si=HEH4AcBTEPb1XmAR",
+      videoId: "eWxS0YkIWCE"
     },
     {
       media: "Business Standard",
@@ -449,19 +450,23 @@ export default function Awards() {
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "2.5rem" }}>
-              {pressList.map((press, idx) => (
-                <a 
+              {pressList.map((press, idx) => {
+                const isVideo = !!press.videoId;
+                const CardWrapper = isVideo ? "div" : "a";
+                
+                return (
+                <CardWrapper 
                   key={idx}
-                  href={press.url || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={isVideo ? undefined : (press.url || "#")}
+                  target={isVideo ? undefined : "_blank"}
+                  rel={isVideo ? undefined : "noopener noreferrer"}
                   className="press-grid-card group"
                   data-cursor="view"
                   style={{
                     backgroundColor: "rgba(255,255,255,0.01)",
                     border: "1px solid rgba(255,255,255,0.05)",
                     borderRadius: "24px",
-                    padding: "3.5rem 2.5rem",
+                    padding: isVideo ? "1.5rem" : "3.5rem 2.5rem",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
@@ -473,21 +478,36 @@ export default function Awards() {
                   }}
                 >
                   {/* Parallax Background image overlay */}
-                  <div 
-                    className="press-card-bg"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundImage: `url(${press.bgImage})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      opacity: 0.03,
-                      zIndex: 0,
-                      transition: "opacity 0.4s ease, transform 0.6s ease"
-                    }}
-                  />
+                  {!isVideo && (
+                    <div 
+                      className="press-card-bg"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        backgroundImage: `url(${press.bgImage})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        opacity: 0.03,
+                        zIndex: 0,
+                        transition: "opacity 0.4s ease, transform 0.6s ease"
+                      }}
+                    />
+                  )}
 
-                  <div style={{ zIndex: 1, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                  {isVideo && (
+                    <div style={{ flex: 1, position: "relative", borderRadius: "16px", overflow: "hidden", minHeight: "250px" }}>
+                      <iframe 
+                        src={`https://www.youtube.com/embed/${press.videoId}?controls=1&rel=0`}
+                        title={press.media}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 1 }}
+                      />
+                    </div>
+                  )}
+
+                  <div style={{ zIndex: 1, display: "flex", flexDirection: "column", gap: "1.5rem", marginTop: isVideo ? "1.5rem" : "0", padding: isVideo ? "0 0.5rem" : "0" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                       <span style={{ fontSize: "1.5rem", fontFamily: "var(--font-serif)", color: "#C9A84C", fontWeight: 400 }}>{press.media}</span>
                       <span style={{ fontSize: "9px", fontFamily: "monospace", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", letterSpacing: "1px" }}>{press.tagline}</span>
@@ -498,27 +518,29 @@ export default function Awards() {
                     </p>
                   </div>
 
-                  <div 
-                    style={{ 
-                      zIndex: 1, 
-                      fontSize: "10px", 
-                      fontFamily: "monospace", 
-                      textTransform: "uppercase", 
-                      color: "#fff", 
-                      letterSpacing: "0.15em",
-                      marginTop: "2rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem"
-                    }}
-                  >
-                    <span>Read Publication</span>
-                    <svg style={{ width: "12px", height: "12px" }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </div>
-                </a>
-              ))}
+                  {!isVideo && (
+                    <div 
+                      style={{ 
+                        zIndex: 1, 
+                        fontSize: "10px", 
+                        fontFamily: "monospace", 
+                        textTransform: "uppercase", 
+                        color: "#fff", 
+                        letterSpacing: "0.15em",
+                        marginTop: "2rem",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem"
+                      }}
+                    >
+                      <span>Read Publication</span>
+                      <svg style={{ width: "12px", height: "12px" }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </div>
+                  )}
+                </CardWrapper>
+              )})}
             </div>
 
           </div>
