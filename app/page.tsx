@@ -960,13 +960,14 @@ export default function Home() {
         );
       }
 
-      // Characters meeting stagger logo merger
+    // Characters meeting stagger logo merger
       if (chars.length > 0) {
         tl.to(
           chars,
           {
             yPercent: (index) => {
-              if (index === 0 || index === chars.length - 1) return 0;
+              // 0 is 'D', 5 is 'L'
+              if (index === 0 || index === 5) return 0;
               return index % 2 === 0 ? 100 : -100;
             },
             duration: 0.8,
@@ -975,22 +976,22 @@ export default function Home() {
             delay: 0.3,
             onStart: () => {
               const initialChar = chars[0];
-              const lastChar = chars[chars.length - 1];
+              const lChar = chars[5]; // Select 'L' from "DecorLab"
 
-              if (initialChar && lastChar) {
+              if (initialChar && lChar) {
                 const initialCharMask = initialChar.parentElement;
-                const lastCharMask = lastChar.parentElement;
+                const lCharMask = lChar.parentElement;
 
                 if (initialCharMask) initialCharMask.style.overflow = "visible";
-                if (lastCharMask) lastCharMask.style.overflow = "visible";
+                if (lCharMask) lCharMask.style.overflow = "visible";
 
                 const viewportWidth = window.innerWidth;
                 const centerX = viewportWidth / 2;
                 const initialCharRect = initialChar.getBoundingClientRect();
-                const lastCharRect = lastChar.getBoundingClientRect();
+                const lCharRect = lChar.getBoundingClientRect();
 
-                // Animate initial 'D' and last 'b' to merge in the center and fade to white
-                gsap.to([initialChar, lastChar], {
+                // Animate initial 'D' and 'L' to merge in the center and fade to white
+                gsap.to([initialChar, lChar], {
                   duration: 0.8,
                   ease: "hop",
                   delay: 0.3,
@@ -999,7 +1000,7 @@ export default function Home() {
                     if (i === 0) {
                       return centerX - initialCharRect.left - initialCharRect.width;
                     } else {
-                      return centerX - lastCharRect.left;
+                      return centerX - lCharRect.left;
                     }
                   },
                   onComplete: () => {
@@ -2641,7 +2642,7 @@ export default function Home() {
 
           <div ref={preloaderHeaderRef} className="preloader-header" id="preloader-header-container">
             <a href="#" id="preloader-title-link" style={{ whiteSpace: 'nowrap', display: 'flex', justifyContent: 'center' }}>
-              {"DL".split("").map((char, index) => (
+              {"DecorLab".split("").map((char, index) => (
                 <span key={index} className="char-mask">
                   <span className="char">{char === " " ? "\u00A0" : char}</span>
                 </span>
