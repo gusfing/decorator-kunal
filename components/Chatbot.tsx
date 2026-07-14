@@ -207,7 +207,7 @@ const Chatbot = () => {
 
             {/* Call Button */}
             <a 
-              href="tel:+919999999999" 
+              href="tel:+918910847179" 
               className="group/btn relative w-12 h-12 bg-[#C9A84C] hover:bg-[#E5C76B] rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-300 cursor-pointer mr-1"
               aria-label="Call Now"
             >
@@ -219,7 +219,7 @@ const Chatbot = () => {
 
             {/* WhatsApp Button */}
             <a 
-              href="https://wa.me/919999999999" 
+              href="https://wa.me/918910847179" 
               target="_blank" 
               rel="noreferrer" 
               className="group/btn relative w-12 h-12 bg-[#25D366] rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer mr-1"

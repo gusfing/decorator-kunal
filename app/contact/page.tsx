@@ -311,12 +311,12 @@ export default function Contact() {
                     <a href="mailto:info@decorlab.co.in" style={{ color: "#fff", textDecoration: "none" }}>info@decorlab.co.in</a>
                   </p>
                   <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "1.05rem" }}>
-                    <a href="tel:+913324648000" style={{ color: "inherit", textDecoration: "none" }}>+91 33 2464 8000</a>
+                    <a href="tel:+918910847179" style={{ color: "inherit", textDecoration: "none" }}>+91 891 084 7179</a>
                   </p>
                 </div>
                 
                 <a 
-                  href="https://wa.me/913324648000?text=Hi%20Decor%20Lab%2C%20I%20would%20like%20to%20discuss%20a%20project." 
+                  href="https://wa.me/918910847179?text=Hi%20Decor%20Lab%2C%20I%20would%20like%20to%20discuss%20a%20project." 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="magnetic-hover"
@@ -483,7 +483,7 @@ export default function Contact() {
                     </button>
                     
                     <a
-                      href="https://wa.me/913324648000?text=Hi%20Decor%20Lab%2C%20I%20would%20like%20to%20discuss%20a%20project." 
+                      href="https://wa.me/918910847179?text=Hi%20Decor%20Lab%2C%20I%20would%20like%20to%20discuss%20a%20project." 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="magnetic-hover whatsapp-btn-animated"
