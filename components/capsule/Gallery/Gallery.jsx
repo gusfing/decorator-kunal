@@ -14,7 +14,7 @@ const gbg5 = "/assets/projects/residential_3ds/image_1.jpg";
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const Gallery = ({ isPreloaded = true }) => {
+const Gallery = ({ isPreloaded = true, projectsData = [], onOpenProject = () => {} }) => {
     const pageRef = useRef(null);
 
     useEffect(() => {
@@ -55,17 +55,11 @@ const Gallery = ({ isPreloaded = true }) => {
                     opacity: 0,
                 }, 'a');
             }
+            
+            // Background is already 100vw, no need to scale up
             if (document.querySelector(".gallery-page4 .gallery-background")) {
                 tl4.to(".gallery-page4 .gallery-background", {
-                    width: "calc(100vw - 1rem)",
-                    height: "calc(100vh - 1rem)",
-                    borderRadius: "3.5rem",
                     y: -40,
-                }, 'a');
-            }
-            if (document.querySelector(".gallery-page4 .gallery-background img")) {
-                tl4.to(".gallery-page4 .gallery-background img", {
-                    transform: "scale(1)",
                 }, 'a');
             }
             
@@ -219,10 +213,18 @@ const Gallery = ({ isPreloaded = true }) => {
                 </div>
             </div>
 
-            <div className="gallery-background">
+            <div 
+                className="gallery-background" 
+                onClick={() => {
+                    const proj = projectsData.find(p => p.id === "santhalia");
+                    if (proj) onOpenProject(proj);
+                }}
+                style={{ cursor: 'pointer' }}
+            >
                 <div className="gallery-card-wrapper">
                     <img loading="lazy" src={gbg1} alt="Santhalia Residence Kolkata" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
+                    <div className="gallery-click-hint hidden md:block">Click to view project</div>
                 </div>
                 <div className="gallery-topText">
                     <h4>Santhalia Residence®</h4>
@@ -239,10 +241,19 @@ const Gallery = ({ isPreloaded = true }) => {
                 </div>
             </div>
 
-            <div id="gallery-second" className="gallery-background2">
+            <div 
+                id="gallery-second" 
+                className="gallery-background2"
+                onClick={() => {
+                    const proj = projectsData.find(p => p.id === "site01");
+                    if (proj) onOpenProject(proj);
+                }}
+                style={{ cursor: 'pointer' }}
+            >
                 <div className="gallery-card-wrapper">
                     <img loading="lazy" src={gbg2} alt="Corporate Workspace HQ" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
+                    <div className="gallery-click-hint hidden md:block">Click to view project</div>
                 </div>
                 <div className="gallery-topText">
                     <h4>Corporate HQ®</h4>
@@ -259,10 +270,19 @@ const Gallery = ({ isPreloaded = true }) => {
                 </div>
             </div>
 
-            <div id="gallery-third" className="gallery-background2">
+            <div 
+                id="gallery-third" 
+                className="gallery-background2"
+                onClick={() => {
+                    const proj = projectsData.find(p => p.id === "site02");
+                    if (proj) onOpenProject(proj);
+                }}
+                style={{ cursor: 'pointer' }}
+            >
                 <div className="gallery-card-wrapper">
                     <img loading="lazy" src={gbg3} alt="Fluid Design Pavilion" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
+                    <div className="gallery-click-hint hidden md:block">Click to view project</div>
                 </div>
                 <div className="gallery-topText">
                     <h4>Fluid Pavilion®</h4>
@@ -278,10 +298,19 @@ const Gallery = ({ isPreloaded = true }) => {
                     </div>
                 </div>
             </div>
-            <div id="gallery-fourth" className="gallery-background2">
+            <div 
+                id="gallery-fourth" 
+                className="gallery-background2"
+                onClick={() => {
+                    const proj = projectsData.find(p => p.id === "rathi");
+                    if (proj) onOpenProject(proj);
+                }}
+                style={{ cursor: 'pointer' }}
+            >
                 <div className="gallery-card-wrapper">
                     <img loading="lazy" src={gbg4} alt="Rathi Residence" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
+                    <div className="gallery-click-hint hidden md:block">Click to view project</div>
                 </div>
                 <div className="gallery-topText">
                     <h4>Rathi Residence®</h4>
@@ -298,10 +327,19 @@ const Gallery = ({ isPreloaded = true }) => {
                 </div>
             </div>
 
-            <div id="gallery-fifth" className="gallery-background2">
+            <div 
+                id="gallery-fifth" 
+                className="gallery-background2"
+                onClick={() => {
+                    const proj = projectsData.find(p => p.id === "residential_3ds");
+                    if (proj) onOpenProject(proj);
+                }}
+                style={{ cursor: 'pointer' }}
+            >
                 <div className="gallery-card-wrapper">
                     <img loading="lazy" src={gbg5} alt="Residential 3D Concepts" />
                     <BsFillPlusCircleFill className="gallery-mobile-plus" />
+                    <div className="gallery-click-hint hidden md:block">Click to view project</div>
                 </div>
                 <div className="gallery-topText">
                     <h4>Residential 3Ds®</h4>

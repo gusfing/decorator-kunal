@@ -2686,6 +2686,15 @@ export default function Home() {
             Work
           </a>
           <a
+            href="/work-v2"
+            className="nav-link"
+            id="link-work-v2"
+            onMouseEnter={handleNavMouseEnter}
+            onFocus={handleNavMouseEnter}
+          >
+            Work v2
+          </a>
+          <a
             href="/about"
             className="nav-link"
             id="link-about"
@@ -2721,13 +2730,11 @@ export default function Home() {
          * SECTION 1: HERO VIEW (Slideshow, vignettes & title)
          * ==================================================== */}
         <section id="section-hero" className="section hero" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#000', height: '100vh', minHeight: '600px' }}>
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <img
             className="hero-bg-video"
-            poster="/assets/projects/santhalia_site/image_1.webp"
+            src="/assets/projects/santhalia_site/image_1.webp"
+            alt="Hero Background"
+            loading="lazy"
             style={{
               position: "absolute",
               top: 0,
@@ -2737,9 +2744,7 @@ export default function Home() {
               objectFit: "cover",
               zIndex: 0,
             }}
-          >
-            <source src="/assets/Boys_Room_1.mp4" type="video/mp4" />
-          </video>
+          />
           <div
             style={{
               position: "absolute",
@@ -2814,28 +2819,38 @@ export default function Home() {
                   <div className="absolute-card in-about">
                     <div className="card-cross-section _0">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_01/image_1.webp" loading="lazy" alt="Modern interior design" className="image-path" />
+                        <img src="/assets/projects/photos_set2/image_1.webp" loading="lazy" alt="Luxurious interior" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _1">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/site_02/image_2.webp" loading="lazy" alt="Contemporary architecture" className="image-path" />
+                        <img src="/assets/projects/photos_set2/image_2.webp" loading="lazy" alt="Elegant design" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _2">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/santhalia_site/image_3.webp" loading="lazy" alt="Abstract modern architectural artwork" className="image-path" />
+                        <img src="/assets/projects/site_01/image_1.webp" loading="lazy" alt="Modern interior design" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _3">
                       <div className="card-cross-section-inner">
-                        <img src="/assets/projects/photos_set1/image_4.webp" loading="lazy" alt="Modern curved architecture" className="image-path" />
+                        <img src="/assets/projects/site_02/image_2.webp" loading="lazy" alt="Contemporary architecture" className="image-path" />
                       </div>
                     </div>
                     <div className="card-cross-section _4">
                       <div className="card-cross-section-inner">
+                        <img src="/assets/projects/santhalia_site/image_3.webp" loading="lazy" alt="Abstract modern architectural artwork" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _5">
+                      <div className="card-cross-section-inner">
+                        <img src="/assets/projects/photos_set1/image_4.webp" loading="lazy" alt="Modern curved architecture" className="image-path" />
+                      </div>
+                    </div>
+                    <div className="card-cross-section _6">
+                      <div className="card-cross-section-inner">
                         <video 
-                          src="/assets/living-room-hero.mp4" 
+                          src="/assets/videos/living-room.mp4" 
                           autoPlay 
                           loop 
                           muted 
@@ -2989,20 +3004,20 @@ export default function Home() {
               
               <div className="rl-collabs-images">
                 <div className="rl-collabs-img-stack" style={{ aspectRatio: '3/4' }}>
-                  <div className="rl-collabs-img-wrapper secondary">
-                    <img src="/assets/award_new_1.png" alt="India Design Accolade" loading="lazy" />
-                  </div>
-                  <div className="rl-collabs-img-wrapper tertiary">
-                    <img src="/assets/award_new_2.png" alt="Emerging Architect Award" loading="lazy" />
-                  </div>
+                  <a href="https://www.aninews.in/news/business/business/blindwink-unveils-the-awardees-of-the-5th-edition-of-india-design-awards-202320230424183435/" target="_blank" rel="noopener noreferrer" className="rl-collabs-img-wrapper secondary" style={{ textDecoration: 'none', display: 'block' }}>
+                    <img src="/assets/award_new_1.png" alt="India Design Accolade" loading="lazy" style={{ cursor: 'pointer' }} />
+                  </a>
+                  <a href="https://www.goodhomes.co.in/home-and-design-trends/dcode/dcode-presents-design-ikon-rajdip-sinha-decor-lab-9205.html" target="_blank" rel="noopener noreferrer" className="rl-collabs-img-wrapper tertiary" style={{ textDecoration: 'none', display: 'block' }}>
+                    <img src="/assets/award_new_2.png" alt="Emerging Architect Award" loading="lazy" style={{ cursor: 'pointer' }} />
+                  </a>
                 </div>
                 <div className="rl-collabs-img-stack" style={{ aspectRatio: '3/4' }}>
-                  <div className="rl-collabs-img-wrapper secondary">
-                    <img src="/assets/award_new_3.png" alt="Best Residential Project Medal" loading="lazy" />
-                  </div>
-                  <div className="rl-collabs-img-wrapper tertiary">
-                    <img src="/assets/award_new_4.png" alt="Industry Excellence Award" loading="lazy" />
-                  </div>
+                  <a href="https://www.business-standard.com/content/press-releases-ani/blindwink-unveils-the-awardees-of-the-5th-edition-of-india-design-awards-2023-123042400875_1.html" target="_blank" rel="noopener noreferrer" className="rl-collabs-img-wrapper secondary" style={{ textDecoration: 'none', display: 'block' }}>
+                    <img src="/assets/award_new_3.png" alt="Best Residential Project Medal" loading="lazy" style={{ cursor: 'pointer' }} />
+                  </a>
+                  <a href="https://images.forbesindia.com/media/supplement_pdf/Top%2020%20Architecturres%20&%20Interior.pdf" target="_blank" rel="noopener noreferrer" className="rl-collabs-img-wrapper tertiary" style={{ textDecoration: 'none', display: 'block' }}>
+                    <img src="/assets/award_new_4.png" alt="Industry Excellence Award" loading="lazy" style={{ cursor: 'pointer' }} />
+                  </a>
                 </div>
               </div>
             </div>
@@ -3011,7 +3026,15 @@ export default function Home() {
 
 
 
-        <Gallery isPreloaded={isPreloaded} />
+        <Gallery 
+          isPreloaded={isPreloaded} 
+          projectsData={projectsData}
+          onOpenProject={(project) => setLightboxProject({
+            siteName: project.title,
+            images: project.images,
+            activeIndex: 0
+          })}
+        />
 
         {/* ====================================================
          * SECTION 2F: REDESIGNED SITE PORTFOLIO

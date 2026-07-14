@@ -177,49 +177,56 @@ export default function Awards() {
       title: "India Design Awards",
       desc: "Best Commercial Project (Winner) — Recognized for pioneering sustainable materials and fluid spatial architecture at Corporate HQ.",
       highlight: true,
-      img: "/assets/projects/site_01/image_1.webp"
+      img: "/assets/projects/site_01/image_1.webp",
+      url: "https://www.business-standard.com/content/press-releases-ani/blindwink-unveils-the-awardees-of-the-5th-edition-of-india-design-awards-2023-123042400875_1.html"
     },
     {
       year: "2024",
       title: "Commercial Design Awards",
       desc: "Best Unbuilt Project of the Year (Winner) — Awarded for the Fluid Design Pavilion blueprint exploring organic parametrism.",
       highlight: false,
-      img: "/assets/projects/site_02/image_1.webp"
+      img: "/assets/projects/site_02/image_1.webp",
+      url: "https://www.zee5.com/articles/blindwink-unveils-the-awardees-of-the-5th-edition-of-india-design-awards-2023"
     },
     {
       year: "2024",
       title: "ICA Creative Minds",
       desc: "Winner & Finalist (Best Conceptual Design) — Honoring spatial excellence and material layout innovations.",
       highlight: false,
-      img: "/assets/projects/site_02/image_2.webp"
+      img: "/assets/projects/site_02/image_2.webp",
+      url: "https://www.architectureplusdesign.in/ad-exclusives/youngicons2023-co-founder-of-decor-lab-rajdip-sinhas-design-philosophy-is-a-manifesto-against-the-constraints-of-rigid-geometric-structures/"
     },
     {
       year: "2024",
       title: "D/Code Mumbai",
       desc: "Design IKON India Awards: Emerging Interior Designer — Ar. Rajdip Sinha recognized for fluid architecture contributions.",
       highlight: false,
-      img: "/assets/projects/photos_set2/image_1.webp"
+      img: "/assets/projects/photos_set2/image_1.webp",
+      url: "https://www.goodhomes.co.in/home-and-design-trends/dcode/dcode-presents-design-ikon-rajdip-sinha-decor-lab-9205.html"
     },
     {
       year: "2024",
       title: "National Excellence Awards",
       desc: "Prominent & Trusted Firm of the Year & Promising & Futuristic Designer of the Year.",
       highlight: false,
-      img: "/assets/projects/santhalia_site/image_2.webp"
+      img: "/assets/projects/santhalia_site/image_2.webp",
+      url: "https://images.forbesindia.com/media/supplement_pdf/Top%2020%20Architecturres%20&%20Interior.pdf"
     },
     {
       year: "2023",
       title: "Häfele Star Awards",
       desc: "Winner — Awarded for exceptional integration of modern fittings and structural utility in luxury residences.",
       highlight: false,
-      img: "/assets/projects/photos_set1/image_2.webp"
+      img: "/assets/projects/photos_set1/image_2.webp",
+      url: "https://brandzmagazine.com/rs-architects-the-journey-of-sampada-and-rahul-gethe/"
     },
     {
       year: "2023",
-      title: "Indian Design Awards",
+      title: "India Design Awards",
       desc: "Winner (by Blind Wink) — Celebrating excellence in residential interior curation and bespoke art integration.",
       highlight: false,
-      img: "/assets/projects/santhalia_site/image_1.webp"
+      img: "/assets/projects/santhalia_site/image_1.webp",
+      url: "https://www.aninews.in/news/business/business/blindwink-unveils-the-awardees-of-the-5th-edition-of-india-design-awards-202320230424183435/"
     }
   ];
 
@@ -228,37 +235,43 @@ export default function Awards() {
       media: "Forbes India",
       tagline: "Top 20 Designers in India",
       excerpt: "Raja Sinha and Ar. Rajdip Sinha named among India's top design pioneers shaping the country's modern architectural footprint.",
-      bgImage: "/assets/projects/santhalia_site/image_4.webp"
+      bgImage: "/assets/projects/santhalia_site/image_4.webp",
+      url: "https://images.forbesindia.com/media/supplement_pdf/Top%2020%20Architecturres%20&%20Interior.pdf"
     },
     {
-      media: "Good Homes Magazine",
-      tagline: "India's Top 15 Designers",
-      excerpt: "Decor Lab recognized for artfully blending historical heritage with cutting-edge parametric styling.",
-      bgImage: "/assets/projects/site_01/image_4.webp"
+      media: "Architecture+Design",
+      tagline: "YoungIcons 2023",
+      excerpt: "Rajdip Sinha's design philosophy is a manifesto against the constraints of rigid geometric structures.",
+      bgImage: "/assets/projects/site_01/image_4.webp",
+      url: "https://www.architectureplusdesign.in/ad-exclusives/youngicons2023-co-founder-of-decor-lab-rajdip-sinhas-design-philosophy-is-a-manifesto-against-the-constraints-of-rigid-geometric-structures/"
     },
     {
-      media: "Elle Decor Magazine",
-      tagline: "Editorial Feature (2024 & 2025)",
-      excerpt: "Featured two times for spatial curation, custom ombre curtains, and residential masterwork in Santhalia Residence.",
-      bgImage: "/assets/projects/photos_set1/image_5.webp"
+      media: "Brandz Magazine",
+      tagline: "Architecture Features",
+      excerpt: "A deep dive into the journey and architectural excellence shaping the modern industry.",
+      bgImage: "/assets/projects/photos_set1/image_5.webp",
+      url: "https://brandzmagazine.com/rs-architects-the-journey-of-sampada-and-rahul-gethe/"
     },
     {
-      media: "Trends Magazine",
-      tagline: "Brand Curation Showcase",
-      excerpt: "Covering Decor Lab's unique material palettes, organic plaster finishes, and timber screenings.",
-      bgImage: "/assets/projects/site_02/image_4.webp"
+      media: "Decor Lab Story",
+      tagline: "Video Feature",
+      excerpt: "An inside look into the design process, computational models, and fluid architecture.",
+      bgImage: "/assets/projects/site_02/image_4.webp",
+      url: "https://youtu.be/eWxS0YkIWCE?si=HEH4AcBTEPb1XmAR"
     },
     {
-      media: "Grohe India",
-      tagline: "Strategic Partner Feature",
-      excerpt: "Discussing our design philosophy: 'Functionality first, fluidity always.'",
-      bgImage: "/assets/projects/photos_set2/image_4.webp"
+      media: "Business Standard",
+      tagline: "India Design Awards 2023",
+      excerpt: "Blindwink unveils the awardees of the 5th edition of India Design Awards 2023, featuring Decor Lab.",
+      bgImage: "/assets/projects/santhalia_site/image_3.webp",
+      url: "https://www.business-standard.com/content/press-releases-ani/blindwink-unveils-the-awardees-of-the-5th-edition-of-india-design-awards-2023-123042400875_1.html"
     },
     {
-      media: "Architecture + Design",
-      tagline: "Young Icons Profile",
-      excerpt: "Highlighting Ar. Rajdip Sinha's parametric research at UCL and his vision for double-curvature forms in India.",
-      bgImage: "/assets/projects/photos_set1/image_6.webp"
+      media: "Zee5",
+      tagline: "Industry Recognition",
+      excerpt: "Celebrating the pioneers of interior curation at the 5th edition of India Design Awards.",
+      bgImage: "/assets/projects/santhalia_site/image_2.webp",
+      url: "https://www.zee5.com/articles/blindwink-unveils-the-awardees-of-the-5th-edition-of-india-design-awards-2023"
     }
   ];
 
@@ -279,6 +292,9 @@ export default function Awards() {
           <div ref={navIndicatorRef} className="nav-indicator" id="nav-indicator"></div>
           <a href="/work" className="nav-link" id="link-work" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
             Work
+          </a>
+          <a href="/work-v2" className="nav-link" id="link-work-v2" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
+            Work v2
           </a>
           <a href="/about" className="nav-link" id="link-about" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
             About
@@ -338,9 +354,45 @@ export default function Awards() {
                     
                     {/* Alternate card column layout */}
                     <div className="award-timeline-card" style={{ gridColumn: idx % 2 === 0 ? "1" : "3", opacity: 0 }}>
-                      <div 
-                        className="glow-hover"
-                        data-cursor="view"
+                      {award.url ? (
+                        <a 
+                          href={award.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="glow-hover"
+                          data-cursor="view"
+                          style={{
+                            backgroundColor: "rgba(20,20,18,0.95)",
+                            border: "1px solid rgba(255,255,255,0.05)",
+                            borderRadius: "20px",
+                            padding: "2.5rem",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                            position: "relative",
+                            overflow: "hidden",
+                            transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+                            textDecoration: "none"
+                          }}
+                        >
+                          {/* Widescreen image thumbnail hidden by default, slides out on hover */}
+                          <div className="award-hover-img-wrap" style={{ width: "100%", height: "0px", opacity: 0, borderRadius: "12px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)" }}>
+                            <img loading="lazy" src={award.img} alt={award.title} style={{ width: "100%", height: "180px", objectFit: "cover" }} />
+                          </div>
+
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+                            <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#C9A84C", fontWeight: 600 }}>{award.year}</span>
+                            <span style={{ fontSize: "9px", fontFamily: "monospace", color: "rgba(255,255,255,0.45)", textTransform: "uppercase" }}>Industry Honour</span>
+                          </div>
+                          
+                          <h3 style={{ fontSize: "1.8rem", fontFamily: "var(--font-serif)", fontWeight: 400, color: "#fff", margin: 0 }}>{award.title}</h3>
+                          <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, margin: 0 }}>{award.desc}</p>
+                          <span style={{ fontSize: "10px", fontFamily: "monospace", color: "#C9A84C", textTransform: "uppercase", letterSpacing: "0.2em", marginTop: "1rem" }}>View Feature →</span>
+                        </a>
+                      ) : (
+                        <div 
+                          className="glow-hover"
+                          data-cursor="view"
                         style={{
                           backgroundColor: "rgba(20,20,18,0.95)",
                           border: "1px solid rgba(255,255,255,0.05)",
@@ -366,7 +418,8 @@ export default function Awards() {
                         
                         <h3 style={{ fontSize: "1.8rem", fontFamily: "var(--font-serif)", fontWeight: 400, color: "#fff", margin: 0 }}>{award.title}</h3>
                         <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, margin: 0 }}>{award.desc}</p>
-                      </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Timeline Node */}
@@ -397,8 +450,11 @@ export default function Awards() {
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "2.5rem" }}>
               {pressList.map((press, idx) => (
-                <div 
+                <a 
                   key={idx}
+                  href={press.url || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="press-grid-card group"
                   data-cursor="view"
                   style={{
@@ -412,7 +468,8 @@ export default function Awards() {
                     minHeight: "400px",
                     position: "relative",
                     overflow: "hidden",
-                    transition: "all 0.4s ease"
+                    transition: "all 0.4s ease",
+                    textDecoration: "none"
                   }}
                 >
                   {/* Parallax Background image overlay */}
@@ -441,15 +498,13 @@ export default function Awards() {
                     </p>
                   </div>
 
-                  <a 
-                    href="#" 
+                  <div 
                     style={{ 
                       zIndex: 1, 
                       fontSize: "10px", 
                       fontFamily: "monospace", 
                       textTransform: "uppercase", 
                       color: "#fff", 
-                      textDecoration: "none", 
                       letterSpacing: "0.15em",
                       marginTop: "2rem",
                       display: "flex",
@@ -461,8 +516,8 @@ export default function Awards() {
                     <svg style={{ width: "12px", height: "12px" }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
-                  </a>
-                </div>
+                  </div>
+                </a>
               ))}
             </div>
 

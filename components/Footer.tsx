@@ -89,14 +89,27 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
+            <div className="rl-footer-col" style={{ maxWidth: '250px' }}>
+              <h4>Headquarters</h4>
+              <p style={{ lineHeight: '1.6', fontSize: '0.9rem', color: 'rgba(0,0,0,0.7)' }}>
+                <strong>Decorlab</strong><br />
+                VINAYAK GARDEN<br />
+                102 Raja Dinendra Street<br />
+                Ground Floor, Kolkata - 700006<br /><br />
+                <span style={{ fontSize: '0.85rem' }}>OPP : Ultra Craft Maruti Service Station</span><br /><br />
+                <a href="https://g.co/kgs/8oBpbnw" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>Click for Google Map</a>
+              </p>
+            </div>
             <div className="rl-footer-col">
-              <h4>Contact</h4>
-              <ul>
-                <li>
-                  <a href="mailto:info@decorlab.co.in">info@decorlab.co.in</a>
+              <h4>Contact Info</h4>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                <li style={{ marginBottom: '15px' }}>
+                  <span style={{ display: 'block', fontSize: '0.75rem', color: '#555', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '2px' }}>Inquiries</span>
+                  <a href="tel:+918910847179" style={{ fontSize: '1.1rem' }}>+91 89108 47179</a>
                 </li>
                 <li>
-                  <a href="tel:+913324648000">+91 33 2464 8000</a>
+                  <span style={{ display: 'block', fontSize: '0.75rem', color: '#555', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '2px' }}>Email</span>
+                  <a href="mailto:info@decorlab.co.in" style={{ fontSize: '1.1rem' }}>info@decorlab.co.in</a>
                 </li>
               </ul>
             </div>

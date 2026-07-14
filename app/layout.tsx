@@ -4,8 +4,8 @@ import "./webflow.css";
 import type { Metadata } from "next";
 import GSAPRouteCleaner from "@/components/GSAPRouteCleaner";
 import ClientProviders from "@/components/ClientProviders";
-import Script from "next/script";
 import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
 
 export const metadata: Metadata = {
   title: "Decor Lab | Architecture & Interior Design Studio",
@@ -27,6 +27,7 @@ export default function RootLayout({
           type="image/png"
           href="/assets/Decorlab-favicon.png"
         />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       </head>
       <body>
         <GSAPRouteCleaner />
@@ -34,11 +35,8 @@ export default function RootLayout({
           {children}
         </ClientProviders>
         <Footer />
-        <Script 
-          src="https://chatbox.growbro.ai/assets/chatbox-widget-bundle.js" 
-          data-ai-id="2d04f8f7-b7c7-49e5-8d48-3a58b019a863" 
-          strategy="afterInteractive" 
-        />
+        <Chatbot />
+
       </body>
     </html>
   );

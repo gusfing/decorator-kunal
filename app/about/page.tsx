@@ -314,11 +314,11 @@ export default function About() {
   };
 
   const milestones = [
-    { year: "1993", title: "Inception", desc: "Founded by Mr. Raja Sinha as a boutique interior design studio in Kolkata, with a focus on luxury residential spaces." },
-    { year: "2004", title: "Nationwide Scale", desc: "Expanded operations across key cities in India, delivering flagship commercial and residential properties." },
-    { year: "2012", title: "Parametric Shift", desc: "Incorporated advanced structural engineering, computational workflows, and material science studies." },
-    { year: "2020", title: "Bartlett Curation", desc: "Ar. Rajdip Sinha assumes leadership, introducing algorithmic modeling and award-winning biophilic concepts." },
-    { year: "2026", title: "Present Legacy", desc: "A creative team of 275+ delivering immersive architecture, computational fabrication, and state-of-the-art curation." },
+    { year: "1993", title: "The Beginning", desc: "Decorlab began in 1993 with no capital, no office, and no team — just Raja Sinha, fresh off an interior designing course and seven years of on-ground experience, taking on small bedroom makeovers and home renovations from his own bedroom." },
+    { year: "1996", title: "First Office", desc: "Two and a half years on, that one-man pursuit found its first home: a small rented office in Ultadanga, still standing today, where the first designer and supervisor were brought on board. A second office followed on Raja Dinendra St." },
+    { year: "New Era", title: "Architecture Vertical", desc: "The next turning point arrived with Rajdip Sinha, who joined the firm and opened an entirely new vertical — architecture, built around parametric and fluid design. It gave Decorlab a language of its own." },
+    { year: "Today", title: "Growing Forward", desc: "Today, a team of 15 to 17 carries that vision forward, growing every day — with sights now set firmly on international expansion." },
+    { year: "Vision", title: "Reshaping Architecture", desc: "From a single bedroom to a movement reshaping Indian architecture — Decorlab has always grown by building, not by waiting." },
   ];
 
   const accolades = [
@@ -352,6 +352,9 @@ export default function About() {
           <div ref={navIndicatorRef} className="nav-indicator" id="nav-indicator"></div>
           <a href="/work" className="nav-link" id="link-work" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
             Work
+          </a>
+          <a href="/work-v2" className="nav-link" id="link-work-v2" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
+            Work v2
           </a>
           <a href="/about" className="nav-link active" id="link-about" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
             About
@@ -436,7 +439,7 @@ export default function About() {
           </div>
 
           {/* Founder 1: Raja Sinha — Split Layout */}
-          <div className="founder-card-1 founder-section-row" style={{ display: "flex", flexWrap: "wrap", gap: "4rem", alignItems: "center", marginBottom: "8rem" }}>
+          <div className="founder-card-1 founder-section-row" style={{ display: "flex", flexWrap: "wrap", gap: "4rem", alignItems: "center", padding: "0 2.5rem", maxWidth: "1400px", margin: "0 auto 8rem auto" }}>
             {/* Portrait Image */}
             <div className="founder-img-wrap" style={{ flex: "1 1 400px", maxWidth: "500px", position: "relative", aspectRatio: "1/1", borderRadius: "12px", overflow: "hidden" }}>
               <img loading="lazy"
@@ -458,7 +461,7 @@ export default function About() {
               </h3>
               
               <p style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.15rem)", lineHeight: 1.75, color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-body)", margin: 0, maxWidth: "520px" }}>
-                Raja Sinha founded Decor Lab in 1993, establishing the firm as a dedicated interior design practice. Under his leadership, the firm built a foundation of trust, client-centricity, and execution excellence that allowed it to grow into the nationwide design powerhouse it is today.
+                Decorlab began in 1993 with no capital, no office, and no team — just Raja Sinha, fresh off an interior designing course and seven years of on-ground experience, taking on small bedroom makeovers and home renovations from his own bedroom. Two and a half years on, that one-man pursuit found its first home: a small rented office in Ultadanga, still standing today.
               </p>
 
               {/* Stats row */}
@@ -480,7 +483,7 @@ export default function About() {
           </div>
 
           {/* Founder 2: Ar. Rajdip Sinha — Split Layout (Reversed) */}
-          <div className="founder-card-2 founder-section-row" style={{ display: "flex", flexWrap: "wrap", flexDirection: "row-reverse", gap: "4rem", alignItems: "center", marginBottom: "8rem" }}>
+          <div className="founder-card-2 founder-section-row" style={{ display: "flex", flexWrap: "wrap", flexDirection: "row-reverse", gap: "4rem", alignItems: "center", padding: "0 2.5rem", maxWidth: "1400px", margin: "0 auto 8rem auto" }}>
             {/* Portrait Image */}
             <div className="founder-img-wrap" style={{ flex: "1 1 400px", maxWidth: "500px", position: "relative", aspectRatio: "1/1", borderRadius: "12px", overflow: "hidden" }}>
               <img loading="lazy"
@@ -507,7 +510,7 @@ export default function About() {
               </blockquote>
 
               <p style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.15rem)", lineHeight: 1.75, color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-body)", margin: 0, maxWidth: "520px" }}>
-                An architect with a passion for innovation, Rajdip completed his Master{"'"}s degree at The Bartlett School of Architecture, University College London (UCL), where he is currently pursuing his PhD. His design philosophy centers on {"\u201C"}functionality first,{"\u201D"} bringing parametric design, fluid structures, and material innovation to create timeless, distinctive environments.
+                The next turning point arrived with Rajdip Sinha, who joined the firm and opened an entirely new vertical — architecture, built around parametric and fluid design. It gave Decorlab a language of its own, distinct from the conventional.
               </p>
 
               {/* Credentials */}
