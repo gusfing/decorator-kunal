@@ -3090,7 +3090,7 @@ export default function Home() {
             {/* Pillar 01 */}
             <div className="rl-philo-pillar">
               <div className="rl-philo-pillar-img-wrap">
-                <img src="/assets/projects/santhalia_site/image_1.webp" alt="Functionality First" loading="lazy" className="rl-philo-pillar-img" />
+                <img src="/assets/approach/functionality-first.jpg" alt="Functionality First" loading="lazy" className="rl-philo-pillar-img" />
               </div>
               <div className="rl-philo-pillar-body">
                 <span className="rl-philo-num">01</span>
@@ -3105,7 +3105,7 @@ export default function Home() {
             {/* Pillar 02 */}
             <div className="rl-philo-pillar">
               <div className="rl-philo-pillar-img-wrap">
-                <img src="/assets/projects/photos_set2/image_2.webp" alt="Material Innovation" loading="lazy" className="rl-philo-pillar-img" />
+                <img src="/assets/approach/material-innovation.jpg" alt="Material Innovation" loading="lazy" className="rl-philo-pillar-img" />
               </div>
               <div className="rl-philo-pillar-body">
                 <span className="rl-philo-num">02</span>
@@ -3120,7 +3120,7 @@ export default function Home() {
             {/* Pillar 03 */}
             <div className="rl-philo-pillar">
               <div className="rl-philo-pillar-img-wrap">
-                <img src="/assets/projects/site_02/image_2.webp" alt="Fluid Architecture" loading="lazy" className="rl-philo-pillar-img" />
+                <img src="/assets/approach/fluid-architecture.jpg" alt="Fluid Architecture" loading="lazy" className="rl-philo-pillar-img" />
               </div>
               <div className="rl-philo-pillar-body">
                 <span className="rl-philo-num">03</span>
