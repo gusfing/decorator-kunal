@@ -394,8 +394,8 @@ export default function About() {
             
             <div className="hero-curtain-image" style={{ width: "100%", height: "65vh", overflow: "hidden", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.08)", position: "relative" }}>
               <img loading="lazy" 
-                src="/assets/projects/santhalia_site/image_5.webp" 
-                alt="Studio legacy space curation"
+                src="/assets/about/team-meeting.jpg" 
+                alt="Our Team at Decor Lab"
                 style={{ width: "100%", height: "120%", objectFit: "cover" }}
               />
             </div>
