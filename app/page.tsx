@@ -2881,7 +2881,7 @@ export default function Home() {
         <section id="services" className="rl-section rl-methodology">
           <div className="rl-container">
             <span className="rl-subtitle">02 / Services</span>
-            <h2 className="rl-title">Services Offered.</h2>
+            <h2 className="rl-title">Spaces We Create.</h2>
             
             <div className="rl-methodology-grid">
               <div className="rl-methodology-img-wrap">
