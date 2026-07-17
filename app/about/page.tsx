@@ -51,22 +51,7 @@ export default function About() {
         }
       );
       
-      // Hero image parallax
-      gsap.fromTo(
-        ".hero-curtain-image img",
-        { scale: 1.25, yPercent: -10 },
-        {
-          scale: 1.0,
-          yPercent: 10,
-          ease: "none",
-          scrollTrigger: { toggleActions: "play none none none",
-            trigger: ".hero-curtain-image",
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          }
-        }
-      );
+      // Hero image parallax removed to prevent zooming
     }
 
     // 2. Philosophy Word-by-Word Reveal on Scroll
@@ -392,11 +377,11 @@ export default function About() {
               </p>
             </div>
             
-            <div className="hero-curtain-image" style={{ width: "100%", height: "65vh", overflow: "hidden", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.08)", position: "relative" }}>
+            <div className="hero-curtain-image" style={{ width: "100%", height: "auto", overflow: "hidden", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.08)", position: "relative" }}>
               <img loading="lazy" 
                 src="/assets/about/team-meeting.jpg" 
                 alt="Our Team at Decor Lab"
-                style={{ width: "100%", height: "120%", objectFit: "cover" }}
+                style={{ width: "100%", height: "auto", display: "block" }}
               />
             </div>
           </div>
