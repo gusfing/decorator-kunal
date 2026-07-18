@@ -360,7 +360,7 @@ export default function About() {
          * SECTION 1: HERO VIEW (Cinematic Split Title & Curtain)
          * ==================================================== */}
         <section style={{ minHeight: "80vh", padding: "4rem 2.5rem 6rem", display: "flex", alignItems: "center" }}>
-          <div style={{ maxWidth: "1400px", margin: "0 auto", width: "100%", display: "grid", gridTemplateColumns: "1fr", gap: "4rem" }} className="lg:grid-cols-2">
+          <div style={{ maxWidth: "1400px", margin: "0 auto", width: "100%", gap: "4rem" }} className="grid grid-cols-1 lg:grid-cols-2">
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.35rem" }}>
               <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color: "#C9A84C" }}>ABOUT THE STUDIO</span>
               
