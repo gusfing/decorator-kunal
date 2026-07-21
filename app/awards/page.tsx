@@ -441,7 +441,7 @@ export default function Awards() {
           <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
             <div style={{ marginBottom: "6rem" }}>
               <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color: "#C9A84C" }}>EDITORIALS</span>
-              <h2 style={{ fontSize: "3.5rem", fontFamily: "var(--font-serif)", fontWeight: 400, marginTop: "1rem", textTransform: "uppercase" }}>Press &amp; Publications</h2>
+              <h2 style={{ fontSize: "3.5rem", fontFamily: "var(--font-serif)", fontWeight: 400, marginTop: "1rem", textTransform: "uppercase", color: "#fff" }}>Press &amp; Publications</h2>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "2.5rem" }}>

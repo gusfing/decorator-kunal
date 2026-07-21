@@ -64,7 +64,7 @@ export default function Footer() {
         {/* Instagram Feed Widget Script */}
         <Script type="module" src="https://w.behold.so/widget.js" strategy="lazyOnload" />
 
-        <div className="rl-footer-top">
+        <div className="rl-footer-top rl-desktop-only">
           <div className="rl-footer-logo-desc">
             <img src="/assets/Decorlab-final-05-trans.webp" alt="Decor Lab" />
             <p>
@@ -112,6 +112,34 @@ export default function Footer() {
                   <a href="mailto:info@decorlab.co.in" style={{ fontSize: '1.1rem' }}>info@decorlab.co.in</a>
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* --- MOBILE ONLY FOOTER TOP --- */}
+        <div className="rl-footer-mobile-top rl-mobile-only">
+          <div className="rl-mobile-footer-brand">
+            <img src="/assets/Decorlab-final-05-trans.webp" alt="Decor Lab" className="rl-mobile-footer-logo" />
+            <p className="rl-mobile-footer-tagline">
+              Architecture & Interior Design.<br/>
+              Since 1993.
+            </p>
+          </div>
+          
+          <div className="rl-mobile-footer-grid">
+            <div className="rl-mobile-footer-col">
+              <h4>Studio</h4>
+              <a href="/#services">Services</a>
+              <a href="/#collection">Collection</a>
+              <a href="/#showcase">Portfolio</a>
+              <a href="/about">About Us</a>
+            </div>
+            <div className="rl-mobile-footer-col">
+              <h4>Connect</h4>
+              <a href="tel:+918910847179">Call Us</a>
+              <a href="mailto:info@decorlab.co.in">Email Us</a>
+              <a href="/contact">Contact Page</a>
+              <a href="https://g.co/kgs/8oBpbnw" target="_blank" rel="noopener noreferrer">Directions</a>
             </div>
           </div>
         </div>

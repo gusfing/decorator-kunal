@@ -6164,9 +6164,34 @@ body {
 
 /* About Section Mobile Positioning Overrides to prevent overlap */
 @media (max-width: 768px) {
+  .wrapper-about {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 2rem !important;
+    min-height: auto !important;
+  }
+  
+  .inner-about-wrapp {
+    order: 1 !important;
+  }
+  
   .area-resize {
-    align-items: flex-start !important;
-    padding-top: 38vh !important;
+    position: relative !important;
+    inset: auto !important;
+    order: 2 !important;
+    height: 40vh !important;
+    min-height: 350px !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  .outer-descriptions-about {
+    order: 3 !important;
+    position: relative !important;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
   }
 
   .text-heading-about {
@@ -6174,12 +6199,19 @@ body {
     line-height: 1.25 !important;
     letter-spacing: -0.02em !important;
     text-align: center !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .inner-heading-about {
     width: 100% !important;
     justify-content: center !important;
     align-items: center !important;
+  }
+
+  .text-tagline-section.about {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
