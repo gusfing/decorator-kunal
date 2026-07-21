@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import Scroll3DEffect from "@/components/Scroll3DEffect";
 
 interface NubeSpec {
   model: string;
@@ -25,36 +26,7 @@ interface Project {
 }
 
 export default function Work() {
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [openItems, setOpenItems] = useState<number[]>([]);
   const navIndicatorRef = useRef<HTMLDivElement>(null);
-  const bookContainerRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const container = bookContainerRef.current;
-    if (!container) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    
-    // Max 8 degrees tilt on X and 12 degrees on Y for premium subtle parallax
-    const rotateX = -(y / (rect.height / 2)) * 8;
-    const rotateY = (x / (rect.width / 2)) * 12;
-    
-    container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) var(--open-translate, translateX(0px))`;
-  };
-
-  const handleMouseLeave = () => {
-    const container = bookContainerRef.current;
-    if (!container) return;
-    container.style.transform = `rotateX(0deg) rotateY(0deg) var(--open-translate, translateX(0px))`;
-  };
-
-  useEffect(() => {
-    const container = bookContainerRef.current;
-    if (!container) return;
-    container.style.transform = `rotateX(0deg) rotateY(0deg) var(--open-translate, translateX(0px))`;
-  }, [openItems]);
 
   // Core Projects database
   const projectsData: Project[] = [
@@ -308,54 +280,6 @@ export default function Work() {
     }
   ];
 
-  const filteredProjects = activeCategory === "all"
-    ? projectsData
-    : projectsData.filter(p => p.category === activeCategory);
-
-  // Close all pages when category changes
-  useEffect(() => {
-    setOpenItems([]);
-  }, [activeCategory]);
-
-  const handleItemClick = (e: React.MouseEvent, idx: number) => {
-    e.stopPropagation();
-    if (openItems.includes(idx)) {
-      // Close this page and all pages after it (higher indices)
-      setOpenItems(prev => prev.filter(i => i < idx));
-    } else {
-      // Open this page and all pages before it (lower indices)
-      const newOpen: number[] = [];
-      for (let i = 0; i <= idx; i++) {
-        newOpen.push(i);
-      }
-      setOpenItems(newOpen);
-    }
-  };
-
-  // Navigate next/prev when clicking the scene background
-  const handleSceneClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    
-    setOpenItems(prev => {
-      // Right side of screen -> Next page
-      if (clickX > rect.width / 2) {
-        const nextIdx = prev.length;
-        if (nextIdx < filteredProjects.length) {
-          return [...prev, nextIdx];
-        }
-        return prev; // At the end
-      } 
-      // Left side of screen -> Previous page
-      else {
-        if (prev.length > 0) {
-          return prev.slice(0, -1);
-        }
-        return prev; // Already fully closed
-      }
-    });
-  };
-
   // Lightbox modal state
   const [lightboxProject, setLightboxProject] = useState<{
     siteName: string;
@@ -400,9 +324,9 @@ export default function Work() {
   };
 
   return (
-    <div className="noise-overlay" style={{ backgroundColor: "#000", minHeight: "100vh" }}>
+    <div className="noise-overlay" style={{ backgroundColor: "#000", minHeight: "1000vh" }}>
       {/* Floating navigation header */}
-      <header className="nav-header scrolled" id="main-header" style={{ opacity: 1, pointerEvents: "auto" }}>
+      <header className="nav-header scrolled" id="main-header" style={{ opacity: 1, pointerEvents: "auto", position: "fixed", zIndex: 100 }}>
         <a
           className="nav-logo glass glass-interactive"
           id="nav-logo"
@@ -414,12 +338,7 @@ export default function Work() {
 
         <nav className="nav-menu glass" role="navigation" aria-label="Main Navigation" onMouseLeave={handleNavMouseLeave}>
           <div ref={navIndicatorRef} className="nav-indicator" id="nav-indicator"></div>
-          <a href="/work" className="nav-link active" id="link-work" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
-            Work
-          </a>
-          <a href="/work-v2" className="nav-link" id="link-work-v2" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
-            Work v2
-          </a>
+          <a href="/work" className="nav-link active" id="link-work" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>Work</a>
           <a href="/about" className="nav-link" id="link-about" onMouseEnter={handleNavMouseEnter} onFocus={handleNavMouseEnter}>
             About
           </a>
@@ -432,127 +351,19 @@ export default function Work() {
         </nav>
       </header>
 
-      {/* Main Container */}
-      <main style={{ backgroundColor: "#000", minHeight: "100vh", paddingTop: "0" }}>
-        
-        {/* Sleek Filter Tabs Overlay */}
-        <div className="work-filter-bar glass" style={{ position: "fixed", bottom: "40px", left: "50%", transform: "translateX(-50%)", zIndex: 45, display: "flex", gap: "0.25rem", padding: "4px", borderRadius: "9999px" }}>
-          {["all", "residential", "corporate", "conceptual"].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`filter-btn ${activeCategory === cat ? "active" : ""}`}
-              style={{
-                background: activeCategory === cat ? "#C9A84C" : "transparent",
-                color: activeCategory === cat ? "#000" : "rgba(255,255,255,0.6)",
-                border: "none",
-                borderRadius: "9999px",
-                padding: "8px 18px",
-                fontSize: "10px",
-                fontFamily: "monospace",
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                cursor: "pointer",
-                transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)"
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* 3D Book Gallery Scene */}
-        <div 
-          className="scene" 
-          onClick={handleSceneClick}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          style={{ position: "relative" }}
-        >
-
-
-          <div className="bg-typography">
-            <span>Selected</span>
-            <span>Works</span>
-          </div>
-
-          <div 
-            ref={bookContainerRef}
-            className={"galeria-book-3d" + (openItems.length > 0 ? " book-open" : "")}
-          >
-            {filteredProjects.map((project, idx) => {
-              const isOpen = openItems.includes(idx);
-              return (
-                <div
-                  key={project.id}
-                  className={"galeria-book-3d__item" + (isOpen ? " is-open" : "")}
-                  style={{ "--i": idx } as React.CSSProperties}
-                  onClick={(e) => handleItemClick(e, idx)}
-                >
-                  {/* Front Page (Cover) */}
-                  <div className="book-page-front">
-                    <img loading="lazy" src={project.images[0]} alt={`${project.title} Cover`} />
-                    <div className="book-page-front-overlay">
-                      <span className="book-page-num">0{idx + 1}</span>
-                      <h3 className="book-page-title">{project.title}</h3>
-                      <span className="book-page-category">{project.category}</span>
-                    </div>
-                  </div>
-
-                  {/* Back Page (Details) */}
-                  <div className="book-page-back">
-                    <img loading="lazy" src={project.images[1] || project.images[0]} alt={`${project.title} details background`} />
-                    <div className="book-page-back-overlay">
-                      <h3 className="book-project-title">{project.title}</h3>
-                      <span className="book-project-loc">{project.location}</span>
-                      <p className="book-project-desc">{project.description}</p>
-                      
-                      <div className="book-project-specs">
-                        <div className="spec-item">
-                          <span className="spec-label">Concept</span>
-                          <span className="spec-value">{project.specs.structure}</span>
-                        </div>
-                        <div className="spec-item">
-                          <span className="spec-label">Area</span>
-                          <span className="spec-value">{project.specs.interior}</span>
-                        </div>
-                      </div>
-
-                      <button
-                        className="book-project-btn"
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent closing page
-                          setLightboxProject({
-                            siteName: project.title,
-                            images: project.images,
-                            activeIndex: 0
-                          });
-                        }}
-                      >
-                        View Gallery
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-
-
-        {/* Decorative Marquee Band */}
-        <div className="footer-marquee-section" style={{ background: '#0b0b0a', padding: "3rem 0" }}>
-          <div className="marquee-strip">
-            <div className="marquee-track">
-              {[...Array(8)].map((_, i) => (
-                <span key={i} className="marquee-item">Architecture &amp; Interior Design</span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-      </main>
+      <Scroll3DEffect 
+        projects={projectsData} 
+        onProjectClick={(idx) => {
+          const p = projectsData[idx];
+          if (p) {
+            setLightboxProject({
+              siteName: p.title,
+              images: p.images,
+              activeIndex: 0
+            });
+          }
+        }}
+      />
 
       {/* Lightbox dialog modal */}
       {lightboxProject !== null && (
@@ -567,6 +378,7 @@ export default function Work() {
             role="dialog"
             aria-label="Project image viewer"
             aria-modal="true"
+            style={{ zIndex: 1000 }} // Ensure it stays above the ThreeJS canvas
           >
             <button
               className="project-lightbox-close"
@@ -626,486 +438,129 @@ export default function Work() {
         </>
       )}
 
-      {/* Local responsive styling */}
+      {/* Lightbox styles */}
       <style jsx global>{`
-        /* 3D Book Gallery Layout Styling */
-        .scene {
-          width: 100%;
-          height: 100vh;
-          min-height: 580px;
-          perspective: 1500px;
-          transform-style: preserve-3d;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          overflow: hidden;
-          position: relative;
-          background-color: #050505;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-
-
-        .bg-typography {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 100%;
-          text-align: center;
-          font-size: clamp(3rem, 12vw, 10rem);
-          font-weight: 800;
-          line-height: 0.85;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 5vw;
-          pointer-events: none;
-          z-index: 2;
-          mix-blend-mode: overlay;
-          color: rgba(255, 255, 255, 0.15);
-          font-family: var(--font-display, 'Syne', sans-serif);
-          text-transform: uppercase;
-        }
-
-        .bg-typography span {
-          display: block;
-        }
-
-        .galeria-book-3d {
-          --open-translate: translateX(0px);
-          position: relative;
-          width: clamp(160px, 22vw, 340px);
-          height: clamp(240px, 33vw, 510px);
-          perspective: 1500px;
-          transform-style: preserve-3d;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 10;
-          transform: rotateX(0deg) rotateY(0deg) var(--open-translate);
-          transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        
-        .galeria-book-3d.book-open {
-          --open-translate: translateX(50%);
-        }
-
-        .galeria-book-3d__item {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          perspective: 1500px;
-          transform-style: preserve-3d;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          transform-origin: left center;
-          transform: translate3d(calc(var(--i) * -1px), 0, calc(var(--i) * -2px)) rotateY(0deg);
-          transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s;
-          transition-delay: calc((4 - var(--i)) * 0.08s), calc((4 - var(--i)) * 0.08s + 0.4s);
-          box-shadow: 10px 15px 35px rgba(0, 0, 0, 0.6);
-          cursor: pointer;
-          z-index: calc(10 - var(--i));
-          border-radius: 12px;
-        }
-
-        .galeria-book-3d__item.is-open {
-          transform: translate3d(calc((var(--i) - 4) * 1px), 0, calc(var(--i) * 2px + 2px)) rotateY(-180deg);
-          transition-delay: 0s, 0s;
-          z-index: calc(20 + var(--i));
-        }
-
-        .book-page-front,
-        .book-page-back {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-          backface-visibility: hidden;
-          border-radius: 12px;
-          overflow: hidden;
-          box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
-        }
-
-        .book-page-front {
-          z-index: 2;
-          transform: rotateY(0deg);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-left: 4px solid #C9A84C;
-        }
-
-        .book-page-back {
-          transform: rotateY(180deg);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-right: 4px solid #C9A84C;
-        }
-
-        .book-page-front img,
-        .book-page-back img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          position: absolute;
-          top: 0;
-          left: 0;
-          background: #111;
-        }
-
-        /* Gradient overlays */
-        .book-page-front-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0) 60%);
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: 1.5rem;
-          color: #fff;
-          z-index: 3;
-        }
-
-        .book-page-back-overlay {
-          position: absolute;
-          inset: 0;
-          background: rgba(8, 8, 10, 0.85);
-          backdrop-filter: blur(20px);
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          padding: 1.5rem;
-          color: #fff;
-          z-index: 3;
-          overflow-y: auto;
-        }
-
-        .book-page-back-overlay::-webkit-scrollbar {
-          width: 4px;
-        }
-        .book-page-back-overlay::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .book-page-back-overlay::-webkit-scrollbar-thumb {
-          background: rgba(201, 168, 76, 0.5);
-          border-radius: 4px;
-        }
-
-        .book-page-num {
-          font-family: var(--font-body), monospace;
-          font-size: 0.85rem;
-          color: #C9A84C;
-          margin-bottom: 0.75rem;
-          letter-spacing: 3px;
-          display: block;
-          font-weight: 500;
-        }
-
-        .book-page-title {
-          font-family: var(--font-serif), serif;
-          font-size: clamp(1.5rem, 2.5vw, 2rem);
-          line-height: 1.1;
-          font-weight: 300;
-          margin: 0 0 0.75rem 0;
-          letter-spacing: -0.5px;
-        }
-
-        .book-page-category {
-          font-family: var(--font-body), sans-serif;
-          font-size: 0.7rem;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          opacity: 0.7;
-          color: #fff;
-        }
-
-        /* Back page specs details */
-        .book-project-title {
-          font-family: var(--font-serif), serif;
-          font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-          font-weight: 400;
-          margin: 0 0 0.25rem 0;
-          color: #fff;
-        }
-
-        .book-project-loc {
-          font-family: var(--font-body), sans-serif;
-          font-size: 0.7rem;
-          color: #C9A84C;
-          margin-bottom: 0.8rem;
-          display: block;
-          letter-spacing: 0.5px;
-        }
-
-        .book-project-desc {
-          font-family: var(--font-body), sans-serif;
-          font-size: clamp(0.7rem, 1.2vw, 0.8rem);
-          line-height: 1.5;
-          opacity: 0.75;
-          margin-bottom: 1.2rem;
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .book-project-specs {
-          display: flex;
-          flex-direction: column;
-          gap: 0.8rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 0.8rem 0;
-          margin-bottom: 1rem;
-        }
-
-        .spec-item {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.25rem;
-          font-size: 0.75rem;
-          font-family: var(--font-body), sans-serif;
-        }
-
-        .spec-label {
-          opacity: 0.5;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          font-size: 0.65rem;
-        }
-
-        .spec-value {
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.95);
-        }
-
-        .book-project-btn {
-          margin-top: auto;
-          background: linear-gradient(135deg, #C9A84C 0%, #E6C675 50%, #C9A84C 100%);
-          color: #000;
-          border: none;
-          border-radius: 6px;
-          padding: 0.7rem 1.2rem;
-          font-size: 0.75rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-          width: 100%;
-          text-align: center;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-
-        .book-project-btn:hover {
-          background: #fff;
-          color: #000;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(230, 198, 117, 0.5);
-        }
-
-        /* Lightbox Overlay and dialog modal layout styling */
         .project-lightbox-overlay {
           position: fixed;
           top: 0;
           left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.95);
-          z-index: 998;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.9);
+          backdrop-filter: blur(10px);
+          z-index: 999;
+          cursor: pointer;
         }
+
         .project-lightbox {
           position: fixed;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
           width: 90vw;
-          max-width: 1200px;
-          height: 80vh;
-          z-index: 999;
+          height: 90vh;
+          z-index: 1000;
           display: flex;
-          align-items: center;
           justify-content: center;
+          align-items: center;
+          pointer-events: none;
         }
+
         .project-lightbox img {
           max-width: 100%;
           max-height: 100%;
           object-fit: contain;
-          border-radius: 8px;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+          pointer-events: auto;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+          border-radius: 4px;
         }
+
         .project-lightbox-close {
           position: absolute;
-          top: -40px;
-          right: 0;
-          background: transparent;
-          border: none;
-          color: #fff;
-          cursor: pointer;
-          width: 32px;
-          height: 32px;
-        }
-        .project-lightbox-close svg {
-          fill: currentColor;
-          width: 100%;
-          height: 100%;
-        }
-        .project-lightbox-prev, .project-lightbox-next {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          top: 1rem;
+          right: 1rem;
+          background: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 50%;
-          color: #fff;
-          cursor: pointer;
           width: 48px;
           height: 48px;
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
+          pointer-events: auto;
+          color: white;
           transition: all 0.3s ease;
         }
-        .project-lightbox-prev:hover, .project-lightbox-next:hover {
-          background: rgba(255, 255, 255, 0.2);
-          border-color: #fff;
+
+        .project-lightbox-close:hover {
+          background: white;
+          color: black;
+          transform: scale(1.1);
         }
-        .project-lightbox-prev svg, .project-lightbox-next svg {
-          fill: currentColor;
+
+        .project-lightbox-close svg {
           width: 24px;
           height: 24px;
+          fill: currentColor;
         }
-        .project-lightbox-prev {
-          left: 20px;
-        }
+
+        .project-lightbox-prev,
         .project-lightbox-next {
-          right: 20px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          width: 64px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          pointer-events: auto;
+          color: white;
+          transition: all 0.3s ease;
         }
+
+        .project-lightbox-prev:hover,
+        .project-lightbox-next:hover {
+          background: white;
+          color: black;
+          transform: translateY(-50%) scale(1.1);
+        }
+
+        .project-lightbox-prev svg,
+        .project-lightbox-next svg {
+          width: 32px;
+          height: 32px;
+          fill: currentColor;
+        }
+
+        .project-lightbox-prev {
+          left: 2rem;
+        }
+
+        .project-lightbox-next {
+          right: 2rem;
+        }
+
         .project-lightbox-caption {
           position: absolute;
-          bottom: -40px;
+          bottom: 2rem;
           left: 50%;
           transform: translateX(-50%);
-          color: rgba(255, 255, 255, 0.7);
-          font-family: monospace;
-          font-size: 11px;
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(5px);
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px;
+          font-family: var(--font-body), sans-serif;
+          font-size: 0.85rem;
+          color: white;
+          letter-spacing: 1px;
           text-transform: uppercase;
-          letter-spacing: 0.1em;
-          white-space: nowrap;
-        }
-
-        .section-footer.dark-footer {
-          background-color: #080808 !important;
-          color: #fff !important;
-          transition: background-color 0.5s ease, color 0.5s ease;
-        }
-        .section-footer.dark-footer::before {
-          background-color: rgba(255, 255, 255, 0.08) !important;
-        }
-        .section-footer.dark-footer .footer-logo-img {
-          filter: brightness(0.95) !important;
-        }
-        .section-footer.dark-footer a {
-          color: rgba(255, 255, 255, 0.6) !important;
-        }
-        .section-footer.dark-footer a:hover {
-          color: #C9A84C !important;
-        }
-        .section-footer.dark-footer .footer-desc {
-          color: rgba(255, 255, 255, 0.5) !important;
-        }
-        .section-footer.dark-footer .footer-col-title {
-          color: #fff !important;
-        }
-        .section-footer.dark-footer .footer-bottom {
-          border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-        }
-        .section-footer.dark-footer .footer-bottom-links a {
-          color: rgba(255, 255, 255, 0.4) !important;
-        }
-        .section-footer.dark-footer .footer-bottom-links a:hover {
-          color: #fff !important;
-        }
-
-        /* Mobile specific styling for Notepad top-bottom flip */
-        @media (max-width: 768px) {
-          .galeria-book-3d {
-            width: clamp(260px, 85vw, 350px);
-            height: clamp(300px, 42vh, 400px); /* Increased height to show full content */
-          }
-          
-          .galeria-book-3d.book-open {
-            --open-translate: translateY(50%);
-          }
-          
-          .galeria-book-3d__item {
-            transform-origin: center top;
-            transform: translate3d(0, calc(var(--i) * -1px), calc(var(--i) * -2px)) rotateX(0deg);
-          }
-          
-          .galeria-book-3d__item.is-open {
-            transform: translate3d(0, calc((var(--i) - 4) * 1px), calc(var(--i) * 2px + 2px)) rotateX(180deg);
-          }
-          
-          .book-page-front {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 4px solid #C9A84C;
-          }
-          
-          .book-page-back {
-            transform: rotateX(180deg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-bottom: 4px solid #C9A84C;
-          }
-
-          /* Mobile Redesign for Cards to fit content */
-          .book-page-front-overlay, 
-          .book-page-back-overlay {
-            padding: 1.2rem;
-          }
-
-          .book-project-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.2rem;
-          }
-
-          .book-project-loc {
-            font-size: 0.65rem;
-            margin-bottom: 0.6rem;
-          }
-
-          .book-project-desc {
-            font-size: 0.7rem;
-            -webkit-line-clamp: 3;
-            margin-bottom: 0.8rem;
-          }
-
-          .book-project-specs {
-            padding: 0.6rem 0;
-            margin-bottom: 0.8rem;
-            gap: 0.4rem;
-          }
-
-          .spec-item {
-            flex-direction: row; /* Stack horizontally to save vertical space */
-            justify-content: space-between;
-            align-items: center;
-          }
-
-          .spec-label {
-            font-size: 0.6rem;
-          }
-
-          .spec-value {
-            font-size: 0.7rem;
-            text-align: right;
-            max-width: 65%;
-          }
-
-          .book-project-btn {
-            padding: 0.6rem 1rem;
-            font-size: 0.7rem;
-          }
+          pointer-events: auto;
         }
       `}</style>
     </div>

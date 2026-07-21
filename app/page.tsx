@@ -2683,18 +2683,7 @@ export default function Home() {
             id="link-work"
             onMouseEnter={handleNavMouseEnter}
             onFocus={handleNavMouseEnter}
-          >
-            Work
-          </a>
-          <a
-            href="/work-v2"
-            className="nav-link"
-            id="link-work-v2"
-            onMouseEnter={handleNavMouseEnter}
-            onFocus={handleNavMouseEnter}
-          >
-            Work v2
-          </a>
+          >Work</a>
           <a
             href="/about"
             className="nav-link"
