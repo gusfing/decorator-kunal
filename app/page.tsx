@@ -288,7 +288,7 @@ const methodologySteps = [
 
 export default function Home() {
   // Preloader / Entrance state
-  const [showPreloader, setShowPreloader] = useState(false);
+  const [showPreloader, setShowPreloader] = useState(true);
   const [isPreloaded, setIsPreloaded] = useState(false);
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [activeCuratedTab, setActiveCuratedTab] = useState("living");

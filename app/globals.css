@@ -6244,27 +6244,3 @@ h4 {
   font-family: 'Material Symbols Outlined' !important;
 }
 
-/* --- REMOVE INITIAL HIDDEN STATES FOR ANIMATIONS --- */
-.char-reveal, .reveal-line, .word, .fade-up, .hero-curtain-image, .bg-slide, .nav-indicator, .rl-img-inner, .rl-philo-pillar-img-wrap, .stat-huge-number, .rl-contact-card {
-  opacity: 1 !important;
-  transform: none !important;
-  clip-path: none !important;
-  filter: none !important;
-}
-.bg-slide.active {
-  opacity: 1 !important;
-}
-
-/* --- NUCLEAR DISABLE ANIMATIONS --- */
-*, *::before, *::after {
-  transition: none !important;
-  animation: none !important;
-}
-/* Ensure GSAP targets stay visible */
-[class*='reveal'], [class*='fade'], [class*='word'], [class*='char'], .bg-slide {
-  opacity: 1 !important;
-  transform: none !important;
-  visibility: visible !important;
-  clip-path: none !important;
-  filter: none !important;
-}

@@ -152,21 +152,28 @@ export default function Scroll3DEffect({ projects, onProjectClick }: Scroll3DEff
 
     const parentMesh = new THREE.Mesh(parentGeometry, parentMaterial);
     parentMesh.position.set(0, 0, 0);
-    parentMesh.rotation.x = THREE.MathUtils.degToRad(-20);
+    // Apply aesthetic tilt to the mesh itself
+    parentMesh.rotation.x = THREE.MathUtils.degToRad(-15);
     parentMesh.rotation.y = THREE.MathUtils.degToRad(20);
+    parentMesh.rotation.z = THREE.MathUtils.degToRad(-5);
     scene.add(parentMesh);
 
     const updateCameraPosition = () => {
-      const isMobile = window.innerWidth < 768;
-      // On mobile, increase distance so the plane fits in the narrower horizontal FOV
-      const distance = isMobile ? 35 : 17.5;
-      const heightOffset = 5;
-      const offsetX = distance * Math.sin(THREE.MathUtils.degToRad(20));
-      const offsetZ = distance * Math.cos(THREE.MathUtils.degToRad(20));
+      const aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = aspect;
+      camera.updateProjectionMatrix();
 
-      camera.position.set(offsetX, heightOffset, offsetZ);
-      camera.lookAt(0, -2, 0);
-      camera.rotation.z = THREE.MathUtils.degToRad(-5);
+      // Calculate the required distance to fit the target width (22 for padding)
+      const targetWidth = 22;
+      const fovRadians = THREE.MathUtils.degToRad(camera.fov);
+      let distance = targetWidth / (2 * Math.tan(fovRadians / 2) * aspect);
+      
+      // Ensure distance is reasonable on ultra-wide screens
+      if (distance < 25) distance = 25;
+      
+      // On mobile, the aspect ratio is small so distance naturally increases, keeping it responsive.
+      camera.position.set(0, 0, distance);
+      camera.lookAt(0, 0, 0);
     };
 
     updateCameraPosition();
